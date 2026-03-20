@@ -874,6 +874,10 @@ document.getElementById('lightbox').addEventListener('click', function(e){
   if(e.target === this) window.closeLightbox();
 });
 document.getElementById('photoModal').addEventListener('click',function(e){if(e.target===this)window.closeModal();});
+window.closeModal=function(){
+  document.getElementById('photoModal').classList.remove('open');
+  document.body.style.overflow='';
+};
 
 window.openPrintPicker=function(photoIdx,galleryName,col1,col2){
   selectedPhotoIdx=photoIdx;selectedSizeIdx=-1;currentGalleryName=galleryName;

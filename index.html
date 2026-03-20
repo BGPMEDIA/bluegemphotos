@@ -1,2239 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rogelio Small Photography</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<style>
-:root{--cream:#F7F3EE;--warm-white:#FDFAF6;--stone:#C8BFB0;--taupe:#9E9082;--espresso:#3B3028;--charcoal:#1E1A17;--gold:#B89A6A;--gold-lt:#D4B483;--blush:#E8D5C4;--sage:#8A9E8C;}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;font-size:16px;}
-body{background:var(--cream);color:var(--espresso);font-family:'Jost',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden;}
-*,*::before,*::after{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='7' fill='%23B89A6A' stroke='%231E1A17' stroke-width='2.5'/%3E%3C/svg%3E") 10 10,auto!important;}
-a,button,.service-card,.gallery-card,.print-card,.purchase-card,.size-btn,.gallery-tab,.t-dot,.drop-zone,.svc-gallery-item{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Ccircle cx='14' cy='14' r='11' fill='%23D4B483' stroke='%231E1A17' stroke-width='2.5' opacity='.9'/%3E%3C/svg%3E") 14 14,pointer!important;}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:1.6rem 4rem;transition:background .4s,padding .4s;}
-.nav-links{justify-content:center;}
-nav.scrolled{background:rgba(247,243,238,.93);backdrop-filter:blur(12px);padding:1rem 4rem;border-bottom:1px solid var(--stone);}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:500;letter-spacing:.08em;color:var(--warm-white);text-decoration:none;transition:color .3s;justify-self:start;}
-nav.scrolled .nav-logo{color:var(--espresso);}
-.nav-links{display:flex;gap:2.4rem;list-style:none;}
-.nav-links a{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--warm-white);text-decoration:none;transition:color .3s;font-weight:400;}
-nav.scrolled .nav-links a{color:var(--espresso);}
-.nav-links a:hover{color:var(--gold);}
-.nav-cta{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;padding:.55rem 1.6rem;border:1px solid rgba(255,255,255,.6);color:var(--warm-white);text-decoration:none;font-weight:400;transition:all .3s;justify-self:end;}
-nav.scrolled .nav-cta{border-color:var(--gold);color:var(--gold);}
-.nav-cta:hover{background:var(--gold);color:var(--warm-white)!important;border-color:var(--gold);}
-.page{display:none;}.page.active{display:block;}
-.hero{position:relative;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--charcoal);}
-.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a1209 0%,#2d2018 30%,#1e1a17 60%,#0d0b08 100%);}
-.hero-texture{position:absolute;inset:0;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4b483' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
-.hero-panels{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;opacity:.35;}
-.hero-panel{height:100%;animation:panelShift 8s ease-in-out infinite alternate;}
-.hero-panel:nth-child(1){background:linear-gradient(180deg,#3d2e1e 0%,#1a120a 100%);}
-.hero-panel:nth-child(2){background:linear-gradient(180deg,#2a1f14 0%,#3d2e1e 50%,#1a120a 100%);animation-delay:-.8s;}
-.hero-panel:nth-child(3){background:linear-gradient(180deg,#1a120a 0%,#3d2e1e 100%);animation-delay:-1.6s;}
-@keyframes panelShift{from{transform:scaleY(1);}to{transform:scaleY(1.04);}}
-.hero-content{position:relative;z-index:2;text-align:center;padding:2rem;animation:fadeUp .9s cubic-bezier(.22,1,.36,1) both;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
-.hero-eyebrow{font-size:.68rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.8rem;font-weight:400;animation:fadeUp .9s .15s cubic-bezier(.22,1,.36,1) both;}
-.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,8vw,7.5rem);font-weight:300;color:var(--warm-white);line-height:1.05;margin-bottom:1.8rem;animation:fadeUp .9s .25s cubic-bezier(.22,1,.36,1) both;}
-.hero-title em{font-style:italic;color:var(--gold-lt);}
-.hero-sub{font-size:.85rem;letter-spacing:.12em;color:var(--stone);max-width:36ch;margin:0 auto 3rem;animation:fadeUp .9s .35s cubic-bezier(.22,1,.36,1) both;}
-.hero-btns{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .9s .45s cubic-bezier(.22,1,.36,1) both;}
-.btn-primary{padding:.85rem 2.6rem;background:var(--gold);color:var(--warm-white);text-decoration:none;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;transition:all .3s;border:1px solid var(--gold);}
-.btn-primary:hover{background:var(--gold-lt);border-color:var(--gold-lt);}
-.btn-ghost{padding:.85rem 2.6rem;border:1px solid rgba(255,255,255,.4);color:var(--warm-white);text-decoration:none;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;transition:all .3s;}
-.btn-ghost:hover{border-color:var(--warm-white);background:rgba(255,255,255,.08);}
-.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.6rem;color:var(--stone);font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;animation:fadeUp .9s .6s both;}
-.scroll-line{width:1px;height:40px;background:var(--gold);animation:scrollPulse 2s ease-in-out infinite;}
-@keyframes scrollPulse{0%,100%{transform:scaleY(1);opacity:1;}50%{transform:scaleY(.6);opacity:.4;}}
-.about-strip{display:grid;grid-template-columns:1fr 1fr;min-height:70vh;}
-.about-img{background:linear-gradient(160deg,#2d2018 0%,#1a1510 50%,#3d2e1e 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:400px;}
-.about-img-inner{font-family:'Cormorant Garamond',serif;font-size:8rem;font-weight:300;color:rgba(212,180,131,.15);user-select:none;line-height:1;}
-.about-img::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,var(--cream) 100%);}
-.about-text{background:var(--cream);padding:6rem 5rem;display:flex;flex-direction:column;justify-content:center;}
-.section-label{font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;font-weight:400;}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.2;margin-bottom:1.6rem;color:var(--espresso);}
-.section-title em{font-style:italic;color:var(--gold);}
-.section-body{color:var(--taupe);max-width:46ch;margin-bottom:2rem;}
-.services{padding:7rem 4rem;background:var(--warm-white);}
-.services-header{text-align:center;margin-bottom:4.5rem;}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1200px;margin:0 auto;}
-.service-card{background:var(--cream);padding:3rem 2.4rem;position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s;border:1px solid transparent;}
-.service-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.22,1,.36,1);}
-.service-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(59,48,40,.12);border-color:var(--stone);}
-.service-card:hover::before{transform:scaleX(1);}
-.service-num{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:var(--blush);line-height:1;margin-bottom:.6rem;}
-.service-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:500;color:var(--espresso);margin-bottom:.8rem;}
-.service-desc{font-size:.82rem;color:var(--taupe);margin-bottom:1.6rem;line-height:1.8;}
-.service-price{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--espresso);}
-.service-price span{font-size:.75rem;font-family:'Jost',sans-serif;color:var(--taupe);letter-spacing:.1em;}
-.service-includes{list-style:none;margin-top:1.2rem;font-size:.76rem;color:var(--taupe);}
-.service-includes li{padding:.3rem 0;padding-left:1.1rem;position:relative;}
-.service-includes li::before{content:'—';position:absolute;left:0;color:var(--gold);}
-.service-learn{display:inline-block;margin-top:1.5rem;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:.1rem;transition:all .25s;font-weight:700;}
-.service-learn:hover{color:var(--espresso);border-color:var(--espresso);}
-.process{padding:7rem 4rem;background:var(--espresso);color:var(--cream);position:relative;overflow:hidden;}
-.process::before{content:'PROCESS';position:absolute;right:-2rem;top:50%;transform:translateY(-50%);font-family:'Cormorant Garamond',serif;font-size:14rem;font-weight:300;opacity:.04;color:var(--warm-white);pointer-events:none;user-select:none;white-space:nowrap;}
-.process-inner{max-width:1100px;margin:0 auto;}
-.process-header{margin-bottom:4rem;}
-.process-header .section-label{color:var(--gold-lt);}
-.process-header .section-title{color:var(--warm-white);}
-.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:3rem;}
-.process-step{position:relative;}
-.process-step::after{content:'';position:absolute;top:1.5rem;left:calc(100% + .5rem);right:-2.5rem;height:1px;background:var(--gold);opacity:.3;}
-.process-step:last-child::after{display:none;}
-.step-num{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;color:var(--gold);line-height:1;margin-bottom:.8rem;}
-.step-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--warm-white);margin-bottom:.6rem;}
-.step-desc{font-size:.8rem;color:var(--stone);line-height:1.8;}
-.testimonials{padding:7rem 4rem;background:var(--cream);}
-.testimonials-inner{max-width:900px;margin:0 auto;text-align:center;}
-.testimonial-slider{position:relative;min-height:200px;}
-.testimonial-slide{display:none;animation:fadeUp .5s ease both;}
-.testimonial-slide.active{display:block;}
-.testimonial-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3vw,2rem);font-weight:300;font-style:italic;color:var(--espresso);line-height:1.5;margin-bottom:2rem;}
-.testimonial-author{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);}
-.testimonial-dots{display:flex;gap:.5rem;justify-content:center;margin-top:2.5rem;}
-.t-dot{width:6px;height:6px;border-radius:50%;background:var(--stone);transition:background .3s,transform .3s;border:none;padding:0;}
-.t-dot.active{background:var(--gold);transform:scale(1.4);}
-.cta-banner{background:var(--gold);padding:5rem 4rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
-.cta-banner h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:300;color:var(--charcoal);max-width:30ch;}
-.cta-banner h2 em{font-style:italic;}
-.btn-dark{padding:1rem 2.8rem;background:var(--charcoal);color:var(--warm-white);text-decoration:none;white-space:nowrap;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;transition:all .3s;border:1px solid var(--charcoal);flex-shrink:0;}
-.btn-dark:hover{background:var(--espresso);}
-footer{background:var(--charcoal);padding:4rem;color:var(--stone);display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;}
-.footer-brand{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--warm-white);margin-bottom:1rem;}
-.footer-tagline{font-size:.8rem;color:var(--taupe);max-width:28ch;}
-.footer-col h4{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;font-weight:400;}
-.footer-col ul{list-style:none;}
-.footer-col ul li{margin-bottom:.6rem;}
-.footer-col ul li a,.footer-col ul li{font-size:.8rem;color:var(--taupe);text-decoration:none;transition:color .3s;}
-.footer-col ul li a:hover{color:var(--warm-white);}
-.footer-bottom{background:var(--charcoal);padding:1.5rem 4rem;border-top:1px solid rgba(200,191,176,.1);display:flex;justify-content:space-between;align-items:center;font-size:.7rem;color:var(--taupe);flex-wrap:wrap;gap:1rem;}
-
-/* ── SERVICE SUB-PAGE STYLES ── */
-.svc-hero{position:relative;height:70vh;min-height:480px;overflow:hidden;display:flex;align-items:flex-end;padding:4rem;}
-.svc-hero-bg{position:absolute;inset:0;}
-.svc-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(18,14,10,.85) 0%,rgba(18,14,10,.3) 60%,transparent 100%);}
-.svc-hero-content{position:relative;z-index:2;max-width:700px;}
-.svc-back{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--stone);text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;margin-bottom:1.5rem;transition:color .25s;}
-.svc-back:hover{color:var(--gold);}
-.svc-hero-num{font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:300;color:rgba(212,180,131,.2);line-height:1;margin-bottom:.3rem;}
-.svc-hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:300;color:var(--warm-white);line-height:1.05;margin-bottom:.8rem;}
-.svc-hero-title em{font-style:italic;color:var(--gold-lt);}
-.svc-hero-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold-lt);font-weight:300;}
-.svc-body{display:grid;grid-template-columns:1fr 1fr;max-width:1200px;margin:0 auto;padding:5rem 4rem;gap:5rem;}
-.svc-details h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--espresso);margin-bottom:1.2rem;}
-.svc-details p{color:var(--taupe);font-size:.9rem;line-height:1.9;margin-bottom:1.2rem;}
-.svc-includes-title{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin:2rem 0 1rem;font-weight:400;}
-.svc-includes-list{list-style:none;}
-.svc-includes-list li{padding:.5rem 0;padding-left:1.2rem;position:relative;font-size:.85rem;color:var(--espresso);border-bottom:1px solid rgba(200,191,176,.3);}
-.svc-includes-list li::before{content:'—';position:absolute;left:0;color:var(--gold);}
-.svc-booking{background:var(--espresso);padding:2.5rem;align-self:start;}
-.svc-booking h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--warm-white);margin-bottom:.5rem;}
-.svc-booking p{font-size:.8rem;color:var(--stone);margin-bottom:1.8rem;}
-.svc-booking .price-big{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--gold);line-height:1;margin-bottom:1.8rem;}
-.svc-booking .price-big span{font-size:.8rem;font-family:'Jost',sans-serif;color:var(--taupe);letter-spacing:.1em;}
-.btn-book-now{display:block;text-align:center;padding:1rem 2rem;background:var(--gold);color:var(--charcoal);text-decoration:none;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;transition:all .3s;margin-bottom:.8rem;}
-.btn-book-now:hover{background:var(--gold-lt);}
-.btn-chat-us{display:block;text-align:center;padding:.85rem 2rem;background:transparent;border:1px solid rgba(200,191,176,.3);color:var(--stone);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;transition:all .3s;}
-.btn-chat-us:hover{border-color:var(--gold);color:var(--gold);}
-.svc-gallery-section{padding:0 4rem 5rem;max-width:1200px;margin:0 auto;}
-.svc-gallery-section h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--espresso);margin-bottom:.4rem;}
-.svc-gallery-section > p{color:var(--taupe);font-size:.85rem;margin-bottom:2rem;}
-.svc-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
-.svc-gallery-item{position:relative;padding-bottom:75%;overflow:hidden;}
-.svc-gallery-item-inner{position:absolute;inset:0;transition:transform .5s cubic-bezier(.22,1,.36,1);}
-.svc-gallery-item:hover .svc-gallery-item-inner{transform:scale(1.05);}
-.svc-gallery-item:first-child{grid-column:span 2;padding-bottom:50%;}
-.svc-gallery-item:nth-child(4){grid-column:span 2;padding-bottom:50%;}
-.svc-faq{padding:5rem 4rem;background:var(--warm-white);}
-.svc-faq-inner{max-width:760px;margin:0 auto;}
-.svc-faq h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--espresso);margin-bottom:2.5rem;}
-.faq-item{border-bottom:1px solid var(--stone);padding:1.2rem 0;}
-.faq-q{font-size:.85rem;font-weight:400;color:var(--espresso);letter-spacing:.03em;}
-.faq-a{font-size:.82rem;color:var(--taupe);margin-top:.6rem;line-height:1.8;}
-.svc-related{padding:5rem 4rem;background:var(--cream);}
-.svc-related h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--espresso);margin-bottom:2rem;text-align:center;}
-.svc-related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1100px;margin:0 auto;}
-.svc-related-card{background:var(--warm-white);padding:2rem;border:1px solid var(--stone);transition:all .3s;text-decoration:none;display:block;}
-.svc-related-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 12px 32px rgba(59,48,40,.1);}
-.svc-related-num{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--blush);line-height:1;margin-bottom:.4rem;}
-.svc-related-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:var(--espresso);margin-bottom:.3rem;}
-.svc-related-price{font-size:.8rem;color:var(--gold);}
-
-/* GALLERY PAGE */
-.gallery-page{background:var(--warm-white);min-height:100vh;}
-.gallery-hero{background:var(--espresso);padding:10rem 4rem 5rem;text-align:center;}
-.gallery-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:300;color:var(--warm-white);margin-bottom:1rem;}
-.gallery-hero p{color:var(--stone);max-width:50ch;margin:0 auto;font-size:.9rem;}
-.gallery-tabs{display:flex;justify-content:center;background:var(--cream);border-bottom:1px solid var(--stone);overflow-x:auto;padding:0 2rem;}
-.gallery-tab{padding:1.2rem 2rem;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;background:none;border:none;color:var(--taupe);font-family:'Jost',sans-serif;font-weight:400;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .3s;white-space:nowrap;}
-.gallery-tab.active,.gallery-tab:hover{color:var(--espresso);border-bottom-color:var(--gold);}
-.upload-section{padding:4rem;background:var(--cream);border-bottom:1px solid var(--stone);}
-.upload-section h2{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;color:var(--espresso);margin-bottom:.5rem;}
-.upload-section>p{color:var(--taupe);font-size:.85rem;margin-bottom:1.5rem;}
-.upload-row{display:flex;gap:1.2rem;flex-wrap:wrap;align-items:flex-start;}
-.drop-zone{border:2px dashed var(--stone);padding:2.5rem 3rem;text-align:center;flex:1;min-width:260px;transition:all .3s;position:relative;background:var(--warm-white);}
-.drop-zone.drag-over{border-color:var(--gold);background:rgba(184,154,106,.05);}
-.drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;width:100%;height:100%;}
-.drop-icon{font-size:2rem;margin-bottom:.8rem;display:block;}
-.drop-zone p{font-size:.82rem;color:var(--taupe);pointer-events:none;}
-.drop-zone strong{color:var(--espresso);}
-.gallery-form-col{flex:1;min-width:260px;display:flex;flex-direction:column;gap:.8rem;}
-.form-field{display:flex;flex-direction:column;gap:.3rem;}
-.form-field label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe);font-weight:400;}
-.form-field input,.form-field select{padding:.7rem 1rem;border:1px solid var(--stone);background:var(--warm-white);color:var(--espresso);font-family:'Jost',sans-serif;font-size:.85rem;font-weight:300;outline:none;transition:border-color .25s;}
-.form-field input:focus,.form-field select:focus{border-color:var(--gold);}
-.btn-upload{padding:.85rem 2rem;background:var(--espresso);color:var(--warm-white);border:none;font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:400;transition:background .3s;align-self:flex-start;margin-top:.4rem;}
-.btn-upload:hover{background:var(--gold);}
-.gallery-section{padding:4rem;}
-.gallery-section h2{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--espresso);margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--stone);}
-.galleries-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;margin-bottom:4rem;}
-.gallery-card{background:var(--cream);position:relative;overflow:hidden;border:1px solid var(--stone);transition:box-shadow .3s;}
-.gallery-card:hover{box-shadow:0 12px 40px rgba(59,48,40,.14);}
-.gallery-thumb{height:220px;position:relative;overflow:hidden;}
-.gallery-thumb-imgs{display:grid;grid-template-columns:1fr 1fr;gap:2px;width:100%;height:100%;}
-.thumb-img{width:100%;height:100%;}
-.tc1{background:linear-gradient(135deg,#c8bfb0,#9e9082);}
-.tc2{background:linear-gradient(135deg,#b89a6a,#d4b483);}
-.tc3{background:linear-gradient(135deg,#3b3028,#1e1a17);}
-.tc4{background:linear-gradient(135deg,#e8d5c4,#c8bfb0);}
-.tc5{background:linear-gradient(135deg,#8a9e8c,#6b7d6c);}
-.tc6{background:linear-gradient(135deg,#9e9082,#b89a6a);}
-.gallery-wm-badge{position:absolute;top:.7rem;right:.7rem;background:rgba(30,26,23,.75);color:var(--warm-white);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.25rem .6rem;}
-.gallery-info{padding:1.2rem 1.4rem;}
-.gallery-info h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:var(--espresso);margin-bottom:.2rem;}
-.gallery-meta{font-size:.73rem;color:var(--taupe);margin-bottom:.8rem;}
-.gallery-actions{display:flex;gap:.6rem;flex-wrap:wrap;}
-.btn-sm{padding:.45rem 1rem;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;font-family:'Jost',sans-serif;font-weight:400;border:none;transition:all .25s;}
-.btn-sm-gold{background:var(--gold);color:var(--warm-white);}
-.btn-sm-gold:hover{background:var(--gold-lt);}
-.btn-sm-outline{background:transparent;border:1px solid var(--stone);color:var(--espresso);}
-.btn-sm-outline:hover{border-color:var(--espresso);}
-.photo-modal{display:none;position:fixed;inset:0;z-index:200;background:rgba(18,14,10,.92);align-items:center;justify-content:center;padding:2rem;}
-.photo-modal.open{display:flex;}
-.modal-inner{background:var(--cream);max-width:900px;width:100%;max-height:90vh;overflow-y:auto;position:relative;}
-.modal-close{position:absolute;top:1.2rem;right:1.5rem;background:none;border:none;color:var(--espresso);font-size:1.6rem;z-index:10;}
-.modal-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
-.modal-photo{position:relative;padding-bottom:100%;overflow:hidden;}
-.modal-photo-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
-.modal-photo-inner:hover .photo-hover-overlay{opacity:1;}
-.photo-hover-overlay{position:absolute;inset:0;background:rgba(30,26,23,.6);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;opacity:0;transition:opacity .25s;}
-.photo-hover-overlay button{background:var(--gold);color:var(--charcoal);border:none;padding:.5rem 1rem;font-family:'Jost',sans-serif;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;font-weight:500;transition:background .2s;white-space:nowrap;width:130px;text-align:center;}
-.photo-hover-overlay button:hover{background:var(--gold-lt);}
-.photo-hover-overlay button.btn-buy{background:var(--espresso);color:var(--warm-white);}
-.photo-hover-overlay button.btn-buy:hover{background:var(--gold);}
-.watermark-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:rgba(255,255,255,.32);letter-spacing:.1em;pointer-events:none;transform:rotate(-20deg);user-select:none;}
-.modal-info{padding:2rem;}
-.modal-info h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--espresso);margin-bottom:.4rem;}
-.modal-info>p{color:var(--taupe);font-size:.85rem;margin-bottom:1.5rem;}
-.purchase-options{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
-.purchase-card{border:1px solid var(--stone);padding:1.2rem;transition:border-color .25s;}
-.purchase-card:hover{border-color:var(--gold);}
-.purchase-card h4{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:var(--espresso);margin-bottom:.3rem;}
-.purchase-card p{font-size:.76rem;color:var(--taupe);margin-bottom:.8rem;}
-.purchase-card .price{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--espresso);margin-bottom:.8rem;}
-.print-picker-modal{display:none;position:fixed;inset:0;z-index:210;background:rgba(18,14,10,.88);align-items:center;justify-content:center;padding:2rem;}
-.print-picker-modal.open{display:flex;}
-.print-picker-inner{background:var(--cream);max-width:680px;width:100%;max-height:90vh;overflow-y:auto;position:relative;animation:fadeUp .3s cubic-bezier(.22,1,.36,1) both;}
-.print-picker-header{background:var(--espresso);padding:1.4rem 2rem;display:flex;align-items:center;justify-content:space-between;}
-.print-picker-header h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--warm-white);font-weight:400;}
-.print-picker-header p{font-size:.72rem;color:var(--stone);margin-top:.15rem;}
-.print-picker-close{background:none;border:none;color:var(--stone);font-size:1.3rem;}
-.print-picker-preview{height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-.print-picker-body{padding:1.6rem 2rem;}
-.print-picker-label{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-weight:400;display:block;}
-.size-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.7rem;margin-bottom:1.5rem;}
-.size-btn{border:1px solid var(--stone);background:var(--warm-white);padding:.9rem .8rem;text-align:left;transition:all .22s;font-family:'Jost',sans-serif;}
-.size-btn:hover,.size-btn.selected{border-color:var(--gold);background:var(--blush);}
-.size-btn .sb-size{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--espresso);display:block;margin-bottom:.15rem;}
-.size-btn .sb-type{font-size:.62rem;color:var(--taupe);letter-spacing:.08em;display:block;margin-bottom:.4rem;}
-.size-btn .sb-price{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);display:block;}
-.print-picker-actions{display:flex;gap:.8rem;padding:0 2rem 1.8rem;}
-.btn-add-print{flex:1;padding:.9rem;background:var(--espresso);color:var(--warm-white);border:none;font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;transition:background .3s;}
-.btn-add-print:hover{background:var(--gold);}
-.btn-cancel-print{padding:.9rem 1.4rem;background:transparent;border:1px solid var(--stone);color:var(--taupe);font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;transition:all .25s;}
-.btn-cancel-print:hover{border-color:var(--espresso);color:var(--espresso);}
-.print-section{padding:5rem 4rem;background:var(--espresso);}
-.print-section .section-label{color:var(--gold-lt);}
-.print-section .section-title{color:var(--warm-white);margin-bottom:1rem;}
-.print-section>p{color:var(--stone);font-size:.88rem;margin-bottom:3rem;max-width:55ch;}
-.print-sizes{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;max-width:1100px;}
-.print-card{background:rgba(255,255,255,.04);border:1px solid rgba(200,191,176,.15);padding:1.6rem;transition:all .3s;position:relative;}
-.print-card:hover{background:rgba(255,255,255,.08);border-color:var(--gold);}
-.print-card.popular::before{content:'Popular';position:absolute;top:-.7rem;left:1rem;background:var(--gold);color:var(--charcoal);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;padding:.2rem .6rem;}
-.print-size{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--warm-white);margin-bottom:.3rem;}
-.print-type{font-size:.72rem;color:var(--stone);letter-spacing:.1em;margin-bottom:1rem;}
-.print-price{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);margin-bottom:.8rem;}
-.print-desc{font-size:.74rem;color:var(--taupe);margin-bottom:1rem;line-height:1.7;}
-.btn-print{width:100%;padding:.65rem;background:transparent;border:1px solid rgba(184,154,106,.4);color:var(--gold-lt);font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;transition:all .3s;}
-.btn-print:hover{background:var(--gold);border-color:var(--gold);color:var(--charcoal);}
-.cart-drawer{position:fixed;right:0;top:0;bottom:0;width:360px;background:var(--warm-white);box-shadow:-8px 0 40px rgba(30,26,23,.2);z-index:150;transform:translateX(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;}
-.cart-drawer.open{transform:translateX(0);}
-.cart-header{padding:1.5rem 1.8rem;border-bottom:1px solid var(--stone);display:flex;align-items:center;justify-content:space-between;}
-.cart-header h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:500;color:var(--espresso);}
-.cart-close{background:none;border:none;color:var(--taupe);font-size:1.4rem;}
-.cart-items{flex:1;overflow-y:auto;padding:1.2rem 1.8rem;}
-.cart-item{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid rgba(200,191,176,.4);}
-.cart-item-thumb{width:64px;height:64px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.6rem;background:var(--blush);}
-.cart-item-info{flex:1;}
-.cart-item-name{font-size:.82rem;color:var(--espresso);margin-bottom:.2rem;}
-.cart-item-detail{font-size:.72rem;color:var(--taupe);}
-.cart-item-price{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--espresso);}
-.cart-footer{padding:1.5rem 1.8rem;border-top:1px solid var(--stone);}
-.cart-total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.2rem;}
-.cart-total span:first-child{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--taupe);}
-.cart-total span:last-child{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--espresso);}
-.btn-checkout{width:100%;padding:1rem;background:var(--espresso);color:var(--warm-white);border:none;font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;transition:background .3s;}
-.btn-checkout:hover{background:var(--gold);}
-.cart-note{font-size:.72rem;color:var(--taupe);text-align:center;margin-top:.8rem;}
-.fab-row{position:fixed;bottom:2rem;right:2rem;z-index:120;display:flex;align-items:center;gap:.75rem;}
-.book-fab{background:var(--gold);color:var(--charcoal);height:56px;border-radius:28px;border:none;display:flex;align-items:center;gap:.5rem;padding:0 1.4rem;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;font-weight:400;box-shadow:0 8px 24px rgba(30,26,23,.25);transition:all .3s;white-space:nowrap;}
-.book-fab:hover{background:var(--gold-lt);transform:scale(1.05);}
-.cart-fab{background:var(--espresso);color:var(--warm-white);width:56px;height:56px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(30,26,23,.3);transition:all .3s;font-size:1.3rem;position:relative;}
-.cart-fab:hover{background:var(--gold);transform:scale(1.1);}
-.cart-count{position:absolute;top:-2px;right:-2px;background:var(--gold);color:var(--charcoal);font-size:.6rem;font-weight:500;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px;}
-.chat-fab{background:var(--sage);color:var(--warm-white);width:56px;height:56px;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(30,26,23,.25);transition:all .3s;font-size:1.4rem;position:relative;}
-.chat-fab:hover{background:#6b7d6c;transform:scale(1.1);}
-.chat-ping{position:absolute;top:-2px;right:-2px;width:12px;height:12px;border-radius:50%;background:#e87c6a;animation:ping 2s ease-in-out infinite;}
-@keyframes ping{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.5);opacity:.5;}}
-.chat-window{position:fixed;bottom:5.5rem;right:2rem;z-index:130;width:320px;background:var(--warm-white);box-shadow:0 16px 48px rgba(30,26,23,.22);border:1px solid var(--stone);transform:translateY(20px) scale(.95);opacity:0;pointer-events:none;transition:transform .35s cubic-bezier(.22,1,.36,1),opacity .3s;}
-.chat-window.open{transform:translateY(0) scale(1);opacity:1;pointer-events:all;}
-.chat-win-header{background:var(--espresso);padding:1rem 1.2rem;display:flex;align-items:center;gap:.8rem;}
-.chat-contact-form{padding:1rem;border-bottom:1px solid var(--stone);background:var(--cream);}
-.chat-contact-form p{font-size:.75rem;color:var(--taupe);margin-bottom:.8rem;line-height:1.5;}
-.chat-contact-input{width:100%;padding:.6rem .8rem;border:1px solid var(--stone);background:var(--warm-white);color:var(--espresso);font-family:'Jost',sans-serif;font-size:.82rem;font-weight:300;outline:none;transition:border-color .25s;margin-bottom:.5rem;display:block;}
-.chat-contact-input:focus{border-color:var(--gold);}
-.chat-contact-input.priority{border-color:var(--gold);border-width:2px;}
-.chat-contact-label{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe);display:block;margin-bottom:.25rem;}
-.chat-contact-label.required::after{content:' *';color:var(--gold);}
-.chat-start-btn{width:100%;padding:.65rem;background:var(--espresso);color:var(--warm-white);border:none;font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;transition:background .25s;margin-top:.3rem;}
-.chat-start-btn:hover{background:var(--gold);}
-.chat-identified{display:none;padding:.6rem 1rem;background:var(--blush);border-bottom:1px solid var(--stone);font-size:.72rem;color:var(--espresso);}
-.chat-avatar{width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
-.chat-win-name{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--warm-white);}
-.chat-win-status{font-size:.62rem;color:var(--stone);}
-.chat-win-close{margin-left:auto;background:none;border:none;color:var(--stone);font-size:1.1rem;}
-.chat-messages{padding:1rem;height:180px;overflow-y:auto;display:flex;flex-direction:column;gap:.6rem;}
-.chat-msg{max-width:82%;padding:.6rem .9rem;font-size:.8rem;line-height:1.5;}
-.chat-msg.from{background:var(--blush);color:var(--espresso);align-self:flex-start;}
-.chat-msg.to{background:var(--espresso);color:var(--warm-white);align-self:flex-end;}
-.chat-input-row{display:flex;border-top:1px solid var(--stone);}
-.chat-input-row input{flex:1;padding:.8rem 1rem;border:none;background:var(--warm-white);color:var(--espresso);font-family:'Jost',sans-serif;font-size:.82rem;outline:none;}
-.chat-send{padding:0 1rem;background:var(--gold);border:none;color:var(--charcoal);font-size:1rem;transition:background .25s;}
-.chat-send:hover{background:var(--gold-lt);}
-.toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--espresso);color:var(--warm-white);padding:.8rem 1.8rem;font-size:.8rem;letter-spacing:.08em;transition:transform .35s cubic-bezier(.22,1,.36,1);z-index:300;white-space:nowrap;}
-.toast.show{transform:translateX(-50%) translateY(0);}
-.uploaded-preview{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem;}
-.preview-thumb{width:72px;height:72px;object-fit:cover;border:2px solid var(--gold);}
-.preview-thumb-wrap{position:relative;}
-.preview-remove{position:absolute;top:-6px;right:-6px;background:var(--espresso);color:var(--warm-white);border:none;width:18px;height:18px;border-radius:50%;font-size:.6rem;display:flex;align-items:center;justify-content:center;}
-@media(max-width:900px){
-  nav{padding:1.2rem 2rem;}nav.scrolled{padding:.8rem 2rem;}
-  .nav-links{display:none;}
-  .about-strip{grid-template-columns:1fr;}.about-img{min-height:250px;}.about-text{padding:3.5rem 2rem;}
-  .services{padding:4rem 2rem;}.services-grid{grid-template-columns:1fr 1fr;}
-  .process{padding:4rem 2rem;}.process-steps{grid-template-columns:1fr 1fr;gap:2rem;}.process-step::after{display:none;}
-  footer{grid-template-columns:1fr 1fr;padding:3rem 2rem;}
-  .gallery-section{padding:3rem 2rem;}.upload-section{padding:3rem 2rem;}.print-section{padding:4rem 2rem;}
-  .purchase-options{grid-template-columns:1fr;}.modal-photos{grid-template-columns:1fr 1fr;}
-  .chat-window{width:calc(100vw - 4rem);}
-  .svc-body{grid-template-columns:1fr;padding:3rem 2rem;gap:2.5rem;}
-  .svc-gallery-section{padding:0 2rem 3rem;}
-  .svc-gallery-grid{grid-template-columns:1fr 1fr;}
-  .svc-gallery-item:first-child,.svc-gallery-item:nth-child(4){grid-column:span 2;}
-  .svc-faq{padding:3rem 2rem;}.svc-related{padding:3rem 2rem;}
-  .svc-related-grid{grid-template-columns:1fr 1fr;}
-}
-/* BOOKING PAGE */
-.booking-page{background:var(--warm-white);min-height:100vh;padding-top:80px;}
-.booking-hero{background:var(--espresso);padding:5rem 4rem 3.5rem;text-align:center;}
-.booking-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:300;color:var(--warm-white);margin-bottom:.5rem;}
-.booking-hero p{color:var(--stone);font-size:.9rem;max-width:44ch;margin:0 auto;}
-.booking-body{display:grid;grid-template-columns:1fr 380px;gap:3rem;max-width:1100px;margin:0 auto;padding:4rem;}
-.booking-form-col h2{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;color:var(--espresso);margin-bottom:.3rem;}
-.booking-form-col>p{color:var(--taupe);font-size:.83rem;margin-bottom:2rem;}
-.booking-form{display:flex;flex-direction:column;gap:1.2rem;}
-.bf-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
-.bf-field{display:flex;flex-direction:column;gap:.35rem;}
-.bf-field label{font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe);font-weight:400;}
-.bf-field input,.bf-field select,.bf-field textarea{padding:.75rem 1rem;border:1px solid var(--stone);background:var(--cream);color:var(--espresso);font-family:'Jost',sans-serif;font-size:.85rem;font-weight:300;outline:none;transition:border-color .25s;resize:none;}
-.bf-field input:focus,.bf-field select:focus,.bf-field textarea:focus{border-color:var(--gold);}
-.deposit-options{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:.3rem;}
-.deposit-btn{border:2px solid var(--stone);background:var(--cream);padding:1.1rem;text-align:left;transition:all .25s;font-family:'Jost',sans-serif;}
-.deposit-btn:hover,.deposit-btn.selected{border-color:var(--gold);background:var(--blush);}
-.deposit-btn .db-label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe);display:block;margin-bottom:.3rem;}
-.deposit-btn .db-amount{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--espresso);display:block;line-height:1;}
-.deposit-btn .db-desc{font-size:.72rem;color:var(--taupe);display:block;margin-top:.25rem;}
-.deposit-btn.selected .db-label{color:var(--gold);}
-.deposit-btn.selected .db-amount{color:var(--espresso);}
-.btn-submit-booking{padding:1.1rem 2rem;background:var(--espresso);color:var(--warm-white);border:none;font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;transition:background .3s;margin-top:.5rem;width:100%;}
-.btn-submit-booking:hover{background:var(--gold);}
-.booking-summary{background:var(--espresso);padding:2.5rem;align-self:start;position:sticky;top:100px;}
-.booking-summary h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--warm-white);margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(200,191,176,.15);}
-.bs-service{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold-lt);margin-bottom:.3rem;}
-.bs-price-row{display:flex;justify-content:space-between;align-items:baseline;padding:.5rem 0;border-bottom:1px solid rgba(200,191,176,.1);font-size:.8rem;color:var(--stone);}
-.bs-price-row span:last-child{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--warm-white);}
-.bs-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:1.2rem;padding-top:1rem;border-top:1px solid rgba(200,191,176,.2);}
-.bs-total span:first-child{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);}
-.bs-total span:last-child{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);}
-.bs-note{font-size:.72rem;color:var(--taupe);margin-top:1.2rem;line-height:1.6;padding-top:1rem;border-top:1px solid rgba(200,191,176,.1);}
-.booking-success{display:none;text-align:center;padding:5rem 2rem;}
-.booking-success h2{font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--espresso);margin-bottom:1rem;}
-.booking-success p{color:var(--taupe);max-width:40ch;margin:0 auto 2rem;}
-/* SCHEDULING PAGE */
-.sched-page{background:var(--warm-white);min-height:100vh;padding-top:80px;}
-.sched-hero{background:linear-gradient(135deg,#1a1209 0%,#2d2018 50%,#1e1a17 100%);padding:5rem 4rem 3.5rem;text-align:center;position:relative;overflow:hidden;}
-.sched-hero::before{content:'';position:absolute;inset:0;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23d4b483' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
-.sched-hero .section-label{color:var(--gold-lt);}
-.sched-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:300;color:var(--warm-white);margin-bottom:.6rem;}
-.sched-hero h1 em{font-style:italic;color:var(--gold-lt);}
-.sched-hero p{color:var(--stone);font-size:.88rem;max-width:46ch;margin:0 auto;}
-.sched-steps{display:flex;justify-content:center;gap:0;background:var(--cream);border-bottom:1px solid var(--stone);overflow-x:auto;padding:0 2rem;}
-.sched-step-tab{display:flex;align-items:center;gap:.6rem;padding:1.2rem 2rem;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe);font-family:'Jost',sans-serif;font-weight:400;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;}
-.sched-step-tab.active{color:var(--espresso);border-bottom-color:var(--gold);}
-.sched-step-tab .step-circle{width:22px;height:22px;border-radius:50%;background:var(--stone);color:var(--warm-white);font-size:.65rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .3s;}
-.sched-step-tab.active .step-circle,.sched-step-tab.done .step-circle{background:var(--gold);}
-.sched-body{max-width:1100px;margin:0 auto;padding:3.5rem 4rem;}
-.sched-panel{display:none;animation:fadeUp .3s ease both;}.sched-panel.active{display:block;}
-.sched-panel-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;color:var(--espresso);margin-bottom:.3rem;}
-.sched-panel-sub{color:var(--taupe);font-size:.83rem;margin-bottom:2.5rem;}
-.sched-service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
-.sched-svc-card{border:2px solid var(--stone);padding:1.8rem 1.5rem;background:var(--cream);transition:all .28s;position:relative;text-align:left;width:100%;font-family:'Jost',sans-serif;}
-.sched-svc-card:hover{border-color:var(--gold);transform:translateY(-3px);box-shadow:0 10px 30px rgba(59,48,40,.1);}
-.sched-svc-card.selected{border-color:var(--gold);background:var(--blush);}
-.sched-svc-card.selected::after{content:'✓';position:absolute;top:.8rem;right:1rem;color:var(--gold);font-size:1.1rem;font-weight:700;}
-.ssc-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--blush);line-height:1;margin-bottom:.3rem;}
-.sched-svc-card.selected .ssc-num{color:var(--gold-lt);}
-.ssc-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:500;color:var(--espresso);margin-bottom:.2rem;}
-.ssc-rate{font-size:.75rem;color:var(--gold);letter-spacing:.06em;margin-bottom:.5rem;font-weight:400;}
-.ssc-desc{font-size:.74rem;color:var(--taupe);line-height:1.7;}
-.sched-field{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.2rem;}
-.sched-field label{font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe);font-weight:400;}
-.sched-field input,.sched-field select,.sched-field textarea{padding:.8rem 1rem;border:1px solid var(--stone);background:var(--cream);color:var(--espresso);font-family:'Jost',sans-serif;font-size:.88rem;font-weight:300;outline:none;transition:border-color .25s;resize:none;}
-.sched-field input:focus,.sched-field select:focus,.sched-field textarea:focus{border-color:var(--gold);}
-.sched-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
-.hours-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;}
-.hour-btn{border:2px solid var(--stone);background:var(--cream);padding:.8rem .4rem;font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--espresso);transition:all .22s;text-align:center;line-height:1;}
-.hour-btn:hover,.hour-btn.selected{border-color:var(--gold);background:var(--blush);}
-.hour-btn small{display:block;font-family:'Jost',sans-serif;font-size:.58rem;letter-spacing:.08em;color:var(--taupe);margin-top:.25rem;}
-.hour-btn.selected small{color:var(--gold);}
-.payment-opts{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.8rem;}
-.payment-card{border:2px solid var(--stone);padding:1.4rem;background:var(--cream);transition:all .25s;text-align:left;width:100%;font-family:'Jost',sans-serif;}
-.payment-card:hover,.payment-card.selected{border-color:var(--gold);background:var(--blush);}
-.payment-card.selected .pc-label{color:var(--gold);}
-.pc-label{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe);display:block;margin-bottom:.4rem;}
-.pc-amount{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--espresso);display:block;line-height:1;margin-bottom:.3rem;}
-.pc-desc{font-size:.72rem;color:var(--taupe);line-height:1.6;}
-.card-fields{background:var(--cream);border:1px solid var(--stone);padding:1.5rem;margin-bottom:1.2rem;}
-.card-fields h4{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--espresso);margin-bottom:1rem;font-weight:400;}
-.card-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-.sched-layout{display:grid;grid-template-columns:1fr 320px;gap:3rem;align-items:start;}
-.order-summary{background:var(--espresso);padding:2rem;position:sticky;top:100px;}
-.order-summary h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--warm-white);margin-bottom:1.2rem;padding-bottom:.8rem;border-bottom:1px solid rgba(200,191,176,.15);}
-.os-row{display:flex;justify-content:space-between;align-items:baseline;padding:.45rem 0;border-bottom:1px solid rgba(200,191,176,.08);font-size:.78rem;color:var(--stone);}
-.os-row span:last-child{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--warm-white);}
-.os-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:1rem;padding-top:.8rem;border-top:1px solid rgba(200,191,176,.2);}
-.os-total span:first-child{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--stone);}
-.os-total span:last-child{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);}
-.os-empty{font-size:.8rem;color:var(--taupe);text-align:center;padding:1rem 0;font-style:italic;}
-.os-note{font-size:.7rem;color:var(--taupe);margin-top:1rem;padding-top:.8rem;border-top:1px solid rgba(200,191,176,.1);line-height:1.6;}
-.sched-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--stone);}
-.btn-sched-next{padding:.9rem 2.5rem;background:var(--espresso);color:var(--warm-white);border:none;font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;transition:background .3s;}
-.btn-sched-next:hover{background:var(--gold);}
-.btn-sched-back{padding:.9rem 1.8rem;background:transparent;border:1px solid var(--stone);color:var(--taupe);font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;transition:all .25s;}
-.btn-sched-back:hover{border-color:var(--espresso);color:var(--espresso);}
-.sched-success{display:none;text-align:center;padding:6rem 2rem;}
-.sched-success h2{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--espresso);margin-bottom:1rem;}
-.sched-success p{color:var(--taupe);max-width:44ch;margin:0 auto 2rem;line-height:1.9;}
-@media(max-width:900px){
-  .sched-body{padding:2.5rem 2rem;}
-  .sched-service-grid{grid-template-columns:1fr 1fr;}
-  .sched-layout{grid-template-columns:1fr;}
-  .order-summary{position:static;}
-  .sched-row,.card-row{grid-template-columns:1fr;}
-  .hours-grid{grid-template-columns:repeat(4,1fr);}
-}
-@media(max-width:600px){
-  .sched-service-grid{grid-template-columns:1fr;}
-  .hours-grid{grid-template-columns:repeat(3,1fr);}
-  .payment-opts{grid-template-columns:1fr;}
-  .sched-hero{padding:4rem 2rem 2.5rem;}
-}
-@media(max-width:600px){
-  .services-grid{grid-template-columns:1fr;}.process-steps{grid-template-columns:1fr;}
-  footer{grid-template-columns:1fr;}.cta-banner{padding:3rem 2rem;}
-  .hero-btns{flex-direction:column;align-items:center;}.cart-drawer{width:100%;}
-  .book-fab .book-label{display:none;}.book-fab{padding:0;width:56px;border-radius:50%;justify-content:center;}
-  .svc-gallery-grid{grid-template-columns:1fr;}
-  .svc-gallery-item:first-child,.svc-gallery-item:nth-child(4){grid-column:span 1;}
-  .svc-related-grid{grid-template-columns:1fr;}
-}
-</style>
-
-<script>
-document.addEventListener('DOMContentLoaded',function(){
-
-window.showPage=function(id){
-  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
-  document.getElementById('page-'+id).classList.add('active');
-  window.scrollTo(0,0);
-  var nav=document.getElementById('main-nav');
-  if(id==='home')nav.classList.remove('scrolled');
-  else nav.classList.add('scrolled');
-};
-
-window.addEventListener('scroll',function(){
-  document.getElementById('main-nav').classList.toggle('scrolled',window.scrollY>60);
-});
-
-var tIdx=0;
-var tSlides=document.querySelectorAll('.testimonial-slide');
-var tDots=document.querySelectorAll('.t-dot');
-window.goTestimonial=function(n){
-  tSlides[tIdx].classList.remove('active');tDots[tIdx].classList.remove('active');
-  tIdx=n;tSlides[tIdx].classList.add('active');tDots[tIdx].classList.add('active');
-};
-setInterval(function(){window.goTestimonial((tIdx+1)%tSlides.length);},5000);
-
-// CLOUDINARY CONFIG
-var CLOUD_NAME = 'dfqouxke9';
-
-// Gallery data store (persists in sessionStorage)
-var galleryStore = JSON.parse(sessionStorage.getItem('rsp_galleries') || '[]');
-
-// Pre-load DeAnna May gallery
-if(galleryStore.length === 0){
-  galleryStore = [{
-    name: 'VOGUE MODEL - DeAnna May',
-    folder: 'VOGUE MODEL-DeAnna May',
-    date: 'March 2025',
-    price: '$285',
-    singlePrice: '$18',
-    password: '',
-    expiry: '60'
-  }];
-  sessionStorage.setItem('rsp_galleries', JSON.stringify(galleryStore));
-}
-
-window.switchTab = function(tab, btn) {
-  if(tab === 'admin'){
-    var pw = prompt('Enter admin password:');
-    if(pw !== 'BluegGem2025!'){ window.showToast('Incorrect password'); return; }
-  }
-  ['galleries','admin'].forEach(function(t){
-    var el = document.getElementById('tab-'+t);
-    if(el) el.style.display = t === tab ? '' : 'none';
-  });
-  document.querySelectorAll('.gallery-tab').forEach(function(b){ b.classList.remove('active'); });
-  btn.classList.add('active');
-  if(tab === 'galleries') renderGalleryCards();
-};
-
-function renderGalleryCards(){
-  var grid = document.getElementById('galleriesGrid');
-  if(!grid) return;
-  if(galleryStore.length === 0){
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--taupe)">No galleries yet. Add one in the Admin tab.</div>';
-    return;
-  }
-  grid.innerHTML = '';
-  galleryStore.forEach(function(g, idx){
-    var card = document.createElement('div');
-    card.className = 'gallery-card';
-    // Fetch first photo from Cloudinary to use as thumb
-    var thumbUrl = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,h_220,c_fill,q_auto,f_auto/'+encodeURIComponent(g.folder)+'/';
-    var info = document.createElement('div');
-    info.innerHTML =
-      '<div class="gallery-thumb" style="background:var(--espresso);overflow:hidden;position:relative">' +
-        '<div id="gthumb-'+idx+'" style="width:100%;height:220px;display:grid;grid-template-columns:1fr 1fr;gap:2px"></div>' +
-        '<span class="gallery-wm-badge">&#128274; Watermarked</span>' +
-      '</div>' +
-      '<div class="gallery-info">' +
-        '<h3>'+g.name+'</h3>' +
-        '<p class="gallery-meta">'+g.date+' &middot; Loading photos...</p>' +
-        '<div class="gallery-actions"></div>' +
-      '</div>';
-    card.appendChild(info);
-    grid.appendChild(card);
-    // Load real photos from Cloudinary
-    loadCloudinaryFolder(g, idx, card);
-  });
-}
-
-function loadCloudinaryFolder(g, idx, card){
-  var url = '/.netlify/functions/cloudinary?folder='+encodeURIComponent(g.folder);
-  fetch(url)
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      var resources = data.photos || [];
-      var count = resources.length;
-      // Update meta
-      var meta = card.querySelector('.gallery-meta');
-      if(meta) meta.textContent = g.date + ' \u00b7 ' + count + ' photos';
-      // Fill thumb grid with first 4 real photos
-      var thumbGrid = document.getElementById('gthumb-'+idx);
-      if(thumbGrid && resources.length > 0){
-        thumbGrid.innerHTML = '';
-        var thumbCount = Math.min(4, resources.length);
-        for(var i = 0; i < thumbCount; i++){
-          var img = document.createElement('img');
-          img.src = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_200,h_200,c_fill,q_auto,f_auto/'+resources[i].public_id;
-          img.style.cssText = 'width:100%;height:110px;object-fit:cover;';
-          thumbGrid.appendChild(img);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track & Field Photography Pricing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-      }
-      // Add action buttons
-      var actions = card.querySelector('.gallery-actions');
-      if(actions){
-        var viewBtn = document.createElement('button');
-        viewBtn.className = 'btn-sm btn-sm-gold';
-        viewBtn.textContent = 'View Gallery';
-        (function(gallery, res){ viewBtn.onclick = function(){ openCloudinaryGallery(gallery, res); }; })(g, resources);
-        var buyBtn = document.createElement('button');
-        buyBtn.className = 'btn-sm btn-sm-outline';
-        buyBtn.textContent = 'Purchase All ('+g.price+')';
-        (function(gallery){ buyBtn.onclick = function(){ window.addToCart('Full Gallery \u2014 '+gallery.name, 'All Digital Files \u2014 No Watermark', gallery.price); }; })(g);
-        actions.appendChild(viewBtn);
-        actions.appendChild(buyBtn);
-      }
-    })
-    .catch(function(err){
-      console.warn('Cloudinary folder load error:', err);
-      var meta = card.querySelector('.gallery-meta');
-      if(meta) meta.textContent = g.date + ' \u00b7 Unable to load photos \u2014 check folder name';
-    });
-}
-
-function openCloudinaryGallery(gallery, resources){
-  var mp = document.getElementById('modalPhotos');
-  var mi = document.getElementById('modalInfo');
-  mp.innerHTML = '';
-  resources.forEach(function(res, i){
-    var d = document.createElement('div');
-    d.className = 'modal-photo';
-    var inner = document.createElement('div');
-    inner.className = 'modal-photo-inner';
-    inner.style.background = '#1e1a17';
-    // Watermarked image - load via Cloudinary with quality optimization
-    var img = document.createElement('img');
-    var publicId = res.public_id;
-    img.src = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,h_400,c_fill,q_auto,f_auto/'+publicId;
-    img.style.cssText = 'width:100%;height:100%;object-fit:cover;position:absolute;inset:0;';
-    // Watermark text overlay
-    var wm = document.createElement('div');
-    wm.className = 'watermark-text';
-    wm.textContent = '\u00a9 Rogelio Small Photography';
-    // Hover overlay
-    var ov = document.createElement('div');
-    ov.className = 'photo-hover-overlay';
-    var buyBtn = document.createElement('button');
-    buyBtn.className = 'btn-buy';
-    buyBtn.textContent = 'Buy \u2014 '+(gallery.singlePrice||'$18');
-    (function(publicId, gal){ buyBtn.onclick = function(){
-      window.addToCart('Photo \u2014 '+gal.name, 'Single Digital Download \u2014 No Watermark', gal.singlePrice||'$18');
-      window.showToast('Photo added to cart');
-    }; })(res.public_id, gallery);
-    var printBtn = document.createElement('button');
-    printBtn.textContent = 'Order Print';
-    (function(idx2, gal){ printBtn.onclick = function(){ openPrintPicker(idx2, gal.name, '#3B2F1E', '#2A2116'); }; })(i, gallery);
-    ov.appendChild(buyBtn);
-    ov.appendChild(printBtn);
-    inner.appendChild(img);
-    inner.appendChild(wm);
-    inner.appendChild(ov);
-    d.appendChild(inner);
-    mp.appendChild(d);
-  });
-  // Info section
-  mi.innerHTML = '';
-  var h2 = document.createElement('h2'); h2.textContent = gallery.name; mi.appendChild(h2);
-  var pg = document.createElement('p'); pg.textContent = gallery.date + ' \u2014 ' + resources.length + ' photos'; mi.appendChild(pg);
-  var tip = document.createElement('p'); tip.style.cssText = 'color:var(--taupe);font-size:.8rem;margin-bottom:1rem';
-  tip.textContent = 'Hover over any photo and click Buy or Order Print. Watermarks removed after purchase.'; mi.appendChild(tip);
-  var opts = document.createElement('div'); opts.className = 'purchase-options';
-  opts.innerHTML =
-    '<div class="purchase-card"><h4>Single Photo Download</h4><p>High-resolution, no watermark, personal use license.</p><div class="price">'+(gallery.singlePrice||'$18')+' / photo</div><button class="btn-sm btn-sm-gold" id="modal-buy-single">Add to Cart</button></div>' +
-    '<div class="purchase-card"><h4>Full Gallery Download</h4><p>All '+resources.length+' photos, no watermarks, print-ready.</p><div class="price">'+gallery.price+'</div><button class="btn-sm btn-sm-gold" id="modal-buy-full">Add to Cart</button></div>';
-  mi.appendChild(opts);
-  document.getElementById('modal-buy-single').onclick = function(){ window.addToCart('Single Photo \u2014 '+gallery.name,'Digital Download \u2014 No Watermark', gallery.singlePrice||'$18'); window.closeModal(); };
-  document.getElementById('modal-buy-full').onclick = function(){ window.addToCart('Full Gallery \u2014 '+gallery.name,'All Digital Files \u2014 No Watermark', gallery.price); window.closeModal(); };
-  var note = document.createElement('p'); note.style.cssText = 'color:var(--taupe);font-size:.78rem';
-  note.textContent = 'Watermarks removed within minutes of payment confirmation.'; mi.appendChild(note);
-  document.getElementById('photoModal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-window.publishCloudinaryGallery = function(){
-  var name   = document.getElementById('galleryName').value.trim();
-  var folder = document.getElementById('cloudinaryFolder').value.trim();
-  var date   = document.getElementById('galleryDate').value;
-  var price  = document.getElementById('galleryPrice').value.trim() || '$185';
-  var single = document.getElementById('singlePrice').value.trim() || '$18';
-  var pass   = document.getElementById('galleryPassword').value.trim();
-  var expiry = document.getElementById('galleryExpiry').value;
-  if(!name){ window.showToast('Please enter a gallery name'); return; }
-  if(!folder){ window.showToast('Please enter the Cloudinary folder name'); return; }
-  var ds = date ? new Date(date+'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : 'Recently';
-  var newGallery = { name:name, folder:folder, date:ds, price:price, singlePrice:single, password:pass, expiry:expiry };
-  galleryStore.unshift(newGallery);
-  sessionStorage.setItem('rsp_galleries', JSON.stringify(galleryStore));
-  ['galleryName','cloudinaryFolder','galleryDate','clientEmail','galleryPassword','galleryPrice','singlePrice'].forEach(function(id){
-    var el = document.getElementById(id); if(el) el.value = '';
-  });
-  window.showToast('Gallery published! Loading photos...');
-  window.switchTab('galleries', document.getElementById('tab-btn-galleries'));
-};
-
-// Initialize gallery on page load
-setTimeout(function(){ renderGalleryCards(); }, 100);
-
-var dz=document.getElementById('dropZone');
-if(dz){
-  dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('drag-over');});
-  dz.addEventListener('dragleave',function(){dz.classList.remove('drag-over');});
-  dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('drag-over');window.handleFiles(e.dataTransfer.files);});
-}
-var uploadedFiles=[];
-window.handleFiles=function(files){
-  var prev=document.getElementById('uploadedPreview');
-  Array.from(files).forEach(function(file){
-    if(!file.type.startsWith('image/'))return;
-    uploadedFiles.push(file);
-    var wrap=document.createElement('div');wrap.className='preview-thumb-wrap';
-    var img=document.createElement('img');img.className='preview-thumb';img.src=URL.createObjectURL(file);
-    var rm=document.createElement('button');rm.className='preview-remove';rm.textContent='x';
-    rm.onclick=function(){prev.removeChild(wrap);uploadedFiles=uploadedFiles.filter(function(f){return f!==file;});};
-    wrap.appendChild(img);wrap.appendChild(rm);prev.appendChild(wrap);
-  });
-  window.showToast(files.length+' photo'+(files.length>1?'s':'')+' added');
-};
-
-window.publishGallery=function(){
-  var name=document.getElementById('galleryName').value.trim();
-  var date=document.getElementById('galleryDate').value;
-  var price=document.getElementById('galleryPrice').value.trim()||'$185';
-  if(!name){window.showToast('Please enter a gallery name');return;}
-  var cols=[['tc1','tc2','tc3','tc4'],['tc5','tc6','tc2','tc1'],['tc3','tc5','tc4','tc6'],['tc2','tc4','tc5','tc3']];
-  var c=cols[Math.floor(Math.random()*cols.length)];
-  var count=uploadedFiles.length||Math.floor(Math.random()*60)+20;
-  var ds=date?new Date(date).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}):'Recently';
-  var card=document.createElement('div');card.className='gallery-card';
-  var thumb=document.createElement('div');thumb.className='gallery-thumb';
-  var imgs=document.createElement('div');imgs.className='gallery-thumb-imgs';
-  c.forEach(function(tc){var d=document.createElement('div');d.className='thumb-img '+tc;imgs.appendChild(d);});
-  var badge=document.createElement('span');badge.className='gallery-wm-badge';badge.textContent='Watermarked';
-  thumb.appendChild(imgs);thumb.appendChild(badge);
-  var info=document.createElement('div');info.className='gallery-info';
-  var h3=document.createElement('h3');h3.textContent=name;
-  var meta=document.createElement('p');meta.className='gallery-meta';meta.textContent=ds+' · '+count+' photos · Expires in 60 days';
-  var actions=document.createElement('div');actions.className='gallery-actions';
-  var viewBtn=document.createElement('button');viewBtn.className='btn-sm btn-sm-gold';viewBtn.textContent='View Gallery';
-  (function(n,d2,cnt){viewBtn.onclick=function(){window.openGallery(n,d2,cnt+' photos');};})(name,ds,count);
-  var buyBtn=document.createElement('button');buyBtn.className='btn-sm btn-sm-outline';buyBtn.textContent='Purchase All ('+price+')';
-  (function(n,p){buyBtn.onclick=function(){window.addToCart('Full Gallery — '+n,'Digital Download',p);};})(name,price);
-  actions.appendChild(viewBtn);actions.appendChild(buyBtn);
-  info.appendChild(h3);info.appendChild(meta);info.appendChild(actions);
-  card.appendChild(thumb);card.appendChild(info);
-  var grid=document.getElementById('galleriesGrid');
-  grid.querySelectorAll('.gallery-empty').forEach(function(e){e.remove();});
-  grid.insertBefore(card,grid.firstChild);
-  ['galleryName','galleryDate','clientEmail','galleryPassword','galleryPrice'].forEach(function(id){document.getElementById(id).value='';});
-  document.getElementById('uploadedPreview').innerHTML='';
-  uploadedFiles=[];
-  window.showToast('Gallery published!');
-  window.switchTab('galleries',document.querySelectorAll('.gallery-tab')[0]);
-};
-
-var photoColors=[['#3B2F1E','#2A2116'],['#5C4A35','#4A3A28'],['#8B7355','#7A6248'],['#3A3028','#2A2218'],['#6B5A48','#5A4A38'],['#4A3C2C','#3A2E20'],['#7A6A56','#685A48'],['#2E261E','#221C16'],['#9A8870','#887660']];
-var printSizes=[{size:'4x6"',type:'Lustre or Matte',price:'$8'},{size:'5x7"',type:'Lustre or Matte',price:'$14'},{size:'8x10"',type:'Lustre, Matte or Canvas',price:'$28'},{size:'11x14"',type:'Matte or Canvas',price:'$55'},{size:'16x20"',type:'Canvas or Metal',price:'$95'},{size:'20x30"',type:'Canvas or Metal',price:'$165'},{size:'Heirloom Album',type:'Lay-Flat 10x10"',price:'$395'},{size:'Card Set (25)',type:'5x7" Matte',price:'$68'}];
-var currentGalleryName='',selectedPhotoIdx=-1,selectedSizeIdx=-1;
-
-window.openGallery=function(name,date,meta){
-  currentGalleryName=name;
-  var mp=document.getElementById('modalPhotos'),mi=document.getElementById('modalInfo');
-  mp.innerHTML='';
-  for(var i=0;i<12;i++){
-    var c=photoColors[i%photoColors.length];
-    var c0=c[0];var c1=c[1];
-    var d=document.createElement('div');d.className='modal-photo';
-    var inner=document.createElement('div');
-    inner.className='modal-photo-inner';
-    inner.style.background='linear-gradient(135deg,'+c0+' 0%,'+c1+' 100%)';
-    // Watermark
-    var wm=document.createElement('div');wm.className='watermark-text';wm.textContent='Rogelio Small Photography';
-    // Hover overlay
-    var ov=document.createElement('div');ov.className='photo-hover-overlay';
-    // Buy button
-    var buyBtn=document.createElement('button');buyBtn.className='btn-buy';buyBtn.textContent='Buy — $18';
-    (function(photoIdx,galleryName){
-      buyBtn.onclick=function(){
-        window.addToCart('Photo #'+(photoIdx+1)+' — '+galleryName,'Single Digital Download — No Watermark','$18');
-        window.showToast('Photo added to cart');
-      };
-    })(i,name);
-    // Print button
-    var printBtn=document.createElement('button');printBtn.textContent='Order Print';
-    (function(photoIdx,galleryName,col0,col1){
-      printBtn.onclick=function(){openPrintPicker(photoIdx,galleryName,col0,col1);};
-    })(i,name,c0,c1);
-    ov.appendChild(buyBtn);ov.appendChild(printBtn);
-    inner.appendChild(wm);inner.appendChild(ov);
-    d.appendChild(inner);mp.appendChild(d);
-  }
-  // Info section
-  mi.innerHTML='';
-  var h2=document.createElement('h2');h2.textContent=name;mi.appendChild(h2);
-  var pg=document.createElement('p');pg.textContent=date+' - '+meta;mi.appendChild(pg);
-  var tip=document.createElement('p');tip.style.cssText='color:var(--taupe);font-size:.8rem;margin-bottom:1rem';
-  tip.textContent='Hover over any photo and click Order Print to choose a size, or purchase downloads below.';mi.appendChild(tip);
-  var opts=document.createElement('div');opts.className='purchase-options';
-  opts.innerHTML='<div class="purchase-card"><h4>Single Image Download</h4><p>High-resolution, no watermark, personal use license.</p><div class="price">$18 / photo</div><button class="btn-sm btn-sm-gold" id="buy-single-btn">Add to Cart</button></div>'
-    +'<div class="purchase-card"><h4>Full Gallery Download</h4><p>All photos, high-resolution, no watermarks, print-ready.</p><div class="price">$185</div><button class="btn-sm btn-sm-gold" id="buy-full-btn">Add to Cart</button></div>';
-  mi.appendChild(opts);
-  document.getElementById('buy-single-btn').onclick=function(){window.addToCart('Single Photo — '+name,'Digital Download — No Watermark','$18');window.closeModal();};
-  document.getElementById('buy-full-btn').onclick=function(){window.addToCart('Full Gallery — '+name,'All Digital Files — No Watermark','$185');window.closeModal();};
-  var note=document.createElement('p');note.style.cssText='color:var(--taupe);font-size:.78rem';note.textContent='Watermarks removed within minutes of payment.';mi.appendChild(note);
-  document.getElementById('photoModal').classList.add('open');
-  document.body.style.overflow='hidden';
-};
-window.closeModal=function(){document.getElementById('photoModal').classList.remove('open');document.body.style.overflow='';};
-document.getElementById('photoModal').addEventListener('click',function(e){if(e.target===this)window.closeModal();});
-
-window.openPrintPicker=function(photoIdx,galleryName,col1,col2){
-  selectedPhotoIdx=photoIdx;selectedSizeIdx=-1;currentGalleryName=galleryName;
-  document.getElementById('pickerPhotoLabel').textContent='Photo #'+(photoIdx+1)+' - '+galleryName;
-  document.getElementById('pickerPreview').style.background='linear-gradient(135deg,'+col1+' 0%,'+col2+' 100%)';
-  var grid=document.getElementById('sizeGrid');grid.innerHTML='';
-  printSizes.forEach(function(s,i){
-    var btn=document.createElement('button');btn.className='size-btn';
-    btn.innerHTML='<span class="sb-size">'+s.size+'</span><span class="sb-type">'+s.type+'</span><span class="sb-price">'+s.price+'</span>';
-    btn.onclick=function(){document.querySelectorAll('.size-btn').forEach(function(b){b.classList.remove('selected');});btn.classList.add('selected');selectedSizeIdx=i;};
-    grid.appendChild(btn);
-  });
-  document.getElementById('printPickerModal').classList.add('open');
-};
-window.closePrintPicker=function(){document.getElementById('printPickerModal').classList.remove('open');selectedSizeIdx=-1;};
-window.addPrintToCart=function(){
-  if(selectedSizeIdx<0){window.showToast('Please select a print size');return;}
-  var s=printSizes[selectedSizeIdx];
-  window.addToCart(s.size+' Print - Photo #'+(selectedPhotoIdx+1),currentGalleryName+' - '+s.type,s.price);
-  window.closePrintPicker();window.closeModal();
-};
-document.getElementById('printPickerModal').addEventListener('click',function(e){if(e.target===this)window.closePrintPicker();});
-
-var cart=[],cartOpen=false;
-window.addToCart=function(name,detail,price){
-  cart.push({name:name,detail:detail,price:price});updateCart();
-  if(!cartOpen)window.toggleCart();
-  window.showToast('Added to cart');
-};
-function updateCart(){
-  var items=document.getElementById('cartItems'),count=document.getElementById('cartCount'),total=document.getElementById('cartTotal');
-  count.textContent=cart.length;
-  if(!cart.length){items.innerHTML='<p style="color:var(--taupe);font-size:.85rem;text-align:center;margin-top:2rem">Your cart is empty</p>';total.textContent='$0.00';return;}
-  items.innerHTML=cart.map(function(item,i){
-    return '<div class="cart-item"><div class="cart-item-thumb">'+(item.name.indexOf('Print')>-1?'&#128247;':item.name.indexOf('Album')>-1?'&#128218;':'&#128444;')+'</div><div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div><div class="cart-item-detail">'+item.detail+'</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:.4rem"><div class="cart-item-price">'+item.price+'</div><button onclick="removeFromCart('+i+')" style="background:none;border:none;color:var(--taupe);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:0">Remove</button></div></div>';
-  }).join('');
-  var sum=cart.reduce(function(a,item){return a+(parseFloat(item.price.replace(/[^0-9.]/g,''))||0);},0);
-  total.textContent='$'+sum.toFixed(2);
-}
-window.removeFromCart=function(idx){
-  cart.splice(idx,1);
-  updateCart();
-  if(cart.length===0&&cartOpen){window.toggleCart();}
-};
-window.toggleCart=function(){cartOpen=!cartOpen;document.getElementById('cartDrawer').classList.toggle('open',cartOpen);};
-window.checkout=function(){
-  if(!cart.length){window.showToast('Your cart is empty');return;}
-  window.showToast('Redirecting to secure checkout...');
-  setTimeout(function(){cart=[];updateCart();window.toggleCart();},1800);
-};
-
-var chatOpen=false;
-var chatClientEmail='';
-var chatClientName='';
-var chatStarted=false;
-
-window.toggleChat=function(){
-  chatOpen=!chatOpen;
-  document.getElementById('chatWindow').classList.toggle('open',chatOpen);
-  if(chatOpen){
-    document.getElementById('chatPing').style.display='none';
-    setTimeout(function(){
-      if(!chatStarted){
-        document.getElementById('chatEmail').focus();
-      } else {
-        document.getElementById('chatInput').focus();
-      }
-    },350);
-  }
-};
-
-window.startChat=function(){
-  var email=document.getElementById('chatEmail').value.trim();
-  var name=document.getElementById('chatName').value.trim();
-  if(!email || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)){
-    document.getElementById('chatEmail').style.borderColor='#e87c6a';
-    document.getElementById('chatEmail').focus();
-    window.showToast('Please enter a valid email address');
-    return;
-  }
-  chatClientEmail=email;
-  chatClientName=name||'Visitor';
-  chatStarted=true;
-  // Hide form, show chat
-  document.getElementById('chatContactForm').style.display='none';
-  var identified=document.getElementById('chatIdentified');
-  identified.style.display='block';
-  identified.textContent='Chatting as: '+chatClientName+' ('+chatClientEmail+')';
-  document.getElementById('chatMessages').style.display='flex';
-  document.getElementById('chatInputRow').style.display='flex';
-  setTimeout(function(){document.getElementById('chatInput').focus();},100);
-};
-
-window.sendChat=function(){
-  var input=document.getElementById('chatInput'),msg=input.value.trim();
-  if(!msg)return;
-  var msgs=document.getElementById('chatMessages');
-  var u=document.createElement('div');u.className='chat-msg to';u.textContent=msg;
-  msgs.appendChild(u);input.value='';msgs.scrollTop=msgs.scrollHeight;
-
-  // Send via EmailJS with client email + name so you can reply directly
-  var PUBLIC_KEY  = 'HZPIyFG6r_JVp9u_m';
-  var SERVICE_ID  = 'service_b384d8p';
-  var TEMPLATE_ID = 'template_31gefsz';
-
-  if(PUBLIC_KEY !== 'YOUR_PUBLIC_KEY'){
-    emailjs.init(PUBLIC_KEY);
-    emailjs.send(SERVICE_ID, TEMPLATE_ID, {
-      from_name:    chatClientName,
-      from_email:   chatClientEmail,
-      reply_to:     chatClientEmail,
-      message:      msg,
-      time:         new Date().toLocaleString()
-    }).then(function(){
-      console.log('Message sent to Rogelio');
-    }, function(err){
-      console.warn('EmailJS error:', err);
-    });
-  } else {
-    var a=document.createElement('a');
-    a.href='mailto:Bluegempro@gmail.com?subject=Chat+from+'+encodeURIComponent(chatClientName)+'&body='+encodeURIComponent('From: '+chatClientName+'\nReply-To: '+chatClientEmail+'\n\nMessage:\n'+msg);
-    a.style.display='none';document.body.appendChild(a);a.click();
-    setTimeout(function(){document.body.removeChild(a);},500);
-  }
-
-  setTimeout(function(){
-    var r=document.createElement('div');r.className='chat-msg from';
-    r.textContent='Thanks '+chatClientName.split(' ')[0]+'! Rogelio has been notified and will reply to '+chatClientEmail+' shortly.';
-    msgs.appendChild(r);msgs.scrollTop=msgs.scrollHeight;
-  },900);
-};
-window.sendChat=function(){
-  var input=document.getElementById('chatInput'),msg=input.value.trim();
-  if(!msg)return;
-  var msgs=document.getElementById('chatMessages');
-
-  // Show client's message in chat
-  var u=document.createElement('div');u.className='chat-msg to';u.textContent=msg;
-  msgs.appendChild(u);input.value='';msgs.scrollTop=msgs.scrollHeight;
-
-  // Send directly to Bluegempro@gmail.com via EmailJS
-  // ─────────────────────────────────────────────────────
-  // SETUP INSTRUCTIONS (one-time, 5 minutes):
-  // 1. Go to https://www.emailjs.com and create a free account
-  // 2. Add an Email Service (Gmail) — connect your Bluegempro@gmail.com account
-  // 3. Create an Email Template with these variables: {{message}}, {{time}}
-  //    Template subject: "New Website Chat Message"
-  //    Template body:    "A visitor sent you a message:\n\n{{message}}\n\nSent at: {{time}}"
-  // 4. Replace the three placeholder values below with your actual IDs:
-  //    YOUR_PUBLIC_KEY  → Account > API Keys > Public Key
-  //    YOUR_SERVICE_ID  → Email Services > your service ID
-  //    YOUR_TEMPLATE_ID → Email Templates > your template ID
-  // ─────────────────────────────────────────────────────
-  var PUBLIC_KEY   = 'HZPIyFG6r_JVp9u_m';
-  var SERVICE_ID   = 'service_b384d8p';
-  var TEMPLATE_ID  = 'template_31gefsz';
-
-  if(PUBLIC_KEY !== 'YOUR_PUBLIC_KEY'){
-    emailjs.init(PUBLIC_KEY);
-    emailjs.send(SERVICE_ID, TEMPLATE_ID, {
-      message: msg,
-      time: new Date().toLocaleString()
-    }).then(function(){
-      console.log('Chat message emailed to Rogelio');
-    }, function(err){
-      console.warn('EmailJS error:', err);
-    });
-  } else {
-    // Fallback until EmailJS is configured: open mail client
-    var a=document.createElement('a');
-    a.href='mailto:Bluegempro@gmail.com?subject=New+Website+Chat+Message&body='+encodeURIComponent('A visitor sent you a message via your website chat:\n\n"'+msg+'"');
-    a.style.display='none';document.body.appendChild(a);a.click();
-    setTimeout(function(){document.body.removeChild(a);},500);
-  }
-
-  // Auto-reply in chat
-  setTimeout(function(){
-    var r=document.createElement('div');r.className='chat-msg from';
-    r.textContent="Thanks for your message! Rogelio has been notified and will get back to you shortly. You can also reach out directly at Bluegempro@gmail.com";
-    msgs.appendChild(r);msgs.scrollTop=msgs.scrollHeight;
-  },900);
-};
-
-// SCHEDULING PAGE
-var schedData={service:'',hours:0,date:'',time:'',name:'',email:'',phone:'',location:'',notes:'',payment:'half'};
-var schedStep=1;
-var schedServices=[
-  {num:'01',name:'Mini Session',rate:295,perHour:false,desc:'30-min focused session. Headshots, individuals, seasonal portraits.'},
-  {num:'02',name:'Portrait Session',rate:550,perHour:false,desc:'90-min creative session for individuals, couples, or small families.'},
-  {num:'03',name:'Family Collection',rate:750,perHour:false,desc:'2-hour storytelling session for families up to 8 members.'},
-  {num:'04',name:'Wedding Day',rate:3200,perHour:false,desc:'Full-day coverage 8-10 hrs. Two photographers included.'},
-  {num:'05',name:'Commercial & Brand',rate:350,perHour:true,desc:'Hourly rate for business, product, and personal brand shoots.'},
-  {num:'06',name:'Destination Session',rate:667,perHour:true,desc:'Hourly rate for destination & elopement sessions worldwide.'}
-];
-
-window.openScheduling=function(){
-  schedData={service:'',hours:0,date:'',time:'',name:'',email:'',phone:'',location:'',notes:'',payment:'half'};
-  schedStep=1;
-  window.showPage('scheduling');
-  setTimeout(function(){
-    renderSchedServices();
-    updateSchedTabs();
-    updateOrderSummary();
-    document.getElementById('sched-success').style.display='none';
-    document.getElementById('sched-main').style.display='';
-  },50);
-};
-
-function renderSchedServices(){
-  var grid=document.getElementById('schedServiceGrid');
-  if(!grid)return;
-  grid.innerHTML=schedServices.map(function(s,i){
-    return '<button class="sched-svc-card'+(schedData.service===s.name?' selected':'')+'" onclick="selectSchedService('+i+')">'
-      +'<div class="ssc-num">'+s.num+'</div>'
-      +'<div class="ssc-name">'+s.name+'</div>'
-      +'<div class="ssc-rate">'+(s.perHour?'$'+s.rate+' / hour':'$'+s.rate+' flat rate')+'</div>'
-      +'<div class="ssc-desc">'+s.desc+'</div>'
-      +'</button>';
-  }).join('');
-}
-
-window.selectSchedService=function(i){
-  schedData.service=schedServices[i].name;
-  schedData.hours=schedServices[i].perHour?0:0;
-  document.querySelectorAll('.sched-svc-card').forEach(function(c,j){
-    c.classList.toggle('selected',j===i);
-  });
-  // Show/hide hours selector based on service type
-  var hoursWrap=document.getElementById('schedHoursWrap');
-  if(hoursWrap)hoursWrap.style.display=schedServices[i].perHour?'':'none';
-  updateOrderSummary();
-};
-
-window.selectHours=function(h){
-  schedData.hours=h;
-  document.querySelectorAll('.hour-btn').forEach(function(b){
-    b.classList.toggle('selected',parseInt(b.dataset.h)===h);
-  });
-  updateOrderSummary();
-};
-
-window.selectSchedPayment=function(type){
-  schedData.payment=type;
-  document.querySelectorAll('.payment-card').forEach(function(c){c.classList.remove('selected');});
-  document.getElementById('pay-'+type).classList.add('selected');
-  updateOrderSummary();
-};
-
-function getSchedTotal(){
-  var svc=schedServices.find(function(s){return s.name===schedData.service;});
-  if(!svc)return 0;
-  if(svc.perHour)return svc.rate*(schedData.hours||0);
-  return svc.rate;
-}
-
-function updateOrderSummary(){
-  var total=getSchedTotal();
-  var due=schedData.payment==='half'?Math.round(total*0.5):total;
-  var html='';
-  if(schedData.service){
-    var svc=schedServices.find(function(s){return s.name===schedData.service;});
-    html+='<div class="os-row"><span>Service</span><span>'+schedData.service+'</span></div>';
-    if(svc.perHour&&schedData.hours>0)html+='<div class="os-row"><span>Duration</span><span>'+schedData.hours+' hr'+(schedData.hours>1?'s':'')+'</span></div>';
-    if(schedData.date)html+='<div class="os-row"><span>Date</span><span>'+new Date(schedData.date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+'</span></div>';
-    if(schedData.time)html+='<div class="os-row"><span>Time</span><span>'+schedData.time+'</span></div>';
-    html+='<div class="os-row"><span>Session Total</span><span>$'+total.toLocaleString()+'</span></div>';
-    html+='<div class="os-row"><span>'+(schedData.payment==='half'?'50% Deposit':'Full Payment')+'</span><span>$'+due.toLocaleString()+'</span></div>';
-  } else {
-    html='<div class="os-empty">Select a service to see your summary</div>';
-  }
-  var sumEl=document.getElementById('orderSummaryRows');
-  if(sumEl)sumEl.innerHTML=html;
-  var dueEl=document.getElementById('orderDueTotal');
-  if(dueEl)dueEl.textContent=total?'$'+due.toLocaleString():'$0';
-  // Update payment card amounts
-  var halfEl=document.getElementById('pc-half-amt');
-  var fullEl=document.getElementById('pc-full-amt');
-  if(halfEl)halfEl.textContent=total?'$'+Math.round(total*0.5).toLocaleString():'$0';
-  if(fullEl)fullEl.textContent=total?'$'+total.toLocaleString():'$0';
-}
-
-function updateSchedTabs(){
-  document.querySelectorAll('.sched-step-tab').forEach(function(t,i){
-    var s=i+1;
-    t.classList.toggle('active',s===schedStep);
-    t.classList.toggle('done',s<schedStep);
-  });
-  document.querySelectorAll('.sched-panel').forEach(function(p,i){
-    p.classList.toggle('active',i+1===schedStep);
-  });
-}
-
-window.schedNext=function(){
-  if(schedStep===1){
-    if(!schedData.service){window.showToast('Please select a service');return;}
-    var svc=schedServices.find(function(s){return s.name===schedData.service;});
-    if(svc.perHour&&!schedData.hours){window.showToast('Please select number of hours');return;}
-  }
-  if(schedStep===2){
-    var d=document.getElementById('sched-date');
-    var t=document.getElementById('sched-time');
-    if(d)schedData.date=d.value;
-    if(t)schedData.time=t.value;
-    if(!schedData.date){window.showToast('Please select a session date');return;}
-    if(!schedData.time){window.showToast('Please select a start time');return;}
-  }
-  if(schedStep===3){
-    var n=document.getElementById('sched-name');
-    var e=document.getElementById('sched-email');
-    var ph=document.getElementById('sched-phone');
-    var lo=document.getElementById('sched-location');
-    var no=document.getElementById('sched-notes');
-    if(n)schedData.name=n.value.trim();
-    if(e)schedData.email=e.value.trim();
-    if(ph)schedData.phone=ph.value.trim();
-    if(lo)schedData.location=lo.value.trim();
-    if(no)schedData.notes=no.value.trim();
-    if(!schedData.name||!schedData.email){window.showToast('Please enter your name and email');return;}
-  }
-  if(schedStep<4){schedStep++;updateSchedTabs();updateOrderSummary();window.scrollTo(0,0);}
-};
-
-window.schedBack=function(){
-  if(schedStep>1){schedStep--;updateSchedTabs();window.scrollTo(0,0);}
-};
-
-window.submitScheduling=function(){
-  var total=getSchedTotal();
-  var due=schedData.payment==='half'?Math.round(total*0.5):total;
-  var svc=schedServices.find(function(s){return s.name===schedData.service;})||{};
-  var subject='New Session Booking - '+schedData.service;
-  var body='New booking received from your website:\n\n'
-    +'Name: '+schedData.name+'\n'
-    +'Email: '+schedData.email+'\n'
-    +'Phone: '+(schedData.phone||'Not provided')+'\n\n'
-    +'Service: '+schedData.service+'\n'
-    +(svc.perHour?'Duration: '+schedData.hours+' hours\n':'')
-    +'Date: '+schedData.date+'\n'
-    +'Start Time: '+schedData.time+'\n'
-    +'Location: '+(schedData.location||'TBD')+'\n\n'
-    +'Session Total: $'+total.toLocaleString()+'\n'
-    +'Payment Type: '+(schedData.payment==='half'?'50% Deposit':'Full Payment')+'\n'
-    +'Amount Due: $'+due.toLocaleString()+'\n\n'
-    +'Notes:\n'+(schedData.notes||'None');
-  window.location.href='mailto:Bluegempro@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-  setTimeout(function(){
-    document.getElementById('sched-main').style.display='none';
-    document.getElementById('sched-success').style.display='block';
-    document.getElementById('sched-success-name').textContent=schedData.name.split(' ')[0];
-    document.getElementById('sched-success-date').textContent=new Date(schedData.date+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-    document.getElementById('sched-success-due').textContent='$'+due.toLocaleString();
-  },600);
-};
-
-window.showToast=function(msg){
-  var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
-  clearTimeout(window._tt);window._tt=setTimeout(function(){t.classList.remove('show');},2600);
-};
-
-// BOOKING PAGE
-var servicePrices={
-  'Mini Session':295,'Portrait Session':550,'Family Collection':750,
-  'Wedding Day':3200,'Commercial & Brand':1400,'Destination Session':2000
-};
-var selectedDeposit='half';
-window.selectDeposit=function(type){
-  selectedDeposit=type;
-  document.querySelectorAll('.deposit-btn').forEach(function(b){b.classList.remove('selected');});
-  document.getElementById('deposit-'+type).classList.add('selected');
-  updateBookingSummary();
-};
-window.updateBookingSummary=function(){
-  var svc=document.getElementById('bf-service');
-  if(!svc)return;
-  var name=svc.value;
-  var full=servicePrices[name]||0;
-  var half=Math.round(full*0.5);
-  var due=selectedDeposit==='half'?half:full;
-  document.getElementById('bs-service-name').textContent=name||'Select a service';
-  document.getElementById('bs-full-price').textContent=full?'$'+full.toLocaleString():'-';
-  document.getElementById('bs-deposit-type').textContent=selectedDeposit==='half'?'50% Deposit':'Full Payment';
-  document.getElementById('bs-due').textContent=full?(selectedDeposit==='half'?'$'+half.toLocaleString():'$'+full.toLocaleString()):'-';
-  document.getElementById('bs-due-total').textContent=full?'$'+due.toLocaleString():'$0';
-  if(document.getElementById('half-amt'))document.getElementById('half-amt').textContent=full?'$'+half.toLocaleString():'$0';
-  if(document.getElementById('full-amt'))document.getElementById('full-amt').textContent=full?'$'+full.toLocaleString():'$0';
-};
-window.submitBooking=function(){
-  var name=document.getElementById('bf-name').value.trim();
-  var email=document.getElementById('bf-email').value.trim();
-  var svc=document.getElementById('bf-service').value;
-  var date=document.getElementById('bf-date').value;
-  if(!name||!email||!svc||!date){window.showToast('Please fill in all required fields');return;}
-  var phone=document.getElementById('bf-phone').value.trim();
-  var notes=document.getElementById('bf-notes').value.trim();
-  var full=servicePrices[svc]||0;
-  var due=selectedDeposit==='half'?Math.round(full*0.5):full;
-  var subject='New Booking Request - '+svc;
-  var body='New booking request received:\n\nName: '+name+'\nEmail: '+email+'\nPhone: '+phone+'\nService: '+svc+'\nDate: '+date+'\nDeposit: '+(selectedDeposit==='half'?'50% ($'+Math.round(full*0.5)+')':'Full ($'+full+')')+'\n\nNotes:\n'+(notes||'None')+'\n\nDue Today: $'+due;
-  window.location.href='mailto:Bluegempro@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-  setTimeout(function(){
-    document.getElementById('booking-form-wrap').style.display='none';
-    document.getElementById('booking-success').style.display='block';
-  },800);
-};
-window.openBooking=function(preselect){
-  window.showPage('booking');
-  if(preselect){
-    setTimeout(function(){
-      var sel=document.getElementById('bf-service');
-      if(sel)sel.value=preselect;
-      window.updateBookingSummary();
-    },50);
-  }
-};
-
-});
-</script>
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.85) 0%, rgba(30, 64, 175, 0.85) 100%),
+                        url('https://media.istockphoto.com/id/1158205421/photo/running-track-with-lighting-back-ground-close.jpg?s=612x612&w=0&k=20&c=VJBxSU8P0YqL8dJLmxE-r7XpuJLvFGP0vZYYvp1gA8Q=') center/cover no-repeat;
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 35px;
+        }
+        
+        .header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .pricing-grid-bottom {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto 30px auto;
+        }
+        
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.90);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+        }
+        
+        .pricing-card.featured {
+            border: 3px solid #dc2626;
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.featured::before {
+            content: "MOST POPULAR";
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: #dc2626;
+            color: white;
+            padding: 5px 40px;
+            font-size: 12px;
+            font-weight: bold;
+            transform: rotate(45deg);
+            letter-spacing: 1px;
+        }
+        
+        .package-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .package-tagline {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 25px;
+            min-height: 40px;
+        }
+        
+        .price {
+            font-size: 48px;
+            font-weight: 800;
+            color: #1e40af;
+            margin-bottom: 5px;
+        }
+        
+        .price-period {
+            font-size: 16px;
+            color: #9ca3af;
+            margin-bottom: 30px;
+        }
+        
+        .features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .features li {
+            padding: 12px 0;
+            color: #4b5563;
+            font-size: 15px;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .features li:last-child {
+            border-bottom: none;
+        }
+        
+        .features li::before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .cta-button {
+            display: none;
+        }
+        
+        .footer-note {
+            text-align: center;
+            color: white;
+            font-size: 16px;
+            margin-top: 25px;
+            opacity: 0.9;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 36px;
+            }
+            
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<nav id="main-nav">
-  <a href="#" class="nav-logo" onclick="showPage('home');return false;">Rogelio Small Photography</a>
-  <ul class="nav-links">
-    <li><a href="#" onclick="showPage('home');setTimeout(function(){document.getElementById('services').scrollIntoView({behavior:'smooth'})},50);return false;">Services</a></li>
-    <li><a href="#" onclick="showPage('home');setTimeout(function(){document.getElementById('process').scrollIntoView({behavior:'smooth'})},50);return false;">Process</a></li>
-    <li><a href="#" onclick="showPage('gallery');return false;">Client Galleries</a></li>
-    <li><a href="#" onclick="openBooking('');return false;">Contact</a></li>
-  </ul>
-  <a href="#" class="nav-cta" onclick="showPage('gallery');return false;">View Galleries</a>
-</nav>
-
-<div class="fab-row">
-  <button class="book-fab" onclick="openScheduling()">&#128197; <span class="book-label">Book Now</span></button>
-  <button class="chat-fab" onclick="toggleChat()" aria-label="Chat">&#128172;<span class="chat-ping" id="chatPing"></span></button>
-  <button class="cart-fab" onclick="toggleCart()" aria-label="Cart">&#128722;<span class="cart-count" id="cartCount">0</span></button>
-</div>
-
-<div class="chat-window" id="chatWindow">
-  <div class="chat-win-header">
-    <div class="chat-avatar">&#128247;</div>
-    <div><div class="chat-win-name">Rogelio Small</div><div class="chat-win-status">&#9679; Online &mdash; replies in minutes</div></div>
-    <button class="chat-win-close" onclick="toggleChat()">&#10005;</button>
-  </div>
-  <!-- Contact form — shown before messaging -->
-  <div class="chat-contact-form" id="chatContactForm">
-    <p>So Rogelio can reply directly to you, please share your details:</p>
-    <label class="chat-contact-label required">Email Address</label>
-    <input type="email" class="chat-contact-input priority" id="chatEmail" placeholder="your@email.com">
-    <label class="chat-contact-label">Your Name</label>
-    <input type="text" class="chat-contact-input" id="chatName" placeholder="Jane Smith">
-    <button class="chat-start-btn" onclick="startChat()">Start Chat &rarr;</button>
-  </div>
-  <!-- Shown after email submitted -->
-  <div class="chat-identified" id="chatIdentified"></div>
-  <div class="chat-messages" id="chatMessages" style="display:none">
-    <div class="chat-msg from">Hi there! Thanks for visiting. How can I help you today?</div>
-    <div class="chat-msg from">Feel free to ask about availability, pricing, or session details.</div>
-  </div>
-  <div class="chat-input-row" id="chatInputRow" style="display:none">
-    <input type="text" id="chatInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChat()">
-    <button class="chat-send" onclick="sendChat()">&#10148;</button>
-  </div>
-</div>
-
-<div class="cart-drawer" id="cartDrawer">
-  <div class="cart-header"><h3>Your Order</h3><button class="cart-close" onclick="toggleCart()">&#10005;</button></div>
-  <div class="cart-items" id="cartItems"><p style="color:var(--taupe);font-size:.85rem;text-align:center;margin-top:2rem">Your cart is empty</p></div>
-  <div class="cart-footer">
-    <div class="cart-total"><span>Total</span><span id="cartTotal">$0.00</span></div>
-    <button class="btn-checkout" onclick="checkout()">Proceed to Checkout</button>
-    <p class="cart-note">&#128274; Watermarks removed upon payment confirmation</p>
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<div class="photo-modal" id="photoModal">
-  <div class="modal-inner">
-    <button class="modal-close" onclick="closeModal()">&#10005;</button>
-    <div class="modal-photos" id="modalPhotos"></div>
-    <div class="modal-info" id="modalInfo"></div>
-  </div>
-</div>
-
-<div class="print-picker-modal" id="printPickerModal">
-  <div class="print-picker-inner">
-    <div class="print-picker-header">
-      <div><h3>Order a Print</h3><p id="pickerPhotoLabel">Photo from gallery</p></div>
-      <button class="print-picker-close" onclick="closePrintPicker()">&#10005;</button>
-    </div>
-    <div class="print-picker-preview" id="pickerPreview"><div class="watermark-text">&copy; Rogelio Small Photography</div></div>
-    <div class="print-picker-body">
-      <span class="print-picker-label">Select a print size</span>
-      <div class="size-grid" id="sizeGrid"></div>
-    </div>
-    <div class="print-picker-actions">
-      <button class="btn-add-print" onclick="addPrintToCart()">Add to Cart</button>
-      <button class="btn-cancel-print" onclick="closePrintPicker()">Cancel</button>
-    </div>
-  </div>
-</div>
-
-
-<!-- HOME PAGE -->
-<div class="page active" id="page-home">
-  <section class="hero">
-    <div class="hero-bg"></div><div class="hero-texture"></div>
-    <div class="hero-panels"><div class="hero-panel"></div><div class="hero-panel"></div><div class="hero-panel"></div></div>
-    <div class="hero-content">
-      <p class="hero-eyebrow">Fine Art Photography &mdash; Est. 2012</p>
-      <h1 class="hero-title">Moments made<br><em>timeless</em></h1>
-      <p class="hero-sub">Award-winning photography for weddings, portraits, families, and commercial clients.</p>
-      <div class="hero-btns">
-        <a href="#" class="btn-primary" onclick="setTimeout(function(){document.getElementById('services').scrollIntoView({behavior:'smooth'})},50);return false;">Explore Services</a>
-        <a href="#" class="btn-ghost" onclick="showPage('gallery');return false;">Client Galleries</a>
-      </div>
-    </div>
-    <div class="hero-scroll"><div class="scroll-line"></div>Scroll</div>
-  </section>
-
-  <section class="about-strip">
-    <div class="about-img"><div class="about-img-inner">R</div></div>
-    <div class="about-text">
-      <p class="section-label">About Rogelio Small Photography</p>
-      <h2 class="section-title">Photography as<br><em>a love language</em></h2>
-      <p class="section-body">For over a decade, we've captured the raw, unscripted beauty of human connection. Our documentary approach meets artistic vision &mdash; every frame a painting, every session a story.</p>
-      <p class="section-body">Based in Tamarac, FL, we serve all of South Florida for weddings and destination sessions.</p>
-      <a href="#" class="btn-primary" style="width:fit-content" onclick="setTimeout(function(){document.getElementById('services').scrollIntoView({behavior:'smooth'})},50);return false;">Our Services</a>
-    </div>
-  </section>
-
-  <section class="services" id="services">
-    <div class="services-header">
-      <p class="section-label">Investment</p>
-      <h2 class="section-title" style="font-size:clamp(2rem,4vw,3rem)">Choose your <em>experience</em></h2>
-      <p style="color:var(--taupe);max-width:50ch;margin:.8rem auto 0;font-size:.88rem">All packages include a private online gallery with watermarked previews, print ordering, and full digital delivery.</p>
-    </div>
-    <div class="services-grid">
-      <div class="service-card"><div class="service-num">01</div><div class="service-name">Mini Session</div><p class="service-desc">A focused 30-minute session ideal for individuals, headshots, or seasonal family portraits.</p><div class="service-price">$295 <span>/ session</span></div><ul class="service-includes"><li>30-minute session</li><li>1 outfit, 1 location</li><li>15 edited digital images</li><li>Private online gallery</li><li>Print-release included</li></ul><a href="#" class="service-learn" onclick="showPage('svc-mini');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">02</div><div class="service-name">Portrait Session</div><p class="service-desc">A relaxed, creative portrait experience for individuals, couples, or small families.</p><div class="service-price">$550 <span>/ session</span></div><ul class="service-includes"><li>90-minute session</li><li>2 outfits, up to 2 locations</li><li>40+ edited digital images</li><li>Private gallery + prints access</li><li>Styling guide provided</li></ul><a href="#" class="service-learn" onclick="showPage('svc-portrait');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">03</div><div class="service-name">Family Collection</div><p class="service-desc">A full family storytelling session capturing authentic connection and everything in between.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour session</li><li>Up to 8 family members</li><li>60+ edited digital images</li><li>Slideshow reveal</li><li>One complimentary 11x14 print</li></ul><a href="#" class="service-learn" onclick="showPage('svc-family');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">04</div><div class="service-name">Wedding Day</div><p class="service-desc">Full-day wedding coverage from getting ready through the last dance. Your entire story, beautifully told.</p><div class="service-price">$3,200 <span>/ full day</span></div><ul class="service-includes"><li>8-10 hours of coverage</li><li>Two photographers</li><li>300+ edited digital images</li><li>Engagement session included</li><li>Luxury heirloom album option</li></ul><a href="#" class="service-learn" onclick="showPage('svc-wedding');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">05</div><div class="service-name">Commercial &amp; Brand</div><p class="service-desc">Strategic visual storytelling for businesses, products, and personal brands. Content that converts.</p><div class="service-price">$1,400 <span>/ half day</span></div><ul class="service-includes"><li>4-hour shoot</li><li>Product, team, or lifestyle</li><li>80+ final edited images</li><li>Commercial license included</li><li>Mood board consultation</li></ul><a href="#" class="service-learn" onclick="showPage('svc-commercial');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">06</div><div class="service-name">Destination Session</div><p class="service-desc">Wherever your story takes you &mdash; elopements, anniversary trips, or bucket-list portraits worldwide.</p><div class="service-price">$2,000 <span>+ travel</span></div><ul class="service-includes"><li>3-hour golden-hour session</li><li>Any worldwide location</li><li>80+ edited digital images</li><li>Travel itinerary collaboration</li><li>Rush delivery option available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-destination');return false;">View Details &rarr;</a></div>
-    </div>
-  </section>
-
-  <section class="process" id="process">
-    <div class="process-inner">
-      <div class="process-header"><p class="section-label">How It Works</p><h2 class="section-title">From <em>inquiry</em> to<br>gallery delivery</h2></div>
-      <div class="process-steps">
-        <div class="process-step"><div class="step-num">01</div><div class="step-title">Inquiry &amp; Consult</div><p class="step-desc">Fill out a quick form or email us. We'll schedule a 20-minute call to get to know you and your vision.</p></div>
-        <div class="process-step"><div class="step-num">02</div><div class="step-title">Booking &amp; Prep</div><p class="step-desc">Sign your contract, pay your retainer, and receive your client welcome guide with tips for a great session.</p></div>
-        <div class="process-step"><div class="step-num">03</div><div class="step-title">Your Session</div><p class="step-desc">We bring direction, energy, and creativity. You bring yourself. Together we create something extraordinary.</p></div>
-        <div class="process-step"><div class="step-num">04</div><div class="step-title">Gallery Delivery</div><p class="step-desc">Your private gallery goes live within 2-3 weeks. Download, share, or order prints directly.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="testimonials">
-    <div class="testimonials-inner">
-      <p class="section-label">Kind Words</p>
-      <h2 class="section-title" style="margin-bottom:3rem">What clients <em>say</em></h2>
-      <div class="testimonial-slider">
-        <div class="testimonial-slide active"><p class="testimonial-quote">&ldquo;We cried happy tears looking through our gallery. Every single image tells a chapter of our wedding day we didn't even know was being written.&rdquo;</p><p class="testimonial-author">&mdash; Marisol &amp; James, Wedding Clients</p></div>
-        <div class="testimonial-slide"><p class="testimonial-quote">&ldquo;I've never felt more comfortable in front of a camera. The portraits came out better than anything I could have imagined. Worth every penny.&rdquo;</p><p class="testimonial-author">&mdash; Elise T., Portrait Client</p></div>
-        <div class="testimonial-slide"><p class="testimonial-quote">&ldquo;Our brand photos completely transformed how we show up online. Within a week we saw a measurable jump in inquiries.&rdquo;</p><p class="testimonial-author">&mdash; Owen &amp; Priya, Commercial Client</p></div>
-      </div>
-      <div class="testimonial-dots">
-        <button class="t-dot active" onclick="goTestimonial(0)"></button>
-        <button class="t-dot" onclick="goTestimonial(1)"></button>
-        <button class="t-dot" onclick="goTestimonial(2)"></button>
-      </div>
-    </div>
-  </section>
-
-  <div class="cta-banner"><h2>Ready to create <em>something beautiful</em> together?</h2><a href="#" onclick="openBooking('');return false;" class="btn-dark">Book a Consultation</a></div>
-
-  <footer>
-    <div><div class="footer-brand">Rogelio Small Photography</div><p class="footer-tagline">Fine art photography rooted in authentic storytelling. Tamarac, FL &mdash; South Florida.</p></div>
-    <div class="footer-col"><h4>Services</h4><ul><li><a href="#" onclick="showPage('svc-mini');return false;">Mini Session</a></li><li><a href="#" onclick="showPage('svc-portrait');return false;">Portrait Session</a></li><li><a href="#" onclick="showPage('svc-family');return false;">Family Collection</a></li><li><a href="#" onclick="showPage('svc-wedding');return false;">Wedding Day</a></li><li><a href="#" onclick="showPage('svc-commercial');return false;">Commercial &amp; Brand</a></li><li><a href="#" onclick="showPage('svc-destination');return false;">Destination Session</a></li></ul></div>
-    <div class="footer-col"><h4>Studio</h4><ul><li><a href="#">About</a></li><li><a href="#">Portfolio</a></li><li><a href="#" onclick="showPage('gallery');return false;">Client Galleries</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li></ul></div>
-    <div class="footer-col"><h4>Contact</h4><ul><li><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="551739203032303825273a153238343c397b363a38">[email&#160;protected]</a></li><li><a href="tel:+13056765980" style="color:var(--taupe);text-decoration:none">(305) 676-5980</a></li><li>Tamarac, FL 33321</li><li style="margin-top:.8rem"><a href="#">Instagram</a></li><li><a href="#">Pinterest</a></li></ul></div>
-  </footer>
-  <div class="footer-bottom"><span>&copy; 2025 Rogelio Small Photography. All rights reserved.</span><span>Privacy Policy &middot; Terms of Service</span></div>
-</div>
-
-
-<!-- ═══════════════════════════════════════
-     SERVICE SUB-PAGE HELPER MACRO
-     Each service page: hero, details+booking, gallery, FAQ, related
-════════════════════════════════════════════ -->
-
-<!-- SVC 01: MINI SESSION -->
-<div class="page" id="page-svc-mini">
-  <div class="svc-hero">
-    <div class="svc-hero-bg" style="background:linear-gradient(135deg,#2a1f14 0%,#3d2e1e 50%,#1a120a 100%)"></div>
-    <div class="svc-hero-overlay"></div>
-    <div class="svc-hero-content">
-      <a href="#" class="svc-back" onclick="showPage('home');return false;">&#8592; Back to Services</a>
-      <div class="svc-hero-num">01</div>
-      <h1 class="svc-hero-title">Mini <em>Session</em></h1>
-      <div class="svc-hero-price">Starting at $295</div>
-    </div>
-  </div>
-  <div style="background:var(--warm-white)">
-    <div class="svc-body">
-      <div class="svc-details">
-        <h2>Perfect for a focused, beautiful session</h2>
-        <p>Our Mini Session is designed for clients who want stunning, professional images without a full-length shoot. In just 30 minutes, we capture the essence of you &mdash; clean, confident, and beautifully lit.</p>
-        <p>Ideal for updated headshots, individuals wanting a quick refresh, or seasonal family portraits. We work quickly and intentionally, making every minute count.</p>
-        <p>You'll walk away with 15 hand-edited images delivered to your private online gallery within one week &mdash; ready to download, print, or share.</p>
-        <div class="svc-includes-title">What's Included</div>
-        <ul class="svc-includes-list">
-          <li>30-minute session</li>
-          <li>1 outfit change</li>
-          <li>1 curated location</li>
-          <li>15 hand-edited digital images</li>
-          <li>Private online gallery delivery</li>
-          <li>Full print release</li>
-          <li>Gallery access for 60 days</li>
-        </ul>
-      </div>
-      <div>
-        <div class="svc-booking">
-          <h3>Book Your Mini Session</h3>
-          <p>Spots are limited. Reserve yours today with a simple deposit.</p>
-          <div class="price-big">$295 <span>/ session</span></div>
-          <a href="/cdn-cgi/l/email-protection#bdffd1c8d8dad8d0cdcfd2fddad0dcd4d193ded2d082cec8dfd7d8dec980f0d4d3d49deed8ceced4d2d39df4d3ccc8d4cfc4" class="btn-book-now">Book Now</a>
-          <button class="btn-chat-us" onclick="toggleChat()">Chat With Us</button>
+    <div class="container">
+        <div class="header">
+            <p style="font-size: 28px; font-weight: 600; margin-bottom: 10px; letter-spacing: 3px;">BLUE GEM PRODUCTIONS</p>
+            <h1>Track & Field Photography Packages</h1>
+            <p>Professional action shots that capture every moment of athletic excellence</p>
         </div>
-      </div>
-    </div>
-    <div class="svc-gallery-section">
-      <h2>Mini Session <em style="font-style:italic;color:var(--gold)">Gallery</em></h2>
-      <p>A glimpse at the clean, confident imagery from our mini sessions.</p>
-      <div class="svc-gallery-grid">
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#c8bfb0 0%,#9e9082 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#b89a6a 0%,#8a7050 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#3b3028 0%,#1e1a17 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#e8d5c4 0%,#c8bfb0 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#9e9082 0%,#7a6e64 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#d4b483 0%,#b89a6a 100%)"></div></div>
-      </div>
-    </div>
-    <div class="svc-faq">
-      <div class="svc-faq-inner">
-        <h2>Frequently Asked <em style="font-style:italic;color:var(--gold)">Questions</em></h2>
-        <div class="faq-item"><div class="faq-q">Where are mini sessions held?</div><div class="faq-a">We work with one curated location per session &mdash; either a spot you love or one we recommend based on light and season.</div></div>
-        <div class="faq-item"><div class="faq-q">Can I bring a friend or partner?</div><div class="faq-a">Yes! Mini sessions work great for solos, couples, or a single parent with one child. For larger groups, consider our Family Collection.</div></div>
-        <div class="faq-item"><div class="faq-q">How quickly will I receive my images?</div><div class="faq-a">Mini session galleries are delivered within 5-7 business days of your shoot date.</div></div>
-        <div class="faq-item"><div class="faq-q">Can I order prints from my gallery?</div><div class="faq-a">Absolutely. Your private gallery includes a full print store with archival options from 4x6 to 20x30.</div></div>
-      </div>
-    </div>
-    <div class="svc-related">
-      <h2>You Might Also Love</h2>
-      <div class="svc-related-grid">
-        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $750</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)"><span>&copy; 2025 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a></div>
-</div>
-
-<!-- SVC 02: PORTRAIT SESSION -->
-<div class="page" id="page-svc-portrait">
-  <div class="svc-hero">
-    <div class="svc-hero-bg" style="background:linear-gradient(135deg,#1a1510 0%,#2d2018 50%,#3d2e1e 100%)"></div>
-    <div class="svc-hero-overlay"></div>
-    <div class="svc-hero-content">
-      <a href="#" class="svc-back" onclick="showPage('home');return false;">&#8592; Back to Services</a>
-      <div class="svc-hero-num">02</div>
-      <h1 class="svc-hero-title">Portrait <em>Session</em></h1>
-      <div class="svc-hero-price">Starting at $550</div>
-    </div>
-  </div>
-  <div style="background:var(--warm-white)">
-    <div class="svc-body">
-      <div class="svc-details">
-        <h2>An unhurried, creative portrait experience</h2>
-        <p>Our Portrait Session is the full creative experience &mdash; 90 relaxed minutes to explore locations, try different outfits, and simply be yourself in front of the camera.</p>
-        <p>Whether you're an individual investing in self-portraits, a couple capturing a milestone, or a small family wanting timeless images, this session gives us the room to tell your story fully.</p>
-        <p>You'll receive a curated collection of 40+ hand-edited images, a styling guide ahead of your session, and access to your private gallery within two weeks.</p>
-        <div class="svc-includes-title">What's Included</div>
-        <ul class="svc-includes-list">
-          <li>90-minute session</li>
-          <li>2 outfit changes</li>
-          <li>Up to 2 locations</li>
-          <li>40+ hand-edited digital images</li>
-          <li>Pre-session styling guide</li>
-          <li>Private gallery + print store access</li>
-          <li>Full print release</li>
-        </ul>
-      </div>
-      <div>
-        <div class="svc-booking">
-          <h3>Book Your Portrait Session</h3>
-          <p>Ready to invest in images you'll treasure for decades? Let's connect.</p>
-          <div class="price-big">$550 <span>/ session</span></div>
-          <a href="/cdn-cgi/l/email-protection#5b19372e3e3c3e362b29341b3c363a32377538343664282e39313e382f660b34292f293a322f7b083e28283234357b12352a2e322922" class="btn-book-now">Book Now</a>
-          <button class="btn-chat-us" onclick="toggleChat()">Chat With Us</button>
+        
+        <div class="pricing-grid">
+            <!-- Package 1: Starter -->
+            <div class="pricing-card">
+                <h3 class="package-name">Starter</h3>
+                <p class="package-tagline">Perfect for individual athletes</p>
+                <div class="price">$150</div>
+                <div class="price-period">per session</div>
+                <ul class="features">
+                    <li>1 hour photoshoot</li>
+                    <li>1 athlete coverage</li>
+                    <li>15 edited high-res photos</li>
+                    <li>Online gallery access</li>
+                    <li>Digital downloads included</li>
+                    <li>3-5 day turnaround</li>
+                </ul>
+                <button class="cta-button">Book Now</button>
+            </div>
+            
+            <!-- Package 2: Team Sprint -->
+            <div class="pricing-card">
+                <h3 class="package-name">Team Sprint</h3>
+                <p class="package-tagline">Great for small teams and groups</p>
+                <div class="price">$350</div>
+                <div class="price-period">per session</div>
+                <ul class="features">
+                    <li>2 hour photoshoot</li>
+                    <li>Up to 5 athletes</li>
+                    <li>40 edited high-res photos</li>
+                    <li>Team and individual shots</li>
+                    <li>Online gallery with download</li>
+                    <li>Social media sized images</li>
+                    <li>5-7 day turnaround</li>
+                </ul>
+                <button class="cta-button">Book Now</button>
+            </div>
+            
+            <!-- Package 3: Championship (Featured) -->
+            <div class="pricing-card featured">
+                <h3 class="package-name">Championship</h3>
+                <p class="package-tagline">Our most popular package for serious athletes</p>
+                <div class="price">$600</div>
+                <div class="price-period">per session</div>
+                <ul class="features">
+                    <li>3 hour photoshoot</li>
+                    <li>Up to 10 athletes</li>
+                    <li>80 edited high-res photos</li>
+                    <li>Action + portrait shots</li>
+                    <li>Multiple event coverage</li>
+                    <li>Online gallery + USB drive</li>
+                    <li>Print-ready files included</li>
+                    <li>3-5 day turnaround</li>
+                </ul>
+                <button class="cta-button">Book Now</button>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="svc-gallery-section">
-      <h2>Portrait Session <em style="font-style:italic;color:var(--gold)">Gallery</em></h2>
-      <p>Intimate, editorial, and entirely yours. A taste of what we create together.</p>
-      <div class="svc-gallery-grid">
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#8a7060 0%,#5a4a38 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#d4b483 0%,#a07840 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#2a1f14 0%,#1a1209 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#c8bfb0 0%,#a09080 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#e8d5c4 0%,#c0a888 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#3b3028 0%,#2a2018 100%)"></div></div>
-      </div>
-    </div>
-    <div class="svc-faq">
-      <div class="svc-faq-inner">
-        <h2>Frequently Asked <em style="font-style:italic;color:var(--gold)">Questions</em></h2>
-        <div class="faq-item"><div class="faq-q">What should I wear?</div><div class="faq-a">You'll receive our full styling guide upon booking. We recommend neutral tones, textures that photograph beautifully, and outfits that feel authentically you.</div></div>
-        <div class="faq-item"><div class="faq-q">Can we shoot at multiple locations?</div><div class="faq-a">Yes! With 90 minutes we can explore up to two locations within a reasonable distance. We'll plan the route during your pre-session consultation.</div></div>
-        <div class="faq-item"><div class="faq-q">Do you direct poses?</div><div class="faq-a">Always. We guide you through natural movement and genuine expressions so you never feel stiff or awkward in front of the camera.</div></div>
-        <div class="faq-item"><div class="faq-q">When will I see my images?</div><div class="faq-a">Your gallery will be delivered within 10-14 business days of your session date, with a sneak peek within 48 hours.</div></div>
-      </div>
-    </div>
-    <div class="svc-related">
-      <h2>You Might Also Love</h2>
-      <div class="svc-related-grid">
-        <a href="#" class="svc-related-card" onclick="showPage('svc-mini');return false;"><div class="svc-related-num">01</div><div class="svc-related-name">Mini Session</div><div class="svc-related-price">Starting at $295</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $750</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)"><span>&copy; 2025 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a></div>
-</div>
-
-<!-- SVC 03: FAMILY COLLECTION -->
-<div class="page" id="page-svc-family">
-  <div class="svc-hero">
-    <div class="svc-hero-bg" style="background:linear-gradient(135deg,#8a9e8c 0%,#5a6e5c 50%,#3a4e3c 100%)"></div>
-    <div class="svc-hero-overlay"></div>
-    <div class="svc-hero-content">
-      <a href="#" class="svc-back" onclick="showPage('home');return false;">&#8592; Back to Services</a>
-      <div class="svc-hero-num">03</div>
-      <h1 class="svc-hero-title">Family <em>Collection</em></h1>
-      <div class="svc-hero-price">Starting at $750</div>
-    </div>
-  </div>
-  <div style="background:var(--warm-white)">
-    <div class="svc-body">
-      <div class="svc-details">
-        <h2>Your family's story, beautifully preserved</h2>
-        <p>Families are joyful, messy, loud, tender &mdash; and we love every bit of it. Our Family Collection is designed to capture the real moments: the laughter, the chaos, the in-between glances that say everything.</p>
-        <p>With a full two hours together, there's no rush. We move through natural interactions, gentle prompts, and genuine play to draw out the authentic connection that makes your family uniquely yours.</p>
-        <p>You'll receive 60+ beautifully edited images and a complimentary 11x14 fine art print &mdash; a tangible piece of your story, ready to hang.</p>
-        <div class="svc-includes-title">What's Included</div>
-        <ul class="svc-includes-list">
-          <li>2-hour session</li>
-          <li>Up to 8 family members</li>
-          <li>60+ hand-edited digital images</li>
-          <li>Online slideshow reveal</li>
-          <li>One complimentary 11x14 fine art print</li>
-          <li>Private gallery + full print store</li>
-          <li>Full print release</li>
-        </ul>
-      </div>
-      <div>
-        <div class="svc-booking">
-          <h3>Book Your Family Session</h3>
-          <p>These sessions book fast &mdash; especially around the holidays. Lock in your date early.</p>
-          <div class="price-big">$750 <span>/ session</span></div>
-          <a href="/cdn-cgi/l/email-protection#ffbd938a9a989a928f8d90bf98929e9693d19c9092c08c8a9d959a9c8bc2b99e92969386dfac9a8c8c969091dfb6918e8a968d86" class="btn-book-now">Book Now</a>
-          <button class="btn-chat-us" onclick="toggleChat()">Chat With Us</button>
+        
+        <div class="pricing-grid-bottom">
+            <!-- Package 4: Elite Performance -->
+            <div class="pricing-card">
+                <h3 class="package-name">Elite Performance</h3>
+                <p class="package-tagline">Premium coverage for competitive teams</p>
+                <div class="price">$950</div>
+                <div class="price-period">per session</div>
+                <ul class="features">
+                    <li>Full day coverage (6 hours)</li>
+                    <li>Up to 20 athletes</li>
+                    <li>150 edited high-res photos</li>
+                    <li>Multiple locations/events</li>
+                    <li>Premium editing + retouching</li>
+                    <li>Priority 48-hour delivery</li>
+                    <li>USB drive + cloud storage</li>
+                    <li>Social media optimization</li>
+                </ul>
+                <button class="cta-button">Book Now</button>
+            </div>
+            
+            <!-- Package 5: Full Meet Coverage -->
+            <div class="pricing-card">
+                <h3 class="package-name">Full Meet</h3>
+                <p class="package-tagline">Complete event documentation</p>
+                <div class="price">$1,500</div>
+                <div class="price-period">per event</div>
+                <ul class="features">
+                    <li>Entire meet coverage</li>
+                    <li>Unlimited athletes</li>
+                    <li>300+ edited photos</li>
+                    <li>All events documented</li>
+                    <li>Podium & awards coverage</li>
+                    <li>Video highlights reel</li>
+                    <li>Team and individual galleries</li>
+                    <li>Commercial usage rights</li>
+                    <li>Same-day preview gallery</li>
+                </ul>
+                <button class="cta-button">Book Now</button>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="svc-gallery-section">
-      <h2>Family Collection <em style="font-style:italic;color:var(--gold)">Gallery</em></h2>
-      <p>Real families, real moments. Beautiful, warm, and full of life.</p>
-      <div class="svc-gallery-grid">
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#8a9e8c 0%,#6a7e6c 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#e8d5c4 0%,#c8b5a4 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#b89a6a 0%,#987850 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#c8bfb0 0%,#a8a090 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#5a6e5c 0%,#3a4e3c 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#d4b483 0%,#b49463 100%)"></div></div>
-      </div>
-    </div>
-    <div class="svc-faq">
-      <div class="svc-faq-inner">
-        <h2>Frequently Asked <em style="font-style:italic;color:var(--gold)">Questions</em></h2>
-        <div class="faq-item"><div class="faq-q">What if my kids won't cooperate?</div><div class="faq-a">This happens more often than you'd think &mdash; and it's totally fine. We're experts at working with children of all ages. The candid, in-between moments often become the most treasured images.</div></div>
-        <div class="faq-item"><div class="faq-q">Can we include pets?</div><div class="faq-a">Absolutely! Pets are family. Just let us know in advance so we can plan the session flow accordingly.</div></div>
-        <div class="faq-item"><div class="faq-q">What's the best time of day?</div><div class="faq-a">We strongly recommend golden hour &mdash; about 1-2 hours before sunset. The light is warm, soft, and magical, and it makes every family look their best.</div></div>
-        <div class="faq-item"><div class="faq-q">Is the 11x14 print included automatically?</div><div class="faq-a">Yes! After gallery delivery, we'll reach out to help you select your favorite image for your complimentary 11x14 archival print.</div></div>
-      </div>
-    </div>
-    <div class="svc-related">
-      <h2>You Might Also Love</h2>
-      <div class="svc-related-grid">
-        <a href="#" class="svc-related-card" onclick="showPage('svc-mini');return false;"><div class="svc-related-num">01</div><div class="svc-related-name">Mini Session</div><div class="svc-related-price">Starting at $295</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)"><span>&copy; 2025 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a></div>
-</div>
-
-
-<!-- SVC 04: WEDDING DAY -->
-<div class="page" id="page-svc-wedding">
-  <div class="svc-hero">
-    <div class="svc-hero-bg" style="background:linear-gradient(135deg,#0d0b08 0%,#1e1a17 50%,#2d2018 100%)"></div>
-    <div class="svc-hero-overlay"></div>
-    <div class="svc-hero-content">
-      <a href="#" class="svc-back" onclick="showPage('home');return false;">&#8592; Back to Services</a>
-      <div class="svc-hero-num">04</div>
-      <h1 class="svc-hero-title">Wedding <em>Day</em></h1>
-      <div class="svc-hero-price">Starting at $3,200</div>
-    </div>
-  </div>
-  <div style="background:var(--warm-white)">
-    <div class="svc-body">
-      <div class="svc-details">
-        <h2>Your entire day, beautifully told</h2>
-        <p>Your wedding day is one of the most significant of your life &mdash; a full story unfolding from the quiet morning moments through to the last song of the night. We're there for all of it.</p>
-        <p>Our documentary approach means we blend seamlessly into your day, capturing the laughter, the tears, the stolen glances, and the grand gestures as they naturally unfold. No forced poses, no stiff lineups &mdash; just real moments, beautifully lit.</p>
-        <p>With two photographers on site, nothing gets missed. Your engagement session is included so you're completely comfortable with us before the big day.</p>
-        <div class="svc-includes-title">What's Included</div>
-        <ul class="svc-includes-list">
-          <li>8-10 hours of full-day coverage</li>
-          <li>Two professional photographers</li>
-          <li>Engagement session included</li>
-          <li>300+ hand-edited digital images</li>
-          <li>Online slideshow within 48 hours</li>
-          <li>Private gallery within 6 weeks</li>
-          <li>Heirloom album option available</li>
-          <li>Full commercial print release</li>
-        </ul>
-      </div>
-      <div>
-        <div class="svc-booking">
-          <h3>Book Your Wedding Coverage</h3>
-          <p>Most wedding dates book 12-18 months in advance. Reach out early to secure yours.</p>
-          <div class="price-big">$3,200 <span>/ full day</span></div>
-          <a href="/cdn-cgi/l/email-protection#febc928b9b999b938e8c91be99939f9792d09d9193c18d8b9c949b9d8ac3a99b9a9a979099deae96918a91998c9f8e9687deb7908f8b978c87" class="btn-book-now">Book Now</a>
-          <button class="btn-chat-us" onclick="toggleChat()">Chat With Us</button>
+        
+        <div class="footer-note">
+            <p>✨ All packages include professional editing, color correction, and cloud storage backup</p>
+            <p style="margin-top: 10px;">📧 Contact us for custom packages and seasonal discounts</p>
+            <p style="margin-top: 10px; font-weight: 600; font-size: 18px;">BLUEGEMPRO@GMAIL.COM | (754) 265-1802</p>
         </div>
-      </div>
     </div>
-    <div class="svc-gallery-section">
-      <h2>Wedding Day <em style="font-style:italic;color:var(--gold)">Gallery</em></h2>
-      <p>From first look to final dance &mdash; every chapter of your story, beautifully documented.</p>
-      <div class="svc-gallery-grid">
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#1e1a17 0%,#0d0b08 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#d4b483 0%,#b89a6a 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#e8d5c4 0%,#d4c0a8 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#3b3028 0%,#2a2018 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#c8bfb0 0%,#a8a090 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#b89a6a 0%,#987850 100%)"></div></div>
-      </div>
-    </div>
-    <div class="svc-faq">
-      <div class="svc-faq-inner">
-        <h2>Frequently Asked <em style="font-style:italic;color:var(--gold)">Questions</em></h2>
-        <div class="faq-item"><div class="faq-q">Do you travel for destination weddings?</div><div class="faq-a">Absolutely. We love destination weddings and travel both domestically and internationally. Travel fees vary by location &mdash; contact us for a custom quote.</div></div>
-        <div class="faq-item"><div class="faq-q">What's the heirloom album process?</div><div class="faq-a">After gallery delivery, we'll design a custom lay-flat album for your review. Albums start at $895 and are fully customizable in size, cover, and layout.</div></div>
-        <div class="faq-item"><div class="faq-q">Do you work with a second photographer?</div><div class="faq-a">Yes, all wedding packages include two photographers. This ensures we capture both perspectives simultaneously &mdash; no moment goes undocumented.</div></div>
-        <div class="faq-item"><div class="faq-q">What's the booking retainer?</div><div class="faq-a">A 30% retainer and signed contract are required to secure your date. The balance is due 30 days before your wedding.</div></div>
-      </div>
-    </div>
-    <div class="svc-related">
-      <h2>You Might Also Love</h2>
-      <div class="svc-related-grid">
-        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $750</div></a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)"><span>&copy; 2025 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a></div>
-</div>
-
-<!-- SVC 05: COMMERCIAL & BRAND -->
-<div class="page" id="page-svc-commercial">
-  <div class="svc-hero">
-    <div class="svc-hero-bg" style="background:linear-gradient(135deg,#1a1a2e 0%,#2a2a3e 50%,#3b3028 100%)"></div>
-    <div class="svc-hero-overlay"></div>
-    <div class="svc-hero-content">
-      <a href="#" class="svc-back" onclick="showPage('home');return false;">&#8592; Back to Services</a>
-      <div class="svc-hero-num">05</div>
-      <h1 class="svc-hero-title">Commercial <em>&amp; Brand</em></h1>
-      <div class="svc-hero-price">Starting at $1,400</div>
-    </div>
-  </div>
-  <div style="background:var(--warm-white)">
-    <div class="svc-body">
-      <div class="svc-details">
-        <h2>Visuals that work as hard as you do</h2>
-        <p>Your brand is your story &mdash; and the right imagery makes people stop scrolling and start paying attention. Our Commercial & Brand sessions are strategic, intentional, and designed to convert.</p>
-        <p>We work with small businesses, entrepreneurs, product brands, and personal brands to create cohesive visual libraries that elevate websites, social feeds, pitch decks, and marketing campaigns.</p>
-        <p>Every shoot begins with a mood board consultation so we're aligned before we ever pick up a camera. You leave with 80+ polished images and a full commercial license to use them anywhere.</p>
-        <div class="svc-includes-title">What's Included</div>
-        <ul class="svc-includes-list">
-          <li>4-hour half-day shoot</li>
-          <li>Pre-shoot mood board consultation</li>
-          <li>Product, team, or lifestyle coverage</li>
-          <li>80+ hand-edited final images</li>
-          <li>Full commercial license</li>
-          <li>Private gallery delivery within 1 week</li>
-          <li>Multiple format exports (web + print)</li>
-        </ul>
-      </div>
-      <div>
-        <div class="svc-booking">
-          <h3>Book Your Brand Shoot</h3>
-          <p>Investing in professional imagery is one of the highest-ROI decisions your brand can make.</p>
-          <div class="price-big">$1,400 <span>/ half day</span></div>
-          <a href="/cdn-cgi/l/email-protection#5a18362f3f3d3f372a28351a3d373b33367439353765292f38303f392e67193537373f2839333b367a18283b343e7a093235352e7a13342b2f332823" class="btn-book-now">Book Now</a>
-          <button class="btn-chat-us" onclick="toggleChat()">Chat With Us</button>
-        </div>
-      </div>
-    </div>
-    <div class="svc-gallery-section">
-      <h2>Commercial &amp; Brand <em style="font-style:italic;color:var(--gold)">Gallery</em></h2>
-      <p>Clean, strategic, and unmistakably on-brand. Imagery built to convert.</p>
-      <div class="svc-gallery-grid">
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#2a2a3e 0%,#1a1a2e 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#b89a6a 0%,#987850 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#c8bfb0 0%,#a8a090 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#3b3028 0%,#1e1a17 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#d4b483 0%,#b49463 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#e8d5c4 0%,#c8b0a0 100%)"></div></div>
-      </div>
-    </div>
-    <div class="svc-faq">
-      <div class="svc-faq-inner">
-        <h2>Frequently Asked <em style="font-style:italic;color:var(--gold)">Questions</em></h2>
-        <div class="faq-item"><div class="faq-q">Do you shoot product photography?</div><div class="faq-a">Yes! We cover product, lifestyle, team portraits, behind-the-scenes, and environmental brand imagery &mdash; often in a single session.</div></div>
-        <div class="faq-item"><div class="faq-q">What does the commercial license cover?</div><div class="faq-a">Your license covers unlimited use across all channels &mdash; website, social media, print marketing, advertising, and press materials. No usage caps or expiration.</div></div>
-        <div class="faq-item"><div class="faq-q">Can we shoot at our business location?</div><div class="faq-a">Absolutely. We regularly shoot on-location at offices, studios, storefronts, and venues. We'll scout the space beforehand to maximize light and composition.</div></div>
-        <div class="faq-item"><div class="faq-q">Do you offer full-day rates?</div><div class="faq-a">Yes, full-day commercial rates start at $2,400 and include up to 8 hours of coverage and 150+ final images.</div></div>
-      </div>
-    </div>
-    <div class="svc-related">
-      <h2>You Might Also Love</h2>
-      <div class="svc-related-grid">
-        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-mini');return false;"><div class="svc-related-num">01</div><div class="svc-related-name">Mini Session</div><div class="svc-related-price">Starting at $295</div></a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)"><span>&copy; 2025 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a></div>
-</div>
-
-<!-- SVC 06: DESTINATION SESSION -->
-<div class="page" id="page-svc-destination">
-  <div class="svc-hero">
-    <div class="svc-hero-bg" style="background:linear-gradient(135deg,#1a2a2a 0%,#2a3a3a 50%,#3a4a3a 100%)"></div>
-    <div class="svc-hero-overlay"></div>
-    <div class="svc-hero-content">
-      <a href="#" class="svc-back" onclick="showPage('home');return false;">&#8592; Back to Services</a>
-      <div class="svc-hero-num">06</div>
-      <h1 class="svc-hero-title">Destination <em>Session</em></h1>
-      <div class="svc-hero-price">Starting at $2,000 + travel</div>
-    </div>
-  </div>
-  <div style="background:var(--warm-white)">
-    <div class="svc-body">
-      <div class="svc-details">
-        <h2>Wherever your story takes you</h2>
-        <p>Some of the most breathtaking images happen far from home &mdash; on cliff edges in Santorini, in lavender fields in Provence, on quiet beaches in Tulum, or in the heart of a city you've always dreamed of visiting.</p>
-        <p>Our Destination Session is perfect for elopements, anniversary getaways, honeymoon portraits, or any moment you want to commemorate somewhere extraordinary. We collaborate with you on every detail of the itinerary to maximize light and location.</p>
-        <p>You walk away with 80+ golden-hour images from a location you'll remember forever &mdash; and images worthy of the wall they'll hang on.</p>
-        <div class="svc-includes-title">What's Included</div>
-        <ul class="svc-includes-list">
-          <li>3-hour golden-hour session</li>
-          <li>Any worldwide location</li>
-          <li>Full travel itinerary collaboration</li>
-          <li>80+ hand-edited digital images</li>
-          <li>Private gallery within 2 weeks</li>
-          <li>Full print release</li>
-          <li>Rush delivery option available</li>
-        </ul>
-      </div>
-      <div>
-        <div class="svc-booking">
-          <h3>Plan Your Destination Session</h3>
-          <p>Tell us where you're dreaming of and let's make it happen.</p>
-          <div class="price-big">$2,000 <span>+ travel</span></div>
-          <a href="/cdn-cgi/l/email-protection#8ccee0f9e9ebe9e1fcfee3ccebe1ede5e0a2efe3e1b3fff9eee6e9eff8b1c8e9fff8e5e2edf8e5e3e2acdfe9ffffe5e3e2acc5e2fdf9e5fef5" class="btn-book-now">Book Now</a>
-          <button class="btn-chat-us" onclick="toggleChat()">Chat With Us</button>
-        </div>
-      </div>
-    </div>
-    <div class="svc-gallery-section">
-      <h2>Destination Session <em style="font-style:italic;color:var(--gold)">Gallery</em></h2>
-      <p>Golden hour around the world. Extraordinary places, extraordinary images.</p>
-      <div class="svc-gallery-grid">
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#1a2a2a 0%,#0a1a1a 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#d4b483 0%,#e8c870 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#3a4a3a 0%,#2a3a2a 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#b89a6a 0%,#d4b060 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#c8bfb0 0%,#e0d0c0 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#2a3a3a 0%,#1a2a2a 100%)"></div></div>
-      </div>
-    </div>
-    <div class="svc-faq">
-      <div class="svc-faq-inner">
-        <h2>Frequently Asked <em style="font-style:italic;color:var(--gold)">Questions</em></h2>
-        <div class="faq-item"><div class="faq-q">How are travel costs calculated?</div><div class="faq-a">Travel fees cover flights, accommodations, and ground transport at cost. We're transparent about all travel expenses before you commit to booking.</div></div>
-        <div class="faq-item"><div class="faq-q">Can this be used for an elopement?</div><div class="faq-a">Absolutely &mdash; many of our destination sessions are intimate elopements. We help coordinate timing around permits, golden hour, and ceremony logistics.</div></div>
-        <div class="faq-item"><div class="faq-q">Do you know good local spots?</div><div class="faq-a">We've shot across Europe, the Caribbean, Mexico, and throughout the US. For new destinations, we research thoroughly and often partner with local guides.</div></div>
-        <div class="faq-item"><div class="faq-q">What if the weather doesn't cooperate?</div><div class="faq-a">We always build a backup plan. Moody weather often produces the most dramatic images &mdash; and we'll work with whatever conditions we're given to create something extraordinary.</div></div>
-      </div>
-    </div>
-    <div class="svc-related">
-      <h2>You Might Also Love</h2>
-      <div class="svc-related-grid">
-        <a href="#" class="svc-related-card" onclick="showPage('svc-wedding');return false;"><div class="svc-related-num">04</div><div class="svc-related-name">Wedding Day</div><div class="svc-related-price">Starting at $3,200</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $750</div></a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)"><span>&copy; 2025 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a></div>
-</div>
-
-
-<!-- GALLERY PAGE -->
-<div class="page" id="page-gallery">
-  <div class="gallery-page">
-    <div class="gallery-hero">
-      <p class="section-label" style="color:var(--gold-lt)">Client Galleries</p>
-      <h1>Client <em style="font-style:italic;color:var(--gold-lt)">Galleries</em></h1>
-      <p>Browse your session photos, purchase downloads, or order professional prints.</p>
-    </div>
-    <div class="gallery-tabs">
-      <button class="gallery-tab active" id="tab-btn-galleries" onclick="switchTab('galleries',this)">All Galleries</button>
-      <button class="gallery-tab" id="tab-btn-admin" onclick="switchTab('admin',this)">&#128274; Admin</button>
-    </div>
-
-    <!-- ALL GALLERIES TAB -->
-    <div id="tab-galleries">
-      <div class="gallery-section">
-        <h2>Active Client Galleries</h2>
-        <div class="galleries-grid" id="galleriesGrid">
-          <!-- Galleries rendered by JS -->
-        </div>
-      </div>
-    </div>
-
-    <!-- ADMIN TAB -->
-    <div id="tab-admin" style="display:none">
-      <div class="upload-section">
-        <h2>Add New Gallery</h2>
-        <p>Enter your Cloudinary folder name and the site will automatically fetch and display all photos from that folder. No individual URLs needed.</p>
-        <div class="upload-row">
-          <div class="gallery-form-col" style="flex:2">
-            <div class="form-field"><label>Gallery Name *</label><input type="text" id="galleryName" placeholder="e.g. DeAnna May - Vogue Session"></div>
-            <div class="form-field"><label>Cloudinary Folder Name * <span style="color:var(--taupe);font-size:.7rem;letter-spacing:0;text-transform:none">(exact name from your Media Library)</span></label><input type="text" id="cloudinaryFolder" placeholder="e.g. VOGUE MODEL-DeAnna May"></div>
-            <div class="form-field"><label>Session Date</label><input type="date" id="galleryDate"></div>
-            <div class="form-field"><label>Client Email</label><input type="email" id="clientEmail" placeholder="client@email.com"></div>
-            <div class="form-field"><label>Gallery Password</label><input type="text" id="galleryPassword" placeholder="Create a client password"></div>
-            <div class="form-field">
-              <label>Gallery Expiry</label>
-              <select id="galleryExpiry">
-                <option value="30">30 days</option>
-                <option value="60" selected>60 days</option>
-                <option value="90">90 days</option>
-                <option value="180">6 months</option>
-                <option value="365">1 year</option>
-                <option value="0">Never expires</option>
-              </select>
-            </div>
-            <div class="form-field"><label>Full Gallery Download Price</label><input type="text" id="galleryPrice" placeholder="e.g. $285"></div>
-            <div class="form-field"><label>Single Photo Price</label><input type="text" id="singlePrice" placeholder="e.g. $18"></div>
-            <button class="btn-upload" onclick="publishCloudinaryGallery()">&#9889; Publish Gallery &rarr;</button>
-          </div>
-          <div style="flex:1;min-width:240px;background:var(--espresso);padding:1.8rem;align-self:start">
-            <p style="color:var(--gold-lt);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1rem">How It Works</p>
-            <p style="color:var(--stone);font-size:.78rem;line-height:1.8;margin-bottom:.8rem">1. Upload your photos into a folder in Cloudinary</p>
-            <p style="color:var(--stone);font-size:.78rem;line-height:1.8;margin-bottom:.8rem">2. Enter the exact folder name above</p>
-            <p style="color:var(--stone);font-size:.78rem;line-height:1.8;margin-bottom:.8rem">3. Hit Publish — all photos load automatically</p>
-            <p style="color:var(--stone);font-size:.78rem;line-height:1.8;margin-bottom:.8rem">4. Add more photos to the folder anytime — they appear instantly</p>
-            <p style="color:var(--taupe);font-size:.72rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid rgba(200,191,176,.15)">Cloud Name: <strong style="color:var(--gold-lt)">dfqouxke9</strong></p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)">
-      <span>&copy; 2025 Rogelio Small Photography</span>
-      <a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a>
-    </div>
-  </div>
-</div>
-
-<!-- BOOKING PAGE -->
-<div class="page" id="page-booking">
-  <div class="booking-page">
-    <div class="booking-hero">
-      <p class="section-label" style="color:var(--gold-lt)">Reserve Your Session</p>
-      <h1>Book <em style="font-style:italic;color:var(--gold-lt)">Your Session</em></h1>
-      <p>Fill out the form below to reserve your date and submit your deposit. Rogelio will confirm within 24 hours.</p>
-    </div>
-
-    <div id="booking-form-wrap">
-      <div class="booking-body">
-        <div class="booking-form-col">
-          <h2>Session Details</h2>
-          <p>All starred fields are required. Your deposit secures your date on the calendar.</p>
-          <div class="booking-form">
-            <div class="bf-row">
-              <div class="bf-field"><label>Full Name *</label><input type="text" id="bf-name" placeholder="Jane Smith"></div>
-              <div class="bf-field"><label>Email Address *</label><input type="email" id="bf-email" placeholder="jane@email.com"></div>
-            </div>
-            <div class="bf-row">
-              <div class="bf-field"><label>Phone Number</label><input type="tel" id="bf-phone" placeholder="+1 (555) 000-0000"></div>
-              <div class="bf-field"><label>Preferred Session Date *</label><input type="date" id="bf-date" onchange="updateBookingSummary()"></div>
-            </div>
-            <div class="bf-field">
-              <label>Service *</label>
-              <select id="bf-service" onchange="updateBookingSummary()">
-                <option value="">- Select a service -</option>
-                <option value="Mini Session">Mini Session - $295</option>
-                <option value="Portrait Session">Portrait Session - $550</option>
-                <option value="Family Collection">Family Collection - $750</option>
-                <option value="Wedding Day">Wedding Day - $3,200</option>
-                <option value="Commercial & Brand">Commercial &amp; Brand - $1,400</option>
-                <option value="Destination Session">Destination Session - $2,000+</option>
-              </select>
-            </div>
-            <div class="bf-field">
-              <label>Deposit Amount</label>
-              <div class="deposit-options">
-                <button class="deposit-btn selected" id="deposit-half" onclick="selectDeposit('half')">
-                  <span class="db-label">50% Deposit</span>
-                  <span class="db-amount" id="half-amt">$0</span>
-                  <span class="db-desc">Balance due 30 days before session</span>
-                </button>
-                <button class="deposit-btn" id="deposit-full" onclick="selectDeposit('full')">
-                  <span class="db-label">Full Payment</span>
-                  <span class="db-amount" id="full-amt">$0</span>
-                  <span class="db-desc">Paid in full, no balance due</span>
-                </button>
-              </div>
-            </div>
-            <div class="bf-field"><label>Session Location / Venue</label><input type="text" id="bf-location" placeholder="e.g. Waterfront Park, Downtown Charleston"></div>
-            <div class="bf-field">
-              <label>Tell Me About Your Vision</label>
-              <textarea id="bf-notes" rows="5" placeholder="Share any ideas, inspiration, special requests, or details about your session. The more you tell me, the better I can prepare!"></textarea>
-            </div>
-            <div class="bf-field">
-              <label>How Did You Hear About Us?</label>
-              <select id="bf-referral">
-                <option value="">- Select one -</option>
-                <option>Instagram</option>
-                <option>Google Search</option>
-                <option>Friend or Family Referral</option>
-                <option>Pinterest</option>
-                <option>Wedding Planner</option>
-                <option>Returning Client</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <button class="btn-submit-booking" onclick="submitBooking()">Submit Booking Request &amp; Pay Deposit</button>
-            <p style="font-size:.72rem;color:var(--taupe);text-align:center">By submitting, you will be redirected to complete payment via email. Your date is held for 48 hours pending deposit.</p>
-          </div>
-        </div>
-
-        <div class="booking-summary">
-          <h3>Booking Summary</h3>
-          <div class="bs-service" id="bs-service-name">Select a service</div>
-          <div style="margin-top:1.2rem">
-            <div class="bs-price-row"><span>Full session price</span><span id="bs-full-price">-</span></div>
-            <div class="bs-price-row"><span id="bs-deposit-type">50% Deposit</span><span id="bs-due">-</span></div>
-          </div>
-          <div class="bs-total"><span>Due Today</span><span id="bs-due-total">$0</span></div>
-          <p class="bs-note">&#128274; Your booking is confirmed once Rogelio reviews your request and deposit is received. You will get a confirmation email within 24 hours.</p>
-          <p class="bs-note" style="margin-top:.8rem">Questions? <a href="#" onclick="toggleChat();return false;" style="color:var(--gold-lt)">Chat with us</a> or email <span style="color:var(--stone)"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f3d130a1a181a120f0d103f18121e1613511c1012">[email&#160;protected]</a></span></p>
-        </div>
-      </div>
-    </div>
-
-    <div class="booking-success" id="booking-success">
-      <p style="font-size:3rem;margin-bottom:1rem">&#127775;</p>
-      <h2>Booking Request Sent!</h2>
-      <p>Thank you! Rogelio has received your request and will be in touch within 24 hours to confirm your date and finalize payment details.</p>
-      <a href="#" onclick="showPage('home');return false;" class="btn-primary" style="display:inline-block;margin-top:1rem">Back to Home</a>
-    </div>
-
-    <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)">
-      <span>&copy; 2025 Rogelio Small Photography</span>
-      <a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a>
-    </div>
-  </div>
-</div>
-
-<!-- SCHEDULING PAGE -->
-<div class="page" id="page-scheduling">
-  <div class="sched-page">
-
-    <div class="sched-hero">
-      <p class="section-label">Schedule Your Session</p>
-      <h1>Book &amp; <em>Pay Online</em></h1>
-      <p>Choose your service, pick your date, and secure your session with a deposit — all in one place.</p>
-    </div>
-
-    <!-- Step indicator tabs -->
-    <div class="sched-steps">
-      <div class="sched-step-tab active"><span class="step-circle">1</span>Service</div>
-      <div class="sched-step-tab"><span class="step-circle">2</span>Date &amp; Time</div>
-      <div class="sched-step-tab"><span class="step-circle">3</span>Your Details</div>
-      <div class="sched-step-tab"><span class="step-circle">4</span>Payment</div>
-    </div>
-
-    <div id="sched-main">
-      <div class="sched-body">
-        <div class="sched-layout">
-
-          <!-- LEFT: step panels -->
-          <div>
-
-            <!-- STEP 1: Service -->
-            <div class="sched-panel active" id="sched-panel-1">
-              <div class="sched-panel-title">Choose your service</div>
-              <p class="sched-panel-sub">Select the session type that best fits what you have in mind. Hourly services let you choose your duration in the next step.</p>
-              <div class="sched-service-grid" id="schedServiceGrid"></div>
-
-              <!-- Hours selector (shown for hourly services) -->
-              <div id="schedHoursWrap" style="display:none;margin-top:2rem;">
-                <div class="sched-field">
-                  <label>Number of Hours</label>
-                  <div class="hours-grid">
-                    <button class="hour-btn" data-h="1" onclick="selectHours(1)">1<small>hr</small></button>
-                    <button class="hour-btn" data-h="2" onclick="selectHours(2)">2<small>hrs</small></button>
-                    <button class="hour-btn" data-h="3" onclick="selectHours(3)">3<small>hrs</small></button>
-                    <button class="hour-btn" data-h="4" onclick="selectHours(4)">4<small>hrs</small></button>
-                    <button class="hour-btn" data-h="5" onclick="selectHours(5)">5<small>hrs</small></button>
-                    <button class="hour-btn" data-h="6" onclick="selectHours(6)">6<small>hrs</small></button>
-                    <button class="hour-btn" data-h="7" onclick="selectHours(7)">7<small>hrs</small></button>
-                    <button class="hour-btn" data-h="8" onclick="selectHours(8)">8<small>hrs</small></button>
-                    <button class="hour-btn" data-h="9" onclick="selectHours(9)">9<small>hrs</small></button>
-                    <button class="hour-btn" data-h="10" onclick="selectHours(10)">10<small>hrs</small></button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="sched-nav">
-                <a href="#" onclick="showPage('home');return false;" class="btn-sched-back">&#8592; Back to Site</a>
-                <button class="btn-sched-next" onclick="schedNext()">Date &amp; Time &rarr;</button>
-              </div>
-            </div>
-
-            <!-- STEP 2: Date & Time -->
-            <div class="sched-panel" id="sched-panel-2">
-              <div class="sched-panel-title">Choose your date &amp; time</div>
-              <p class="sched-panel-sub">Select your preferred session date and start time. Rogelio will confirm availability within 24 hours.</p>
-
-              <div class="sched-row">
-                <div class="sched-field">
-                  <label>Session Date *</label>
-                  <input type="date" id="sched-date" onchange="schedData.date=this.value;updateOrderSummary()">
-                </div>
-                <div class="sched-field">
-                  <label>Preferred Start Time *</label>
-                  <select id="sched-time" onchange="schedData.time=this.value;updateOrderSummary()">
-                    <option value="">-- Select a time --</option>
-                    <option>6:00 AM (Sunrise)</option>
-                    <option>7:00 AM</option>
-                    <option>8:00 AM</option>
-                    <option>9:00 AM</option>
-                    <option>10:00 AM</option>
-                    <option>11:00 AM</option>
-                    <option>12:00 PM (Noon)</option>
-                    <option>1:00 PM</option>
-                    <option>2:00 PM</option>
-                    <option>3:00 PM</option>
-                    <option>4:00 PM</option>
-                    <option>5:00 PM (Golden Hour)</option>
-                    <option>6:00 PM (Golden Hour)</option>
-                    <option>7:00 PM (Sunset)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="sched-field">
-                <label>Session Location / Venue</label>
-                <input type="text" id="sched-location-step2" placeholder="e.g. Waterfront Park, Downtown Charleston or TBD">
-              </div>
-
-              <div style="background:var(--blush);padding:1rem 1.2rem;border-left:3px solid var(--gold);margin-top:.5rem;">
-                <p style="font-size:.78rem;color:var(--espresso);line-height:1.7;">&#127774; <strong>Golden hour sessions</strong> (5–7 PM) are our most popular time slot and produce the warmest, most flattering light. We highly recommend booking around sunset!</p>
-              </div>
-
-              <div class="sched-nav">
-                <button class="btn-sched-back" onclick="schedBack()">&#8592; Back</button>
-                <button class="btn-sched-next" onclick="schedNext()">Your Details &rarr;</button>
-              </div>
-            </div>
-
-            <!-- STEP 3: Client Details -->
-            <div class="sched-panel" id="sched-panel-3">
-              <div class="sched-panel-title">Your details</div>
-              <p class="sched-panel-sub">Tell us a little about yourself and your vision for the session.</p>
-
-              <div class="sched-row">
-                <div class="sched-field">
-                  <label>Full Name *</label>
-                  <input type="text" id="sched-name" placeholder="Jane Smith">
-                </div>
-                <div class="sched-field">
-                  <label>Email Address *</label>
-                  <input type="email" id="sched-email" placeholder="jane@email.com">
-                </div>
-              </div>
-
-              <div class="sched-row">
-                <div class="sched-field">
-                  <label>Phone Number</label>
-                  <input type="tel" id="sched-phone" placeholder="+1 (555) 000-0000">
-                </div>
-                <div class="sched-field">
-                  <label>Session Location</label>
-                  <input type="text" id="sched-location" placeholder="e.g. Folly Beach, Charleston">
-                </div>
-              </div>
-
-              <div class="sched-field">
-                <label>Tell Me About Your Vision</label>
-                <textarea id="sched-notes" rows="4" placeholder="Share ideas, inspiration, outfit plans, special requests, or anything else that will help Rogelio prepare for your perfect session..."></textarea>
-              </div>
-
-              <div class="sched-field">
-                <label>How Did You Hear About Us?</label>
-                <select id="sched-referral">
-                  <option value="">-- Select one --</option>
-                  <option>Instagram</option>
-                  <option>Google Search</option>
-                  <option>Friend or Family Referral</option>
-                  <option>Pinterest</option>
-                  <option>Wedding Planner</option>
-                  <option>Returning Client</option>
-                  <option>Other</option>
-                </select>
-              </div>
-
-              <div class="sched-nav">
-                <button class="btn-sched-back" onclick="schedBack()">&#8592; Back</button>
-                <button class="btn-sched-next" onclick="schedNext()">Payment &rarr;</button>
-              </div>
-            </div>
-
-            <!-- STEP 4: Payment -->
-            <div class="sched-panel" id="sched-panel-4">
-              <div class="sched-panel-title">Choose your payment</div>
-              <p class="sched-panel-sub">Select a deposit option to secure your date. Your booking is confirmed once Rogelio reviews and accepts your request.</p>
-
-              <div class="payment-opts">
-                <button class="payment-card selected" id="pay-half" onclick="selectSchedPayment('half')">
-                  <span class="pc-label">50% Deposit</span>
-                  <span class="pc-amount" id="pc-half-amt">$0</span>
-                  <span class="pc-desc">Pay half now to lock in your date. Balance due 30 days before your session.</span>
-                </button>
-                <button class="payment-card" id="pay-full" onclick="selectSchedPayment('full')">
-                  <span class="pc-label">Full Payment</span>
-                  <span class="pc-amount" id="pc-full-amt">$0</span>
-                  <span class="pc-desc">Pay in full today. No balance due before your session.</span>
-                </button>
-              </div>
-
-              <div class="card-fields">
-                <h4>&#128274; Payment Information</h4>
-                <p style="font-size:.78rem;color:var(--taupe);margin-bottom:1.2rem;line-height:1.7;">Your booking request and payment details will be sent securely to Rogelio, who will send a payment link via email to complete your transaction. No card info is stored on this site.</p>
-                <div class="sched-row">
-                  <div class="sched-field">
-                    <label>Cardholder Name</label>
-                    <input type="text" placeholder="Jane Smith">
-                  </div>
-                  <div class="sched-field">
-                    <label>Billing Zip Code</label>
-                    <input type="text" placeholder="29401" maxlength="10">
-                  </div>
-                </div>
-              </div>
-
-              <div style="background:var(--blush);padding:1rem 1.2rem;border-left:3px solid var(--gold);margin-bottom:1.5rem;">
-                <p style="font-size:.78rem;color:var(--espresso);line-height:1.7;">&#9432; After submitting, Rogelio will review your request and send a secure payment link to your email within 24 hours. Your date is held for 48 hours pending deposit.</p>
-              </div>
-
-              <div class="sched-nav">
-                <button class="btn-sched-back" onclick="schedBack()">&#8592; Back</button>
-                <button class="btn-sched-next" onclick="submitScheduling()" style="background:var(--gold);padding:.9rem 2rem;">&#10003; Confirm &amp; Submit Booking</button>
-              </div>
-            </div>
-
-          </div><!-- end left col -->
-
-          <!-- RIGHT: Order summary -->
-          <div class="order-summary">
-            <h3>Order Summary</h3>
-            <div id="orderSummaryRows">
-              <div class="os-empty">Select a service to see your summary</div>
-            </div>
-            <div class="os-total">
-              <span>Due Today</span>
-              <span id="orderDueTotal">$0</span>
-            </div>
-            <p class="os-note">&#128274; Secure booking. Your date is held for 48 hours. Rogelio will confirm within 24 hours.</p>
-          </div>
-
-        </div><!-- end sched-layout -->
-      </div><!-- end sched-body -->
-    </div><!-- end sched-main -->
-
-    <!-- Success screen -->
-    <div class="sched-success" id="sched-success">
-      <p style="font-size:3.5rem;margin-bottom:1.2rem">&#127775;</p>
-      <h2>You're All Set, <span id="sched-success-name">Friend</span>!</h2>
-      <p>Your session request for <strong id="sched-success-date"></strong> has been received. Rogelio will send a secure payment link for <strong id="sched-success-due"></strong> to your email within 24 hours to confirm your booking.</p>
-      <p style="margin-top:.5rem">Questions? Email <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="054769706062606875776a456268646c692b666a68">[email&#160;protected]</a></strong> or use the chat below.</p>
-      <a href="#" onclick="showPage('home');return false;" class="btn-primary" style="display:inline-block;margin-top:2rem">&#8592; Back to Home</a>
-    </div>
-
-    <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)">
-      <span>&copy; 2025 Rogelio Small Photography</span>
-      <a href="#" onclick="showPage('home');return false;" style="color:var(--stone);te
+</body>
+</html>

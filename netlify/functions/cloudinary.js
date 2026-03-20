@@ -36,18 +36,17 @@ exports.handler = async function(event, context) {
 
   const auth = Buffer.from(apiKey + ':' + apiSecret).toString('base64');
 
-  // Use the folder API endpoint directly instead of prefix search
-  // This is more reliable for folders with spaces and special characters
-  const folderPath = '/v1_1/' + cloudName + '/resources/image?type=upload&prefix=' + folder + '/&max_results=500';
+  // Properly encode the folder name including spaces and special characters
+  const encodedPrefix = encodeURIComponent(folder + '/');
+  const apiPath = '/v1_1/' + cloudName + '/resources/image?type=upload&prefix=' + encodedPrefix + '&max_results=500';
 
   return new Promise(function(resolve){
     const options = {
       hostname: 'api.cloudinary.com',
-      path: folderPath,
+      path: apiPath,
       method: 'GET',
       headers: {
-        'Authorization': 'Basic ' + auth,
-        'Content-Type': 'application/json'
+        'Authorization': 'Basic ' + auth
       }
     };
 
@@ -57,22 +56,14 @@ exports.handler = async function(event, context) {
       res.on('end', function(){
         try {
           const parsed = JSON.parse(data);
-
-          // Log for debugging
-          console.log('Cloudinary response status:', res.statusCode);
-          console.log('Total resources found:', (parsed.resources || []).length);
-          console.log('Raw response preview:', data.substring(0, 500));
-
           const photos = (parsed.resources || []).map(function(r){
             return {
               public_id: r.public_id,
-              url:   'https://res.cloudinary.com/' + cloudName + '/image/upload/' + r.public_id,
               thumb: 'https://res.cloudinary.com/' + cloudName + '/image/upload/w_400,h_400,c_fill,q_auto,f_auto/' + r.public_id,
               small: 'https://res.cloudinary.com/' + cloudName + '/image/upload/w_800,q_auto,f_auto/' + r.public_id,
               full:  'https://res.cloudinary.com/' + cloudName + '/image/upload/q_auto,f_auto/' + r.public_id
             };
           });
-
           resolve({
             statusCode: 200,
             headers: headers,
@@ -80,18 +71,15 @@ exports.handler = async function(event, context) {
               photos: photos,
               count: photos.length,
               folder: folder,
-              debug: {
-                raw_count: (parsed.resources || []).length,
-                status: res.statusCode,
-                error: parsed.error || null
-              }
+              debug_status: res.statusCode,
+              debug_error: parsed.error || null
             })
           });
         } catch(e){
           resolve({
             statusCode: 500,
             headers: headers,
-            body: JSON.stringify({ error: 'Parse error', detail: data.substring(0, 1000) })
+            body: JSON.stringify({ error: 'Parse error', detail: data.substring(0,500) })
           });
         }
       });

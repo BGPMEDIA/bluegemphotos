@@ -327,6 +327,20 @@ footer{background:var(--charcoal);padding:4rem;color:var(--stone);display:grid;g
 .chat-input-row input{flex:1;padding:.8rem 1rem;border:none;background:var(--warm-white);color:var(--espresso);font-family:'Jost',sans-serif;font-size:.82rem;outline:none;}
 .chat-send{padding:0 1rem;background:var(--gold);border:none;color:var(--charcoal);font-size:1rem;transition:background .25s;}
 .chat-send:hover{background:var(--gold-lt);}
+.lightbox{display:none;position:fixed;inset:0;z-index:290;background:rgba(10,8,6,.96);align-items:center;justify-content:center;flex-direction:column;}
+.lightbox.open{display:flex;}
+.lightbox-img-wrap{position:relative;max-width:90vw;max-height:78vh;display:flex;align-items:center;justify-content:center;}
+.lightbox-img-wrap img{max-width:90vw;max-height:78vh;object-fit:contain;display:block;}
+.lightbox-wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;}
+.lightbox-wm span{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-style:italic;color:rgba(255,255,255,.3);transform:rotate(-20deg);letter-spacing:.1em;white-space:nowrap;}
+.lightbox-actions{display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;justify-content:center;}
+.lightbox-close{position:fixed;top:1.5rem;right:2rem;background:none;border:none;color:var(--stone);font-size:2.5rem;z-index:10;line-height:1;}
+.lightbox-close:hover{color:var(--warm-white);}
+.lb-btn{padding:.75rem 2rem;font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;border:none;transition:all .25s;}
+.lb-btn-buy{background:var(--gold);color:var(--charcoal);}
+.lb-btn-buy:hover{background:var(--gold-lt);}
+.lb-btn-print{background:var(--espresso);color:var(--warm-white);}
+.lb-btn-print:hover{background:var(--charcoal);}
 .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--espresso);color:var(--warm-white);padding:.8rem 1.8rem;font-size:.8rem;letter-spacing:.08em;transition:transform .35s cubic-bezier(.22,1,.36,1);z-index:300;white-space:nowrap;}
 .toast.show{transform:translateX(-50%) translateY(0);}
 .uploaded-preview{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem;}
@@ -614,40 +628,65 @@ function openCloudinaryGallery(gallery, resources){
   var mp = document.getElementById('modalPhotos');
   var mi = document.getElementById('modalInfo');
   mp.innerHTML = '';
+
+  // Change grid to show full photos uncropped
+  mp.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#1e1a17;padding:6px;';
+
   resources.forEach(function(res, i){
     var d = document.createElement('div');
-    d.className = 'modal-photo';
-    var inner = document.createElement('div');
-    inner.className = 'modal-photo-inner';
-    inner.style.background = '#1e1a17';
-    // Watermarked image - load via Cloudinary with quality optimization
+    d.style.cssText = 'position:relative;overflow:hidden;background:#1e1a17;cursor:pointer;';
+
+    // Show full photo — no cropping, just fit within the cell
     var img = document.createElement('img');
-    var publicId = res.public_id;
-    img.src = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,h_400,c_fill,q_auto,f_auto/'+publicId;
-    img.style.cssText = 'width:100%;height:100%;object-fit:cover;position:absolute;inset:0;';
-    // Watermark text overlay
+    img.src = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_500,q_auto,f_auto/'+res.public_id;
+    img.style.cssText = 'width:100%;display:block;transition:transform .3s;';
+    img.onmouseover = function(){ this.style.transform='scale(1.03)'; };
+    img.onmouseout  = function(){ this.style.transform='scale(1)'; };
+
+    // Watermark overlay
     var wm = document.createElement('div');
-    wm.className = 'watermark-text';
-    wm.textContent = '\u00a9 Rogelio Small Photography';
-    // Hover overlay
+    wm.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;';
+    var wmText = document.createElement('span');
+    wmText.textContent = '\u00a9 Rogelio Small Photography';
+    wmText.style.cssText = 'font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(255,255,255,.35);transform:rotate(-20deg);text-shadow:0 1px 3px rgba(0,0,0,.5);white-space:nowrap;letter-spacing:.08em;';
+    wm.appendChild(wmText);
+
+    // Hover action buttons
     var ov = document.createElement('div');
-    ov.className = 'photo-hover-overlay';
+    ov.style.cssText = 'position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(18,14,10,.85));padding:1rem .8rem .8rem;display:flex;gap:.5rem;opacity:0;transition:opacity .25s;';
+    d.onmouseover = function(){ ov.style.opacity='1'; };
+    d.onmouseout  = function(){ ov.style.opacity='0'; };
+
     var buyBtn = document.createElement('button');
-    buyBtn.className = 'btn-buy';
-    buyBtn.textContent = 'Buy \u2014 '+(gallery.singlePrice||'$18');
-    (function(publicId, gal){ buyBtn.onclick = function(){
-      window.addToCart('Photo \u2014 '+gal.name, 'Single Digital Download \u2014 No Watermark', gal.singlePrice||'$18');
+    buyBtn.textContent = 'Buy — '+(gallery.singlePrice||'$18');
+    buyBtn.style.cssText = 'flex:1;padding:.45rem .5rem;background:var(--espresso);color:var(--warm-white);border:none;font-family:Jost,sans-serif;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;transition:background .2s;';
+    buyBtn.onmouseover = function(){ this.style.background='var(--gold)'; };
+    buyBtn.onmouseout  = function(){ this.style.background='var(--espresso)'; };
+    (function(gal){ buyBtn.onclick = function(e){
+      e.stopPropagation();
+      window.addToCart('Photo \u2014 '+gal.name,'Single Digital Download \u2014 No Watermark',gal.singlePrice||'$18');
       window.showToast('Photo added to cart');
+    }; })(gallery);
+
+    var viewBtn = document.createElement('button');
+    viewBtn.textContent = 'View Full';
+    viewBtn.style.cssText = 'padding:.45rem .6rem;background:var(--gold);color:var(--charcoal);border:none;font-family:Jost,sans-serif;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;transition:background .2s;';
+    viewBtn.onmouseover = function(){ this.style.background='var(--gold-lt)'; };
+    viewBtn.onmouseout  = function(){ this.style.background='var(--gold)'; };
+    (function(publicId, gal){ viewBtn.onclick = function(e){
+      e.stopPropagation();
+      openLightbox(publicId, gal);
     }; })(res.public_id, gallery);
-    var printBtn = document.createElement('button');
-    printBtn.textContent = 'Order Print';
-    (function(idx2, gal){ printBtn.onclick = function(){ openPrintPicker(idx2, gal.name, '#3B2F1E', '#2A2116'); }; })(i, gallery);
+
     ov.appendChild(buyBtn);
-    ov.appendChild(printBtn);
-    inner.appendChild(img);
-    inner.appendChild(wm);
-    inner.appendChild(ov);
-    d.appendChild(inner);
+    ov.appendChild(viewBtn);
+    d.appendChild(img);
+    d.appendChild(wm);
+    d.appendChild(ov);
+
+    // Click photo to open lightbox
+    (function(publicId, gal){ d.onclick = function(){ openLightbox(publicId, gal); }; })(res.public_id, gallery);
+
     mp.appendChild(d);
   });
   // Info section
@@ -802,7 +841,36 @@ window.openGallery=function(name,date,meta){
   document.getElementById('photoModal').classList.add('open');
   document.body.style.overflow='hidden';
 };
-window.closeModal=function(){document.getElementById('photoModal').classList.remove('open');document.body.style.overflow='';};
+// LIGHTBOX
+var currentLightboxGallery = null;
+var currentLightboxPublicId = null;
+window.openLightbox = function(publicId, gallery){
+  currentLightboxPublicId = publicId;
+  currentLightboxGallery = gallery;
+  var img = document.getElementById('lightboxImg');
+  // Load full size image — no cropping, high quality
+  img.src = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_1200,q_auto,f_auto/'+publicId;
+  document.getElementById('lbBuyBtn').textContent = 'Buy This Photo \u2014 '+(gallery.singlePrice||'$18');
+  document.getElementById('lbBuyBtn').onclick = function(){
+    window.addToCart('Photo \u2014 '+gallery.name,'Single Digital Download \u2014 No Watermark',gallery.singlePrice||'$18');
+    window.showToast('Photo added to cart');
+    closeLightbox();
+  };
+  document.getElementById('lbPrintBtn').onclick = function(){
+    closeLightbox();
+    openPrintPicker(0, gallery.name, '#3B2F1E', '#2A2116');
+  };
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+window.closeLightbox = function(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lightboxImg').src = '';
+  document.body.style.overflow = '';
+};
+document.getElementById('lightbox').addEventListener('click', function(e){
+  if(e.target === this) window.closeLightbox();
+});
 document.getElementById('photoModal').addEventListener('click',function(e){if(e.target===this)window.closeModal();});
 
 window.openPrintPicker=function(photoIdx,galleryName,col1,col2){
@@ -1285,6 +1353,20 @@ window.openBooking=function(preselect){
     <button class="modal-close" onclick="closeModal()">&#10005;</button>
     <div class="modal-photos" id="modalPhotos"></div>
     <div class="modal-info" id="modalInfo"></div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">&#10005;</button>
+  <div class="lightbox-img-wrap">
+    <img id="lightboxImg" src="" alt="Photo">
+    <div class="lightbox-wm"><span>&copy; Rogelio Small Photography</span></div>
+  </div>
+  <div class="lightbox-actions">
+    <button class="lb-btn lb-btn-buy" id="lbBuyBtn">Buy This Photo</button>
+    <button class="lb-btn lb-btn-print" id="lbPrintBtn">Order Print</button>
+    <button class="lb-btn" style="background:rgba(255,255,255,.1);color:var(--stone);" onclick="closeLightbox()">Back to Gallery</button>
   </div>
 </div>
 

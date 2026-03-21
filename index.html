@@ -581,7 +581,7 @@ function renderGalleryCards(){
 }
 
 function loadCloudinaryFolder(g, idx, card){
-  var url = '/.netlify/functions/cloudinary?folder='+encodeURIComponent(g.folder);
+  var url = '/api/cloudinary?folder='+encodeURIComponent(g.folder);
   fetch(url)
     .then(function(r){ return r.json(); })
     .then(function(data){

@@ -1313,35 +1313,7 @@ window.openBooking=function(preselect){
 
 <div class="fab-row">
   <button class="book-fab" onclick="openScheduling()">&#128197; <span class="book-label">Book Now</span></button>
-  <button class="chat-fab" onclick="toggleChat()" aria-label="Chat">&#128172;<span class="chat-ping" id="chatPing"></span></button>
   <button class="cart-fab" onclick="toggleCart()" aria-label="Cart">&#128722;<span class="cart-count" id="cartCount">0</span></button>
-</div>
-
-<div class="chat-window" id="chatWindow">
-  <div class="chat-win-header">
-    <div class="chat-avatar">&#128247;</div>
-    <div><div class="chat-win-name">Rogelio Small</div><div class="chat-win-status">&#9679; Online &mdash; replies in minutes</div></div>
-    <button class="chat-win-close" onclick="toggleChat()">&#10005;</button>
-  </div>
-  <!-- Contact form — shown before messaging -->
-  <div class="chat-contact-form" id="chatContactForm">
-    <p>So Rogelio can reply directly to you, please share your details:</p>
-    <label class="chat-contact-label required">Email Address</label>
-    <input type="email" class="chat-contact-input priority" id="chatEmail" placeholder="your@email.com">
-    <label class="chat-contact-label">Your Name</label>
-    <input type="text" class="chat-contact-input" id="chatName" placeholder="Jane Smith">
-    <button class="chat-start-btn" onclick="startChat()">Start Chat &rarr;</button>
-  </div>
-  <!-- Shown after email submitted -->
-  <div class="chat-identified" id="chatIdentified"></div>
-  <div class="chat-messages" id="chatMessages" style="display:none">
-    <div class="chat-msg from">Hi there! Thanks for visiting. How can I help you today?</div>
-    <div class="chat-msg from">Feel free to ask about availability, pricing, or session details.</div>
-  </div>
-  <div class="chat-input-row" id="chatInputRow" style="display:none">
-    <input type="text" id="chatInput" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChat()">
-    <button class="chat-send" onclick="sendChat()">&#10148;</button>
-  </div>
 </div>
 
 <div class="cart-drawer" id="cartDrawer">
@@ -1541,7 +1513,7 @@ window.openBooking=function(preselect){
           <p>Spots are limited. Reserve yours today with a simple deposit.</p>
           <div class="price-big">$295 <span>/ session</span></div>
           <a href="/cdn-cgi/l/email-protection#bdffd1c8d8dad8d0cdcfd2fddad0dcd4d193ded2d082cec8dfd7d8dec980f0d4d3d49deed8ceced4d2d39df4d3ccc8d4cfc4" class="btn-book-now">Book Now</a>
-          <button class="btn-chat-us" onclick="toggleChat()">Chat With Us</button>
+          <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
         </div>
       </div>
     </div>
@@ -1614,7 +1586,7 @@ window.openBooking=function(preselect){
           <p>Ready to invest in images you'll treasure for decades? Let's connect.</p>
           <div class="price-big">$550 <span>/ session</span></div>
           <a href="/cdn-cgi/l/email-protection#5b19372e3e3c3e362b29341b3c363a32377538343664282e39313e382f660b34292f293a322f7b083e28283234357b12352a2e322922" class="btn-book-now">Book Now</a>
-          <button class="btn-chat-us" onclick="toggleChat()">Chat With Us</button>
+          <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
         </div>
       </div>
     </div>
@@ -1687,7 +1659,7 @@ window.openBooking=function(preselect){
           <p>These sessions book fast &mdash; especially around the holidays. Lock in your date early.</p>
           <div class="price-big">$750 <span>/ session</span></div>
           <a href="/cdn-cgi/l/email-protection#ffbd938a9a989a928f8d90bf98929e9693d19c9092c08c8a9d959a9c8bc2b99e92969386dfac9a8c8c969091dfb6918e8a968d86" class="btn-book-now">Book Now</a>
-          <button class="btn-chat-us" onclick="toggleChat()">Chat With Us</button>
+          <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
         </div>
       </div>
     </div>
@@ -1762,7 +1734,7 @@ window.openBooking=function(preselect){
           <p>Most wedding dates book 12-18 months in advance. Reach out early to secure yours.</p>
           <div class="price-big">$3,200 <span>/ full day</span></div>
           <a href="/cdn-cgi/l/email-protection#febc928b9b999b938e8c91be99939f9792d09d9193c18d8b9c949b9d8ac3a99b9a9a979099deae96918a91998c9f8e9687deb7908f8b978c87" class="btn-book-now">Book Now</a>
-          <button class="btn-chat-us" onclick="toggleChat()">Chat With Us</button>
+          <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
         </div>
       </div>
     </div>
@@ -1835,7 +1807,7 @@ window.openBooking=function(preselect){
           <p>Investing in professional imagery is one of the highest-ROI decisions your brand can make.</p>
           <div class="price-big">$1,400 <span>/ half day</span></div>
           <a href="/cdn-cgi/l/email-protection#5a18362f3f3d3f372a28351a3d373b33367439353765292f38303f392e67193537373f2839333b367a18283b343e7a093235352e7a13342b2f332823" class="btn-book-now">Book Now</a>
-          <button class="btn-chat-us" onclick="toggleChat()">Chat With Us</button>
+          <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
         </div>
       </div>
     </div>
@@ -1908,7 +1880,7 @@ window.openBooking=function(preselect){
           <p>Tell us where you're dreaming of and let's make it happen.</p>
           <div class="price-big">$2,000 <span>+ travel</span></div>
           <a href="/cdn-cgi/l/email-protection#8ccee0f9e9ebe9e1fcfee3ccebe1ede5e0a2efe3e1b3fff9eee6e9eff8b1c8e9fff8e5e2edf8e5e3e2acdfe9ffffe5e3e2acc5e2fdf9e5fef5" class="btn-book-now">Book Now</a>
-          <button class="btn-chat-us" onclick="toggleChat()">Chat With Us</button>
+          <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
         </div>
       </div>
     </div>
@@ -2008,7 +1980,7 @@ window.openBooking=function(preselect){
             </tbody>
           </table>
           <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
-          <button class="btn-chat-us" onclick="toggleChat()">Chat With Us</button>
+          <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
         </div>
       </div>
     </div>
@@ -2444,3 +2416,16 @@ window.openBooking=function(preselect){
     <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)">
       <span>&copy; 2025 Rogelio Small Photography</span>
       <a href="#" onclick="showPage('home');return false;" style="color:var(--stone);te
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69c057a4d88c2b1c34307861/1jkblcmlh';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->

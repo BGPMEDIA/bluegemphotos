@@ -31,13 +31,12 @@ nav.scrolled .nav-cta{border-color:var(--gold);color:var(--gold);}
 .hero{position:relative;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--charcoal);}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a1209 0%,#2d2018 30%,#1e1a17 60%,#0d0b08 100%);}
 .hero-texture{position:absolute;inset:0;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4b483' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
-.hero-panels{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;opacity:.35;}
-.hero-panel{height:100%;animation:panelShift 8s ease-in-out infinite alternate;}
+.hero-panels{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;opacity:1;}
+.hero-panel{height:100%;animation:panelShift 8s ease-in-out infinite alternate;position:relative;}
 .hero-panel:nth-child(1){background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1200,c_fill,g_auto,q_auto,f_auto/portfolio-hero/YVE_GA_EDIT_92_yo27em') center/cover no-repeat;}
 .hero-panel:nth-child(2){background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1200,c_fill,g_auto,q_auto,f_auto/portfolio-hero/EDIT-22-LARGE_wpzpok') center/cover no-repeat;animation-delay:-.8s;}
 .hero-panel:nth-child(3){background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1200,c_fill,g_auto,q_auto,f_auto/portfolio-hero/BGP-FA-1_zab6jg') center/cover no-repeat;animation-delay:-1.6s;}
-.hero-panel::after{content:'';position:absolute;inset:0;background:rgba(18,10,5,.38);}
-.hero-panel{position:relative;}
+.hero-panel::after{content:'';position:absolute;inset:0;background:rgba(10,5,2,.45);}
 @keyframes panelShift{from{transform:scaleY(1);}to{transform:scaleY(1.04);}}
 .hero-content{position:relative;z-index:2;text-align:center;padding:2rem;animation:fadeUp .9s cubic-bezier(.22,1,.36,1) both;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}

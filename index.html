@@ -1981,10 +1981,32 @@ window.openBooking=function(preselect){
         <div class="svc-booking">
           <h3>Book Your Bridal Session</h3>
           <p>Limited dates available. Secure yours before your wedding day.</p>
-          <div class="price-big">$750 <span>Essential</span></div>
-          <div style="margin:.8rem 0;padding:.8rem;background:rgba(184,154,106,.1);border-left:2px solid var(--gold);">
-            <p style="font-size:.72rem;color:var(--stone);line-height:1.8"><strong style="color:var(--gold-lt)">Signature</strong> — $950 · 30 images + 11x14 print<br><strong style="color:var(--gold-lt)">Heirloom</strong> — $1,200 · 40 images + album consultation + 2 prints</p>
-          </div>
+          <table style="width:100%;border-collapse:collapse;margin:1.2rem 0;font-family:'Jost',sans-serif;">
+            <thead>
+              <tr style="border-bottom:1px solid rgba(200,191,176,.2);">
+                <th style="text-align:left;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.5rem .4rem;font-weight:400;">Package</th>
+                <th style="text-align:left;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.5rem .4rem;font-weight:400;">Price</th>
+                <th style="text-align:left;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.5rem .4rem;font-weight:400;">Images</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(200,191,176,.1);">
+                <td style="padding:.7rem .4rem;color:var(--warm-white);font-size:.82rem;">Essential</td>
+                <td style="padding:.7rem .4rem;color:var(--gold-lt);font-family:'Cormorant Garamond',serif;font-size:1.1rem;">$750</td>
+                <td style="padding:.7rem .4rem;color:var(--stone);font-size:.75rem;">20 images</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(200,191,176,.1);">
+                <td style="padding:.7rem .4rem;color:var(--warm-white);font-size:.82rem;">Signature</td>
+                <td style="padding:.7rem .4rem;color:var(--gold-lt);font-family:'Cormorant Garamond',serif;font-size:1.1rem;">$950</td>
+                <td style="padding:.7rem .4rem;color:var(--stone);font-size:.75rem;">30 images + 11x14 print</td>
+              </tr>
+              <tr>
+                <td style="padding:.7rem .4rem;color:var(--warm-white);font-size:.82rem;">Heirloom</td>
+                <td style="padding:.7rem .4rem;color:var(--gold-lt);font-family:'Cormorant Garamond',serif;font-size:1.1rem;">$1,200</td>
+                <td style="padding:.7rem .4rem;color:var(--stone);font-size:.75rem;">40 images + album + 2 prints</td>
+              </tr>
+            </tbody>
+          </table>
           <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
           <button class="btn-chat-us" onclick="toggleChat()">Chat With Us</button>
         </div>

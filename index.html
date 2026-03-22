@@ -1070,8 +1070,9 @@ var schedServices=[
   {num:'02',name:'Portrait Session',rate:550,perHour:false,desc:'90-min creative session for individuals, couples, or small families.'},
   {num:'03',name:'Family Collection',rate:750,perHour:false,desc:'2-hour storytelling session for families up to 8 members.'},
   {num:'04',name:'Wedding Day',rate:3200,perHour:false,desc:'Full-day coverage 8-10 hrs. Two photographers included.'},
-  {num:'05',name:'Commercial & Brand',rate:350,perHour:true,desc:'Hourly rate for business, product, and personal brand shoots.'},
-  {num:'06',name:'Destination Session',rate:667,perHour:true,desc:'Hourly rate for destination & elopement sessions worldwide.'}
+  {num:'05',name:'Bridal Portrait Session',rate:750,perHour:false,desc:'2-hour session exclusively for the bride. Before the vows, before the chaos.'},
+  {num:'06',name:'Commercial & Brand',rate:350,perHour:true,desc:'Hourly rate for business, product, and personal brand shoots.'},
+  {num:'07',name:'Destination Session',rate:667,perHour:true,desc:'Hourly rate for destination & elopement sessions worldwide.'}
 ];
 
 window.openScheduling=function(){
@@ -1454,6 +1455,7 @@ window.openBooking=function(preselect){
       <div class="service-card"><div class="service-num">04</div><div class="service-name">Wedding Day</div><p class="service-desc">Full-day wedding coverage from getting ready through the last dance. Your entire story, beautifully told.</p><div class="service-price">$3,200 <span>/ full day</span></div><ul class="service-includes"><li>8-10 hours of coverage</li><li>Two photographers</li><li>300+ edited digital images</li><li>Engagement session included</li><li>Luxury heirloom album option</li></ul><a href="#" class="service-learn" onclick="showPage('svc-wedding');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">05</div><div class="service-name">Commercial &amp; Brand</div><p class="service-desc">Strategic visual storytelling for businesses, products, and personal brands. Content that converts.</p><div class="service-price">$1,400 <span>/ half day</span></div><ul class="service-includes"><li>4-hour shoot</li><li>Product, team, or lifestyle</li><li>80+ final edited images</li><li>Commercial license included</li><li>Mood board consultation</li></ul><a href="#" class="service-learn" onclick="showPage('svc-commercial');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">06</div><div class="service-name">Destination Session</div><p class="service-desc">Wherever your story takes you &mdash; elopements, anniversary trips, or bucket-list portraits worldwide.</p><div class="service-price">$2,000 <span>+ travel</span></div><ul class="service-includes"><li>3-hour golden-hour session</li><li>Any worldwide location</li><li>80+ edited digital images</li><li>Travel itinerary collaboration</li><li>Rush delivery option available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-destination');return false;">View Details &rarr;</a></div>
+      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">07</div><div class="service-name">Bridal Portrait Session</div><p class="service-desc">Two unhurried hours dedicated entirely to you — your gown, your beauty, your story. Before the vows. Before the chaos.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour studio session</li><li>Exclusively about the bride</li><li>30+ edited digital images</li><li>Private gallery delivery</li><li>Fine art print options available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-bridal');return false;">View Details &rarr;</a></div>
     </div>
   </section>
 
@@ -1490,7 +1492,7 @@ window.openBooking=function(preselect){
 
   <footer>
     <div><div class="footer-brand">Rogelio Small Photography</div><p class="footer-tagline">Fine art photography rooted in authentic storytelling. Tamarac, FL &mdash; South Florida.</p><div style="display:inline-flex;align-items:center;gap:.6rem;margin-top:1rem;padding:.5rem .9rem;border:1px solid rgba(184,154,106,.3);"><span style="font-size:1rem">&#127942;</span><span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-family:'Jost',sans-serif;">Portrait Masters Awards<br><span style="color:var(--stone);">Merit Recipient</span></span></div></div>
-    <div class="footer-col"><h4>Services</h4><ul><li><a href="#" onclick="showPage('svc-mini');return false;">Mini Session</a></li><li><a href="#" onclick="showPage('svc-portrait');return false;">Portrait Session</a></li><li><a href="#" onclick="showPage('svc-family');return false;">Family Collection</a></li><li><a href="#" onclick="showPage('svc-wedding');return false;">Wedding Day</a></li><li><a href="#" onclick="showPage('svc-commercial');return false;">Commercial &amp; Brand</a></li><li><a href="#" onclick="showPage('svc-destination');return false;">Destination Session</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="#" onclick="showPage('svc-mini');return false;">Mini Session</a></li><li><a href="#" onclick="showPage('svc-portrait');return false;">Portrait Session</a></li><li><a href="#" onclick="showPage('svc-family');return false;">Family Collection</a></li><li><a href="#" onclick="showPage('svc-wedding');return false;">Wedding Day</a></li><li><a href="#" onclick="showPage('svc-bridal');return false;">Bridal Portrait</a></li><li><a href="#" onclick="showPage('svc-commercial');return false;">Commercial &amp; Brand</a></li><li><a href="#" onclick="showPage('svc-destination');return false;">Destination Session</a></li></ul></div>
     <div class="footer-col"><h4>Studio</h4><ul><li><a href="#">About</a></li><li><a href="#">Portfolio</a></li><li><a href="#" onclick="showPage('gallery');return false;">Client Galleries</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li></ul></div>
     <div class="footer-col"><h4>Contact</h4><ul><li><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="551739203032303825273a153238343c397b363a38">[email&#160;protected]</a></li><li><a href="tel:+13056765980" style="color:var(--taupe);text-decoration:none">(305) 676-5980</a></li><li>Tamarac, FL 33321</li><li style="margin-top:.8rem"><a href="#">Instagram</a></li><li><a href="#">Pinterest</a></li></ul></div>
   </footer>
@@ -1943,6 +1945,82 @@ window.openBooking=function(preselect){
   <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)"><span>&copy; 2025 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a></div>
 </div>
 
+
+<!-- BRIDAL PORTRAIT SERVICE PAGE -->
+<div class="page" id="page-svc-bridal">
+  <div style="background:var(--warm-white)">
+    <div class="svc-hero" style="background:linear-gradient(160deg,#f0e8e0 0%,#e8d5c4 40%,#d4b483 100%);">
+      <div class="svc-hero-content">
+        <p class="svc-hero-eyebrow">Service 07</p>
+        <h1 class="svc-hero-title">Bridal <em>Portrait</em> Session</h1>
+        <div class="svc-hero-price">Starting at $750</div>
+      </div>
+    </div>
+    <div style="background:var(--cream);padding:.8rem 4rem;border-bottom:1px solid var(--stone);">
+      <a href="#" onclick="showPage('home');setTimeout(function(){document.getElementById('services').scrollIntoView({behavior:'smooth'})},50);return false;" style="color:var(--taupe);font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;">&#8592; Back to Services</a>
+    </div>
+    <div class="svc-body">
+      <div class="svc-details">
+        <h2>Your wedding day moves fast.<br><em style="font-style:italic;color:var(--gold)">This doesn't.</em></h2>
+        <p>A Bridal Portrait Session is two unhurried hours dedicated entirely to you — your gown, your beauty, your story. Before the vows. Before the chaos. Before the day belongs to everyone else.</p>
+        <p>This is the session where we slow down, breathe, and create images that are purely and completely about you. No timeline pressure. No groom waiting. No wedding coordinator rushing us. Just you, your gown, and the kind of light that makes everything feel like a dream.</p>
+        <p>The result is a collection of fine art portraits that stand entirely apart from your wedding day gallery — images of you at your most radiant, preserved with the same care and artistry that earned recognition at the Portrait Masters Awards.</p>
+        <div class="svc-includes-title">What's Included</div>
+        <ul class="svc-includes-list">
+          <li>2-hour studio session exclusively for the bride</li>
+          <li>Professional studio lighting and backdrop setup</li>
+          <li>30–70+ hand-edited digital images</li>
+          <li>Private watermarked online gallery</li>
+          <li>Full print release included</li>
+          <li>Fine art print options available</li>
+          <li>Styling consultation provided</li>
+        </ul>
+      </div>
+      <div>
+        <div class="svc-booking">
+          <h3>Book Your Bridal Session</h3>
+          <p>Limited dates available. Secure yours before your wedding day.</p>
+          <div class="price-big">$750 <span>Essential</span></div>
+          <div style="margin:.8rem 0;padding:.8rem;background:rgba(184,154,106,.1);border-left:2px solid var(--gold);">
+            <p style="font-size:.72rem;color:var(--espresso);line-height:1.8"><strong style="color:var(--gold)">Signature</strong> — $950 · 50 images + 11x14 print<br><strong style="color:var(--gold)">Heirloom</strong> — $1,200 · 70+ images + album consultation + 2 prints</p>
+          </div>
+          <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
+          <button class="btn-chat-us" onclick="toggleChat()">Chat With Us</button>
+        </div>
+      </div>
+    </div>
+    <div class="svc-gallery-section">
+      <h2>Bridal Portrait <em style="font-style:italic;color:var(--gold)">Gallery</em></h2>
+      <p>Two hours. One bride. Infinite elegance.</p>
+      <div class="svc-gallery-grid">
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/Vertical_Window_Shot_yxvqnm.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/Flowers_with_smile_syesne.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/Apple_Box_2_aplvcm.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/In_chair_long_train_shot_whjujf.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/BGP-AL-B1_dqvzyf.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/Apple_Box_2_aplvcm.jpg') center/cover no-repeat;filter:brightness(.9)"></div></div>
+      </div>
+    </div>
+    <div class="svc-faq">
+      <div class="svc-faq-inner">
+        <h2>Frequently Asked <em style="font-style:italic;color:var(--gold)">Questions</em></h2>
+        <div class="faq-item"><div class="faq-q">When should I schedule my Bridal Portrait Session?</div><div class="faq-a">Ideally 2–4 weeks before your wedding day. This gives us time to deliver your gallery before the wedding, and you'll be completely comfortable in front of the camera by the time your wedding day arrives.</div></div>
+        <div class="faq-item"><div class="faq-q">Do I wear my actual wedding gown?</div><div class="faq-a">Yes — and it's one of the best reasons to do this session. You get to wear your gown in a relaxed environment, work out any movement or comfort concerns, and have stunning portraits in it without the pressure of your wedding day timeline.</div></div>
+        <div class="faq-item"><div class="faq-q">Can I do multiple looks or gowns?</div><div class="faq-a">Absolutely. Within the 2-hour session we can accommodate 1–2 gown changes depending on styling complexity. Let us know during your consultation and we'll plan accordingly.</div></div>
+        <div class="faq-item"><div class="faq-q">Is hair and makeup included?</div><div class="faq-a">Hair and makeup are not included but we have a list of preferred South Florida beauty artists we love working with and can connect you with. Many brides use this session as a hair and makeup trial run — a smart way to test your wedding day look.</div></div>
+      </div>
+    </div>
+    <div class="svc-related">
+      <h2>You Might Also Love</h2>
+      <div class="svc-related-grid">
+        <a href="#" class="svc-related-card" onclick="showPage('svc-wedding');return false;"><div class="svc-related-num">04</div><div class="svc-related-name">Wedding Day</div><div class="svc-related-price">Starting at $3,200</div></a>
+        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
+        <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)"><span>&copy; 2025 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a></div>
+</div>
 
 <!-- GALLERY PAGE -->
 <div class="page" id="page-gallery">

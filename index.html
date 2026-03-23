@@ -1295,7 +1295,124 @@ window.openBooking=function(preselect){
   }
 };
 
-// Load Tawk.to chat widget
+// Load Square Web Payments SDK
+(function(){
+  var sq=document.createElement('script');
+  sq.src='https://sandbox.web.squarecdn.com/v1/square.js';
+  sq.onload=function(){ initSquare(); };
+  document.head.appendChild(sq);
+})();
+
+var squareCard=null;
+var squarePayments=null;
+
+async function initSquare(){
+  if(!window.Square)return;
+  squarePayments=window.Square.payments('sandbox-sq0idb-nraNrU5j8QRI8gU2gYt8Wg','LY4TJDHC8T4BG');
+}
+
+async function mountSquareCard(){
+  if(!squarePayments)return;
+  if(squareCard){
+    try{ await squareCard.destroy(); }catch(e){}
+    squareCard=null;
+  }
+  squareCard=await squarePayments.card({
+    style:{
+      '.input-container':{borderColor:'#C8BFB0',borderRadius:'0px'},
+      '.input-container.is-focus':{borderColor:'#B89A6A'},
+      'input':{fontFamily:'Jost,Arial,sans-serif',fontSize:'14px',color:'#3B3028'},
+      '.message-text':{color:'#c0392b'}
+    }
+  });
+  await squareCard.attach('#square-card-container');
+}
+
+window.submitSquarePayment=async function(){
+  var total=getSchedTotal();
+  var due=schedData.payment==='half'?Math.round(total*0.5):total;
+  var cardholder=document.getElementById('sched-cardholder').value.trim();
+  var status=document.getElementById('square-payment-status');
+  var btn=document.getElementById('square-pay-btn');
+
+  if(!cardholder){window.showToast('Please enter cardholder name');return;}
+  if(!squareCard){window.showToast('Payment form not loaded. Please refresh.');return;}
+
+  btn.disabled=true;
+  btn.textContent='Processing...';
+  status.style.display='none';
+
+  try{
+    var result=await squareCard.tokenize();
+    if(result.status==='OK'){
+      var token=result.token;
+      var amountCents=due*100;
+
+      var response=await fetch('/api/square-payment',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          sourceId:token,
+          amountCents:amountCents,
+          currency:'USD',
+          note:schedData.service+' - '+schedData.name+' - '+schedData.date,
+          buyerName:cardholder,
+          buyerEmail:schedData.email
+        })
+      });
+
+      var data=await response.json();
+      if(data.success){
+        // Send confirmation email via EmailJS
+        var svc=schedServices.find(function(s){return s.name===schedData.service;})||{};
+        emailjs.send('service_b384d8p','template_31gefsz',{
+          from_name:schedData.name,
+          from_email:schedData.email,
+          reply_to:schedData.email,
+          message:'BOOKING CONFIRMED - Payment received!\n\n'
+            +'Service: '+schedData.service+'\n'
+            +'Date: '+schedData.date+'\n'
+            +'Time: '+schedData.time+'\n'
+            +'Amount Paid: $'+due.toLocaleString()+'\n'
+            +'Payment ID: '+data.paymentId+'\n\n'
+            +'Client: '+schedData.name+'\n'
+            +'Email: '+schedData.email+'\n'
+            +'Phone: '+(schedData.phone||'Not provided')+'\n'
+            +'Notes: '+(schedData.notes||'None'),
+          time: new Date().toLocaleString()
+        });
+        document.getElementById('sched-main').style.display='none';
+        document.getElementById('sched-success').style.display='block';
+        document.getElementById('sched-success-name').textContent=schedData.name.split(' ')[0];
+        document.getElementById('sched-success-date').textContent=new Date(schedData.date+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+        document.getElementById('sched-success-due').textContent='$'+due.toLocaleString()+' paid';
+      } else {
+        status.textContent=data.error||'Payment failed. Please try again.';
+        status.style.display='block';
+        btn.disabled=false;
+        btn.innerHTML='&#128274; Pay &amp; Confirm Booking';
+      }
+    } else {
+      var errors=result.errors.map(function(e){return e.message;}).join(', ');
+      status.textContent=errors;
+      status.style.display='block';
+      btn.disabled=false;
+      btn.innerHTML='&#128274; Pay &amp; Confirm Booking';
+    }
+  } catch(err){
+    status.textContent='Payment error. Please try again.';
+    status.style.display='block';
+    btn.disabled=false;
+    btn.innerHTML='&#128274; Pay &amp; Confirm Booking';
+  }
+};
+
+// Mount Square card when step 4 is reached
+var _origUpdateSchedTabs=window.updateSchedTabs;
+window.updateSchedTabs=function(){
+  updateSchedTabs();
+  if(schedStep===4) setTimeout(mountSquareCard, 100);
+};
 var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 (function(){
   var s1=document.createElement('script');
@@ -2370,7 +2487,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
             <!-- STEP 4: Payment -->
             <div class="sched-panel" id="sched-panel-4">
               <div class="sched-panel-title">Choose your payment</div>
-              <p class="sched-panel-sub">Select a deposit option to secure your date. Your booking is confirmed once Rogelio reviews and accepts your request.</p>
+              <p class="sched-panel-sub">Select a deposit option to secure your date. Your card will be charged immediately upon submission.</p>
 
               <div class="payment-opts">
                 <button class="payment-card selected" id="pay-half" onclick="selectSchedPayment('half')">
@@ -2386,27 +2503,23 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
               </div>
 
               <div class="card-fields">
-                <h4>&#128274; Payment Information</h4>
-                <p style="font-size:.78rem;color:var(--taupe);margin-bottom:1.2rem;line-height:1.7;">Your booking request and payment details will be sent securely to Rogelio, who will send a payment link via email to complete your transaction. No card info is stored on this site.</p>
-                <div class="sched-row">
-                  <div class="sched-field">
-                    <label>Cardholder Name</label>
-                    <input type="text" placeholder="Jane Smith">
-                  </div>
-                  <div class="sched-field">
-                    <label>Billing Zip Code</label>
-                    <input type="text" placeholder="29401" maxlength="10">
-                  </div>
+                <h4>&#128274; Secure Payment</h4>
+                <p style="font-size:.78rem;color:var(--taupe);margin-bottom:1.2rem;line-height:1.7;">Your payment is processed securely by Square. Your card information never touches our servers.</p>
+                <div class="sched-field" style="margin-bottom:1rem;">
+                  <label>Cardholder Name</label>
+                  <input type="text" id="sched-cardholder" placeholder="Jane Smith">
                 </div>
+                <div id="square-card-container" style="min-height:90px;padding:.8rem;border:1px solid var(--stone);background:var(--warm-white);margin-bottom:1rem;"></div>
+                <div id="square-payment-status" style="font-size:.78rem;color:#c0392b;margin-bottom:.8rem;display:none;"></div>
               </div>
 
               <div style="background:var(--blush);padding:1rem 1.2rem;border-left:3px solid var(--gold);margin-bottom:1.5rem;">
-                <p style="font-size:.78rem;color:var(--espresso);line-height:1.7;">&#9432; After submitting, Rogelio will review your request and send a secure payment link to your email within 24 hours. Your date is held for 48 hours pending deposit.</p>
+                <p style="font-size:.78rem;color:var(--espresso);line-height:1.7;">&#128274; Payments powered by Square. Your date is confirmed immediately upon successful payment.</p>
               </div>
 
               <div class="sched-nav">
                 <button class="btn-sched-back" onclick="schedBack()">&#8592; Back</button>
-                <button class="btn-sched-next" onclick="submitScheduling()" style="background:var(--gold);padding:.9rem 2rem;">&#10003; Confirm &amp; Submit Booking</button>
+                <button class="btn-sched-next" id="square-pay-btn" onclick="submitSquarePayment()" style="background:var(--gold);padding:.9rem 2rem;">&#128274; Pay &amp; Confirm Booking</button>
               </div>
             </div>
 

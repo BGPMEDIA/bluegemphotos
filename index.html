@@ -49,7 +49,7 @@ nav.scrolled .nav-cta{border-color:var(--gold);color:var(--gold);}
 .btn-primary:hover{background:var(--gold-lt);border-color:var(--gold-lt);}
 .btn-ghost{padding:.85rem 2.6rem;border:1px solid rgba(255,255,255,.4);color:var(--warm-white);text-decoration:none;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:400;transition:all .3s;}
 .btn-ghost:hover{border-color:var(--warm-white);background:rgba(255,255,255,.08);}
-.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;color:var(--stone);font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;animation:fadeUp .9s .6s both;white-space:nowrap;z-index:3;}
+.hero-scroll{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;color:var(--stone);font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;animation:fadeUp .9s .6s both;white-space:nowrap;z-index:3;margin-top:2rem;}
 .scroll-line{width:1px;height:40px;background:var(--gold);animation:scrollPulse 2s ease-in-out infinite;}
 @keyframes scrollPulse{0%,100%{transform:scaleY(1);opacity:1;}50%{transform:scaleY(.6);opacity:.4;}}
 .about-strip{display:grid;grid-template-columns:1fr 1fr;min-height:70vh;}
@@ -1075,7 +1075,7 @@ var schedServices=[
   {num:'07',name:'Destination Session',rate:667,perHour:true,desc:'Hourly rate for destination & elopement sessions worldwide.'}
 ];
 
-window.openScheduling=function(){
+window.openScheduling=function(preselect){
   schedData={service:'',hours:0,date:'',time:'',name:'',email:'',phone:'',location:'',notes:'',payment:'half'};
   schedStep=1;
   window.showPage('scheduling');
@@ -1085,6 +1085,16 @@ window.openScheduling=function(){
     updateOrderSummary();
     document.getElementById('sched-success').style.display='none';
     document.getElementById('sched-main').style.display='';
+    if(preselect){
+      var idx=schedServices.findIndex(function(s){return s.name===preselect;});
+      if(idx>=0){
+        window.selectSchedService(idx);
+        schedStep=2;
+        updateSchedTabs();
+        updateOrderSummary();
+        window.scrollTo(0,0);
+      }
+    }
   },50);
 };
 
@@ -1477,8 +1487,8 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <a href="#" class="btn-primary" onclick="setTimeout(function(){document.getElementById('services').scrollIntoView({behavior:'smooth'})},50);return false;">Explore Services</a>
         <a href="#" class="btn-ghost" onclick="showPage('gallery');return false;">Client Galleries</a>
       </div>
+      <div class="hero-scroll">Scroll<div class="scroll-line"></div></div>
     </div>
-    <div class="hero-scroll">Scroll<div class="scroll-line"></div></div>
   </section>
 
   <section class="about-strip">
@@ -1599,7 +1609,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <h3>Book Your Mini Session</h3>
           <p>Spots are limited. Reserve yours today with a simple deposit.</p>
           <div class="price-big">$295 <span>/ session</span></div>
-          <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
+          <button class="btn-book-now" onclick="openScheduling('Mini Session')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
       </div>
@@ -1672,7 +1682,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <h3>Book Your Portrait Session</h3>
           <p>Ready to invest in images you'll treasure for decades? Let's connect.</p>
           <div class="price-big">$550 <span>/ session</span></div>
-          <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
+          <button class="btn-book-now" onclick="openScheduling('Portrait Session')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
       </div>
@@ -1745,7 +1755,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <h3>Book Your Family Session</h3>
           <p>These sessions book fast &mdash; especially around the holidays. Lock in your date early.</p>
           <div class="price-big">$750 <span>/ session</span></div>
-          <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
+          <button class="btn-book-now" onclick="openScheduling('Family Collection')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
       </div>
@@ -1820,7 +1830,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <h3>Book Your Wedding Coverage</h3>
           <p>Most wedding dates book 12-18 months in advance. Reach out early to secure yours.</p>
           <div class="price-big">$3,200 <span>/ full day</span></div>
-          <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
+          <button class="btn-book-now" onclick="openScheduling('Wedding Day')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
       </div>
@@ -1893,7 +1903,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <h3>Book Your Brand Shoot</h3>
           <p>Investing in professional imagery is one of the highest-ROI decisions your brand can make.</p>
           <div class="price-big">$1,400 <span>/ half day</span></div>
-          <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
+          <button class="btn-book-now" onclick="openScheduling('Commercial & Brand')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
       </div>
@@ -1966,7 +1976,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <h3>Plan Your Destination Session</h3>
           <p>Tell us where you're dreaming of and let's make it happen.</p>
           <div class="price-big">$2,000 <span>+ travel</span></div>
-          <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
+          <button class="btn-book-now" onclick="openScheduling('Destination Session')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
       </div>
@@ -2066,7 +2076,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
               </tr>
             </tbody>
           </table>
-          <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
+          <button class="btn-book-now" onclick="openScheduling('Bridal Portrait Session')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
       </div>

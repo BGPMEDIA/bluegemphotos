@@ -1328,76 +1328,56 @@ window.submitSquarePayment=async function(){
   var total=getSchedTotal();
   var due=schedData.payment==='half'?Math.round(total*0.5):total;
   var cardholder=document.getElementById('sched-cardholder').value.trim();
-  var status=document.getElementById('square-payment-status');
   var btn=document.getElementById('square-pay-btn');
 
   if(!cardholder){window.showToast('Please enter cardholder name');return;}
-  if(!squareCard){window.showToast('Payment form not loaded. Please refresh.');return;}
+  if(!due||due===0){window.showToast('Please select a service first');return;}
 
   btn.disabled=true;
-  btn.textContent='Processing...';
-  status.style.display='none';
+  btn.textContent='Creating payment link...';
 
   try{
-    var result=await squareCard.tokenize();
-    if(result.status==='OK'){
-      var token=result.token;
-      var amountCents=due*100;
+    var response=await fetch('/api/square-payment',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        amountCents:due*100,
+        currency:'USD',
+        note:schedData.service+' - '+schedData.name+' - '+schedData.date,
+        buyerName:cardholder,
+        buyerEmail:schedData.email,
+        redirectUrl:window.location.href
+      })
+    });
 
-      var response=await fetch('/api/square-payment',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          sourceId:token,
-          amountCents:amountCents,
-          currency:'USD',
-          note:schedData.service+' - '+schedData.name+' - '+schedData.date,
-          buyerName:cardholder,
-          buyerEmail:schedData.email
-        })
+    var data=await response.json();
+    if(data.success && data.paymentUrl){
+      // Send notification email first
+      emailjs.send('service_b384d8p','template_31gefsz',{
+        from_name:schedData.name,
+        from_email:schedData.email,
+        reply_to:schedData.email,
+        message:'NEW BOOKING REQUEST - Payment link created!\n\n'
+          +'Service: '+schedData.service+'\n'
+          +'Date: '+schedData.date+'\n'
+          +'Time: '+schedData.time+'\n'
+          +'Amount Due: $'+due.toLocaleString()+'\n\n'
+          +'Client: '+schedData.name+'\n'
+          +'Email: '+schedData.email+'\n'
+          +'Phone: '+(schedData.phone||'Not provided')+'\n'
+          +'Notes: '+(schedData.notes||'None')+'\n\n'
+          +'Payment Link: '+data.paymentUrl,
+        time: new Date().toLocaleString()
       });
-
-      var data=await response.json();
-      if(data.success){
-        // Send confirmation email via EmailJS
-        var svc=schedServices.find(function(s){return s.name===schedData.service;})||{};
-        emailjs.send('service_b384d8p','template_31gefsz',{
-          from_name:schedData.name,
-          from_email:schedData.email,
-          reply_to:schedData.email,
-          message:'BOOKING CONFIRMED - Payment received!\n\n'
-            +'Service: '+schedData.service+'\n'
-            +'Date: '+schedData.date+'\n'
-            +'Time: '+schedData.time+'\n'
-            +'Amount Paid: $'+due.toLocaleString()+'\n'
-            +'Payment ID: '+data.paymentId+'\n\n'
-            +'Client: '+schedData.name+'\n'
-            +'Email: '+schedData.email+'\n'
-            +'Phone: '+(schedData.phone||'Not provided')+'\n'
-            +'Notes: '+(schedData.notes||'None'),
-          time: new Date().toLocaleString()
-        });
-        document.getElementById('sched-main').style.display='none';
-        document.getElementById('sched-success').style.display='block';
-        document.getElementById('sched-success-name').textContent=schedData.name.split(' ')[0];
-        document.getElementById('sched-success-date').textContent=new Date(schedData.date+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
-        document.getElementById('sched-success-due').textContent='$'+due.toLocaleString()+' paid';
-      } else {
-        status.textContent=data.error||'Payment failed. Please try again.';
-        status.style.display='block';
-        btn.disabled=false;
-        btn.innerHTML='&#128274; Pay &amp; Confirm Booking';
-      }
+      // Redirect to Square hosted payment page
+      window.location.href=data.paymentUrl;
     } else {
-      var errors=result.errors.map(function(e){return e.message;}).join(', ');
-      status.textContent=errors;
-      status.style.display='block';
+      window.showToast(data.error||'Could not create payment link. Please try again.');
       btn.disabled=false;
       btn.innerHTML='&#128274; Pay &amp; Confirm Booking';
     }
   } catch(err){
-    status.textContent='Payment error. Please try again.';
-    status.style.display='block';
+    window.showToast('Payment error. Please try again.');
     btn.disabled=false;
     btn.innerHTML='&#128274; Pay &amp; Confirm Booking';
   }
@@ -2483,7 +2463,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
             <!-- STEP 4: Payment -->
             <div class="sched-panel" id="sched-panel-4">
               <div class="sched-panel-title">Choose your payment</div>
-              <p class="sched-panel-sub">Select a deposit option to secure your date. Your card will be charged immediately upon submission.</p>
+              <p class="sched-panel-sub">Select a deposit option to secure your date. You will be redirected to Square's secure payment page to complete your booking.</p>
 
               <div class="payment-opts">
                 <button class="payment-card selected" id="pay-half" onclick="selectSchedPayment('half')">
@@ -2499,18 +2479,16 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
               </div>
 
               <div class="card-fields">
-                <h4>&#128274; Secure Payment</h4>
-                <p style="font-size:.78rem;color:var(--taupe);margin-bottom:1.2rem;line-height:1.7;">Your payment is processed securely by Square. Your card information never touches our servers.</p>
+                <h4>&#128274; Secure Payment via Square</h4>
+                <p style="font-size:.78rem;color:var(--taupe);margin-bottom:1.2rem;line-height:1.7;">After confirming your booking details, you'll be redirected to Square's secure hosted payment page to complete your payment. Your card information is handled entirely by Square.</p>
                 <div class="sched-field" style="margin-bottom:1rem;">
                   <label>Cardholder Name</label>
                   <input type="text" id="sched-cardholder" placeholder="Jane Smith">
                 </div>
-                <div id="square-card-container" style="min-height:90px;padding:.8rem;border:1px solid var(--stone);background:var(--warm-white);margin-bottom:1rem;"></div>
-                <div id="square-payment-status" style="font-size:.78rem;color:#c0392b;margin-bottom:.8rem;display:none;"></div>
               </div>
 
               <div style="background:var(--blush);padding:1rem 1.2rem;border-left:3px solid var(--gold);margin-bottom:1.5rem;">
-                <p style="font-size:.78rem;color:var(--espresso);line-height:1.7;">&#128274; Payments powered by Square. Your date is confirmed immediately upon successful payment.</p>
+                <p style="font-size:.78rem;color:var(--espresso);line-height:1.7;">&#128274; Payments powered by Square. You will be redirected to complete payment securely. Your date is confirmed upon successful payment.</p>
               </div>
 
               <div class="sched-nav">

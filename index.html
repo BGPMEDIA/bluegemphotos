@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script src="https://sandbox.web.squarecdn.com/v1/square.js" onload="initSquare()"></script>
 <style>
 :root{--cream:#F7F3EE;--warm-white:#FDFAF6;--stone:#C8BFB0;--taupe:#9E9082;--espresso:#3B3028;--charcoal:#1E1A17;--gold:#B89A6A;--gold-lt:#D4B483;--blush:#E8D5C4;--sage:#8A9E8C;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -1296,33 +1295,8 @@ window.openBooking=function(preselect){
   }
 };
 
-// Load Square Web Payments SDK - initialized after SDK loads
-var squareCard=null;
-var squarePayments=null;
 
-window.initSquare=async function(){
-  if(!window.Square)return;
-  try{
-    squarePayments=await window.Square.payments('sandbox-sq0idb-nraNrU5j8QRI8gU2gYt8Wg','LY4TJDHC8T4BG');
-  }catch(e){console.log('Square init error:',e);}
-};
 
-async function mountSquareCard(){
-  if(!squarePayments)return;
-  if(squareCard){
-    try{ await squareCard.destroy(); }catch(e){}
-    squareCard=null;
-  }
-  squareCard=await squarePayments.card({
-    style:{
-      '.input-container':{borderColor:'#C8BFB0',borderRadius:'0px'},
-      '.input-container.is-focus':{borderColor:'#B89A6A'},
-      'input':{fontFamily:'Jost,Arial,sans-serif',fontSize:'14px',color:'#3B3028'},
-      '.message-text':{color:'#c0392b'}
-    }
-  });
-  await squareCard.attach('#square-card-container');
-}
 
 window.submitSquarePayment=async function(){
   var total=getSchedTotal();
@@ -1383,12 +1357,7 @@ window.submitSquarePayment=async function(){
   }
 };
 
-// Mount Square card when step 4 is reached
-var _origUpdateSchedTabs=window.updateSchedTabs;
-window.updateSchedTabs=function(){
-  updateSchedTabs();
-  if(schedStep===4) setTimeout(mountSquareCard, 100);
-};
+
 var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 (function(){
   var s1=document.createElement('script');
@@ -1631,7 +1600,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <p>Spots are limited. Reserve yours today with a simple deposit.</p>
           <div class="price-big">$295 <span>/ session</span></div>
           <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
-          <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
+          <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
       </div>
     </div>
@@ -1704,7 +1673,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <p>Ready to invest in images you'll treasure for decades? Let's connect.</p>
           <div class="price-big">$550 <span>/ session</span></div>
           <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
-          <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
+          <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
       </div>
     </div>
@@ -1777,7 +1746,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <p>These sessions book fast &mdash; especially around the holidays. Lock in your date early.</p>
           <div class="price-big">$750 <span>/ session</span></div>
           <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
-          <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
+          <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
       </div>
     </div>
@@ -1852,7 +1821,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <p>Most wedding dates book 12-18 months in advance. Reach out early to secure yours.</p>
           <div class="price-big">$3,200 <span>/ full day</span></div>
           <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
-          <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
+          <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
       </div>
     </div>
@@ -1925,7 +1894,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <p>Investing in professional imagery is one of the highest-ROI decisions your brand can make.</p>
           <div class="price-big">$1,400 <span>/ half day</span></div>
           <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
-          <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
+          <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
       </div>
     </div>
@@ -1998,7 +1967,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <p>Tell us where you're dreaming of and let's make it happen.</p>
           <div class="price-big">$2,000 <span>+ travel</span></div>
           <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
-          <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
+          <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
       </div>
     </div>
@@ -2098,7 +2067,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
             </tbody>
           </table>
           <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
-          <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
+          <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
       </div>
     </div>

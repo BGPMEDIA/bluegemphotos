@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://sandbox.web.squarecdn.com/v1/square.js" onload="initSquare()"></script>
 <style>
 :root{--cream:#F7F3EE;--warm-white:#FDFAF6;--stone:#C8BFB0;--taupe:#9E9082;--espresso:#3B3028;--charcoal:#1E1A17;--gold:#B89A6A;--gold-lt:#D4B483;--blush:#E8D5C4;--sage:#8A9E8C;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -1295,21 +1296,16 @@ window.openBooking=function(preselect){
   }
 };
 
-// Load Square Web Payments SDK
-(function(){
-  var sq=document.createElement('script');
-  sq.src='https://sandbox.web.squarecdn.com/v1/square.js';
-  sq.onload=function(){ initSquare(); };
-  document.head.appendChild(sq);
-})();
-
+// Load Square Web Payments SDK - initialized after SDK loads
 var squareCard=null;
 var squarePayments=null;
 
-async function initSquare(){
+window.initSquare=async function(){
   if(!window.Square)return;
-  squarePayments=window.Square.payments('sandbox-sq0idb-nraNrU5j8QRI8gU2gYt8Wg','LY4TJDHC8T4BG');
-}
+  try{
+    squarePayments=await window.Square.payments('sandbox-sq0idb-nraNrU5j8QRI8gU2gYt8Wg','LY4TJDHC8T4BG');
+  }catch(e){console.log('Square init error:',e);}
+};
 
 async function mountSquareCard(){
   if(!squarePayments)return;
@@ -1654,7 +1650,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <h3>Book Your Mini Session</h3>
           <p>Spots are limited. Reserve yours today with a simple deposit.</p>
           <div class="price-big">$295 <span>/ session</span></div>
-          <a href="/cdn-cgi/l/email-protection#bdffd1c8d8dad8d0cdcfd2fddad0dcd4d193ded2d082cec8dfd7d8dec980f0d4d3d49deed8ceced4d2d39df4d3ccc8d4cfc4" class="btn-book-now">Book Now</a>
+          <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
         </div>
       </div>
@@ -1727,7 +1723,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <h3>Book Your Portrait Session</h3>
           <p>Ready to invest in images you'll treasure for decades? Let's connect.</p>
           <div class="price-big">$550 <span>/ session</span></div>
-          <a href="/cdn-cgi/l/email-protection#5b19372e3e3c3e362b29341b3c363a32377538343664282e39313e382f660b34292f293a322f7b083e28283234357b12352a2e322922" class="btn-book-now">Book Now</a>
+          <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
         </div>
       </div>
@@ -1800,7 +1796,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <h3>Book Your Family Session</h3>
           <p>These sessions book fast &mdash; especially around the holidays. Lock in your date early.</p>
           <div class="price-big">$750 <span>/ session</span></div>
-          <a href="/cdn-cgi/l/email-protection#ffbd938a9a989a928f8d90bf98929e9693d19c9092c08c8a9d959a9c8bc2b99e92969386dfac9a8c8c969091dfb6918e8a968d86" class="btn-book-now">Book Now</a>
+          <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
         </div>
       </div>
@@ -1875,7 +1871,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <h3>Book Your Wedding Coverage</h3>
           <p>Most wedding dates book 12-18 months in advance. Reach out early to secure yours.</p>
           <div class="price-big">$3,200 <span>/ full day</span></div>
-          <a href="/cdn-cgi/l/email-protection#febc928b9b999b938e8c91be99939f9792d09d9193c18d8b9c949b9d8ac3a99b9a9a979099deae96918a91998c9f8e9687deb7908f8b978c87" class="btn-book-now">Book Now</a>
+          <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
         </div>
       </div>
@@ -1948,7 +1944,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <h3>Book Your Brand Shoot</h3>
           <p>Investing in professional imagery is one of the highest-ROI decisions your brand can make.</p>
           <div class="price-big">$1,400 <span>/ half day</span></div>
-          <a href="/cdn-cgi/l/email-protection#5a18362f3f3d3f372a28351a3d373b33367439353765292f38303f392e67193537373f2839333b367a18283b343e7a093235352e7a13342b2f332823" class="btn-book-now">Book Now</a>
+          <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
         </div>
       </div>
@@ -2021,7 +2017,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <h3>Plan Your Destination Session</h3>
           <p>Tell us where you're dreaming of and let's make it happen.</p>
           <div class="price-big">$2,000 <span>+ travel</span></div>
-          <a href="/cdn-cgi/l/email-protection#8ccee0f9e9ebe9e1fcfee3ccebe1ede5e0a2efe3e1b3fff9eee6e9eff8b1c8e9fff8e5e2edf8e5e3e2acdfe9ffffe5e3e2acc5e2fdf9e5fef5" class="btn-book-now">Book Now</a>
+          <button class="btn-book-now" onclick="openScheduling()">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.Tawk_API)Tawk_API.toggle()">Chat With Us</button>
         </div>
       </div>

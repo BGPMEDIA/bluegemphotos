@@ -152,6 +152,16 @@ footer{background:var(--charcoal);padding:4rem;color:var(--stone);display:grid;g
 .svc-gallery-item:hover .svc-gallery-item-inner{transform:scale(1.05);}
 .svc-gallery-item:first-child{grid-column:span 2;padding-bottom:50%;}
 .svc-gallery-item:nth-child(4){grid-column:span 2;padding-bottom:50%;}
+.svc-lb{display:none;position:fixed;inset:0;z-index:500;background:rgba(10,5,2,.95);align-items:center;justify-content:center;}
+.svc-lb.open{display:flex;}
+.svc-lb-img{max-width:90vw;max-height:88vh;object-fit:contain;animation:fadeUp .3s ease both;}
+.svc-lb-close{position:absolute;top:1.5rem;right:2rem;color:var(--warm-white);font-size:2rem;background:none;border:none;cursor:pointer;z-index:501;opacity:.8;transition:opacity .2s;}
+.svc-lb-close:hover{opacity:1;}
+.svc-lb-prev,.svc-lb-next{position:absolute;top:50%;transform:translateY(-50%);color:var(--warm-white);font-size:2.5rem;background:none;border:none;cursor:pointer;padding:1rem;opacity:.7;transition:opacity .2s;z-index:501;}
+.svc-lb-prev{left:1rem;}
+.svc-lb-next{right:1rem;}
+.svc-lb-prev:hover,.svc-lb-next:hover{opacity:1;}
+.svc-lb-counter{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);color:var(--stone);font-size:.72rem;letter-spacing:.2em;font-family:'Jost',sans-serif;}
 .svc-faq{padding:5rem 4rem;background:var(--warm-white);}
 .svc-faq-inner{max-width:760px;margin:0 auto;}
 .svc-faq h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--espresso);margin-bottom:2.5rem;}
@@ -1367,6 +1377,67 @@ window.submitSquarePayment=async function(){
   }
 };
 
+// Service page gallery lightbox
+var svcLbImages=[];
+var svcLbIndex=0;
+
+window.openSvcLightbox=function(imgs,idx){
+  svcLbImages=imgs;
+  svcLbIndex=idx;
+  renderSvcLb();
+  document.getElementById('svcLightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+};
+
+function renderSvcLb(){
+  var img=document.getElementById('svcLbImg');
+  var counter=document.getElementById('svcLbCounter');
+  img.src=svcLbImages[svcLbIndex];
+  counter.textContent=(svcLbIndex+1)+' / '+svcLbImages.length;
+}
+
+window.closeSvcLightbox=function(){
+  document.getElementById('svcLightbox').classList.remove('open');
+  document.body.style.overflow='';
+};
+
+window.svcLbPrev=function(){
+  svcLbIndex=(svcLbIndex-1+svcLbImages.length)%svcLbImages.length;
+  renderSvcLb();
+};
+
+window.svcLbNext=function(){
+  svcLbIndex=(svcLbIndex+1)%svcLbImages.length;
+  renderSvcLb();
+};
+
+document.addEventListener('keydown',function(e){
+  var lb=document.getElementById('svcLightbox');
+  if(!lb||!lb.classList.contains('open'))return;
+  if(e.key==='ArrowLeft')window.svcLbPrev();
+  if(e.key==='ArrowRight')window.svcLbNext();
+  if(e.key==='Escape')window.closeSvcLightbox();
+});
+
+function initSvcGalleries(){
+  document.querySelectorAll('.svc-gallery-grid').forEach(function(grid){
+    var items=grid.querySelectorAll('.svc-gallery-item-inner');
+    var imgs=[];
+    items.forEach(function(item){
+      var bg=item.getAttribute('style')||'';
+      var match=bg.match(/url\(['"]?([^'")\s]+)['"]?\)/);
+      if(match){
+        var url=match[1].replace('w_800,h_1000,c_fill,g_auto,','w_1600,h_2000,c_limit,');
+        imgs.push(url);
+      }
+    });
+    items.forEach(function(item,i){
+      item.onclick=function(){ if(imgs[i])window.openSvcLightbox(imgs,i); };
+    });
+  });
+}
+
+setTimeout(initSvcGalleries,800);
 
 var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 (function(){
@@ -1424,6 +1495,15 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- Service Gallery Lightbox -->
+<div class="svc-lb" id="svcLightbox" onclick="if(event.target===this)closeSvcLightbox()">
+  <button class="svc-lb-close" onclick="closeSvcLightbox()">&#10005;</button>
+  <button class="svc-lb-prev" onclick="svcLbPrev()">&#8592;</button>
+  <img class="svc-lb-img" id="svcLbImg" src="" alt="Gallery image">
+  <button class="svc-lb-next" onclick="svcLbNext()">&#8594;</button>
+  <div class="svc-lb-counter" id="svcLbCounter"></div>
+</div>
 
 <div class="photo-modal" id="photoModal">
   <div class="modal-inner">

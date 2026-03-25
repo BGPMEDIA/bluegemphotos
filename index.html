@@ -1077,7 +1077,7 @@ var schedData={service:'',hours:0,date:'',time:'',name:'',email:'',phone:'',loca
 var schedStep=1;
 var schedServices=[
   {num:'01',name:'Mini Session',rate:295,perHour:false,desc:'30-min focused session. Headshots, individuals, seasonal portraits.'},
-  {num:'02',name:'Portrait Session',rate:850,perHour:false,desc:'90-min creative session for individuals, couples, or small families.'},
+  {num:'02',name:'Portrait Session',rate:550,perHour:false,desc:'90-min creative session for individuals, couples, or small families.'},
   {num:'03',name:'Family Collection',rate:750,perHour:false,desc:'2-hour storytelling session for families up to 8 members.'},
   {num:'04',name:'Wedding Day',rate:3200,perHour:false,desc:'Full-day coverage 8-10 hrs. Two photographers included.'},
   {num:'05',name:'Bridal Portrait Session',rate:750,perHour:false,desc:'2-hour session exclusively for the bride. Before the vows, before the chaos.'},
@@ -1261,7 +1261,7 @@ window.showToast=function(msg){
 
 // BOOKING PAGE
 var servicePrices={
-  'Mini Session':295,'Portrait Session':850,'Family Collection':750,
+  'Mini Session':295,'Portrait Session':550,'Family Collection':750,
   'Wedding Day':3200,'Commercial & Brand':1400,'Destination Session':2000
 };
 var selectedDeposit='half';
@@ -1598,12 +1598,12 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <p style="color:var(--taupe);max-width:50ch;margin:.8rem auto 0;font-size:.88rem">All packages include a private online gallery with watermarked previews, print ordering, and full digital delivery.</p>
     </div>
     <div class="services-grid">
-      <div class="service-card"><div class="service-num">01</div><div class="service-name">Mini Session</div><p class="service-desc">A focused 30-minute session ideal for individuals, headshots, or seasonal family portraits.</p><div class="service-price">$295 <span>/ session</span></div><ul class="service-includes"><li>30-minute session</li><li>1 outfit, 1 location</li><li>4 edited digital images</li><li>Private online gallery</li><li>Print-release included</li></ul><a href="#" class="service-learn" onclick="showPage('svc-mini');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">02</div><div class="service-name">Portrait Session</div><p class="service-desc">A relaxed, creative portrait experience for individuals, couples, or small families.</p><div class="service-price">$850 <span>/ session</span></div><ul class="service-includes"><li>90-minute session</li><li>2 outfits, up to 2 locations</li><li>6 edited digital images</li><li>Private gallery + prints access</li><li>Styling guide provided</li></ul><a href="#" class="service-learn" onclick="showPage('svc-portrait');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">03</div><div class="service-name">Family Collection</div><p class="service-desc">A full family storytelling session capturing authentic connection and everything in between.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour session</li><li>Up to 8 family members</li><li>10 edited digital images</li><li>Slideshow reveal</li><li>One complimentary 11x14 print</li></ul><a href="#" class="service-learn" onclick="showPage('svc-family');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">01</div><div class="service-name">Mini Session</div><p class="service-desc">A focused 30-minute session ideal for individuals, headshots, or seasonal family portraits.</p><div class="service-price">$295 <span>/ session</span></div><ul class="service-includes"><li>30-minute session</li><li>1 outfit, 1 location</li><li>15 edited digital images</li><li>Private online gallery</li><li>Print-release included</li></ul><a href="#" class="service-learn" onclick="showPage('svc-mini');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">02</div><div class="service-name">Portrait Session</div><p class="service-desc">A relaxed, creative portrait experience for individuals, couples, or small families.</p><div class="service-price">$550 <span>/ session</span></div><ul class="service-includes"><li>90-minute session</li><li>2 outfits, up to 2 locations</li><li>40+ edited digital images</li><li>Private gallery + prints access</li><li>Styling guide provided</li></ul><a href="#" class="service-learn" onclick="showPage('svc-portrait');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">03</div><div class="service-name">Family Collection</div><p class="service-desc">A full family storytelling session capturing authentic connection and everything in between.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour session</li><li>Up to 8 family members</li><li>60+ edited digital images</li><li>Slideshow reveal</li><li>One complimentary 11x14 print</li></ul><a href="#" class="service-learn" onclick="showPage('svc-family');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">04</div><div class="service-name">Wedding Day</div><p class="service-desc">Full-day wedding coverage from getting ready through the last dance. Your entire story, beautifully told.</p><div class="service-price">$3,200 <span>/ full day</span></div><ul class="service-includes"><li>8-10 hours of coverage</li><li>Two photographers</li><li>300+ edited digital images</li><li>Engagement session included</li><li>Luxury heirloom album option</li></ul><a href="#" class="service-learn" onclick="showPage('svc-wedding');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">05</div><div class="service-name">Commercial &amp; Brand</div><p class="service-desc">Strategic visual storytelling for businesses, products, and personal brands. Content that converts.</p><div class="service-price">$1,400 <span>/ half day</span></div><ul class="service-includes"><li>4-hour shoot</li><li>Product, team, or lifestyle</li><li>40 final edited images</li><li>Commercial license included</li><li>Mood board consultation</li></ul><a href="#" class="service-learn" onclick="showPage('svc-commercial');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">06</div><div class="service-name">Destination Session</div><p class="service-desc">Wherever your story takes you &mdash; elopements, anniversary trips, or bucket-list portraits worldwide.</p><div class="service-price">$2,000 <span>+ travel</span></div><ul class="service-includes"><li>3-hour golden-hour session</li><li>Any worldwide location</li><li>35 edited digital images</li><li>Rush delivery option available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-destination');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">05</div><div class="service-name">Commercial &amp; Brand</div><p class="service-desc">Strategic visual storytelling for businesses, products, and personal brands. Content that converts.</p><div class="service-price">$1,400 <span>/ half day</span></div><ul class="service-includes"><li>4-hour shoot</li><li>Product, team, or lifestyle</li><li>80+ final edited images</li><li>Commercial license included</li><li>Mood board consultation</li></ul><a href="#" class="service-learn" onclick="showPage('svc-commercial');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">06</div><div class="service-name">Destination Session</div><p class="service-desc">Wherever your story takes you &mdash; elopements, anniversary trips, or bucket-list portraits worldwide.</p><div class="service-price">$2,000 <span>+ travel</span></div><ul class="service-includes"><li>3-hour golden-hour session</li><li>Any worldwide location</li><li>80+ edited digital images</li><li>Travel itinerary collaboration</li><li>Rush delivery option available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-destination');return false;">View Details &rarr;</a></div>
       <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">07</div><div class="service-name">Bridal Portrait Session</div><p class="service-desc">Two unhurried hours dedicated entirely to you — your gown, your beauty, your story. Before the vows. Before the chaos.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour studio session</li><li>Exclusively about the bride</li><li>20 edited digital images</li><li>Private gallery delivery</li><li>Fine art print options available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-bridal');return false;">View Details &rarr;</a></div>
     </div>
   </section>
@@ -1672,13 +1672,13 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <h2>Perfect for a focused, beautiful session</h2>
         <p>Our Mini Session is designed for clients who want stunning, professional images without a full-length shoot. In just 30 minutes, we capture the essence of you &mdash; clean, confident, and beautifully lit.</p>
         <p>Ideal for updated headshots, individuals wanting a quick refresh, or seasonal family portraits. We work quickly and intentionally, making every minute count.</p>
-        <p>You'll walk away with 4 hand-edited images delivered to your private online gallery within one week &mdash; ready to download, print, or share.</p>
+        <p>You'll walk away with 15 hand-edited images delivered to your private online gallery within one week &mdash; ready to download, print, or share.</p>
         <div class="svc-includes-title">What's Included</div>
         <ul class="svc-includes-list">
           <li>30-minute session</li>
           <li>1 outfit change</li>
           <li>1 curated location</li>
-          <li>4 hand-edited digital images</li>
+          <li>15 hand-edited digital images</li>
           <li>Private online gallery delivery</li>
           <li>Full print release</li>
           <li>Gallery access for 60 days</li>
@@ -1703,9 +1703,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/4_iqd0zt.jpg') center/cover no-repeat"></div></div>
         <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/9_n86so7.jpg') center/cover no-repeat"></div></div>
         <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/1_ohfkej.jpg') center/cover no-repeat"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/24_yciqie.jpg') center/cover no-repeat"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/47_q2bku3.jpg') center/cover no-repeat"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/41_k9fcmz.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/Sit-Main_k6zkrd.jpg') center/cover no-repeat"></div></div>
       </div>
     </div>
     <div class="svc-faq">
@@ -1720,7 +1718,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
     <div class="svc-related">
       <h2>You Might Also Love</h2>
       <div class="svc-related-grid">
-        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $850</div></a>
+        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
         <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $750</div></a>
         <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
       </div>
@@ -1731,14 +1729,14 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 
 <!-- SVC 02: PORTRAIT SESSION -->
 <div class="page" id="page-svc-portrait">
-  <div class="svc-hero" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_1600,h_900,c_fill,g_auto,q_auto,f_auto/35_udl4wl.jpg') center/cover no-repeat;position:relative;">
+  <div class="svc-hero" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_1600,h_900,c_fill,g_auto,q_auto,f_auto/9_n86so7.jpg') center/cover no-repeat;position:relative;">
     <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,21,16,.7) 0%,rgba(18,10,5,.4) 100%);"></div>
     <div class="svc-hero-overlay"></div>
     <div class="svc-hero-content">
       <a href="#" class="svc-back" onclick="showPage('home');return false;">&#8592; Back to Services</a>
       <div class="svc-hero-num">02</div>
       <h1 class="svc-hero-title">Portrait <em>Session</em></h1>
-      <div class="svc-hero-price">Starting at $850</div>
+      <div class="svc-hero-price">Starting at $550</div>
     </div>
   </div>
   <div style="background:var(--warm-white)">
@@ -1747,13 +1745,13 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <h2>An unhurried, creative portrait experience</h2>
         <p>Our Portrait Session is the full creative experience &mdash; 90 relaxed minutes to explore locations, try different outfits, and simply be yourself in front of the camera.</p>
         <p>Whether you're an individual investing in self-portraits, a couple capturing a milestone, or a small family wanting timeless images, this session gives us the room to tell your story fully.</p>
-        <p>You'll receive a curated collection of 6 hand-edited images, a styling guide ahead of your session, and access to your private gallery within two weeks.</p>
+        <p>You'll receive a curated collection of 40+ hand-edited images, a styling guide ahead of your session, and access to your private gallery within two weeks.</p>
         <div class="svc-includes-title">What's Included</div>
         <ul class="svc-includes-list">
           <li>90-minute session</li>
           <li>2 outfit changes</li>
           <li>Up to 2 locations</li>
-          <li>6 hand-edited digital images</li>
+          <li>40+ hand-edited digital images</li>
           <li>Pre-session styling guide</li>
           <li>Private gallery + print store access</li>
           <li>Full print release</li>
@@ -1763,7 +1761,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <div class="svc-booking">
           <h3>Book Your Portrait Session</h3>
           <p>Ready to invest in images you'll treasure for decades? Let's connect.</p>
-          <div class="price-big">$850 <span>/ session</span></div>
+          <div class="price-big">$550 <span>/ session</span></div>
           <button class="btn-book-now" onclick="openScheduling('Portrait Session')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
@@ -1773,12 +1771,12 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <h2>Portrait Session <em style="font-style:italic;color:var(--gold)">Gallery</em></h2>
       <p>Intimate, editorial, and entirely yours. A taste of what we create together.</p>
       <div class="svc-gallery-grid">
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/EDIT-74_wc7ctr.jpg') center/cover no-repeat"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/35_udl4wl.jpg') center/cover no-repeat"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/3_jlpa7b.jpg') center/cover no-repeat"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/5_hldbgs.jpg') center/cover no-repeat"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/35_B_tj74qz.jpg') center/cover no-repeat"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/brianPSB_jmfs6q.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/9_n86so7.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/4_iqd0zt.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/Sit-Main_k6zkrd.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/1_ohfkej.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/9_n86so7.jpg') center/cover no-repeat;filter:brightness(.85)"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/4_iqd0zt.jpg') center/cover no-repeat;filter:brightness(.8)"></div></div>
       </div>
     </div>
     <div class="svc-faq">
@@ -1819,12 +1817,12 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <h2>Your family's story, beautifully preserved</h2>
         <p>Families are joyful, messy, loud, tender &mdash; and we love every bit of it. Our Family Collection is designed to capture the real moments: the laughter, the chaos, the in-between glances that say everything.</p>
         <p>With a full two hours together, there's no rush. We move through natural interactions, gentle prompts, and genuine play to draw out the authentic connection that makes your family uniquely yours.</p>
-        <p>You'll receive 10 beautifully edited images and a complimentary 11x14 fine art print &mdash; a tangible piece of your story, ready to hang.</p>
+        <p>You'll receive 60+ beautifully edited images and a complimentary 11x14 fine art print &mdash; a tangible piece of your story, ready to hang.</p>
         <div class="svc-includes-title">What's Included</div>
         <ul class="svc-includes-list">
           <li>2-hour session</li>
           <li>Up to 8 family members</li>
-          <li>10 hand-edited digital images</li>
+          <li>60+ hand-edited digital images</li>
           <li>Online slideshow reveal</li>
           <li>One complimentary 11x14 fine art print</li>
           <li>Private gallery + full print store</li>
@@ -1866,7 +1864,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <h2>You Might Also Love</h2>
       <div class="svc-related-grid">
         <a href="#" class="svc-related-card" onclick="showPage('svc-mini');return false;"><div class="svc-related-num">01</div><div class="svc-related-name">Mini Session</div><div class="svc-related-price">Starting at $295</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $850</div></a>
+        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
         <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
       </div>
     </div>
@@ -1940,7 +1938,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
     <div class="svc-related">
       <h2>You Might Also Love</h2>
       <div class="svc-related-grid">
-        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $850</div></a>
+        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
         <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
         <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $750</div></a>
       </div>
@@ -1972,7 +1970,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <li>4-hour half-day shoot</li>
           <li>Pre-shoot mood board consultation</li>
           <li>Product, team, or lifestyle coverage</li>
-          <li>40 hand-edited final images</li>
+          <li>80+ hand-edited final images</li>
           <li>Full commercial license</li>
           <li>Private gallery delivery within 1 week</li>
           <li>Multiple format exports (web + print)</li>
@@ -2012,7 +2010,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
     <div class="svc-related">
       <h2>You Might Also Love</h2>
       <div class="svc-related-grid">
-        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $850</div></a>
+        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
         <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
         <a href="#" class="svc-related-card" onclick="showPage('svc-mini');return false;"><div class="svc-related-num">01</div><div class="svc-related-name">Mini Session</div><div class="svc-related-price">Starting at $295</div></a>
       </div>
@@ -2045,7 +2043,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <li>3-hour golden-hour session</li>
           <li>Any worldwide location</li>
           <li>Full travel itinerary collaboration</li>
-          <li>35 hand-edited digital images</li>
+          <li>80+ hand-edited digital images</li>
           <li>Private gallery within 2 weeks</li>
           <li>Full print release</li>
           <li>Rush delivery option available</li>
@@ -2086,7 +2084,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <h2>You Might Also Love</h2>
       <div class="svc-related-grid">
         <a href="#" class="svc-related-card" onclick="showPage('svc-wedding');return false;"><div class="svc-related-num">04</div><div class="svc-related-name">Wedding Day</div><div class="svc-related-price">Starting at $3,200</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $850</div></a>
+        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
         <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $750</div></a>
       </div>
     </div>
@@ -2119,7 +2117,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <ul class="svc-includes-list">
           <li>2-hour studio session exclusively for the bride</li>
           <li>Professional studio lighting and backdrop setup</li>
-          <li>15–35 hand-edited digital images</li>
+          <li>20–40 hand-edited digital images</li>
           <li>Private watermarked online gallery</li>
           <li>Full print release included</li>
           <li>Fine art print options available</li>
@@ -2187,7 +2185,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <h2>You Might Also Love</h2>
       <div class="svc-related-grid">
         <a href="#" class="svc-related-card" onclick="showPage('svc-wedding');return false;"><div class="svc-related-num">04</div><div class="svc-related-name">Wedding Day</div><div class="svc-related-price">Starting at $3,200</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $850</div></a>
+        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
         <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
       </div>
     </div>
@@ -2292,7 +2290,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
               <select id="bf-service" onchange="updateBookingSummary()">
                 <option value="">- Select a service -</option>
                 <option value="Mini Session">Mini Session - $295</option>
-                <option value="Portrait Session">Portrait Session - $850</option>
+                <option value="Portrait Session">Portrait Session - $550</option>
                 <option value="Family Collection">Family Collection - $750</option>
                 <option value="Wedding Day">Wedding Day - $3,200</option>
                 <option value="Commercial & Brand">Commercial &amp; Brand - $1,400</option>
@@ -2594,4 +2592,4 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 
 
 </body>
-</html>
+</html

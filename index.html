@@ -569,8 +569,6 @@ window.switchTab = function(tab, btn) {
     var pw = prompt('Enter admin password:');
     if(pw !== 'BluegGem2025!'){ window.showToast('Incorrect password'); return; }
     isAdminMode = true;
-  } else {
-    isAdminMode = false;
   }
   ['galleries','admin'].forEach(function(t){
     var el = document.getElementById('tab-'+t);
@@ -789,11 +787,15 @@ window.publishCloudinaryGallery = async function(){
       if(document.getElementById('galleryEditId')) document.getElementById('galleryEditId').value = '';
       document.getElementById('publishGalleryBtn').textContent = '⚡ Publish Gallery →';
       window.showToast(editId ? 'Gallery updated!' : 'Gallery published!');
-      isAdminMode = true;
       await loadGalleries();
-      window.switchTab('galleries', document.getElementById('tab-btn-galleries'));
-      isAdminMode = true;
-      renderGalleryCards();
+      // Switch to galleries tab while keeping admin mode
+      ['galleries','admin'].forEach(function(t){
+        var el = document.getElementById('tab-'+t);
+        if(el) el.style.display = t === 'galleries' ? '' : 'none';
+      });
+      document.querySelectorAll('.gallery-tab').forEach(function(b){ b.classList.remove('active'); });
+      var galBtn = document.getElementById('tab-btn-galleries');
+      if(galBtn) galBtn.classList.add('active');
     } else {
       window.showToast('Error saving gallery. Please try again.');
     }

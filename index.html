@@ -536,26 +536,30 @@ var galleryStore = [];
 async function loadGalleries(){
   try {
     var res = await fetch('/api/galleries?t='+Date.now());
+    if(!res.ok) throw new Error('API error: '+res.status);
     var data = await res.json();
-    if(data.success) {
+    if(data.success && data.galleries) {
       galleryStore = data.galleries;
-      renderGalleryCards();
+    } else {
+      throw new Error('Invalid response');
     }
   } catch(err) {
-    console.warn('Could not load galleries:', err);
-    // Fallback to default
-    galleryStore = [{
-      id: 'deanna-may',
-      name: 'VOGUE MODEL - DeAnna May',
-      folder: 'VOGUE MODEL - DeAnna May',
-      date: 'March 2025',
-      price: '$285',
-      singlePrice: '$18',
-      password: '',
-      expiry: '60'
-    }];
-    renderGalleryCards();
+    console.warn('Could not load galleries from API:', err);
+    // Keep existing galleryStore if it has data, otherwise use default
+    if(galleryStore.length === 0) {
+      galleryStore = [{
+        id: 'deanna-may',
+        name: 'VOGUE MODEL - DeAnna May',
+        folder: 'VOGUE MODEL - DeAnna May',
+        date: 'March 2025',
+        price: '$285',
+        singlePrice: '$18',
+        password: '',
+        expiry: '60'
+      }];
+    }
   }
+  renderGalleryCards();
 }
 
 var isAdminMode = false;
@@ -565,9 +569,9 @@ window.switchTab = function(tab, btn) {
     var pw = prompt('Enter admin password:');
     if(pw !== 'BluegGem2025!'){ window.showToast('Incorrect password'); return; }
     isAdminMode = true;
-  } else {
-    isAdminMode = false;
   }
+  // Only reset admin mode if explicitly switching to galleries from nav
+  if(tab === 'galleries' && !isAdminMode) isAdminMode = false;
   ['galleries','admin'].forEach(function(t){
     var el = document.getElementById('tab-'+t);
     if(el) el.style.display = t === tab ? '' : 'none';

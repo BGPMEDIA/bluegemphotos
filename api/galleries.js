@@ -11,11 +11,12 @@ async function redisGet(key){
 }
 
 async function redisSet(key, value){
-  await fetch(`${REDIS_URL}/set/${key}`, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${REDIS_TOKEN}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(JSON.stringify(value))
+  const encoded = JSON.stringify(value);
+  const res = await fetch(`${REDIS_URL}/set/${key}/${encodeURIComponent(encoded)}`, {
+    method: 'GET',
+    headers: { Authorization: `Bearer ${REDIS_TOKEN}` }
   });
+  return await res.json();
 }
 
 const DEFAULT_GALLERIES = [{
@@ -79,6 +80,6 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   } catch(err){
     console.error('Gallery API error:', err);
-    return res.status(500).json({ success: false, error: 'Server error' });
+    return res.status(500).json({ success: false, error: err.message });
   }
 };

@@ -529,27 +529,44 @@ setInterval(function(){window.goTestimonial((tIdx+1)%tSlides.length);},5000);
 // CLOUDINARY CONFIG
 var CLOUD_NAME = 'dfqouxke9';
 
-// Gallery data store (persists in sessionStorage)
-var galleryStore = JSON.parse(sessionStorage.getItem('rsp_galleries') || '[]');
+// Gallery data store (persists via Vercel KV API)
+var galleryStore = [];
 
-// Pre-load DeAnna May gallery
-if(galleryStore.length === 0){
-  galleryStore = [{
-    name: 'VOGUE MODEL - DeAnna May',
-    folder: 'VOGUE MODEL - DeAnna May',
-    date: 'March 2025',
-    price: '$285',
-    singlePrice: '$18',
-    password: '',
-    expiry: '60'
-  }];
-  sessionStorage.setItem('rsp_galleries', JSON.stringify(galleryStore));
+// Load galleries from persistent storage
+async function loadGalleries(){
+  try {
+    var res = await fetch('/api/galleries?t='+Date.now());
+    var data = await res.json();
+    if(data.success) {
+      galleryStore = data.galleries;
+      renderGalleryCards();
+    }
+  } catch(err) {
+    console.warn('Could not load galleries:', err);
+    // Fallback to default
+    galleryStore = [{
+      id: 'deanna-may',
+      name: 'VOGUE MODEL - DeAnna May',
+      folder: 'VOGUE MODEL - DeAnna May',
+      date: 'March 2025',
+      price: '$285',
+      singlePrice: '$18',
+      password: '',
+      expiry: '60'
+    }];
+    renderGalleryCards();
+  }
 }
+
+var isAdminMode = false;
 
 window.switchTab = function(tab, btn) {
   if(tab === 'admin'){
     var pw = prompt('Enter admin password:');
     if(pw !== 'BluegGem2025!'){ window.showToast('Incorrect password'); return; }
+    isAdminMode = true;
+  } else {
+    isAdminMode = false;
   }
   ['galleries','admin'].forEach(function(t){
     var el = document.getElementById('tab-'+t);
@@ -624,8 +641,22 @@ function loadCloudinaryFolder(g, idx, card){
         buyBtn.className = 'btn-sm btn-sm-outline';
         buyBtn.textContent = 'Purchase All ('+g.price+')';
         (function(gallery){ buyBtn.onclick = function(){ window.addToCart('Full Gallery \u2014 '+gallery.name, 'All Digital Files \u2014 No Watermark', gallery.price); }; })(g);
+        var editBtn = document.createElement('button');
+        editBtn.className = 'btn-sm btn-sm-outline';
+        editBtn.textContent = '✏ Edit';
+        editBtn.style.cssText = 'background:var(--sage);color:var(--warm-white);border-color:var(--sage);';
+        (function(id){ editBtn.onclick = function(){ window.editGallery(id); }; })(g.id);
+        var delBtn = document.createElement('button');
+        delBtn.className = 'btn-sm btn-sm-outline';
+        delBtn.textContent = '✕ Delete';
+        delBtn.style.cssText = 'background:#c0392b;color:#fff;border-color:#c0392b;';
+        (function(id){ delBtn.onclick = function(){ window.deleteGallery(id); }; })(g.id);
         actions.appendChild(viewBtn);
         actions.appendChild(buyBtn);
+        if(isAdminMode){
+          actions.appendChild(editBtn);
+          actions.appendChild(delBtn);
+        }
       }
     })
     .catch(function(err){
@@ -721,7 +752,7 @@ function openCloudinaryGallery(gallery, resources){
   document.body.style.overflow = 'hidden';
 }
 
-window.publishCloudinaryGallery = function(){
+window.publishCloudinaryGallery = async function(){
   var name   = document.getElementById('galleryName').value.trim();
   var folder = document.getElementById('cloudinaryFolder').value.trim();
   var date   = document.getElementById('galleryDate').value;
@@ -732,18 +763,75 @@ window.publishCloudinaryGallery = function(){
   if(!name){ window.showToast('Please enter a gallery name'); return; }
   if(!folder){ window.showToast('Please enter the Cloudinary folder name'); return; }
   var ds = date ? new Date(date+'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : 'Recently';
-  var newGallery = { name:name, folder:folder, date:ds, price:price, singlePrice:single, password:pass, expiry:expiry };
-  galleryStore.unshift(newGallery);
-  sessionStorage.setItem('rsp_galleries', JSON.stringify(galleryStore));
-  ['galleryName','cloudinaryFolder','galleryDate','clientEmail','galleryPassword','galleryPrice','singlePrice'].forEach(function(id){
-    var el = document.getElementById(id); if(el) el.value = '';
-  });
-  window.showToast('Gallery published! Loading photos...');
-  window.switchTab('galleries', document.getElementById('tab-btn-galleries'));
+
+  // Check if editing existing gallery
+  var editId = document.getElementById('galleryEditId') ? document.getElementById('galleryEditId').value : '';
+
+  try {
+    var method = editId ? 'PUT' : 'POST';
+    var body = { name, folder, date:ds, price, singlePrice:single, password:pass, expiry };
+    if(editId) body.id = editId;
+
+    var res = await fetch('/api/galleries', {
+      method: method,
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(body)
+    });
+    var data = await res.json();
+    if(data.success){
+      ['galleryName','cloudinaryFolder','galleryDate','clientEmail','galleryPassword','galleryPrice','singlePrice'].forEach(function(id){
+        var el = document.getElementById(id); if(el) el.value = '';
+      });
+      if(document.getElementById('galleryEditId')) document.getElementById('galleryEditId').value = '';
+      document.getElementById('publishGalleryBtn').textContent = '⚡ Publish Gallery →';
+      window.showToast(editId ? 'Gallery updated!' : 'Gallery published!');
+      await loadGalleries();
+      window.switchTab('galleries', document.getElementById('tab-btn-galleries'));
+    } else {
+      window.showToast('Error saving gallery. Please try again.');
+    }
+  } catch(err) {
+    window.showToast('Connection error. Please try again.');
+  }
+};
+
+window.editGallery = async function(id){
+  var g = galleryStore.find(function(g){ return g.id === id; });
+  if(!g) return;
+  // Switch to admin tab
+  window.switchTab('admin', document.getElementById('tab-btn-admin'));
+  // Fill form with existing values
+  document.getElementById('galleryName').value = g.name;
+  document.getElementById('cloudinaryFolder').value = g.folder;
+  document.getElementById('galleryPrice').value = g.price;
+  document.getElementById('singlePrice').value = g.singlePrice || '$18';
+  document.getElementById('galleryPassword').value = g.password || '';
+  document.getElementById('galleryExpiry').value = g.expiry || '60';
+  if(document.getElementById('galleryEditId')) document.getElementById('galleryEditId').value = id;
+  document.getElementById('publishGalleryBtn').textContent = '✓ Save Changes →';
+  window.showToast('Edit mode — make changes and save');
+};
+
+window.deleteGallery = async function(id){
+  if(!confirm('Delete this gallery? This cannot be undone.')) return;
+  try {
+    var res = await fetch('/api/galleries', {
+      method: 'DELETE',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ id })
+    });
+    var data = await res.json();
+    if(data.success){
+      window.showToast('Gallery deleted');
+      await loadGalleries();
+    }
+  } catch(err) {
+    window.showToast('Error deleting gallery');
+  }
 };
 
 // Initialize gallery on page load
-setTimeout(function(){ renderGalleryCards(); }, 100);
+setTimeout(function(){ loadGalleries(); }, 100);
 
 var dz=document.getElementById('dropZone');
 if(dz){
@@ -2241,7 +2329,8 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
             </div>
             <div class="form-field"><label>Full Gallery Download Price</label><input type="text" id="galleryPrice" placeholder="e.g. $285"></div>
             <div class="form-field"><label>Single Photo Price</label><input type="text" id="singlePrice" placeholder="e.g. $18"></div>
-            <button class="btn-upload" onclick="publishCloudinaryGallery()">&#9889; Publish Gallery &rarr;</button>
+            <input type="hidden" id="galleryEditId" value="">
+            <button class="btn-upload" id="publishGalleryBtn" onclick="publishCloudinaryGallery()">&#9889; Publish Gallery &rarr;</button>
           </div>
           <div style="flex:1;min-width:240px;background:var(--espresso);padding:1.8rem;align-self:start">
             <p style="color:var(--gold-lt);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1rem">How It Works</p>

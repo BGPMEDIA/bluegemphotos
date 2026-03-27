@@ -902,7 +902,7 @@ window.publishGallery=function(){
 
 var photoColors=[['#3B2F1E','#2A2116'],['#5C4A35','#4A3A28'],['#8B7355','#7A6248'],['#3A3028','#2A2218'],['#6B5A48','#5A4A38'],['#4A3C2C','#3A2E20'],['#7A6A56','#685A48'],['#2E261E','#221C16'],['#9A8870','#887660']];
 var printSizes=[{size:'4x6"',type:'Lustre or Matte',price:'$8'},{size:'5x7"',type:'Lustre or Matte',price:'$14'},{size:'8x10"',type:'Lustre, Matte or Canvas',price:'$28'},{size:'11x14"',type:'Matte or Canvas',price:'$55'},{size:'16x20"',type:'Canvas or Metal',price:'$95'},{size:'20x30"',type:'Canvas or Metal',price:'$165'},{size:'Heirloom Album',type:'Lay-Flat 10x10"',price:'$395'},{size:'Card Set (25)',type:'5x7" Matte',price:'$68'}];
-var currentGalleryName='',selectedPhotoIdx=-1,selectedSizeIdx=-1;
+var currentGalleryName='',selectedPhotoIdx=-1,selectedSizeIdx=-1,currentPhotoThumb='';
 
 window.openGallery=function(name,date,meta){
   currentGalleryName=name;
@@ -930,9 +930,12 @@ window.openGallery=function(name,date,meta){
     })(i,name,res.public_id);
     // Print button
     var printBtn=document.createElement('button');printBtn.textContent='Order Print';
-    (function(photoIdx,galleryName,col0,col1){
-      printBtn.onclick=function(){openPrintPicker(photoIdx,galleryName,col0,col1);};
-    })(i,name,c0,c1);
+    (function(photoIdx,galleryName,col0,col1,publicId){
+      printBtn.onclick=function(){
+        currentPhotoThumb='https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_120,h_120,c_fill,q_auto,f_auto/'+publicId;
+        openPrintPicker(photoIdx,galleryName,col0,col1);
+      };
+    })(i,name,c0,c1,res.public_id);
     ov.appendChild(buyBtn);ov.appendChild(printBtn);
     inner.appendChild(wm);inner.appendChild(ov);
     d.appendChild(inner);mp.appendChild(d);
@@ -992,7 +995,12 @@ window.closeModal=function(){
 window.openPrintPicker=function(photoIdx,galleryName,col1,col2){
   selectedPhotoIdx=photoIdx;selectedSizeIdx=-1;currentGalleryName=galleryName;
   document.getElementById('pickerPhotoLabel').textContent='Photo #'+(photoIdx+1)+' - '+galleryName;
-  document.getElementById('pickerPreview').style.background='linear-gradient(135deg,'+col1+' 0%,'+col2+' 100%)';
+  var preview=document.getElementById('pickerPreview');
+  if(currentPhotoThumb){
+    preview.style.background='url('+currentPhotoThumb+') center/cover no-repeat';
+  } else {
+    preview.style.background='linear-gradient(135deg,'+col1+' 0%,'+col2+' 100%)';
+  }
   var grid=document.getElementById('sizeGrid');grid.innerHTML='';
   printSizes.forEach(function(s,i){
     var btn=document.createElement('button');btn.className='size-btn';
@@ -1006,7 +1014,7 @@ window.closePrintPicker=function(){document.getElementById('printPickerModal').c
 window.addPrintToCart=function(){
   if(selectedSizeIdx<0){window.showToast('Please select a print size');return;}
   var s=printSizes[selectedSizeIdx];
-  window.addToCart(s.size+' Print - Photo #'+(selectedPhotoIdx+1),currentGalleryName+' - '+s.type,s.price);
+  window.addToCart(s.size+' Print - Photo #'+(selectedPhotoIdx+1),currentGalleryName+' - '+s.type,s.price,currentPhotoThumb||null);
   window.closePrintPicker();window.closeModal();
 };
 document.getElementById('printPickerModal').addEventListener('click',function(e){if(e.target===this)window.closePrintPicker();});

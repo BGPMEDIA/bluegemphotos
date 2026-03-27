@@ -650,7 +650,17 @@ function loadCloudinaryFolder(g, idx, card){
         var viewBtn = document.createElement('button');
         viewBtn.className = 'btn-sm btn-sm-gold';
         viewBtn.textContent = 'View Gallery';
-        (function(gallery, res){ viewBtn.onclick = function(){ openCloudinaryGallery(gallery, res); }; })(g, resources);
+        (function(gallery, res){ viewBtn.onclick = function(){ 
+          if(gallery.password && gallery.password.trim() !== ''){
+            var entered = prompt('This gallery is private. Please enter the password:');
+            if(entered === null) return; // cancelled
+            if(entered.trim() !== gallery.password.trim()){
+              window.showToast('Incorrect password');
+              return;
+            }
+          }
+          openCloudinaryGallery(gallery, res); 
+        }; })(g, resources);
         var buyBtn = document.createElement('button');
         buyBtn.className = 'btn-sm btn-sm-outline';
         buyBtn.textContent = 'Purchase All ('+g.price+')';

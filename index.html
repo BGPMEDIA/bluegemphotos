@@ -1517,7 +1517,7 @@ window.showToast=function(msg){
 // BOOKING PAGE
 var servicePrices={
   'Mini Session':295,'Portrait Session':550,'Family Collection':750,
-  'Wedding Day':3200,'Commercial & Brand':1400,'Destination Session':2000
+  'Wedding Day':3200,'Commercial & Brand':1400,'Destination Session':2000,'Fashion Photography':1800
 };
 var selectedDeposit='half';
 window.selectDeposit=function(type){
@@ -1863,6 +1863,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <div class="service-card"><div class="service-num">04</div><div class="service-name">Wedding Day</div><p class="service-desc">Full-day wedding coverage from getting ready through the last dance. Your entire story, beautifully told.</p><div class="service-price">$3,200 <span>/ full day</span></div><ul class="service-includes"><li>8-10 hours of coverage</li><li>Two photographers</li><li>300+ edited digital images</li><li>Engagement session included</li><li>Luxury heirloom album option</li></ul><a href="#" class="service-learn" onclick="showPage('svc-wedding');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">05</div><div class="service-name">Commercial &amp; Brand</div><p class="service-desc">Strategic visual storytelling for businesses, products, and personal brands. Content that converts.</p><div class="service-price">$1,400 <span>/ half day</span></div><ul class="service-includes"><li>4-hour shoot</li><li>Product, team, or lifestyle</li><li>80+ final edited images</li><li>Commercial license included</li><li>Mood board consultation</li></ul><a href="#" class="service-learn" onclick="showPage('svc-commercial');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">06</div><div class="service-name">Destination Session</div><p class="service-desc">Wherever your story takes you &mdash; elopements, anniversary trips, or bucket-list portraits worldwide.</p><div class="service-price">$2,000 <span>+ travel</span></div><ul class="service-includes"><li>3-hour golden-hour session</li><li>Any worldwide location</li><li>80+ edited digital images</li><li>Travel itinerary collaboration</li><li>Rush delivery option available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-destination');return false;">View Details &rarr;</a></div>
+      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">08</div><div class="service-name">Fashion Photography</div><p class="service-desc">Editorial-grade fashion sessions for models, designers, and brands. Magazine-ready imagery with a cinematic eye.</p><div class="service-price">$1,800 <span>/ half day</span></div><ul class="service-includes"><li>4 or 8-hour session</li><li>Creative consultation & mood board</li><li>60–120+ edited images</li><li>Full commercial license</li><li>Multi-location shoots available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-fashion');return false;">View Details &rarr;</a></div>
       <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">07</div><div class="service-name">Bridal Portrait Session</div><p class="service-desc">Two unhurried hours dedicated entirely to you — your gown, your beauty, your story. Before the vows. Before the chaos.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour studio session</li><li>Exclusively about the bride</li><li>20 edited digital images</li><li>Private gallery delivery</li><li>Fine art print options available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-bridal');return false;">View Details &rarr;</a></div>
     </div>
   </section>
@@ -1900,7 +1901,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 
   <footer>
     <div><div class="footer-brand">Rogelio Small Photography</div><p class="footer-tagline">Fine art photography rooted in authentic storytelling. Tamarac, FL &mdash; South Florida.</p><div style="display:inline-flex;align-items:center;gap:.6rem;margin-top:1rem;padding:.5rem .9rem;border:1px solid rgba(184,154,106,.3);"><span style="font-size:1rem">&#127942;</span><span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-family:'Jost',sans-serif;">Portrait Masters Awards<br><span style="color:var(--stone);">Merit Recipient</span></span></div></div>
-    <div class="footer-col"><h4>Services</h4><ul><li><a href="#" onclick="showPage('svc-mini');return false;">Mini Session</a></li><li><a href="#" onclick="showPage('svc-portrait');return false;">Portrait Session</a></li><li><a href="#" onclick="showPage('svc-family');return false;">Family Collection</a></li><li><a href="#" onclick="showPage('svc-wedding');return false;">Wedding Day</a></li><li><a href="#" onclick="showPage('svc-bridal');return false;">Bridal Portrait</a></li><li><a href="#" onclick="showPage('svc-commercial');return false;">Commercial &amp; Brand</a></li><li><a href="#" onclick="showPage('svc-destination');return false;">Destination Session</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="#" onclick="showPage('svc-mini');return false;">Mini Session</a></li><li><a href="#" onclick="showPage('svc-portrait');return false;">Portrait Session</a></li><li><a href="#" onclick="showPage('svc-family');return false;">Family Collection</a></li><li><a href="#" onclick="showPage('svc-wedding');return false;">Wedding Day</a></li><li><a href="#" onclick="showPage('svc-bridal');return false;">Bridal Portrait</a></li><li><a href="#" onclick="showPage('svc-commercial');return false;">Commercial &amp; Brand</a></li><li><a href="#" onclick="showPage('svc-destination');return false;">Destination Session</a></li><li><a href="#" onclick="showPage('svc-fashion');return false;">Fashion Photography</a></li></ul></div>
     <div class="footer-col"><h4>Studio</h4><ul><li><a href="#">About</a></li><li><a href="#">Portfolio</a></li><li><a href="#" onclick="showPage('gallery');return false;">Client Galleries</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li></ul></div>
     <div class="footer-col"><h4>Contact</h4><ul><li><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="551739203032303825273a153238343c397b363a38">[email&#160;protected]</a></li><li><a href="tel:+13056765980" style="color:var(--taupe);text-decoration:none">(305) 676-5980</a></li><li>Tamarac, FL 33321</li><li style="margin-top:.8rem"><a href="#">Instagram</a></li><li><a href="#">Pinterest</a></li></ul></div>
   </footer>
@@ -2463,7 +2464,101 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
   <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)"><span>&copy; 2025 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a></div>
 </div>
 
-<!-- GALLERY PAGE -->
+<!-- SVC 08: FASHION PHOTOGRAPHY -->
+<div class="page" id="page-svc-fashion">
+  <div class="svc-hero" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_1600,h_900,c_fill,g_auto,q_auto,f_auto/FAENA_xjpbkw.jpg') center/cover no-repeat;position:relative;">
+    <div style="position:absolute;inset:0;background:rgba(10,5,2,.45);"></div>
+    <div class="svc-hero-content" style="position:relative;z-index:2;">
+      <a href="#" class="svc-back" onclick="showPage('home');return false;">&#8592; Back to Services</a>
+      <div class="svc-hero-num">08</div>
+      <h1 class="svc-hero-title">Fashion <em>Photography</em></h1>
+      <div class="svc-hero-price">Starting at $1,800</div>
+    </div>
+  </div>
+  <div style="background:var(--warm-white)">
+    <div class="svc-body">
+      <div class="svc-details">
+        <h2>Editorial vision. Magazine-ready results.</h2>
+        <p>Fashion photography at this level isn't just about capturing clothes &mdash; it's about telling a story through light, movement, and presence. Whether you're a model building your book, a designer launching a collection, or a brand defining its aesthetic, we bring a cinematic eye and editorial instinct to every frame.</p>
+        <p>Rogelio Small has worked across South Florida and beyond &mdash; from luxury hotel rooftops to intimate studio sets &mdash; crafting images that stop the scroll and hold attention. Every session is preceded by a full creative consultation: concept, mood board, wardrobe direction, and location scouting.</p>
+        <p>The result is a gallery of images that feel like they belong in a magazine &mdash; because they do.</p>
+        <div class="svc-includes-title">What's Included</div>
+        <ul class="svc-includes-list">
+          <li>Half-day session (4 hours) or full-day (8 hours)</li>
+          <li>Pre-shoot creative consultation & mood board</li>
+          <li>Location scouting & styling direction</li>
+          <li>60+ hand-edited editorial images</li>
+          <li>Full commercial usage license</li>
+          <li>Private gallery delivery within 7 days</li>
+          <li>Multiple format exports (web + print ready)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="svc-booking">
+          <h3>Book Your Fashion Session</h3>
+          <p>Limited dates available. Ideal for models, designers, brands, and editorial campaigns.</p>
+          <table style="width:100%;border-collapse:collapse;margin:1.2rem 0;font-family:'Jost',sans-serif;">
+            <thead>
+              <tr style="border-bottom:1px solid rgba(59,48,40,.15);">
+                <th style="text-align:left;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.5rem .4rem;font-weight:400;">Package</th>
+                <th style="text-align:left;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.5rem .4rem;font-weight:400;">Price</th>
+                <th style="text-align:left;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.5rem .4rem;font-weight:400;">Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(59,48,40,.08);">
+                <td style="padding:.7rem .4rem;color:var(--espresso);font-size:.82rem;">Half Day</td>
+                <td style="padding:.7rem .4rem;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.1rem;">$1,800</td>
+                <td style="padding:.7rem .4rem;color:var(--taupe);font-size:.75rem;">4 hours · 60+ images</td>
+              </tr>
+              <tr>
+                <td style="padding:.7rem .4rem;color:var(--espresso);font-size:.82rem;">Full Day</td>
+                <td style="padding:.7rem .4rem;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.1rem;">$3,200</td>
+                <td style="padding:.7rem .4rem;color:var(--taupe);font-size:.75rem;">8 hours · 120+ images</td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="btn-book-now" onclick="openScheduling('Fashion Photography')">Book Now</button>
+          <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+        </div>
+      </div>
+    </div>
+    <div class="svc-gallery-section">
+      <h2>Fashion <em style="font-style:italic;color:var(--gold)">Gallery</em></h2>
+      <p>Editorial. Cinematic. Unmistakably intentional.</p>
+      <div class="svc-gallery-grid">
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/Deanna_-_Hallendale_1M0A3963_njtm19.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/1M0A5988_lju6mb.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/ALINA_175_e6bq47.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/RED_Coat_1_fjcpuv.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/FAENA_2_ytp4kg.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/ALINA_503_cbfdkq.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/Taylor_mono_fashion_vclxqz.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/MIKE_CUBA_v5llfz.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/FAENA_xjpbkw.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/ALINA_211_ecdt6o.jpg') center/cover no-repeat"></div></div>
+      </div>
+    </div>
+    <div class="svc-faq">
+      <div class="svc-faq-inner">
+        <h2>Frequently Asked <em style="font-style:italic;color:var(--gold)">Questions</em></h2>
+        <div class="faq-item"><div class="faq-q">Do you work with new models?</div><div class="faq-a">Absolutely. Whether you're building your first portfolio or refreshing an established book, we'll create images that represent you at your very best.</div></div>
+        <div class="faq-item"><div class="faq-q">Can we shoot at multiple locations?</div><div class="faq-a">Yes &mdash; multi-location shoots are our specialty. We plan the full route in advance to maximize natural light and minimize downtime between setups.</div></div>
+        <div class="faq-item"><div class="faq-q">Do you provide styling or wardrobe assistance?</div><div class="faq-a">We offer full styling direction and can coordinate with a wardrobe stylist for an additional fee. During your consultation we'll review all looks together before the shoot.</div></div>
+        <div class="faq-item"><div class="faq-q">Is the commercial license included?</div><div class="faq-a">Yes &mdash; all fashion sessions include a full commercial license. Your images are cleared for use across all platforms including print, digital, advertising, and editorial submissions.</div></div>
+      </div>
+    </div>
+    <div class="svc-related">
+      <h2>You Might Also Love</h2>
+      <div class="svc-related-grid">
+        <a href="#" class="svc-related-card" onclick="showPage('svc-commercial');return false;"><div class="svc-related-num">05</div><div class="svc-related-name">Commercial &amp; Brand</div><div class="svc-related-price">Starting at $1,400</div></a>
+        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
+        <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)"><span>&copy; 2025 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a></div>
+</div>
 <div class="page" id="page-gallery">
   <div class="gallery-page">
     <div class="gallery-hero">
@@ -2566,6 +2661,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
                 <option value="Wedding Day">Wedding Day - $3,200</option>
                 <option value="Commercial & Brand">Commercial &amp; Brand - $1,400</option>
                 <option value="Destination Session">Destination Session - $2,000+</option>
+                <option value="Fashion Photography">Fashion Photography - $1,800+</option>
               </select>
             </div>
             <div class="bf-field">

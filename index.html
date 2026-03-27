@@ -962,16 +962,17 @@ var currentLightboxPublicId = null;
 window.openLightbox = function(publicId, gallery){
   currentLightboxPublicId = publicId;
   currentLightboxGallery = gallery;
+  var thumbUrl = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_120,h_120,c_fill,q_auto,f_auto/'+publicId;
   var img = document.getElementById('lightboxImg');
-  // Load full size image — no cropping, high quality
   img.src = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_1200,q_auto,f_auto/'+publicId;
   document.getElementById('lbBuyBtn').textContent = 'Buy This Photo \u2014 '+(gallery.singlePrice||'$18');
   document.getElementById('lbBuyBtn').onclick = function(){
-    window.addToCart('Photo \u2014 '+gallery.name,'Single Digital Download \u2014 No Watermark',gallery.singlePrice||'$18');
+    window.addToCart('Photo \u2014 '+gallery.name,'Single Digital Download \u2014 No Watermark',gallery.singlePrice||'$18',thumbUrl);
     window.showToast('Photo added to cart');
     closeLightbox();
   };
   document.getElementById('lbPrintBtn').onclick = function(){
+    currentPhotoThumb = thumbUrl;
     closeLightbox();
     openPrintPicker(0, gallery.name, '#3B2F1E', '#2A2116');
   };

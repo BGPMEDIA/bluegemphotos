@@ -996,11 +996,13 @@ window.closeModal=function(){
 window.openPrintPicker=function(photoIdx,galleryName,col1,col2){
   selectedPhotoIdx=photoIdx;selectedSizeIdx=-1;currentGalleryName=galleryName;
   document.getElementById('pickerPhotoLabel').textContent='Photo #'+(photoIdx+1)+' - '+galleryName;
-  var preview=document.getElementById('pickerPreview');
+  var thumb=document.getElementById('pickerThumb');
   if(currentPhotoThumb){
-    preview.style.background='url('+currentPhotoThumb+') center/cover no-repeat';
+    thumb.style.backgroundImage='url('+currentPhotoThumb.replace('w_120,h_120','w_144,h_144')+')';
+    thumb.style.backgroundSize='cover';
+    thumb.style.backgroundPosition='center';
   } else {
-    preview.style.background='linear-gradient(135deg,'+col1+' 0%,'+col2+' 100%)';
+    thumb.style.background='linear-gradient(135deg,'+col1+' 0%,'+col2+' 100%)';
   }
   var grid=document.getElementById('sizeGrid');grid.innerHTML='';
   printSizes.forEach(function(s,i){
@@ -1680,10 +1682,12 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 <div class="print-picker-modal" id="printPickerModal">
   <div class="print-picker-inner">
     <div class="print-picker-header">
-      <div><h3>Order a Print</h3><p id="pickerPhotoLabel">Photo from gallery</p></div>
+      <div style="display:flex;align-items:center;gap:1.2rem;">
+        <div id="pickerThumb" style="width:72px;height:72px;flex-shrink:0;overflow:hidden;border:2px solid rgba(184,154,106,.4);background:var(--charcoal);"></div>
+        <div><h3>Order a Print</h3><p id="pickerPhotoLabel">Photo from gallery</p></div>
+      </div>
       <button class="print-picker-close" onclick="closePrintPicker()">&#10005;</button>
     </div>
-    <div class="print-picker-preview" id="pickerPreview"><div class="watermark-text">&copy; Rogelio Small Photography</div></div>
     <div class="print-picker-body">
       <span class="print-picker-label">Select a print size</span>
       <div class="size-grid" id="sizeGrid"></div>

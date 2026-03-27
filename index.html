@@ -260,8 +260,10 @@ footer{background:var(--charcoal);padding:4rem;color:var(--stone);display:grid;g
 .print-picker-body{padding:1.6rem 2rem;}
 .print-picker-label{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-weight:400;display:block;}
 .size-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.7rem;margin-bottom:1.5rem;}
-.size-btn{border:1px solid var(--stone);background:var(--warm-white);padding:.9rem .8rem;text-align:left;transition:all .22s;font-family:'Jost',sans-serif;}
+.size-btn{border:1px solid var(--stone);background:var(--warm-white);padding:.7rem .8rem;text-align:left;transition:all .22s;font-family:'Jost',sans-serif;display:flex;align-items:center;gap:.8rem;}
 .size-btn:hover,.size-btn.selected{border-color:var(--gold);background:var(--blush);}
+.size-btn .sb-thumb{flex-shrink:0;overflow:hidden;border:1px solid rgba(200,191,176,.5);}
+.size-btn .sb-info{flex:1;}
 .size-btn .sb-size{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--espresso);display:block;margin-bottom:.15rem;}
 .size-btn .sb-type{font-size:.62rem;color:var(--taupe);letter-spacing:.08em;display:block;margin-bottom:.4rem;}
 .size-btn .sb-price{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold);display:block;}
@@ -1005,9 +1007,26 @@ window.openPrintPicker=function(photoIdx,galleryName,col1,col2){
     thumb.style.background='linear-gradient(135deg,'+col1+' 0%,'+col2+' 100%)';
   }
   var grid=document.getElementById('sizeGrid');grid.innerHTML='';
+  // Define proportional thumb dimensions for each size
+  var thumbDims=[
+    {w:36,h:24}, // 4x6
+    {w:35,h:25}, // 5x7
+    {w:40,h:32}, // 8x10
+    {w:44,h:36}, // 11x14
+    {w:40,h:32}, // 16x20
+    {w:45,h:30}, // 20x30
+    {w:40,h:40}, // Album
+    {w:35,h:25}  // Card Set
+  ];
   printSizes.forEach(function(s,i){
     var btn=document.createElement('button');btn.className='size-btn';
-    btn.innerHTML='<span class="sb-size">'+s.size+'</span><span class="sb-type">'+s.type+'</span><span class="sb-price">'+s.price+'</span>';
+    var dims=thumbDims[i]||{w:36,h:24};
+    var thumbHtml='';
+    if(currentPhotoThumb){
+      var tUrl=currentPhotoThumb.replace('w_120,h_120,c_fill','w_'+dims.w*2+',h_'+dims.h*2+',c_fill');
+      thumbHtml='<div class="sb-thumb" style="width:'+dims.w+'px;height:'+dims.h+'px;background:url('+tUrl+') center/cover no-repeat;"></div>';
+    }
+    btn.innerHTML=thumbHtml+'<div class="sb-info"><span class="sb-size">'+s.size+'</span><span class="sb-type">'+s.type+'</span><span class="sb-price">'+s.price+'</span></div>';
     btn.onclick=function(){document.querySelectorAll('.size-btn').forEach(function(b){b.classList.remove('selected');});btn.classList.add('selected');selectedSizeIdx=i;};
     grid.appendChild(btn);
   });

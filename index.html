@@ -708,11 +708,12 @@ function openCloudinaryGallery(gallery, resources){
     buyBtn.style.cssText = 'flex:1;padding:.45rem .5rem;background:var(--espresso);color:var(--warm-white);border:none;font-family:Jost,sans-serif;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;transition:background .2s;';
     buyBtn.onmouseover = function(){ this.style.background='var(--gold)'; };
     buyBtn.onmouseout  = function(){ this.style.background='var(--espresso)'; };
-    (function(gal){ buyBtn.onclick = function(e){
+    (function(gal, pid){ buyBtn.onclick = function(e){
       e.stopPropagation();
-      window.addToCart('Photo \u2014 '+gal.name,'Single Digital Download \u2014 No Watermark',gal.singlePrice||'$18');
+      var thumbUrl='https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_120,h_120,c_fill,q_auto,f_auto/'+pid;
+      window.addToCart('Photo \u2014 '+gal.name,'Single Digital Download \u2014 No Watermark',gal.singlePrice||'$18',thumbUrl);
       window.showToast('Photo added to cart');
-    }; })(gallery);
+    }; })(gallery, res.public_id);
 
     var viewBtn = document.createElement('button');
     viewBtn.textContent = 'View Full';
@@ -920,12 +921,13 @@ window.openGallery=function(name,date,meta){
     var ov=document.createElement('div');ov.className='photo-hover-overlay';
     // Buy button
     var buyBtn=document.createElement('button');buyBtn.className='btn-buy';buyBtn.textContent='Buy — $18';
-    (function(photoIdx,galleryName){
+    (function(photoIdx,galleryName,publicId){
       buyBtn.onclick=function(){
-        window.addToCart('Photo #'+(photoIdx+1)+' — '+galleryName,'Single Digital Download — No Watermark','$18');
+        var thumbUrl='https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_120,h_120,c_fill,q_auto,f_auto/'+publicId;
+        window.addToCart('Photo #'+(photoIdx+1)+' — '+galleryName,'Single Digital Download — No Watermark','$18',thumbUrl);
         window.showToast('Photo added to cart');
       };
-    })(i,name);
+    })(i,name,res.public_id);
     // Print button
     var printBtn=document.createElement('button');printBtn.textContent='Order Print';
     (function(photoIdx,galleryName,col0,col1){
@@ -1010,8 +1012,8 @@ window.addPrintToCart=function(){
 document.getElementById('printPickerModal').addEventListener('click',function(e){if(e.target===this)window.closePrintPicker();});
 
 var cart=[],cartOpen=false;
-window.addToCart=function(name,detail,price){
-  cart.push({name:name,detail:detail,price:price});updateCart();
+window.addToCart=function(name,detail,price,thumb){
+  cart.push({name:name,detail:detail,price:price,thumb:thumb||null});updateCart();
   if(!cartOpen)window.toggleCart();
   window.showToast('Added to cart');
 };
@@ -1020,7 +1022,10 @@ function updateCart(){
   count.textContent=cart.length;
   if(!cart.length){items.innerHTML='<p style="color:var(--taupe);font-size:.85rem;text-align:center;margin-top:2rem">Your cart is empty</p>';total.textContent='$0.00';return;}
   items.innerHTML=cart.map(function(item,i){
-    return '<div class="cart-item"><div class="cart-item-thumb">'+(item.name.indexOf('Print')>-1?'&#128247;':item.name.indexOf('Album')>-1?'&#128218;':'&#128444;')+'</div><div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div><div class="cart-item-detail">'+item.detail+'</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:.4rem"><div class="cart-item-price">'+item.price+'</div><button onclick="removeFromCart('+i+')" style="background:none;border:none;color:var(--taupe);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:0">Remove</button></div></div>';
+    var thumb=item.thumb
+      ? '<img src="'+item.thumb+'" style="width:64px;height:64px;object-fit:cover;">'
+      : '<div style="width:64px;height:64px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;background:var(--blush);">'+(item.name.indexOf('Print')>-1?'&#128247;':item.name.indexOf('Album')>-1?'&#128218;':'&#128444;')+'</div>';
+    return '<div class="cart-item"><div class="cart-item-thumb" style="overflow:hidden;padding:0;">'+thumb+'</div><div class="cart-item-info"><div class="cart-item-name">'+item.name+'</div><div class="cart-item-detail">'+item.detail+'</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:.4rem"><div class="cart-item-price">'+item.price+'</div><button onclick="removeFromCart('+i+')" style="background:none;border:none;color:var(--taupe);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:0">Remove</button></div></div>';
   }).join('');
   var sum=cart.reduce(function(a,item){return a+(parseFloat(item.price.replace(/[^0-9.]/g,''))||0);},0);
   total.textContent='$'+sum.toFixed(2);
@@ -1031,10 +1036,46 @@ window.removeFromCart=function(idx){
   if(cart.length===0&&cartOpen){window.toggleCart();}
 };
 window.toggleCart=function(){cartOpen=!cartOpen;document.getElementById('cartDrawer').classList.toggle('open',cartOpen);};
-window.checkout=function(){
+window.checkout=async function(){
   if(!cart.length){window.showToast('Your cart is empty');return;}
-  window.showToast('Redirecting to secure checkout...');
-  setTimeout(function(){cart=[];updateCart();window.toggleCart();},1800);
+
+  // Build order summary
+  var total=0;
+  var note='Photo Purchase:\n';
+  cart.forEach(function(item){
+    var price=parseFloat((item.price||'$0').replace(/[^0-9.]/g,''))||0;
+    total+=price;
+    note+=item.name+' — '+item.price+'\n';
+  });
+
+  var amountCents=Math.round(total*100);
+  if(amountCents===0){window.showToast('Could not calculate total');return;}
+
+  window.showToast('Creating secure checkout...');
+
+  try{
+    var response=await fetch('/api/square-payment',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        amountCents:amountCents,
+        currency:'USD',
+        note:note.trim(),
+        redirectUrl:window.location.href
+      })
+    });
+    var data=await response.json();
+    if(data.success && data.paymentUrl){
+      cart=[];
+      updateCart();
+      window.toggleCart();
+      window.location.href=data.paymentUrl;
+    } else {
+      window.showToast('Checkout error. Please try again.');
+    }
+  } catch(err){
+    window.showToast('Connection error. Please try again.');
+  }
 };
 
 var chatOpen=false;

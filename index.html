@@ -1412,7 +1412,8 @@ function getSchedTotal(){
 
 function updateOrderSummary(){
   var total=getSchedTotal();
-  var due=schedData.payment==='half'?Math.round(total*0.5):total;
+  var isCommercial=schedData.service==='Commercial & Brand';
+  var due=isCommercial?395:(schedData.payment==='half'?Math.round(total*0.5):total);
   var html='';
   if(schedData.service){
     var svc=schedServices.find(function(s){return s.name===schedData.service;});
@@ -1420,18 +1421,26 @@ function updateOrderSummary(){
     if(svc.perHour&&schedData.hours>0)html+='<div class="os-row"><span>Duration</span><span>'+schedData.hours+' hr'+(schedData.hours>1?'s':'')+'</span></div>';
     if(schedData.date)html+='<div class="os-row"><span>Date</span><span>'+new Date(schedData.date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+'</span></div>';
     if(schedData.time)html+='<div class="os-row"><span>Time</span><span>'+schedData.time+'</span></div>';
-    html+='<div class="os-row"><span>Session Total</span><span>$'+total.toLocaleString()+'</span></div>';
-    html+='<div class="os-row"><span>'+(schedData.payment==='half'?'50% Deposit':'Full Payment')+'</span><span>$'+due.toLocaleString()+'</span></div>';
+    if(isCommercial){
+      html+='<div class="os-row"><span>Consultation Fee</span><span>$395</span></div>';
+      html+='<div class="os-row" style="font-size:.72rem;color:var(--taupe);"><span colspan="2">Applied toward your project total upon booking.</span></div>';
+      html+='<div class="os-row" style="font-size:.72rem;color:var(--taupe);"><span colspan="2">Non-refundable if project does not proceed.</span></div>';
+    } else {
+      html+='<div class="os-row"><span>Session Total</span><span>$'+total.toLocaleString()+'</span></div>';
+      html+='<div class="os-row"><span>'+(schedData.payment==='half'?'50% Deposit':'Full Payment')+'</span><span>$'+due.toLocaleString()+'</span></div>';
+    }
   } else {
     html='<div class="os-empty">Select a service to see your summary</div>';
   }
   var sumEl=document.getElementById('orderSummaryRows');
   if(sumEl)sumEl.innerHTML=html;
   var dueEl=document.getElementById('orderDueTotal');
-  if(dueEl)dueEl.textContent=total?'$'+due.toLocaleString():'$0';
-  // Update payment card amounts
+  if(dueEl)dueEl.textContent=isCommercial?'$395':(total?'$'+due.toLocaleString():'$0');
+  // Update payment card amounts — hide for commercial
   var halfEl=document.getElementById('pc-half-amt');
   var fullEl=document.getElementById('pc-full-amt');
+  var payCards=document.querySelector('.payment-cards');
+  if(payCards)payCards.style.display=isCommercial?'none':'';
   if(halfEl)halfEl.textContent=total?'$'+Math.round(total*0.5).toLocaleString():'$0';
   if(fullEl)fullEl.textContent=total?'$'+total.toLocaleString():'$0';
 }
@@ -1517,7 +1526,7 @@ window.showToast=function(msg){
 // BOOKING PAGE
 var servicePrices={
   'Mini Session':295,'Portrait Session':550,'Family Collection':750,
-  'Wedding Day':3200,'Commercial & Brand':1400,'Destination Session':2000,'Fashion Photography':1800
+  'Wedding Day':3200,'Commercial & Brand':395,'Destination Session':2000,'Fashion Photography':1800
 };
 var selectedDeposit='half';
 window.selectDeposit=function(type){
@@ -1575,7 +1584,9 @@ window.openBooking=function(preselect){
 
 window.submitSquarePayment=async function(){
   var total=getSchedTotal();
-  var due=schedData.payment==='half'?Math.round(total*0.5):total;
+  var isCommercial=schedData.service==='Commercial & Brand';
+  var due=isCommercial?395:(schedData.payment==='half'?Math.round(total*0.5):total);
+  var notePrefix=isCommercial?'Consultation Fee — ':'';
   var cardholder=document.getElementById('sched-cardholder').value.trim();
   var btn=document.getElementById('square-pay-btn');
 
@@ -1592,7 +1603,7 @@ window.submitSquarePayment=async function(){
       body:JSON.stringify({
         amountCents:due*100,
         currency:'USD',
-        note:schedData.service+' - '+schedData.name+' - '+schedData.date,
+        note:notePrefix+schedData.service+' - '+schedData.name+' - '+schedData.date,
         buyerName:cardholder,
         buyerEmail:schedData.email,
         redirectUrl:window.location.href

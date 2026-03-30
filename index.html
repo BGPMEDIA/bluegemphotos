@@ -1526,7 +1526,7 @@ window.showToast=function(msg){
 // BOOKING PAGE
 var servicePrices={
   'Mini Session':295,'Portrait Session':550,'Family Collection':750,
-  'Wedding Day':3200,'Commercial & Brand':395,'Destination Session':2000,'Fashion Photography':1800
+  'Wedding Day':1800,'Commercial & Brand':395,'Destination Session':2000,'Fashion Photography':1800
 };
 var selectedDeposit='half';
 window.selectDeposit=function(type){
@@ -1871,7 +1871,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <div class="service-card"><div class="service-num">01</div><div class="service-name">Mini Session</div><p class="service-desc">A focused 30-minute session ideal for individuals, headshots, or seasonal family portraits.</p><div class="service-price">$295 <span>/ session</span></div><ul class="service-includes"><li>30-minute session</li><li>1 outfit, 1 location</li><li>15 edited digital images</li><li>Private online gallery</li><li>Print-release included</li></ul><a href="#" class="service-learn" onclick="showPage('svc-mini');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">02</div><div class="service-name">Portrait Session</div><p class="service-desc">A relaxed, creative portrait experience for individuals, couples, or small families.</p><div class="service-price">$550 <span>/ session</span></div><ul class="service-includes"><li>90-minute session</li><li>2 outfit changes</li><li>Studio session included</li><li>On-location — +$75/location</li><li>40+ hand-edited digital images</li></ul><a href="#" class="service-learn" onclick="showPage('svc-portrait');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">03</div><div class="service-name">Family Collection</div><p class="service-desc">A full family storytelling session capturing authentic connection and everything in between.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour session</li><li>Up to 8 family members</li><li>60+ edited digital images</li><li>Slideshow reveal</li><li>One complimentary 11x14 print</li></ul><a href="#" class="service-learn" onclick="showPage('svc-family');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">04</div><div class="service-name">Wedding Day</div><p class="service-desc">Full-day wedding coverage from getting ready through the last dance. Your entire story, beautifully told.</p><div class="service-price">$3,200 <span>/ full day</span></div><ul class="service-includes"><li>8-10 hours of coverage</li><li>Two photographers</li><li>300+ edited digital images</li><li>Engagement session included</li><li>Luxury heirloom album option</li></ul><a href="#" class="service-learn" onclick="showPage('svc-wedding');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">04</div><div class="service-name">Wedding Day</div><p class="service-desc">Full-day wedding coverage from getting ready through the last dance. Your entire story, beautifully told.</p><div class="service-price">From $1,800 <span>/ ceremony</span></div><ul class="service-includes"><li>Ceremony — up to 4 hrs · $1,800</li><li>Classic — up to 8 hrs · $3,200</li><li>Full Story — up to 10 hrs · $3,800</li><li>300–400+ edited digital images</li><li>Engagement session included (Classic+)</li></ul><a href="#" class="service-learn" onclick="showPage('svc-wedding');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">05</div><div class="service-name">Commercial &amp; Brand</div><p class="service-desc">From a single polished headshot to a full brand campaign — this service covers the complete spectrum of professional imagery. Corporate headshots, personal brand sessions, product photography, lifestyle campaigns, and executive portraits all live here. Scope and pricing determined during consultation.</p><div class="service-price">From $395 <span>/ consultation</span></div><ul class="service-includes"><li>Corporate headshots &amp; executive portraits</li><li>Personal brand &amp; entrepreneur sessions</li><li>Product &amp; lifestyle photography</li><li>Full commercial license included</li><li>Mood board consultation</li></ul><a href="#" class="service-learn" onclick="showPage('svc-commercial');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">06</div><div class="service-name">Destination Session</div><p class="service-desc">Wherever your story takes you &mdash; elopements, anniversary trips, or bucket-list portraits worldwide.</p><div class="service-price">$2,000 <span>+ travel</span></div><ul class="service-includes"><li>3-hour golden-hour session</li><li>Any worldwide location</li><li>80+ edited digital images</li><li>Travel itinerary collaboration</li><li>Rush delivery option available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-destination');return false;">View Details &rarr;</a></div>
       <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">08</div><div class="service-name">Fashion Photography</div><p class="service-desc">Editorial-grade fashion sessions for models, designers, and brands. Magazine-ready imagery with a cinematic eye.</p><div class="service-price">$1,800 <span>/ half day</span></div><ul class="service-includes"><li>4 or 8-hour session</li><li>Creative consultation & mood board</li><li>30–60+ edited images</li><li>Full commercial license</li><li>Multi-location shoots available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-fashion');return false;">View Details &rarr;</a></div>
@@ -2166,22 +2166,19 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <a href="#" class="svc-back" onclick="showPage('home');return false;">&#8592; Back to Services</a>
       <div class="svc-hero-num">04</div>
       <h1 class="svc-hero-title">Wedding <em>Day</em></h1>
-      <div class="svc-hero-price">Starting at $3,200</div>
+      <div class="svc-hero-price">From $1,800</div>
     </div>
   </div>
   <div style="background:var(--warm-white)">
     <div class="svc-body">
       <div class="svc-details">
-        <h2>Your entire day, beautifully told</h2>
-        <p>Your wedding day is one of the most significant of your life &mdash; a full story unfolding from the quiet morning moments through to the last song of the night. We're there for all of it.</p>
+        <h2>Your wedding story, told on your terms</h2>
+        <p>Whether you're exchanging vows in an intimate ceremony of twenty or celebrating with two hundred of your closest people, we have a coverage option built around your day &mdash; not the other way around.</p>
         <p>Our documentary approach means we blend seamlessly into your day, capturing the laughter, the tears, the stolen glances, and the grand gestures as they naturally unfold. No forced poses, no stiff lineups &mdash; just real moments, beautifully lit.</p>
-        <p>With two photographers on site, nothing gets missed. Your engagement session is included so you're completely comfortable with us before the big day.</p>
-        <div class="svc-includes-title">What's Included</div>
+        <p>Two professional photographers are on site for every Classic and Full Story package &mdash; ensuring nothing goes undocumented from any angle.</p>
+        <div class="svc-includes-title">All Packages Include</div>
         <ul class="svc-includes-list">
-          <li>8-10 hours of full-day coverage</li>
-          <li>Two professional photographers</li>
-          <li>Engagement session included</li>
-          <li>300+ hand-edited digital images</li>
+          <li>Two professional photographers (Classic &amp; Full Story)</li>
           <li>Online slideshow within 48 hours</li>
           <li>Private gallery within 6 weeks</li>
           <li>Heirloom album option available</li>
@@ -2191,9 +2188,34 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       </div>
       <div>
         <div class="svc-booking">
-          <h3>Book Your Wedding Coverage</h3>
-          <p>Most wedding dates book 12-18 months in advance. Reach out early to secure yours.</p>
-          <div class="price-big">$3,200 <span>/ full day</span></div>
+          <h3>Choose Your Coverage</h3>
+          <p>Most wedding dates book 12–18 months in advance. Reach out early to secure yours.</p>
+          <table style="width:100%;border-collapse:collapse;margin:1.2rem 0;font-family:'Jost',sans-serif;">
+            <thead>
+              <tr style="border-bottom:1px solid rgba(59,48,40,.15);">
+                <th style="text-align:left;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.5rem .4rem;font-weight:400;">Package</th>
+                <th style="text-align:left;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.5rem .4rem;font-weight:400;">Price</th>
+                <th style="text-align:left;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding:.5rem .4rem;font-weight:400;">Coverage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(59,48,40,.08);">
+                <td style="padding:.7rem .4rem;color:var(--espresso);font-size:.82rem;">Ceremony</td>
+                <td style="padding:.7rem .4rem;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.1rem;">$1,800</td>
+                <td style="padding:.7rem .4rem;color:var(--taupe);font-size:.75rem;">Up to 4 hrs · 100+ images · 1 photographer</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(59,48,40,.08);">
+                <td style="padding:.7rem .4rem;color:var(--espresso);font-size:.82rem;">Classic</td>
+                <td style="padding:.7rem .4rem;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.1rem;">$3,200</td>
+                <td style="padding:.7rem .4rem;color:var(--taupe);font-size:.75rem;">Up to 8 hrs · 300+ images · 2 photographers · engagement session</td>
+              </tr>
+              <tr>
+                <td style="padding:.7rem .4rem;color:var(--espresso);font-size:.82rem;">Full Story</td>
+                <td style="padding:.7rem .4rem;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.1rem;">$3,800</td>
+                <td style="padding:.7rem .4rem;color:var(--taupe);font-size:.75rem;">Up to 10 hrs · 400+ images · 2 photographers · engagement session</td>
+              </tr>
+            </tbody>
+          </table>
           <button class="btn-book-now" onclick="openScheduling('Wedding Day')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
@@ -2698,7 +2720,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
                 <option value="Mini Session">Mini Session - $295</option>
                 <option value="Portrait Session">Portrait Session - $550</option>
                 <option value="Family Collection">Family Collection - $750</option>
-                <option value="Wedding Day">Wedding Day - $3,200</option>
+                <option value="Wedding Day">Wedding Day - From $1,800</option>
                 <option value="Commercial & Brand">Commercial &amp; Brand - $1,400</option>
                 <option value="Destination Session">Destination Session - $2,000+</option>
                 <option value="Fashion Photography">Fashion Photography - $1,800+</option>

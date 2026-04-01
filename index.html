@@ -1337,7 +1337,6 @@ var schedServices=[
   {num:'04',name:'Wedding Day',rate:3200,perHour:false,desc:'Full-day coverage 8-10 hrs. Two photographers included.'},
   {num:'05',name:'Bridal Portrait Session',rate:750,perHour:false,desc:'2-hour session exclusively for the bride. Before the vows, before the chaos.'},
   {num:'06',name:'Commercial & Brand',rate:350,perHour:true,desc:'Hourly rate for business, product, and personal brand shoots.'},
-  {num:'07',name:'Destination Session',rate:667,perHour:true,desc:'Hourly rate for destination & elopement sessions worldwide.'}
 ];
 
 window.openScheduling=function(preselect){
@@ -1526,7 +1525,7 @@ window.showToast=function(msg){
 // BOOKING PAGE
 var servicePrices={
   'Mini Session':295,'Portrait Session':550,'Family Collection':750,
-  'Wedding Day':1800,'Commercial & Brand':395,'Destination Session':2000,'Fashion Photography':1800
+  'Wedding Day':1800,'Commercial & Brand':395,'Fashion Photography':1800
 };
 var selectedDeposit='half';
 window.selectDeposit=function(type){
@@ -1873,7 +1872,6 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <div class="service-card"><div class="service-num">03</div><div class="service-name">Family Collection</div><p class="service-desc">A full family storytelling session capturing authentic connection and everything in between.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour session</li><li>Up to 8 family members</li><li>60+ edited digital images</li><li>Slideshow reveal</li><li>One complimentary 11x14 print</li></ul><a href="#" class="service-learn" onclick="showPage('svc-family');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">04</div><div class="service-name">Wedding Day</div><p class="service-desc">Full-day wedding coverage from getting ready through the last dance. Your entire story, beautifully told.</p><div class="service-price">From $1,800 <span>/ ceremony</span></div><ul class="service-includes"><li>Ceremony — up to 4 hrs · $1,800</li><li>Classic — up to 8 hrs · $3,200</li><li>Full Story — up to 10 hrs · $3,800</li><li>300–400+ edited digital images</li><li>Engagement session included (Classic+)</li></ul><a href="#" class="service-learn" onclick="showPage('svc-wedding');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">05</div><div class="service-name">Commercial &amp; Brand</div><p class="service-desc">From a single polished headshot to a full brand campaign — this service covers the complete spectrum of professional imagery. Corporate headshots, personal brand sessions, product photography, lifestyle campaigns, and executive portraits all live here. Scope and pricing determined during consultation.</p><div class="service-price">From $395 <span>/ consultation</span></div><ul class="service-includes"><li>Corporate headshots &amp; executive portraits</li><li>Personal brand &amp; entrepreneur sessions</li><li>Product &amp; lifestyle photography</li><li>Full commercial license included</li><li>Mood board consultation</li></ul><a href="#" class="service-learn" onclick="showPage('svc-commercial');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">06</div><div class="service-name">Destination Session</div><p class="service-desc">Wherever your story takes you &mdash; elopements, anniversary trips, or bucket-list portraits worldwide.</p><div class="service-price">$2,000 <span>+ travel</span></div><ul class="service-includes"><li>3-hour golden-hour session</li><li>Any worldwide location</li><li>80+ edited digital images</li><li>Travel itinerary collaboration</li><li>Rush delivery option available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-destination');return false;">View Details &rarr;</a></div>
       <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">08</div><div class="service-name">Fashion Photography</div><p class="service-desc">Editorial-grade fashion sessions for models, designers, and brands. Magazine-ready imagery with a cinematic eye.</p><div class="service-price">$1,800 <span>/ half day</span></div><ul class="service-includes"><li>4 or 8-hour session</li><li>Creative consultation & mood board</li><li>30–60+ edited images</li><li>Full commercial license</li><li>Multi-location shoots available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-fashion');return false;">View Details &rarr;</a></div>
       <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">07</div><div class="service-name">Bridal Portrait Session</div><p class="service-desc">Two unhurried hours dedicated entirely to you — your gown, your beauty, your story. Before the vows. Before the chaos.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour studio session</li><li>Exclusively about the bride</li><li>20 edited digital images</li><li>Private gallery delivery</li><li>Fine art print options available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-bridal');return false;">View Details &rarr;</a></div>
     </div>
@@ -1910,7 +1908,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 
   <footer>
     <div><div class="footer-brand">Rogelio Small Photography</div><p class="footer-tagline">Fine art photography rooted in authentic storytelling. Tamarac, FL &mdash; South Florida.</p><div style="display:inline-flex;align-items:center;gap:.6rem;margin-top:1rem;padding:.5rem .9rem;border:1px solid rgba(184,154,106,.3);"><span style="font-size:1rem">&#127942;</span><span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-family:'Jost',sans-serif;">Portrait Masters Awards<br><span style="color:var(--stone);">Merit Recipient</span></span></div></div>
-    <div class="footer-col"><h4>Services</h4><ul><li><a href="#" onclick="showPage('svc-mini');return false;">Mini Session</a></li><li><a href="#" onclick="showPage('svc-portrait');return false;">Portrait Session</a></li><li><a href="#" onclick="showPage('svc-family');return false;">Family Collection</a></li><li><a href="#" onclick="showPage('svc-wedding');return false;">Wedding Day</a></li><li><a href="#" onclick="showPage('svc-bridal');return false;">Bridal Portrait</a></li><li><a href="#" onclick="showPage('svc-commercial');return false;">Commercial &amp; Brand</a></li><li><a href="#" onclick="showPage('svc-destination');return false;">Destination Session</a></li><li><a href="#" onclick="showPage('svc-fashion');return false;">Fashion Photography</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="#" onclick="showPage('svc-mini');return false;">Mini Session</a></li><li><a href="#" onclick="showPage('svc-portrait');return false;">Portrait Session</a></li><li><a href="#" onclick="showPage('svc-family');return false;">Family Collection</a></li><li><a href="#" onclick="showPage('svc-wedding');return false;">Wedding Day</a></li><li><a href="#" onclick="showPage('svc-bridal');return false;">Bridal Portrait</a></li><li><a href="#" onclick="showPage('svc-commercial');return false;">Commercial &amp; Brand</a></li><li><a href="#" onclick="showPage('svc-fashion');return false;">Fashion Photography</a></li></ul></div>
     <div class="footer-col"><h4>Studio</h4><ul><li><a href="#">About</a></li><li><a href="#">Portfolio</a></li><li><a href="#" onclick="showPage('gallery');return false;">Client Galleries</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li></ul></div>
     <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+13056765980" style="color:var(--taupe);text-decoration:none">(305) 676-5980</a></li><li>Based in South Florida &middot; Available Worldwide</li><li style="margin-top:.8rem"><a href="#">Instagram</a></li><li><a href="#">Pinterest</a></li></ul></div>
   </footer>
@@ -1995,7 +1993,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <div class="svc-related-grid">
         <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
         <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $750</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
+        
       </div>
     </div>
   </div>
@@ -2073,7 +2071,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <div class="svc-related-grid">
         <a href="#" class="svc-related-card" onclick="showPage('svc-mini');return false;"><div class="svc-related-num">01</div><div class="svc-related-name">Mini Session</div><div class="svc-related-price">Starting at $295</div></a>
         <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $750</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
+        
       </div>
     </div>
   </div>
@@ -2148,7 +2146,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <div class="svc-related-grid">
         <a href="#" class="svc-related-card" onclick="showPage('svc-mini');return false;"><div class="svc-related-num">01</div><div class="svc-related-name">Mini Session</div><div class="svc-related-price">Starting at $295</div></a>
         <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
+        
       </div>
     </div>
   </div>
@@ -2255,7 +2253,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <h2>You Might Also Love</h2>
       <div class="svc-related-grid">
         <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
+        
         <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $750</div></a>
       </div>
     </div>
@@ -2329,88 +2327,13 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <h2>You Might Also Love</h2>
       <div class="svc-related-grid">
         <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
+        
         <a href="#" class="svc-related-card" onclick="showPage('svc-mini');return false;"><div class="svc-related-num">01</div><div class="svc-related-name">Mini Session</div><div class="svc-related-price">Starting at $295</div></a>
       </div>
     </div>
   </div>
   <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)"><span>&copy; 2025 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a></div>
 </div>
-
-<!-- SVC 06: DESTINATION SESSION -->
-<div class="page" id="page-svc-destination">
-  <div class="svc-hero">
-    <div class="svc-hero-bg" style="background:linear-gradient(135deg,#1a2a2a 0%,#2a3a3a 50%,#3a4a3a 100%)"></div>
-    <div class="svc-hero-overlay"></div>
-    <div class="svc-hero-content">
-      <a href="#" class="svc-back" onclick="showPage('home');return false;">&#8592; Back to Services</a>
-      <div class="svc-hero-num">06</div>
-      <h1 class="svc-hero-title">Destination <em>Session</em></h1>
-      <div class="svc-hero-price">Starting at $2,000 + travel</div>
-    </div>
-  </div>
-  <div style="background:var(--warm-white)">
-    <div class="svc-body">
-      <div class="svc-details">
-        <h2>Wherever your story takes you</h2>
-        <p>Some of the most breathtaking images happen far from home &mdash; on cliff edges in Santorini, in lavender fields in Provence, on quiet beaches in Tulum, or in the heart of a city you've always dreamed of visiting.</p>
-        <p>Our Destination Session is perfect for elopements, anniversary getaways, honeymoon portraits, or any moment you want to commemorate somewhere extraordinary. We collaborate with you on every detail of the itinerary to maximize light and location.</p>
-        <p>You walk away with 80+ golden-hour images from a location you'll remember forever &mdash; and images worthy of the wall they'll hang on.</p>
-        <div class="svc-includes-title">What's Included</div>
-        <ul class="svc-includes-list">
-          <li>3-hour golden-hour session</li>
-          <li>Any worldwide location</li>
-          <li>Full travel itinerary collaboration</li>
-          <li>80+ hand-edited digital images</li>
-          <li>Private gallery within 2 weeks</li>
-          <li>Full print release</li>
-          <li>Rush delivery option available</li>
-          <li>Full retouching available — $25/image</li>
-        </ul>
-      </div>
-      <div>
-        <div class="svc-booking">
-          <h3>Plan Your Destination Session</h3>
-          <p>Tell us where you're dreaming of and let's make it happen.</p>
-          <div class="price-big">$2,000 <span>+ travel</span></div>
-          <button class="btn-book-now" onclick="openScheduling('Destination Session')">Book Now</button>
-          <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
-        </div>
-      </div>
-    </div>
-    <div class="svc-gallery-section">
-      <h2>Destination Session <em style="font-style:italic;color:var(--gold)">Gallery</em></h2>
-      <p>Golden hour around the world. Extraordinary places, extraordinary images.</p>
-      <div class="svc-gallery-grid">
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#1a2a2a 0%,#0a1a1a 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#d4b483 0%,#e8c870 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#3a4a3a 0%,#2a3a2a 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#b89a6a 0%,#d4b060 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#c8bfb0 0%,#e0d0c0 100%)"></div></div>
-        <div class="svc-gallery-item"><div class="svc-gallery-item-inner" style="background:linear-gradient(160deg,#2a3a3a 0%,#1a2a2a 100%)"></div></div>
-      </div>
-    </div>
-    <div class="svc-faq">
-      <div class="svc-faq-inner">
-        <h2>Frequently Asked <em style="font-style:italic;color:var(--gold)">Questions</em></h2>
-        <div class="faq-item"><div class="faq-q">How are travel costs calculated?</div><div class="faq-a">Travel fees cover flights, accommodations, and ground transport at cost. We're transparent about all travel expenses before you commit to booking.</div></div>
-        <div class="faq-item"><div class="faq-q">Can this be used for an elopement?</div><div class="faq-a">Absolutely &mdash; many of our destination sessions are intimate elopements. We help coordinate timing around permits, golden hour, and ceremony logistics.</div></div>
-        <div class="faq-item"><div class="faq-q">Do you know good local spots?</div><div class="faq-a">We've shot across Europe, the Caribbean, Mexico, and throughout the US. For new destinations, we research thoroughly and often partner with local guides.</div></div>
-        <div class="faq-item"><div class="faq-q">What if the weather doesn't cooperate?</div><div class="faq-a">We always build a backup plan. Moody weather often produces the most dramatic images &mdash; and we'll work with whatever conditions we're given to create something extraordinary.</div></div>
-      </div>
-    </div>
-    <div class="svc-related">
-      <h2>You Might Also Love</h2>
-      <div class="svc-related-grid">
-        <a href="#" class="svc-related-card" onclick="showPage('svc-wedding');return false;"><div class="svc-related-num">04</div><div class="svc-related-name">Wedding Day</div><div class="svc-related-price">Starting at $3,200</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $750</div></a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)"><span>&copy; 2025 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a></div>
-</div>
-
 
 <!-- BRIDAL PORTRAIT SERVICE PAGE -->
 <div class="page" id="page-svc-bridal">
@@ -2507,7 +2430,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <div class="svc-related-grid">
         <a href="#" class="svc-related-card" onclick="showPage('svc-wedding');return false;"><div class="svc-related-num">04</div><div class="svc-related-name">Wedding Day</div><div class="svc-related-price">Starting at $3,200</div></a>
         <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
+        
       </div>
     </div>
   </div>
@@ -2623,7 +2546,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <div class="svc-related-grid">
         <a href="#" class="svc-related-card" onclick="showPage('svc-commercial');return false;"><div class="svc-related-num">05</div><div class="svc-related-name">Commercial &amp; Brand</div><div class="svc-related-price">Starting at $1,400</div></a>
         <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-destination');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Destination Session</div><div class="svc-related-price">Starting at $2,000</div></a>
+        
       </div>
     </div>
   </div>
@@ -2730,7 +2653,6 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
                 <option value="Family Collection">Family Collection - $750</option>
                 <option value="Wedding Day">Wedding Day - From $1,800</option>
                 <option value="Commercial & Brand">Commercial &amp; Brand - $1,400</option>
-                <option value="Destination Session">Destination Session - $2,000+</option>
                 <option value="Fashion Photography">Fashion Photography - $1,800+</option>
               </select>
             </div>

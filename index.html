@@ -724,7 +724,9 @@ function loadCloudinaryFolder(g, idx, card){
     });
 }
 
+var currentOpenGallery = null;
 function openCloudinaryGallery(gallery, resources){
+  currentOpenGallery = gallery;
   var mp = document.getElementById('modalPhotos');
   var mi = document.getElementById('modalInfo');
   mp.innerHTML = '';
@@ -865,8 +867,14 @@ window.publishCloudinaryGallery = async function(){
 window.editGallery = async function(id){
   var g = galleryStore.find(function(g){ return g.id === id; });
   if(!g) return;
-  // Switch to admin tab
-  window.switchTab('admin', document.getElementById('tab-btn-admin'));
+  // Switch to admin tab directly without password prompt
+  ['galleries','admin'].forEach(function(t){
+    var el = document.getElementById('tab-'+t);
+    if(el) el.style.display = t === 'admin' ? '' : 'none';
+  });
+  document.querySelectorAll('.gallery-tab').forEach(function(b){ b.classList.remove('active'); });
+  var adminBtn = document.getElementById('tab-btn-admin');
+  if(adminBtn) adminBtn.classList.add('active');
   // Fill form with existing values
   document.getElementById('galleryName').value = g.name;
   document.getElementById('cloudinaryFolder').value = g.folder;
@@ -986,14 +994,17 @@ window.openGallery=function(name,date,meta){
         window.showToast('Photo added to cart');
       };
     })(i,name,res.public_id);
-    // Print button
+    // Print button — routes to Pic-Time if available
     var printBtn=document.createElement('button');printBtn.textContent='Order Print';
-    (function(photoIdx,galleryName,col0,col1,publicId){
+    (function(galleryObj){
       printBtn.onclick=function(){
-        currentPhotoThumb='https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_120,h_120,c_fill,q_auto,f_auto/'+publicId;
-        openPrintPicker(photoIdx,galleryName,col0,col1);
+        if(galleryObj && galleryObj.pictimeUrl){
+          window.open(galleryObj.pictimeUrl,'_blank');
+        } else {
+          window.showToast('Print ordering coming soon for this gallery');
+        }
       };
-    })(i,name,c0,c1,res.public_id);
+    })(currentOpenGallery);
     ov.appendChild(buyBtn);ov.appendChild(printBtn);
     inner.appendChild(wm);inner.appendChild(ov);
     d.appendChild(inner);mp.appendChild(d);
@@ -1003,7 +1014,7 @@ window.openGallery=function(name,date,meta){
   var h2=document.createElement('h2');h2.textContent=name;mi.appendChild(h2);
   var pg=document.createElement('p');pg.textContent=date+' - '+meta;mi.appendChild(pg);
   var tip=document.createElement('p');tip.style.cssText='color:var(--taupe);font-size:.8rem;margin-bottom:1rem';
-  tip.textContent='Hover over any photo and click Order Print to choose a size, or purchase downloads below.';mi.appendChild(tip);
+  tip.textContent='Hover over any photo to purchase a digital download. To order prints, use the Order Prints button on the gallery card.';mi.appendChild(tip);
   var opts=document.createElement('div');opts.className='purchase-options';
   opts.innerHTML='<div class="purchase-card"><h4>Single Image Download</h4><p>High-resolution, no watermark, personal use license.</p><div class="price">$18 / photo</div><button class="btn-sm btn-sm-gold" id="buy-single-btn">Add to Cart</button></div>'
     +'<div class="purchase-card"><h4>Full Gallery Download</h4><p>All photos, high-resolution, no watermarks, print-ready.</p><div class="price">$185</div><button class="btn-sm btn-sm-gold" id="buy-full-btn">Add to Cart</button></div>';
@@ -1030,9 +1041,13 @@ window.openLightbox = function(publicId, gallery){
     closeLightbox();
   };
   document.getElementById('lbPrintBtn').onclick = function(){
-    currentPhotoThumb = thumbUrl;
-    closeLightbox();
-    openPrintPicker(0, gallery.name, '#3B2F1E', '#2A2116');
+    if(gallery && gallery.pictimeUrl){
+      window.open(gallery.pictimeUrl,'_blank');
+      closeLightbox();
+    } else {
+      window.showToast('Print ordering coming soon for this gallery');
+      closeLightbox();
+    }
   };
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';

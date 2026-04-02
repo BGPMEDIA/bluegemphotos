@@ -264,7 +264,7 @@ footer{background:var(--charcoal);padding:4rem;color:var(--stone);display:grid;g
 .photo-hover-overlay button:hover{background:var(--gold-lt);}
 .photo-hover-overlay button.btn-buy{background:var(--espresso);color:var(--warm-white);}
 .photo-hover-overlay button.btn-buy:hover{background:var(--gold);}
-.watermark-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:rgba(255,255,255,.55);letter-spacing:.1em;pointer-events:none;transform:rotate(-20deg);user-select:none;}
+.watermark-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-style:italic;color:rgba(255,255,255,.6);text-shadow:0 1px 4px rgba(0,0,0,.7);letter-spacing:.1em;pointer-events:none;transform:rotate(-20deg);user-select:none;}
 .modal-info{padding:2rem;}
 .modal-info h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--espresso);margin-bottom:.4rem;}
 .modal-info>p{color:var(--taupe);font-size:.85rem;margin-bottom:1.5rem;}
@@ -380,7 +380,7 @@ footer{background:var(--charcoal);padding:4rem;color:var(--stone);display:grid;g
 .lightbox-img-wrap{position:relative;max-width:90vw;max-height:78vh;display:flex;align-items:center;justify-content:center;}
 .lightbox-img-wrap img{max-width:90vw;max-height:78vh;object-fit:contain;display:block;}
 .lightbox-wm{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-around;pointer-events:none;padding:10% 0;}
-.lightbox-wm span{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-style:italic;color:rgba(255,255,255,.55);transform:rotate(-20deg);letter-spacing:.1em;white-space:nowrap;text-shadow:0 2px 8px rgba(0,0,0,.6);display:block;}
+.lightbox-wm span{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-style:italic;color:rgba(255,255,255,.6);transform:rotate(-20deg);letter-spacing:.1em;white-space:nowrap;text-shadow:0 2px 8px rgba(0,0,0,.7);display:block;}
 .lightbox-actions{display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;justify-content:center;}
 .lightbox-close{position:fixed;top:1.5rem;right:2rem;background:none;border:none;color:var(--stone);font-size:2.5rem;z-index:10;line-height:1;}
 .lightbox-close:hover{color:var(--warm-white);}
@@ -745,9 +745,14 @@ function openCloudinaryGallery(gallery, resources){
     img.onmouseover = function(){ this.style.transform='scale(1.03)'; };
     img.onmouseout  = function(){ this.style.transform='scale(1)'; };
 
-    var wm = document.createElement('img');
-    wm.src = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/q_auto,f_auto/BGP_Watermark_Gold_dazr6b.png';
-    wm.style.cssText = 'position:absolute;bottom:8%;left:50%;transform:translateX(-50%);width:75%;pointer-events:none;user-select:none;opacity:0.7;';
+    var wm = document.createElement('div');
+    wm.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-around;pointer-events:none;padding:15% 0;';
+    ['30%','70%'].forEach(function(top){
+      var wmText = document.createElement('span');
+      wmText.textContent = '\u00a9 Rogelio Small';
+      wmText.style.cssText = 'font-family:Cormorant Garamond,serif;font-size:1.2rem;font-style:italic;color:rgba(255,255,255,.65);transform:rotate(-20deg);text-shadow:0 1px 4px rgba(0,0,0,.7);white-space:nowrap;letter-spacing:.08em;display:block;';
+      wm.appendChild(wmText);
+    });
 
     // Hover action buttons
     var ov = document.createElement('div');
@@ -974,10 +979,7 @@ window.openGallery=function(name,date,meta){
     inner.className='modal-photo-inner';
     inner.style.background='linear-gradient(135deg,'+c0+' 0%,'+c1+' 100%)';
     // Watermark
-    var wm=document.createElement('img');
-    wm.src='https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/q_auto,f_auto/BGP_Watermark_Gold_dazr6b.png';
-    wm.className='watermark-text';
-    wm.style.cssText='position:absolute;bottom:8%;left:50%;transform:translateX(-50%);width:75%;pointer-events:none;user-select:none;opacity:0.7;';
+    var wm=document.createElement('div');wm.className='watermark-text';wm.textContent='\u00a9 Rogelio Small';
     // Hover overlay
     var ov=document.createElement('div');ov.className='photo-hover-overlay';
     // Buy button
@@ -1828,7 +1830,8 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
   <div class="lightbox-img-wrap">
     <img id="lightboxImg" src="" alt="Photo">
     <div class="lightbox-wm">
-      <img src="https://res.cloudinary.com/dfqouxke9/image/upload/q_auto,f_auto/BGP_Watermark_Gold_dazr6b.png" style="width:55%;max-width:660px;opacity:0.7;pointer-events:none;user-select:none;display:block;" alt="">
+      <span>&copy; Rogelio Small</span>
+      <span>&copy; Rogelio Small</span>
     </div>
   </div>
   <div class="lightbox-actions">

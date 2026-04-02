@@ -745,15 +745,9 @@ function openCloudinaryGallery(gallery, resources){
     img.onmouseover = function(){ this.style.transform='scale(1.03)'; };
     img.onmouseout  = function(){ this.style.transform='scale(1)'; };
 
-    var wm = document.createElement('div');
-    wm.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-around;pointer-events:none;padding:15% 0;';
-    // Double watermark — top and bottom
-    ['30%','70%'].forEach(function(top){
-      var wmText = document.createElement('span');
-      wmText.textContent = '\u00a9 Rogelio Small Photography';
-      wmText.style.cssText = 'font-family:Cormorant Garamond,serif;font-size:.9rem;font-style:italic;color:rgba(255,255,255,.55);transform:rotate(-20deg);text-shadow:0 1px 4px rgba(0,0,0,.6);white-space:nowrap;letter-spacing:.08em;display:block;';
-      wm.appendChild(wmText);
-    });
+    var wm = document.createElement('img');
+    wm.src = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,o_55,fl_relative/BGP_Watermark_White_xir28u.png';
+    wm.style.cssText = 'position:absolute;bottom:10%;left:50%;transform:translateX(-50%);width:60%;pointer-events:none;user-select:none;opacity:0.55;';
 
     // Hover action buttons
     var ov = document.createElement('div');
@@ -980,7 +974,10 @@ window.openGallery=function(name,date,meta){
     inner.className='modal-photo-inner';
     inner.style.background='linear-gradient(135deg,'+c0+' 0%,'+c1+' 100%)';
     // Watermark
-    var wm=document.createElement('div');wm.className='watermark-text';wm.textContent='Rogelio Small Photography';
+    var wm=document.createElement('img');
+    wm.src='https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,o_55,fl_relative/BGP_Watermark_White_xir28u.png';
+    wm.className='watermark-text';
+    wm.style.cssText='position:absolute;bottom:8%;left:50%;transform:translateX(-50%);width:55%;pointer-events:none;user-select:none;opacity:0.55;';
     // Hover overlay
     var ov=document.createElement('div');ov.className='photo-hover-overlay';
     // Buy button
@@ -1831,8 +1828,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
   <div class="lightbox-img-wrap">
     <img id="lightboxImg" src="" alt="Photo">
     <div class="lightbox-wm">
-      <span>&copy; Rogelio Small Photography</span>
-      <span>&copy; Rogelio Small Photography</span>
+      <img src="https://res.cloudinary.com/dfqouxke9/image/upload/BGP_Watermark_White_xir28u.png" style="width:35%;max-width:420px;opacity:0.5;pointer-events:none;user-select:none;" alt="">
     </div>
   </div>
   <div class="lightbox-actions">

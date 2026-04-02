@@ -920,6 +920,8 @@ window.toggleGalleryVisibility = async function(id, currentlyVisible){
     window.showToast('Error updating gallery visibility');
   }
 };
+
+window.deleteGallery = async function(id){
   if(!confirm('Delete this gallery? This cannot be undone.')) return;
   try {
     var res = await fetch('/api/galleries', {

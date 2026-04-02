@@ -799,13 +799,11 @@ function openCloudinaryGallery(gallery, resources){
   var h2 = document.createElement('h2'); h2.textContent = gallery.name; mi.appendChild(h2);
   var pg = document.createElement('p'); pg.textContent = gallery.date + ' \u2014 ' + resources.length + ' photos'; mi.appendChild(pg);
   var tip = document.createElement('p'); tip.style.cssText = 'color:var(--taupe);font-size:.8rem;margin-bottom:1rem';
-  tip.textContent = 'Hover over any photo and click Buy or Order Print. Watermarks removed after purchase.'; mi.appendChild(tip);
+  tip.textContent = 'Hover over any photo and click Buy to purchase individual downloads. Watermarks removed after purchase.'; mi.appendChild(tip);
   var opts = document.createElement('div'); opts.className = 'purchase-options';
   opts.innerHTML =
-    '<div class="purchase-card"><h4>Single Photo Download</h4><p>High-resolution, no watermark, personal use license.</p><div class="price">'+(gallery.singlePrice||'$18')+' / photo</div><button class="btn-sm btn-sm-gold" id="modal-buy-single">Add to Cart</button></div>' +
     '<div class="purchase-card"><h4>Full Gallery Download</h4><p>All '+resources.length+' photos, no watermarks, print-ready.</p><div class="price">'+gallery.price+'</div><button class="btn-sm btn-sm-gold" id="modal-buy-full">Add to Cart</button></div>';
   mi.appendChild(opts);
-  document.getElementById('modal-buy-single').onclick = function(){ window.addToCart('Single Photo \u2014 '+gallery.name,'Digital Download \u2014 No Watermark', gallery.singlePrice||'$18'); window.closeModal(); };
   document.getElementById('modal-buy-full').onclick = function(){ window.addToCart('Full Gallery \u2014 '+gallery.name,'All Digital Files \u2014 No Watermark', gallery.price); window.closeModal(); };
   var note = document.createElement('p'); note.style.cssText = 'color:var(--taupe);font-size:.78rem';
   note.textContent = 'Watermarks removed within minutes of payment confirmation.'; mi.appendChild(note);
@@ -1016,10 +1014,8 @@ window.openGallery=function(name,date,meta){
   var tip=document.createElement('p');tip.style.cssText='color:var(--taupe);font-size:.8rem;margin-bottom:1rem';
   tip.textContent='Hover over any photo to purchase a digital download. To order prints, use the Order Prints button on the gallery card.';mi.appendChild(tip);
   var opts=document.createElement('div');opts.className='purchase-options';
-  opts.innerHTML='<div class="purchase-card"><h4>Single Image Download</h4><p>High-resolution, no watermark, personal use license.</p><div class="price">$18 / photo</div><button class="btn-sm btn-sm-gold" id="buy-single-btn">Add to Cart</button></div>'
-    +'<div class="purchase-card"><h4>Full Gallery Download</h4><p>All photos, high-resolution, no watermarks, print-ready.</p><div class="price">$185</div><button class="btn-sm btn-sm-gold" id="buy-full-btn">Add to Cart</button></div>';
+  opts.innerHTML='<div class="purchase-card"><h4>Full Gallery Download</h4><p>All photos, high-resolution, no watermarks, print-ready.</p><div class="price">$185</div><button class="btn-sm btn-sm-gold" id="buy-full-btn">Add to Cart</button></div>';
   mi.appendChild(opts);
-  document.getElementById('buy-single-btn').onclick=function(){window.addToCart('Single Photo — '+name,'Digital Download — No Watermark','$18');window.closeModal();};
   document.getElementById('buy-full-btn').onclick=function(){window.addToCart('Full Gallery — '+name,'All Digital Files — No Watermark','$185');window.closeModal();};
   var note=document.createElement('p');note.style.cssText='color:var(--taupe);font-size:.78rem';note.textContent='Watermarks removed within minutes of payment.';mi.appendChild(note);
   document.getElementById('photoModal').classList.add('open');

@@ -619,14 +619,18 @@ window.switchTab = function(tab, btn) {
 function renderGalleryCards(){
   var grid = document.getElementById('galleriesGrid');
   if(!grid) return;
-  if(galleryStore.length === 0){
+  // Filter based on admin mode — public only sees visible galleries
+  var visibleGalleries = isAdminMode ? galleryStore : galleryStore.filter(function(g){ return g.visible !== false; });
+  if(visibleGalleries.length === 0){
     grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--taupe)">No galleries yet. Add one in the Admin tab.</div>';
     return;
   }
   grid.innerHTML = '';
-  galleryStore.forEach(function(g, idx){
+  visibleGalleries.forEach(function(g, idx){
     var card = document.createElement('div');
     card.className = 'gallery-card';
+    // Dim hidden galleries in admin view
+    if(isAdminMode && g.visible === false) card.style.opacity = '0.45';
     // Fetch first photo from Cloudinary to use as thumb
     var thumbUrl = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,h_220,c_fill,q_auto,f_auto/'+encodeURIComponent(g.folder)+'/';
     var info = document.createElement('div');
@@ -712,6 +716,13 @@ function loadCloudinaryFolder(g, idx, card){
           actions.appendChild(printBtn);
         }
         if(isAdminMode){
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'btn-sm btn-sm-outline';
+          var isVisible = g.visible !== false;
+          toggleBtn.textContent = isVisible ? '👁 Hide' : '👁 Show';
+          toggleBtn.style.cssText = isVisible ? 'background:#5a6e5c;color:#fff;border-color:#5a6e5c;' : 'background:#9e9082;color:#fff;border-color:#9e9082;';
+          (function(id, vis){ toggleBtn.onclick = function(){ window.toggleGalleryVisibility(id, vis); }; })(g.id, isVisible);
+          actions.appendChild(toggleBtn);
           actions.appendChild(editBtn);
           actions.appendChild(delBtn);
         }
@@ -885,7 +896,30 @@ window.editGallery = async function(id){
   window.showToast('Edit mode — make changes and save');
 };
 
-window.deleteGallery = async function(id){
+window.toggleGalleryVisibility = async function(id, currentlyVisible){
+  try {
+    var g = galleryStore.find(function(g){ return g.id === id; });
+    if(!g) return;
+    var res = await fetch('/api/galleries', {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ 
+        id, name:g.name, folder:g.folder, date:g.date, 
+        price:g.price, singlePrice:g.singlePrice, 
+        password:g.password, expiry:g.expiry, 
+        pictimeUrl:g.pictimeUrl||'',
+        visible: !currentlyVisible 
+      })
+    });
+    var data = await res.json();
+    if(data.success){
+      window.showToast(currentlyVisible ? 'Gallery hidden from clients' : 'Gallery now visible to clients');
+      await loadGalleries();
+    }
+  } catch(err) {
+    window.showToast('Error updating gallery visibility');
+  }
+};
   if(!confirm('Delete this gallery? This cannot be undone.')) return;
   try {
     var res = await fetch('/api/galleries', {

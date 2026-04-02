@@ -13,7 +13,7 @@
   gtag('config', 'AW-18057429002');
 </script>
 <script>
-function gtag_report_conversion(url) {
+function gtag_report_conversion(url, value) {
   var callback = function () {
     if (typeof(url) != 'undefined') {
       window.location = url;
@@ -21,9 +21,9 @@ function gtag_report_conversion(url) {
   };
   gtag('event', 'conversion', {
     'send_to': 'AW-18057429002/rupbCNLO-ZMcEIqAuqJD',
-    'value': 1.0,
+    'value': value || 1.0,
     'currency': 'USD',
-    'transaction_id': '',
+    'transaction_id': Date.now().toString(),
     'event_callback': callback
   });
   return false;
@@ -1268,9 +1268,7 @@ window.checkout=async function(){
       cart=[];
       updateCart();
       window.toggleCart();
-      gtag_report_conversion(data.paymentUrl);
-    } else {
-      window.showToast('Checkout error. Please try again.');
+      gtag_report_conversion(data.paymentUrl, total);
     }
   } catch(err){
     window.showToast('Connection error. Please try again.');
@@ -1711,7 +1709,7 @@ window.submitSquarePayment=async function(){
         time: new Date().toLocaleString()
       });
       // Fire Google Ads conversion then redirect
-      gtag_report_conversion(data.paymentUrl);
+      gtag_report_conversion(data.paymentUrl, due);
     } else {
       window.showToast(data.error||'Could not create payment link. Please try again.');
       btn.disabled=false;

@@ -702,6 +702,15 @@ function loadCloudinaryFolder(g, idx, card){
         (function(id){ delBtn.onclick = function(){ window.deleteGallery(id); }; })(g.id);
         actions.appendChild(viewBtn);
         actions.appendChild(buyBtn);
+        if(g.pictimeUrl){
+          var printBtn = document.createElement('a');
+          printBtn.className = 'btn-sm btn-sm-outline';
+          printBtn.textContent = '🖨 Order Prints';
+          printBtn.href = g.pictimeUrl;
+          printBtn.target = '_blank';
+          printBtn.style.cssText = 'text-decoration:none;text-align:center;';
+          actions.appendChild(printBtn);
+        }
         if(isAdminMode){
           actions.appendChild(editBtn);
           actions.appendChild(delBtn);
@@ -810,6 +819,7 @@ window.publishCloudinaryGallery = async function(){
   var single = document.getElementById('singlePrice').value.trim() || '$18';
   var pass   = document.getElementById('galleryPassword').value.trim();
   var expiry = document.getElementById('galleryExpiry').value;
+  var pictime = document.getElementById('pictimeUrl') ? document.getElementById('pictimeUrl').value.trim() : '';
   if(!name){ window.showToast('Please enter a gallery name'); return; }
   if(!folder){ window.showToast('Please enter the Cloudinary folder name'); return; }
   var ds = date ? new Date(date+'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : 'Recently';
@@ -819,7 +829,7 @@ window.publishCloudinaryGallery = async function(){
 
   try {
     var method = editId ? 'PUT' : 'POST';
-    var body = { name, folder, date:ds, price, singlePrice:single, password:pass, expiry };
+    var body = { name, folder, date:ds, price, singlePrice:single, password:pass, expiry, pictimeUrl:pictime };
     if(editId) body.id = editId;
 
     var res = await fetch('/api/galleries', {
@@ -829,7 +839,7 @@ window.publishCloudinaryGallery = async function(){
     });
     var data = await res.json();
     if(data.success){
-      ['galleryName','cloudinaryFolder','galleryDate','clientEmail','galleryPassword','galleryPrice','singlePrice'].forEach(function(id){
+      ['galleryName','cloudinaryFolder','galleryDate','clientEmail','galleryPassword','galleryPrice','singlePrice','pictimeUrl'].forEach(function(id){
         var el = document.getElementById(id); if(el) el.value = '';
       });
       if(document.getElementById('galleryEditId')) document.getElementById('galleryEditId').value = '';
@@ -864,6 +874,7 @@ window.editGallery = async function(id){
   document.getElementById('singlePrice').value = g.singlePrice || '$18';
   document.getElementById('galleryPassword').value = g.password || '';
   document.getElementById('galleryExpiry').value = g.expiry || '60';
+  if(document.getElementById('pictimeUrl')) document.getElementById('pictimeUrl').value = g.pictimeUrl || '';
   if(document.getElementById('galleryEditId')) document.getElementById('galleryEditId').value = id;
   document.getElementById('publishGalleryBtn').textContent = '✓ Save Changes →';
   window.showToast('Edit mode — make changes and save');
@@ -2611,6 +2622,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
             <div class="form-field"><label>Session Date</label><input type="date" id="galleryDate"></div>
             <div class="form-field"><label>Client Email</label><input type="email" id="clientEmail" placeholder="client@email.com"></div>
             <div class="form-field"><label>Gallery Password</label><input type="text" id="galleryPassword" placeholder="Create a client password"></div>
+            <div class="form-field"><label>Pic-Time Store URL <span style="color:var(--taupe);font-size:.7rem;letter-spacing:0;text-transform:none">(optional — enables Order Prints button)</span></label><input type="text" id="pictimeUrl" placeholder="https://bluegemproductions.pic-time.com/..."></div>
             <div class="form-field">
               <label>Gallery Expiry</label>
               <select id="galleryExpiry">

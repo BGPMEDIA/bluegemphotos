@@ -12,6 +12,23 @@
   gtag('js', new Date());
   gtag('config', 'AW-18057429002');
 </script>
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+    'send_to': 'AW-18057429002/rupbCNLO-ZMcEIqAuqJD',
+    'value': 1.0,
+    'currency': 'USD',
+    'transaction_id': '',
+    'event_callback': callback
+  });
+  return false;
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
@@ -1194,7 +1211,7 @@ window.checkout=async function(){
       cart=[];
       updateCart();
       window.toggleCart();
-      window.location.href=data.paymentUrl;
+      gtag_report_conversion(data.paymentUrl);
     } else {
       window.showToast('Checkout error. Please try again.');
     }
@@ -1636,8 +1653,8 @@ window.submitSquarePayment=async function(){
           +'Payment Link: '+data.paymentUrl,
         time: new Date().toLocaleString()
       });
-      // Redirect to Square hosted payment page
-      window.location.href=data.paymentUrl;
+      // Fire Google Ads conversion then redirect
+      gtag_report_conversion(data.paymentUrl);
     } else {
       window.showToast(data.error||'Could not create payment link. Please try again.');
       btn.disabled=false;

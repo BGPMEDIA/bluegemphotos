@@ -722,7 +722,13 @@ function loadCloudinaryFolder(g, idx, card){
                   return;
                 }
               }
-              window.open(gallery.pictimeUrl, '_blank');
+              var a = document.createElement('a');
+              a.href = gallery.pictimeUrl;
+              a.target = '_blank';
+              a.rel = 'noopener';
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
             };
           })(g);
           actions.appendChild(printBtn);

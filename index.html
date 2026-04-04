@@ -708,12 +708,23 @@ function loadCloudinaryFolder(g, idx, card){
         actions.appendChild(viewBtn);
         actions.appendChild(buyBtn);
         if(g.pictimeUrl){
-          var printBtn = document.createElement('a');
+          var printBtn = document.createElement('button');
           printBtn.className = 'btn-sm btn-sm-outline';
           printBtn.textContent = '🖨 Order Prints';
-          printBtn.href = g.pictimeUrl;
-          printBtn.target = '_blank';
-          printBtn.style.cssText = 'text-decoration:none;text-align:center;';
+          printBtn.style.cssText = 'text-align:center;';
+          (function(gallery){
+            printBtn.onclick = function(){
+              if(gallery.password && gallery.password.trim() !== ''){
+                var entered = prompt('This gallery is private. Please enter the password:');
+                if(entered === null) return;
+                if(entered.trim() !== gallery.password.trim()){
+                  window.showToast('Incorrect password');
+                  return;
+                }
+              }
+              window.open(gallery.pictimeUrl, '_blank');
+            };
+          })(g);
           actions.appendChild(printBtn);
         }
         if(isAdminMode){

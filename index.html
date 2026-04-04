@@ -797,7 +797,8 @@ function openCloudinaryGallery(gallery, resources){
     (function(gal, pid){ buyBtn.onclick = function(e){
       e.stopPropagation();
       var thumbUrl='https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_120,h_120,c_fill,q_auto,f_auto/'+pid;
-      window.addToCart('Photo \u2014 '+gal.name,'Single Digital Download \u2014 No Watermark',gal.singlePrice||'$18',thumbUrl);
+      var fileName=pid.split('/').pop().replace(/_[a-z0-9]{6,}$/i,'');
+      window.addToCart('Photo \u2014 '+fileName,'Gallery: '+gal.name+' \u2014 No Watermark',gal.singlePrice||'$18',thumbUrl);
       window.showToast('Photo added to cart');
     }; })(gallery, res.public_id);
 
@@ -1041,7 +1042,8 @@ window.openGallery=function(name,date,meta){
     (function(photoIdx,galleryName,publicId){
       buyBtn.onclick=function(){
         var thumbUrl='https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_120,h_120,c_fill,q_auto,f_auto/'+publicId;
-        window.addToCart('Photo #'+(photoIdx+1)+' — '+galleryName,'Single Digital Download — No Watermark','$18',thumbUrl);
+        var fileName=publicId.split('/').pop().replace(/_[a-z0-9]{6,}$/i,'');
+        window.addToCart('Photo \u2014 '+fileName,'Gallery: '+galleryName+' \u2014 No Watermark','$18',thumbUrl);
         window.showToast('Photo added to cart');
       };
     })(i,name,res.public_id);
@@ -1085,7 +1087,8 @@ window.openLightbox = function(publicId, gallery){
   img.src = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_1200,q_auto,f_auto/'+publicId;
   document.getElementById('lbBuyBtn').textContent = 'Buy This Photo \u2014 '+(gallery.singlePrice||'$18');
   document.getElementById('lbBuyBtn').onclick = function(){
-    window.addToCart('Photo \u2014 '+gallery.name,'Single Digital Download \u2014 No Watermark',gallery.singlePrice||'$18',thumbUrl);
+    var fileName=publicId.split('/').pop().replace(/_[a-z0-9]{6,}$/i,'');
+    window.addToCart('Photo \u2014 '+fileName,'Gallery: '+gallery.name+' \u2014 No Watermark',gallery.singlePrice||'$18',thumbUrl);
     window.showToast('Photo added to cart');
     closeLightbox();
   };

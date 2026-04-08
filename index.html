@@ -602,6 +602,31 @@ async function loadGalleries(){
 
 var isAdminMode = false;
 
+// Action Shot service visibility — persists in localStorage
+var actionShotVisible = localStorage.getItem('actionShotVisible') !== 'false';
+function applyActionShotVisibility(){
+  var card = document.getElementById('action-shot-card');
+  if(card) card.style.display = actionShotVisible ? '' : 'none';
+  var btn = document.getElementById('action-shot-toggle');
+  if(btn){
+    btn.textContent = actionShotVisible ? '👁 Hide Action Shot Service' : '👁 Show Action Shot Service';
+    btn.style.background = actionShotVisible ? '#1a3a6a' : '#5a6e5c';
+  }
+}
+setTimeout(applyActionShotVisibility, 50);
+
+window.toggleActionShot = function(){
+  actionShotVisible = !actionShotVisible;
+  localStorage.setItem('actionShotVisible', actionShotVisible);
+  applyActionShotVisibility();
+  var btn = document.getElementById('action-shot-toggle');
+  if(btn){
+    btn.textContent = actionShotVisible ? '👁 Hide Action Shot Service' : '👁 Show Action Shot Service';
+    btn.style.background = actionShotVisible ? '#1a3a6a' : '#5a6e5c';
+  }
+  window.showToast(actionShotVisible ? 'Action Shot service is now visible' : 'Action Shot service is now hidden');
+};
+
 window.switchTab = function(tab, btn) {
   if(tab === 'admin'){
     var pw = prompt('Enter admin password:');
@@ -1626,7 +1651,7 @@ window.showToast=function(msg){
 // BOOKING PAGE
 var servicePrices={
   'Mini Session':295,'Portrait Session':550,'Family Collection':750,
-  'Wedding Day':1800,'Commercial & Brand':395,'Fashion Photography':1800
+  'Wedding Day':1800,'Commercial & Brand':395,'Fashion Photography':1800,'Action Shot Session':150
 };
 var selectedDeposit='half';
 window.selectDeposit=function(type){
@@ -1973,8 +1998,22 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <div class="service-card"><div class="service-num">03</div><div class="service-name">Family Collection</div><p class="service-desc">A full family storytelling session capturing authentic connection and everything in between.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour session</li><li>Up to 8 family members</li><li>60+ edited digital images</li><li>Slideshow reveal</li><li>One complimentary 11x14 print</li></ul><a href="#" class="service-learn" onclick="showPage('svc-family');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">04</div><div class="service-name">Wedding Day</div><p class="service-desc">Full-day wedding coverage from getting ready through the last dance. Your entire story, beautifully told.</p><div class="service-price">From $1,800 <span>/ ceremony</span></div><ul class="service-includes"><li>Ceremony — up to 4 hrs · $1,800</li><li>Classic — up to 8 hrs · $3,200</li><li>Full Story — up to 10 hrs · $3,800</li><li>300–400+ edited digital images</li><li>Engagement session included (Classic+)</li></ul><a href="#" class="service-learn" onclick="showPage('svc-wedding');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">05</div><div class="service-name">Commercial &amp; Brand</div><p class="service-desc">From a single polished headshot to a full brand campaign — this service covers the complete spectrum of professional imagery. Corporate headshots, personal brand sessions, product photography, lifestyle campaigns, and executive portraits all live here. Scope and pricing determined during consultation.</p><div class="service-price">From $395 <span>/ consultation</span></div><ul class="service-includes"><li>Corporate headshots &amp; executive portraits</li><li>Personal brand &amp; entrepreneur sessions</li><li>Product &amp; lifestyle photography</li><li>Full commercial license included</li><li>Mood board consultation</li></ul><a href="#" class="service-learn" onclick="showPage('svc-commercial');return false;">View Details &rarr;</a></div>
-      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">08</div><div class="service-name">Fashion Photography</div><p class="service-desc">Editorial-grade fashion sessions for models, designers, and brands. Magazine-ready imagery with a cinematic eye.</p><div class="service-price">$1,800 <span>/ half day</span></div><ul class="service-includes"><li>4 or 8-hour session</li><li>Creative consultation & mood board</li><li>30–60+ edited images</li><li>Full commercial license</li><li>Multi-location shoots available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-fashion');return false;">View Details &rarr;</a></div>
-      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">07</div><div class="service-name">Bridal Portrait Session</div><p class="service-desc">Two unhurried hours dedicated entirely to you — your gown, your beauty, your story. Before the vows. Before the chaos.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour studio session</li><li>Exclusively about the bride</li><li>20 edited digital images</li><li>Private gallery delivery</li><li>Fine art print options available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-bridal');return false;">View Details &rarr;</a></div>
+      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">06</div><div class="service-name">Bridal Portrait Session</div><p class="service-desc">Two unhurried hours dedicated entirely to you — your gown, your beauty, your story. Before the vows. Before the chaos.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour studio session</li><li>Exclusively about the bride</li><li>20 edited digital images</li><li>Private gallery delivery</li><li>Fine art print options available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-bridal');return false;">View Details &rarr;</a></div>
+      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">07</div><div class="service-name">Fashion Photography</div><p class="service-desc">Editorial-grade fashion sessions for models, designers, and brands. Magazine-ready imagery with a cinematic eye.</p><div class="service-price">$1,800 <span>/ half day</span></div><ul class="service-includes"><li>4 or 8-hour session</li><li>Creative consultation & mood board</li><li>30–60+ edited images</li><li>Full commercial license</li><li>Multi-location shoots available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-fashion');return false;">View Details &rarr;</a></div>
+      <div class="service-card" id="action-shot-card" style="background:#0a1628;border-top:3px solid #B89A6A;border:1px solid #1a2d4a;border-top:3px solid #B89A6A;">
+        <div class="service-num" style="color:#B89A6A;">08</div>
+        <div class="service-name" style="color:#f0f4ff;">Action Shot Session</div>
+        <p class="service-desc" style="color:#8899bb;">High-energy track &amp; field coverage for Miramar athletes. Capture your best moments in motion.</p>
+        <div class="service-price" style="color:#f0f4ff;">$150 <span style="color:#8899bb;">/ session</span></div>
+        <ul class="service-includes" style="border-color:rgba(184,154,106,.15);">
+          <li style="color:#c8d4e8;border-bottom-color:rgba(184,154,106,.12);">1-hour photo shoot</li>
+          <li style="color:#c8d4e8;border-bottom-color:rgba(184,154,106,.12);">1 athlete coverage</li>
+          <li style="color:#c8d4e8;border-bottom-color:rgba(184,154,106,.12);">3 edited high-resolution photos</li>
+          <li style="color:#c8d4e8;border-bottom-color:rgba(184,154,106,.12);">Online gallery access</li>
+          <li style="color:#c8d4e8;border-bottom-color:rgba(184,154,106,.12);">Digital downloads included</li>
+        </ul>
+        <a href="#" class="service-learn" style="color:#B89A6A;border-color:rgba(184,154,106,.3);" onclick="showPage('svc-action');return false;">View Details &rarr;</a>
+      </div>
     </div>
   </section>
 
@@ -2009,7 +2048,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 
   <footer>
     <div><div class="footer-brand">Rogelio Small Photography</div><p class="footer-tagline">Fine art photography rooted in authentic storytelling. Tamarac, FL &mdash; South Florida.</p><div style="display:inline-flex;align-items:center;gap:.6rem;margin-top:1rem;padding:.5rem .9rem;border:1px solid rgba(184,154,106,.3);"><span style="font-size:1rem">&#127942;</span><span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-family:'Jost',sans-serif;">Portrait Masters Awards<br><span style="color:var(--stone);">Merit Recipient</span></span></div></div>
-    <div class="footer-col"><h4>Services</h4><ul><li><a href="#" onclick="showPage('svc-mini');return false;">Mini Session</a></li><li><a href="#" onclick="showPage('svc-portrait');return false;">Portrait Session</a></li><li><a href="#" onclick="showPage('svc-family');return false;">Family Collection</a></li><li><a href="#" onclick="showPage('svc-wedding');return false;">Wedding Day</a></li><li><a href="#" onclick="showPage('svc-bridal');return false;">Bridal Portrait</a></li><li><a href="#" onclick="showPage('svc-commercial');return false;">Commercial &amp; Brand</a></li><li><a href="#" onclick="showPage('svc-fashion');return false;">Fashion Photography</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="#" onclick="showPage('svc-mini');return false;">Mini Session</a></li><li><a href="#" onclick="showPage('svc-portrait');return false;">Portrait Session</a></li><li><a href="#" onclick="showPage('svc-family');return false;">Family Collection</a></li><li><a href="#" onclick="showPage('svc-wedding');return false;">Wedding Day</a></li><li><a href="#" onclick="showPage('svc-bridal');return false;">Bridal Portrait</a></li><li><a href="#" onclick="showPage('svc-commercial');return false;">Commercial &amp; Brand</a></li><li><a href="#" onclick="showPage('svc-fashion');return false;">Fashion Photography</a></li><li><a href="#" onclick="showPage('svc-action');return false;">Action Shot Session</a></li></ul></div>
     <div class="footer-col"><h4>Studio</h4><ul><li><a href="#">About</a></li><li><a href="#">Portfolio</a></li><li><a href="#" onclick="showPage('gallery');return false;">Client Galleries</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li></ul></div>
     <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+13056765980" style="color:var(--taupe);text-decoration:none">(305) 676-5980</a></li><li>Based in South Florida &middot; Available Worldwide</li><li style="margin-top:.8rem"><a href="#">Instagram</a></li><li><a href="#">Pinterest</a></li></ul></div>
   </footer>
@@ -2436,6 +2475,60 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
   <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)"><span>&copy; 2025 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a></div>
 </div>
 
+<!-- ACTION SHOT SERVICE PAGE -->
+<div class="page" id="page-svc-action">
+  <div class="svc-hero" style="background:linear-gradient(135deg,#0a1628 0%,#1a2d4a 60%,#0d1f35 100%);position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(184,154,106,.03) 40px,rgba(184,154,106,.03) 41px);"></div>
+    <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#B89A6A,transparent);"></div>
+    <div class="svc-hero-content">
+      <p class="section-label" style="color:#B89A6A;">Miramar Track &amp; Field</p>
+      <h1 style="color:#f0f4ff;">Action Shot <em style="font-style:italic;color:#B89A6A;">Session</em></h1>
+      <div class="svc-hero-price" style="color:#D4B483;">$150 <span style="font-size:.8rem;color:#8899bb;font-family:'Jost',sans-serif;letter-spacing:.1em;">/ session</span></div>
+    </div>
+  </div>
+  <div class="svc-content">
+    <div class="svc-details">
+      <h2 style="color:#0a1628;">Your moment. Frozen at full speed.</h2>
+      <p>Built specifically for Miramar track &amp; field athletes, this focused one-hour session captures the power, precision, and athleticism that defines your sport. Whether you're sprinting, hurdling, or throwing — we capture the moment that shows what you're made of.</p>
+      <p>Perfect for recruiting profiles, personal branding, social media, and sports portfolios. Three professionally edited high-resolution images delivered to your private online gallery — ready to download and share.</p>
+      <div class="svc-includes-title">What's Included</div>
+      <ul class="svc-includes-list">
+        <li>1-hour on-location photo shoot</li>
+        <li>1 athlete coverage per session</li>
+        <li>3 edited high-resolution photos</li>
+        <li>Private online gallery access</li>
+        <li>Digital downloads included</li>
+        <li>Print release for personal use</li>
+      </ul>
+    </div>
+    <div>
+      <div class="svc-booking" style="background:#0a1628;border:1px solid #1a3a6a;">
+        <h3 style="color:#f0f4ff;">Book Your Session</h3>
+        <p style="color:#8899bb;">Sessions available at Miramar Regional Park and surrounding track facilities.</p>
+        <div class="price-big" style="color:#B89A6A;">$150 <span style="color:#8899bb;">/ session</span></div>
+        <button class="btn-book-now" style="background:#B89A6A;color:#0a1628;" onclick="openScheduling('Action Shot Session')">Book Now</button>
+        <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+      </div>
+    </div>
+  </div>
+  <div class="svc-faq" style="background:#f0f4ff;">
+    <h2>Frequently Asked <em style="font-style:italic;color:#B89A6A;">Questions</em></h2>
+    <div class="faq-item"><div class="faq-q" style="color:#0a1628;">Where are sessions held?</div><div class="faq-a">Sessions are held at Miramar Regional Park track or any agreed-upon local track facility. We bring all equipment to you.</div></div>
+    <div class="faq-item"><div class="faq-q" style="color:#0a1628;">Can I book for a team?</div><div class="faq-a">Each session covers one athlete. For team bookings, contact us for group pricing — we can schedule multiple athletes back to back at a discounted rate.</div></div>
+    <div class="faq-item"><div class="faq-q" style="color:#0a1628;">When will I receive my photos?</div><div class="faq-a">Your edited photos will be delivered to your private online gallery within 48–72 hours of your session.</div></div>
+    <div class="faq-item"><div class="faq-q" style="color:#0a1628;">Can I get more than 3 photos?</div><div class="faq-a">Yes — additional edited images are available at $20 per photo. Let us know at booking if you'd like extra coverage.</div></div>
+  </div>
+  <div class="svc-related">
+    <h2>You Might Also Love</h2>
+    <div class="svc-related-grid">
+      <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
+      <a href="#" class="svc-related-card" onclick="showPage('svc-mini');return false;"><div class="svc-related-num">01</div><div class="svc-related-name">Mini Session</div><div class="svc-related-price">Starting at $295</div></a>
+      <a href="#" class="svc-related-card" onclick="showPage('svc-commercial');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Commercial &amp; Brand</div><div class="svc-related-price">From $395</div></a>
+    </div>
+  </div>
+  <div class="footer-bottom" style="background:#0a1628;border-top:1px solid rgba(184,154,106,.2)"><span style="color:#8899bb;">&copy; 2026 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:#B89A6A;text-decoration:none">&#8592; Back to Main Site</a></div>
+</div>
+
 <!-- BRIDAL PORTRAIT SERVICE PAGE -->
 <div class="page" id="page-svc-bridal">
   <div style="background:var(--warm-white)">
@@ -2711,6 +2804,10 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
             <p style="color:var(--stone);font-size:.78rem;line-height:1.8;margin-bottom:.8rem">3. Hit Publish — all photos load automatically</p>
             <p style="color:var(--stone);font-size:.78rem;line-height:1.8;margin-bottom:.8rem">4. Add more photos to the folder anytime — they appear instantly</p>
             <p style="color:var(--taupe);font-size:.72rem;margin-top:1.2rem;padding-top:1rem;border-top:1px solid rgba(200,191,176,.15)">Cloud Name: <strong style="color:var(--gold-lt)">dfqouxke9</strong></p>
+            <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid rgba(200,191,176,.15)">
+              <p style="color:var(--gold-lt);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.8rem">Service Visibility</p>
+              <button id="action-shot-toggle" onclick="window.toggleActionShot()" style="width:100%;padding:.6rem 1rem;font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;border:none;color:#fff;cursor:pointer;background:#1a3a6a;">👁 Hide Action Shot Service</button>
+            </div>
           </div>
         </div>
       </div>
@@ -2756,6 +2853,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
                 <option value="Wedding Day">Wedding Day - From $1,800</option>
                 <option value="Commercial & Brand">Commercial &amp; Brand - $1,400</option>
                 <option value="Fashion Photography">Fashion Photography - $1,800+</option>
+                <option value="Action Shot Session">Action Shot Session - $150</option>
               </select>
             </div>
             <div class="bf-field">

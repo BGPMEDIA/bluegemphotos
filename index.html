@@ -1752,7 +1752,7 @@ window.submitBooking=function(){
   var full=servicePrices[svc]||0;
   var due=selectedDeposit==='half'?Math.round(full*0.5):full;
   var subject='New Booking Request - '+svc;
-  var body='New booking request received:\n\nName: '+name+'\nEmail: '+email+'\nPhone: '+phone+'\nService: '+svc+'\nDate: '+date+'\nDeposit: '+(selectedDeposit==='half'?'50% ($'+Math.round(full*0.5)+')':'Full ($'+full+')')+'\n\nNotes:\n'+(notes||'None')+'\n\nDue Today: $'+due;
+  var body='New booking request received:\n\nName: '+name+'\nEmail: '+email+'\nPhone: '+phone+'\nService: '+svc+'\nDate: '+date+'\nTime: '+(schedData.time||'Not specified')+'\nDeposit: '+(selectedDeposit==='half'?'50% ($'+Math.round(full*0.5)+')':'Full ($'+full+')')+'\n\nNotes:\n'+(notes||'None')+'\n\nDue Today: $'+due;
   window.location.href='mailto:Bluegempro@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
   setTimeout(function(){
     document.getElementById('booking-form-wrap').style.display='none';
@@ -1794,7 +1794,7 @@ window.submitSquarePayment=async function(){
       body:JSON.stringify({
         amountCents:due*100,
         currency:'USD',
-        note:notePrefix+schedData.service+' - '+schedData.name+' - '+schedData.date,
+        note:notePrefix+schedData.service+' - '+schedData.name+' - '+schedData.date+(schedData.time?' at '+schedData.time:''),
         buyerName:cardholder,
         buyerEmail:schedData.email,
         redirectUrl:window.location.href

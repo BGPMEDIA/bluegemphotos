@@ -1596,6 +1596,26 @@ function updateSchedTabs(){
   document.querySelectorAll('.sched-panel').forEach(function(p,i){
     p.classList.toggle('active',i+1===schedStep);
   });
+  // Populate time slots when step 2 becomes active
+  if(schedStep===2){
+    var t=document.getElementById('sched-time');
+    if(t){
+      var isActionShot = schedData.service === 'Action Shot Session';
+      var current = schedData.time;
+      t.innerHTML = '<option value="">Select a time</option>';
+      var slots = isActionShot
+        ? ['6:00 PM','6:30 PM','7:00 PM','7:30 PM']
+        : ['6:00 AM (Sunrise)','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM (Noon)','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM (Golden Hour)','6:00 PM (Golden Hour)','7:00 PM (Sunset)'];
+      slots.forEach(function(slot){
+        var opt = document.createElement('option');
+        opt.value = slot; opt.textContent = slot;
+        if(slot === current) opt.selected = true;
+        t.appendChild(opt);
+      });
+      if(!current) schedData.time = '';
+    }
+    applyDepositRules();
+  }
 }
 
 window.schedNext=function(){
@@ -1607,22 +1627,6 @@ window.schedNext=function(){
   if(schedStep===2){
     var d=document.getElementById('sched-date');
     var t=document.getElementById('sched-time');
-    if(t){
-      var isActionShot = schedData.service === 'Action Shot Session';
-      t.innerHTML = '<option value="">Select a time</option>';
-      var slots = isActionShot
-        ? ['6:00 PM','6:30 PM','7:00 PM','7:30 PM']
-        : ['6:00 AM (Sunrise)','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM (Noon)','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM (Golden Hour)','6:00 PM (Golden Hour)','7:00 PM (Sunset)'];
-      slots.forEach(function(slot){
-        var opt = document.createElement('option');
-        opt.value = slot;
-        opt.textContent = slot;
-        t.appendChild(opt);
-      });
-      // Reset time if switching services
-      schedData.time = '';
-      t.value = '';
-    }
     if(d)schedData.date=d.value;
     if(t)schedData.time=t.value;
     if(!schedData.date){window.showToast('Please select a session date');return;}

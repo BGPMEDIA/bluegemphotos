@@ -1509,9 +1509,24 @@ window.selectSchedService=function(i){
   document.querySelectorAll('.sched-svc-card').forEach(function(c,j){
     c.classList.toggle('selected',j===i);
   });
-  // Show/hide hours selector based on service type
   var hoursWrap=document.getElementById('schedHoursWrap');
   if(hoursWrap)hoursWrap.style.display=schedServices[i].perHour?'':'none';
+  // Update time slots and deposit rules based on service
+  var t=document.getElementById('sched-time');
+  if(t){
+    var isActionShot = schedData.service === 'Action Shot Session';
+    t.innerHTML = '<option value="">Select a time</option>';
+    var slots = isActionShot
+      ? ['6:00 PM','6:30 PM','7:00 PM','7:30 PM']
+      : ['6:00 AM (Sunrise)','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM (Noon)','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM (Golden Hour)','6:00 PM (Golden Hour)','7:00 PM (Sunset)'];
+    slots.forEach(function(slot){
+      var opt = document.createElement('option');
+      opt.value = slot; opt.textContent = slot;
+      t.appendChild(opt);
+    });
+    schedData.time = ''; t.value = '';
+  }
+  applyDepositRules();
   updateOrderSummary();
 };
 
@@ -1592,6 +1607,22 @@ window.schedNext=function(){
   if(schedStep===2){
     var d=document.getElementById('sched-date');
     var t=document.getElementById('sched-time');
+    if(t){
+      var isActionShot = schedData.service === 'Action Shot Session';
+      t.innerHTML = '<option value="">Select a time</option>';
+      var slots = isActionShot
+        ? ['6:00 PM','6:30 PM','7:00 PM','7:30 PM']
+        : ['6:00 AM (Sunrise)','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM (Noon)','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM (Golden Hour)','6:00 PM (Golden Hour)','7:00 PM (Sunset)'];
+      slots.forEach(function(slot){
+        var opt = document.createElement('option');
+        opt.value = slot;
+        opt.textContent = slot;
+        t.appendChild(opt);
+      });
+      // Reset time if switching services
+      schedData.time = '';
+      t.value = '';
+    }
     if(d)schedData.date=d.value;
     if(t)schedData.time=t.value;
     if(!schedData.date){window.showToast('Please select a session date');return;}
@@ -1662,6 +1693,24 @@ window.selectDeposit=function(type){
   document.getElementById('deposit-'+type).classList.add('selected');
   updateBookingSummary();
 };
+
+function applyDepositRules(){
+  var isActionShot = schedData.service === 'Action Shot Session';
+  var halfBtn = document.getElementById('deposit-half');
+  var fullBtn = document.getElementById('deposit-full');
+  if(halfBtn && fullBtn){
+    if(isActionShot){
+      halfBtn.style.display = 'none';
+      schedData.payment = 'full';
+      selectedDeposit = 'full';
+      fullBtn.classList.add('selected');
+      halfBtn.classList.remove('selected');
+    } else {
+      halfBtn.style.display = '';
+    }
+  }
+  updateOrderSummary();
+}
 window.updateBookingSummary=function(){
   var svc=document.getElementById('bf-service');
   if(!svc)return;

@@ -1616,6 +1616,7 @@ function updateSchedTabs(){
     }
     applyDepositRules();
   }
+  if(schedStep===4){ applyDepositRules(); }
 }
 
 window.schedNext=function(){
@@ -1706,18 +1707,22 @@ window.selectDeposit=function(type){
 
 function applyDepositRules(){
   var isActionShot = schedData.service === 'Action Shot Session';
+  // Scheduling flow payment buttons
+  var payHalf = document.getElementById('pay-half');
+  var payFull = document.getElementById('pay-full');
+  // Old booking form deposit buttons
   var halfBtn = document.getElementById('deposit-half');
   var fullBtn = document.getElementById('deposit-full');
-  if(halfBtn && fullBtn){
-    if(isActionShot){
-      halfBtn.style.display = 'none';
-      schedData.payment = 'full';
-      selectedDeposit = 'full';
-      fullBtn.classList.add('selected');
-      halfBtn.classList.remove('selected');
-    } else {
-      halfBtn.style.display = '';
-    }
+  if(isActionShot){
+    if(payHalf){ payHalf.style.display = 'none'; }
+    if(payFull){ payFull.classList.add('selected'); }
+    if(halfBtn){ halfBtn.style.display = 'none'; }
+    if(fullBtn){ fullBtn.classList.add('selected'); }
+    schedData.payment = 'full';
+    selectedDeposit = 'full';
+  } else {
+    if(payHalf){ payHalf.style.display = ''; }
+    if(halfBtn){ halfBtn.style.display = ''; }
   }
   updateOrderSummary();
 }

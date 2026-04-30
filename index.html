@@ -1627,6 +1627,12 @@ window.schedNext=function(){
     if(t)schedData.time=t.value;
     if(!schedData.date){window.showToast('Please select a session date');return;}
     if(!schedData.time){window.showToast('Please select a start time');return;}
+    // Blackout dates per service
+    var actionShotBlackout = ['2026-05-06'];
+    if(schedData.service === 'Action Shot Session' && actionShotBlackout.indexOf(schedData.date) !== -1){
+      window.showToast('Sorry — May 6th is unavailable for Action Shot Sessions. Please select another date.');
+      return;
+    }
   }
   if(schedStep===3){
     var n=document.getElementById('sched-name');

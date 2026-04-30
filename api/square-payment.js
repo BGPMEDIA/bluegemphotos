@@ -32,9 +32,9 @@ module.exports = async function handler(req, res) {
       redirect_url: redirectUrl || 'https://bluegemphotos.com',
       ask_for_shipping_address: false
     },
-    pre_populated_data: {
-      buyer_email: buyerEmail || undefined
-    }
+    pre_populated_data: buyerEmail && buyerEmail.includes('@') ? {
+      buyer_email: buyerEmail
+    } : undefined
   });
 
   const options = {

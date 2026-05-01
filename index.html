@@ -799,14 +799,18 @@ function openCloudinaryGallery(gallery, resources){
     img.onmouseover = function(){ this.style.transform='scale(1.03)'; };
     img.onmouseout  = function(){ this.style.transform='scale(1)'; };
 
+    var isFreeGallery = !gallery.singlePrice || gallery.singlePrice === 'FREE' || gallery.singlePrice === '$0' || gallery.singlePrice === '0' || parseFloat((gallery.singlePrice||'').replace(/[^0-9.]/g,'')) === 0;
+
     var wm = document.createElement('div');
     wm.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-around;pointer-events:none;padding:15% 0;';
-    ['30%','70%'].forEach(function(top){
-      var wmText = document.createElement('span');
-      wmText.textContent = '\u00a9 Rogelio Small';
-      wmText.style.cssText = 'font-family:Cormorant Garamond,serif;font-size:1.2rem;font-style:italic;color:rgba(255,255,255,.65);transform:rotate(-20deg);text-shadow:0 1px 4px rgba(0,0,0,.7);white-space:nowrap;letter-spacing:.08em;display:block;';
-      wm.appendChild(wmText);
-    });
+    if(!isFreeGallery){
+      ['30%','70%'].forEach(function(top){
+        var wmText = document.createElement('span');
+        wmText.textContent = '\u00a9 Rogelio Small';
+        wmText.style.cssText = 'font-family:Cormorant Garamond,serif;font-size:1.2rem;font-style:italic;color:rgba(255,255,255,.65);transform:rotate(-20deg);text-shadow:0 1px 4px rgba(0,0,0,.7);white-space:nowrap;letter-spacing:.08em;display:block;';
+        wm.appendChild(wmText);
+      });
+    }
 
     // Hover action buttons
     var ov = document.createElement('div');
@@ -815,12 +819,20 @@ function openCloudinaryGallery(gallery, resources){
     d.onmouseout  = function(){ ov.style.opacity='0'; };
 
     var buyBtn = document.createElement('button');
-    buyBtn.textContent = 'Buy — '+(gallery.singlePrice||'$18');
+    buyBtn.textContent = isFreeGallery ? 'Download' : 'Buy — '+(gallery.singlePrice||'$18');
+    if(isFreeGallery) buyBtn.style.background = '#1a3a6a';
     buyBtn.style.cssText = 'flex:1;padding:.45rem .5rem;background:var(--espresso);color:var(--warm-white);border:none;font-family:Jost,sans-serif;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;transition:background .2s;';
     buyBtn.onmouseover = function(){ this.style.background='var(--gold)'; };
     buyBtn.onmouseout  = function(){ this.style.background='var(--espresso)'; };
     (function(gal, pid){ buyBtn.onclick = function(e){
       e.stopPropagation();
+      var isFree = !gal.singlePrice || gal.singlePrice === 'FREE' || gal.singlePrice === '$0' || gal.singlePrice === '0' || parseFloat((gal.singlePrice||'').replace(/[^0-9.]/g,'')) === 0;
+      if(isFree){
+        var downloadUrl = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/fl_attachment:photo,q_auto,f_auto/'+pid;
+        window.open(downloadUrl, '_blank');
+        window.showToast('Downloading your photo...');
+        return;
+      }
       var thumbUrl='https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_120,h_120,c_fill,q_auto,f_auto/'+pid;
       var fileName=pid.split('/').pop().replace(/_[a-z0-9]{6,}$/i,'');
       window.addToCart('Photo \u2014 '+fileName,'Gallery: '+gal.name+' \u2014 No Watermark',gal.singlePrice||'$18',thumbUrl);
@@ -870,7 +882,8 @@ window.publishCloudinaryGallery = async function(){
   var folder = document.getElementById('cloudinaryFolder').value.trim();
   var date   = document.getElementById('galleryDate').value;
   var price  = document.getElementById('galleryPrice').value.trim() || '$185';
-  var single = document.getElementById('singlePrice').value.trim() || '$18';
+  var singleRaw = document.getElementById('singlePrice').value.trim();
+  var single = singleRaw === '' ? '$18' : (singleRaw === '0' || singleRaw === '$0' ? 'FREE' : singleRaw);
   var pass   = document.getElementById('galleryPassword').value.trim();
   var expiry = document.getElementById('galleryExpiry').value;
   var pictime = document.getElementById('pictimeUrl') ? document.getElementById('pictimeUrl').value.trim() : '';
@@ -931,7 +944,7 @@ window.editGallery = async function(id){
   document.getElementById('galleryName').value = g.name;
   document.getElementById('cloudinaryFolder').value = g.folder;
   document.getElementById('galleryPrice').value = g.price;
-  document.getElementById('singlePrice').value = g.singlePrice || '$18';
+  document.getElementById('singlePrice').value = (g.singlePrice !== undefined && g.singlePrice !== null) ? g.singlePrice : '$18';
   document.getElementById('galleryPassword').value = g.password || '';
   document.getElementById('galleryExpiry').value = g.expiry || '60';
   if(document.getElementById('pictimeUrl')) document.getElementById('pictimeUrl').value = g.pictimeUrl || '';
@@ -1110,8 +1123,21 @@ window.openLightbox = function(publicId, gallery){
   var thumbUrl = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_120,h_120,c_fill,q_auto,f_auto/'+publicId;
   var img = document.getElementById('lightboxImg');
   img.src = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_1200,q_auto,f_auto/'+publicId;
-  document.getElementById('lbBuyBtn').textContent = 'Buy This Photo \u2014 '+(gallery.singlePrice||'$18');
-  document.getElementById('lbBuyBtn').onclick = function(){
+  var isFree = !gallery.singlePrice || gallery.singlePrice === 'FREE' || gallery.singlePrice === '$0' || gallery.singlePrice === '0' || parseFloat((gallery.singlePrice||'').replace(/[^0-9.]/g,'')) === 0;
+  // Hide watermark on free galleries
+  var lbWm = document.querySelector('.lightbox-wm');
+  if(lbWm) lbWm.style.display = isFree ? 'none' : '';
+  lbBuyBtn.textContent = isFree ? 'Download Photo' : 'Buy This Photo \u2014 '+(gallery.singlePrice||'$18');
+  if(isFree) lbBuyBtn.style.background = '#1a3a6a';
+  else lbBuyBtn.style.background = '';
+  lbBuyBtn.onclick = function(){
+    if(isFree){
+      var downloadUrl = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/fl_attachment:photo,q_auto,f_auto/'+publicId;
+      window.open(downloadUrl, '_blank');
+      window.showToast('Downloading your photo...');
+      closeLightbox();
+      return;
+    }
     var fileName=publicId.split('/').pop().replace(/_[a-z0-9]{6,}$/i,'');
     window.addToCart('Photo \u2014 '+fileName,'Gallery: '+gallery.name+' \u2014 No Watermark',gallery.singlePrice||'$18',thumbUrl);
     window.showToast('Photo added to cart');

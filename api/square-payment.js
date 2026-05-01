@@ -887,7 +887,8 @@ window.publishCloudinaryGallery = async function(){
   var folder = document.getElementById('cloudinaryFolder').value.trim();
   var date   = document.getElementById('galleryDate').value;
   var price  = document.getElementById('galleryPrice').value.trim() || '$185';
-  var single = document.getElementById('singlePrice').value.trim() || '$18';
+  var singleRaw = document.getElementById('singlePrice').value.trim();
+  var single = singleRaw === '' ? '$18' : singleRaw;
   var pass   = document.getElementById('galleryPassword').value.trim();
   var expiry = document.getElementById('galleryExpiry').value;
   var pictime = document.getElementById('pictimeUrl') ? document.getElementById('pictimeUrl').value.trim() : '';

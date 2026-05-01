@@ -799,6 +799,8 @@ function openCloudinaryGallery(gallery, resources){
     img.onmouseover = function(){ this.style.transform='scale(1.03)'; };
     img.onmouseout  = function(){ this.style.transform='scale(1)'; };
 
+    var isFreeGallery = !gallery.singlePrice || gallery.singlePrice === '$0' || gallery.singlePrice === '0' || parseFloat((gallery.singlePrice||'').replace(/[^0-9.]/g,'')) === 0;
+
     var wm = document.createElement('div');
     wm.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-around;pointer-events:none;padding:15% 0;';
     if(!isFreeGallery){
@@ -817,7 +819,6 @@ function openCloudinaryGallery(gallery, resources){
     d.onmouseout  = function(){ ov.style.opacity='0'; };
 
     var buyBtn = document.createElement('button');
-    var isFreeGallery = !gallery.singlePrice || gallery.singlePrice === '$0' || gallery.singlePrice === '0' || parseFloat((gallery.singlePrice||'').replace(/[^0-9.]/g,'')) === 0;
     buyBtn.textContent = isFreeGallery ? 'Download' : 'Buy — '+(gallery.singlePrice||'$18');
     if(isFreeGallery) buyBtn.style.background = '#1a3a6a';
     buyBtn.style.cssText = 'flex:1;padding:.45rem .5rem;background:var(--espresso);color:var(--warm-white);border:none;font-family:Jost,sans-serif;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;transition:background .2s;';

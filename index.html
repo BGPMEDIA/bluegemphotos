@@ -615,6 +615,24 @@ function applyActionShotVisibility(){
 }
 setTimeout(applyActionShotVisibility, 50);
 
+// Prom Portrait service visibility
+var promVisible = localStorage.getItem('promVisible') !== 'false';
+function applyPromVisibility(){
+  var card = document.getElementById('prom-card');
+  if(card) card.style.display = promVisible ? '' : 'none';
+  var btn = document.getElementById('prom-toggle');
+  if(btn){
+    btn.textContent = promVisible ? '👁 Hide Prom Portrait Service' : '👁 Show Prom Portrait Service';
+    btn.style.background = promVisible ? '#2d1a4a' : '#5a6e5c';
+  }
+}
+setTimeout(applyPromVisibility, 50);
+window.toggleProm = function(){
+  promVisible = !promVisible;
+  localStorage.setItem('promVisible', promVisible);
+  applyPromVisibility();
+  window.showToast(promVisible ? 'Prom Portrait service is now visible' : 'Prom Portrait service is now hidden');
+};
 window.toggleActionShot = function(){
   actionShotVisible = !actionShotVisible;
   localStorage.setItem('actionShotVisible', actionShotVisible);
@@ -1491,6 +1509,7 @@ var schedServices=[
   {num:'06',name:'Commercial & Brand',rate:395,perHour:true,desc:'Hourly rate for business, product, and personal brand shoots.'},
   {num:'07',name:'Fashion Photography',rate:1800,perHour:false,desc:'Editorial and lifestyle fashion sessions. Half or full day available.'},
   {num:'08',name:'Action Shot Session',rate:150,perHour:false,desc:'30-min track & field session at Ansin Sports Complex. 3 edited images.'},
+  {num:'09',name:'Prom Portrait Session',rate:450,perHour:false,desc:'Elegant prom portraits at your home. 6 edited images, 3-5 day turnaround.'},
 ];
 
 window.openScheduling=function(preselect){
@@ -1721,7 +1740,7 @@ window.showToast=function(msg){
 // BOOKING PAGE
 var servicePrices={
   'Mini Session':295,'Portrait Session':550,'Family Collection':750,
-  'Wedding Day':1800,'Commercial & Brand':395,'Fashion Photography':1800,'Action Shot Session':150
+  'Wedding Day':1800,'Commercial & Brand':395,'Fashion Photography':1800,'Action Shot Session':150,'Prom Portrait Session':450
 };
 var selectedDeposit='half';
 window.selectDeposit=function(type){
@@ -2108,6 +2127,21 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         </ul>
         <a href="#" class="service-learn" style="color:#B89A6A;border-color:rgba(184,154,106,.3);" onclick="showPage('svc-action');return false;">View Details &rarr;</a>
       </div>
+      <div class="service-card" id="prom-card" style="background:#1a0a2e;border-top:3px solid #B89A6A;border:1px solid #2d1a4a;border-top:3px solid #B89A6A;">
+        <div class="service-num" style="color:#B89A6A;">09</div>
+        <div class="service-name" style="color:#f0f4ff;">Prom Portrait Session</div>
+        <p style="color:#B89A6A;font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;margin:2px 0 6px 0;">At Your Home</p>
+        <p class="service-desc" style="color:#c8b8e8;">Elegant prom portraits captured before the big night. Looking your best — beautifully documented.</p>
+        <div class="service-price" style="color:#f0f4ff;">$450 <span style="color:#c8b8e8;">/ session</span></div>
+        <ul class="service-includes" style="border-color:rgba(184,154,106,.15);">
+          <li style="color:#e0d0f0;border-bottom-color:rgba(184,154,106,.12);">On-location at your home</li>
+          <li style="color:#e0d0f0;border-bottom-color:rgba(184,154,106,.12);">6 edited high-resolution photos</li>
+          <li style="color:#e0d0f0;border-bottom-color:rgba(184,154,106,.12);">Private online gallery</li>
+          <li style="color:#e0d0f0;border-bottom-color:rgba(184,154,106,.12);">Digital downloads included</li>
+          <li style="color:#e0d0f0;border-bottom-color:rgba(184,154,106,.12);">3–5 business day turnaround</li>
+        </ul>
+        <a href="#" class="service-learn" style="color:#B89A6A;border-color:rgba(184,154,106,.3);" onclick="showPage('svc-prom');return false;">View Details &rarr;</a>
+      </div>
     </div>
   </section>
 
@@ -2142,7 +2176,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 
   <footer>
     <div><div class="footer-brand">Rogelio Small Photography</div><p class="footer-tagline">Award-winning portrait photography rooted in authentic storytelling. Based in South Florida &mdash; Available Worldwide.</p><div style="display:inline-flex;align-items:center;gap:.6rem;margin-top:1rem;padding:.5rem .9rem;border:1px solid rgba(184,154,106,.3);"><span style="font-size:1rem">&#127942;</span><span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-family:'Jost',sans-serif;">Portrait Masters Awards<br><span style="color:var(--stone);">Merit Recipient</span></span></div></div>
-    <div class="footer-col"><h4>Services</h4><ul><li><a href="#" onclick="showPage('svc-mini');return false;">Mini Session</a></li><li><a href="#" onclick="showPage('svc-portrait');return false;">Portrait Session</a></li><li><a href="#" onclick="showPage('svc-family');return false;">Family Collection</a></li><li><a href="#" onclick="showPage('svc-wedding');return false;">Wedding Day</a></li><li><a href="#" onclick="showPage('svc-bridal');return false;">Bridal Portrait</a></li><li><a href="#" onclick="showPage('svc-commercial');return false;">Commercial &amp; Brand</a></li><li><a href="#" onclick="showPage('svc-fashion');return false;">Fashion Photography</a></li><li><a href="#" onclick="showPage('svc-action');return false;">Action Shot Session</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="#" onclick="showPage('svc-mini');return false;">Mini Session</a></li><li><a href="#" onclick="showPage('svc-portrait');return false;">Portrait Session</a></li><li><a href="#" onclick="showPage('svc-family');return false;">Family Collection</a></li><li><a href="#" onclick="showPage('svc-wedding');return false;">Wedding Day</a></li><li><a href="#" onclick="showPage('svc-bridal');return false;">Bridal Portrait</a></li><li><a href="#" onclick="showPage('svc-commercial');return false;">Commercial &amp; Brand</a></li><li><a href="#" onclick="showPage('svc-fashion');return false;">Fashion Photography</a></li><li><a href="#" onclick="showPage('svc-action');return false;">Action Shot Session</a></li><li><a href="#" onclick="showPage('svc-prom');return false;">Prom Portrait Session</a></li></ul></div>
     <div class="footer-col"><h4>Studio</h4><ul><li><a href="#">About</a></li><li><a href="#">Portfolio</a></li><li><a href="#" onclick="showPage('gallery');return false;">Client Galleries</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li></ul></div>
     <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+13056765980" style="color:var(--taupe);text-decoration:none">(305) 676-5980</a></li><li>Based in South Florida &middot; Available Worldwide</li><li style="margin-top:.8rem"><a href="#">Instagram</a></li><li><a href="#">Pinterest</a></li></ul></div>
   </footer>
@@ -2569,6 +2603,60 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
   <div class="footer-bottom" style="background:var(--espresso);border-top:1px solid rgba(200,191,176,.1)"><span>&copy; 2025 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:var(--stone);text-decoration:none">&#8592; Back to Main Site</a></div>
 </div>
 
+<!-- PROM PORTRAIT SERVICE PAGE -->
+<div class="page" id="page-svc-prom">
+  <div class="svc-hero" style="background:linear-gradient(135deg,#1a0a2e 0%,#2d1a4a 60%,#0d0818 100%);position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(184,154,106,.03) 40px,rgba(184,154,106,.03) 41px);"></div>
+    <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#B89A6A,transparent);"></div>
+    <div class="svc-hero-content">
+      <p class="section-label" style="color:#B89A6A;">Prom Season</p>
+      <h1 style="color:#f0f4ff;">Prom Portrait <em style="font-style:italic;color:#B89A6A;">Session</em></h1>
+      <div class="svc-hero-price" style="color:#D4B483;">$450 <span style="font-size:.8rem;color:#c8b8e8;font-family:'Jost',sans-serif;letter-spacing:.1em;">/ session</span></div>
+    </div>
+  </div>
+  <div class="svc-content">
+    <div class="svc-details">
+      <h2 style="color:#1a0a2e;">Your night begins before you arrive.</h2>
+      <p>Prom is one of the most memorable nights of your life — and the moments before you leave the house are just as precious as the ones on the dance floor. Captured at your home, in your element, looking absolutely your best.</p>
+      <p>Six professionally edited portraits delivered to your private online gallery within 3–5 business days — ready to download, share, and keep forever.</p>
+      <div class="svc-includes-title">What's Included</div>
+      <ul class="svc-includes-list">
+        <li>On-location session at your home</li>
+        <li>6 edited high-resolution photos</li>
+        <li>Private online gallery access</li>
+        <li>Digital downloads included</li>
+        <li>3–5 business day turnaround</li>
+        <li>Print release for personal use</li>
+      </ul>
+    </div>
+    <div>
+      <div class="svc-booking" style="background:#1a0a2e;border:1px solid #2d1a4a;">
+        <h3 style="color:#f0f4ff;">Book Your Prom Session</h3>
+        <p style="color:#c8b8e8;">Sessions are held at your home before prom night. Book early — dates fill quickly during prom season.</p>
+        <div class="price-big" style="color:#B89A6A;">$450 <span style="color:#c8b8e8;">/ session</span></div>
+        <button class="btn-book-now" style="background:#B89A6A;color:#1a0a2e;" onclick="openScheduling('Prom Portrait Session')">Book Now</button>
+        <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+      </div>
+    </div>
+  </div>
+  <div class="svc-faq" style="background:#f5f0ff;">
+    <h2>Frequently Asked <em style="font-style:italic;color:#B89A6A;">Questions</em></h2>
+    <div class="faq-item"><div class="faq-q" style="color:#1a0a2e;">How long does the session take?</div><div class="faq-a">Typically 30–45 minutes at your home. Quick, relaxed, and fun — no need to stress before your big night.</div></div>
+    <div class="faq-item"><div class="faq-q" style="color:#1a0a2e;">Can I bring friends or a date?</div><div class="faq-a">Absolutely — group and couple shots are included in your session time at no extra charge.</div></div>
+    <div class="faq-item"><div class="faq-q" style="color:#1a0a2e;">When will I receive my photos?</div><div class="faq-a">Your edited photos will be delivered to your private online gallery within 3–5 business days.</div></div>
+    <div class="faq-item"><div class="faq-q" style="color:#1a0a2e;">Can I order prints?</div><div class="faq-a">Yes — print ordering is available directly through your gallery. Multiple sizes and options available.</div></div>
+  </div>
+  <div class="svc-related">
+    <h2>You Might Also Love</h2>
+    <div class="svc-related-grid">
+      <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
+      <a href="#" class="svc-related-card" onclick="showPage('svc-mini');return false;"><div class="svc-related-num">01</div><div class="svc-related-name">Mini Session</div><div class="svc-related-price">Starting at $295</div></a>
+      <a href="#" class="svc-related-card" onclick="showPage('svc-bridal');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Bridal Portrait</div><div class="svc-related-price">Starting at $750</div></a>
+    </div>
+  </div>
+  <div class="footer-bottom" style="background:#1a0a2e;border-top:1px solid rgba(184,154,106,.2)"><span style="color:#c8b8e8;">&copy; 2026 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:#B89A6A;text-decoration:none">&#8592; Back to Main Site</a></div>
+</div>
+
 <!-- ACTION SHOT SERVICE PAGE -->
 <div class="page" id="page-svc-action">
   <div class="svc-hero" style="background:linear-gradient(135deg,#0a1628 0%,#1a2d4a 60%,#0d1f35 100%);position:relative;overflow:hidden;">
@@ -2902,6 +2990,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
             <div style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid rgba(200,191,176,.15)">
               <p style="color:var(--gold-lt);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.8rem">Service Visibility</p>
               <button id="action-shot-toggle" onclick="window.toggleActionShot()" style="width:100%;padding:.6rem 1rem;font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;border:none;color:#fff;cursor:pointer;background:#1a3a6a;">👁 Hide Action Shot Service</button>
+              <button id="prom-toggle" onclick="window.toggleProm()" style="width:100%;padding:.6rem 1rem;font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;border:none;color:#fff;cursor:pointer;background:#2d1a4a;margin-top:.5rem;">👁 Hide Prom Portrait Service</button>
             </div>
           </div>
         </div>
@@ -2949,6 +3038,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
                 <option value="Commercial & Brand">Commercial &amp; Brand - $1,400</option>
                 <option value="Fashion Photography">Fashion Photography - $1,800+</option>
                 <option value="Action Shot Session">Action Shot Session - $150</option>
+                <option value="Prom Portrait Session">Prom Portrait Session - $450</option>
               </select>
             </div>
             <div class="bf-field">

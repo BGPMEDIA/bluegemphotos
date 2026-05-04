@@ -1883,9 +1883,24 @@ window.submitSquarePayment=async function(){
 var svcLbImages=[];
 var svcLbIndex=0;
 
-window.openSvcLightbox=function(imgs,idx){
-  svcLbImages=imgs;
-  svcLbIndex=idx;
+var namedSvcGalleries = {
+  prom: [
+    'https://res.cloudinary.com/dfqouxke9/image/upload/w_1200,q_auto,f_auto/1M0A9157_mb0tfl.jpg',
+    'https://res.cloudinary.com/dfqouxke9/image/upload/w_1200,q_auto,f_auto/EDIT_32_qyjnkn.jpg',
+    'https://res.cloudinary.com/dfqouxke9/image/upload/w_1200,q_auto,f_auto/EDIT_21_rmibmo.jpg',
+    'https://res.cloudinary.com/dfqouxke9/image/upload/w_1200,q_auto,f_auto/EDIT_142_u2xnrl.jpg',
+    'https://res.cloudinary.com/dfqouxke9/image/upload/w_1200,q_auto,f_auto/1M0A9097_ohfotj.jpg',
+  ]
+};
+
+window.openSvcLightbox=function(idxOrImgs, idxOrName){
+  if(typeof idxOrImgs === 'number' && typeof idxOrName === 'string' && namedSvcGalleries[idxOrName]){
+    svcLbImages = namedSvcGalleries[idxOrName];
+    svcLbIndex = idxOrImgs;
+  } else {
+    svcLbImages=idxOrImgs;
+    svcLbIndex=idxOrName;
+  }
   renderSvcLb();
   document.getElementById('svcLightbox').classList.add('open');
   document.body.style.overflow='hidden';
@@ -2605,8 +2620,8 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 
 <!-- PROM PORTRAIT SERVICE PAGE -->
 <div class="page" id="page-svc-prom">
-  <div class="svc-hero" style="background:linear-gradient(135deg,#1a0a2e 0%,#2d1a4a 60%,#0d0818 100%);position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(184,154,106,.03) 40px,rgba(184,154,106,.03) 41px);"></div>
+  <div class="svc-hero" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_1400,h_700,c_fill,g_auto,q_auto,f_auto/PROM_HERO_bsy2ex.jpg') center/cover no-repeat;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,10,46,.75) 0%,rgba(13,8,24,.55) 100%);"></div>
     <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#B89A6A,transparent);"></div>
     <div class="svc-hero-content">
       <p class="section-label" style="color:#B89A6A;">Prom Season</p>
@@ -2637,6 +2652,16 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <button class="btn-book-now" style="background:#B89A6A;color:#1a0a2e;" onclick="openScheduling('Prom Portrait Session')">Book Now</button>
         <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
       </div>
+    </div>
+  </div>
+  <div class="svc-gallery-section">
+    <h2 class="svc-gallery-title">Prom <em>Portraits</em></h2>
+    <div class="svc-gallery-grid">
+      <div class="svc-gallery-item" onclick="openSvcLightbox(0,'prom')"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/1M0A9157_mb0tfl.jpg') center/cover no-repeat"></div></div>
+      <div class="svc-gallery-item" onclick="openSvcLightbox(1,'prom')"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/EDIT_32_qyjnkn.jpg') center/cover no-repeat"></div></div>
+      <div class="svc-gallery-item" onclick="openSvcLightbox(2,'prom')"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/EDIT_21_rmibmo.jpg') center/cover no-repeat"></div></div>
+      <div class="svc-gallery-item" onclick="openSvcLightbox(3,'prom')"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/EDIT_142_u2xnrl.jpg') center/cover no-repeat"></div></div>
+      <div class="svc-gallery-item" onclick="openSvcLightbox(4,'prom')"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/1M0A9097_ohfotj.jpg') center/cover no-repeat"></div></div>
     </div>
   </div>
   <div class="svc-faq" style="background:#f5f0ff;">

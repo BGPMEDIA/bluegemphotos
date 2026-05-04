@@ -2620,56 +2620,60 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 
 <!-- PROM PORTRAIT SERVICE PAGE -->
 <div class="page" id="page-svc-prom">
-  <div class="svc-hero" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_1400,h_700,c_fill,g_auto,q_auto,f_auto/PROM_HERO_bsy2ex.jpg') center/cover no-repeat;position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,10,46,.75) 0%,rgba(13,8,24,.55) 100%);"></div>
-    <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#B89A6A,transparent);"></div>
+  <div class="svc-hero" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_1600,h_900,c_fill,g_auto,q_auto,f_auto/PROM_HERO_bsy2ex.jpg') center/cover no-repeat;position:relative;">
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,10,46,.78) 0%,rgba(13,8,24,.55) 100%);"></div>
+    <div class="svc-hero-overlay"></div>
     <div class="svc-hero-content">
-      <p class="section-label" style="color:#B89A6A;">Prom Season</p>
-      <h1 style="color:#f0f4ff;">Prom Portrait <em style="font-style:italic;color:#B89A6A;">Session</em></h1>
-      <div class="svc-hero-price" style="color:#D4B483;">$450 <span style="font-size:.8rem;color:#c8b8e8;font-family:'Jost',sans-serif;letter-spacing:.1em;">/ session</span></div>
+      <a href="#" class="svc-back" onclick="showPage('home');return false;">&#8592; Back to Services</a>
+      <div class="svc-hero-num" style="color:#D4B483;">09</div>
+      <h1 class="svc-hero-title" style="color:#f0f4ff;">Prom Portrait <em style="color:#D4B483;">Session</em></h1>
+      <div class="svc-hero-price" style="color:#D4B483;">$450 <span style="color:#c8b8e8;">/ session</span></div>
     </div>
   </div>
-  <div class="svc-content">
-    <div class="svc-details">
-      <h2 style="color:#1a0a2e;">Your night begins before you arrive.</h2>
-      <p>Prom is one of the most memorable nights of your life — and the moments before you leave the house are just as precious as the ones on the dance floor. Captured at your home, in your element, looking absolutely your best.</p>
-      <p>Six professionally edited portraits delivered to your private online gallery within 3–5 business days — ready to download, share, and keep forever.</p>
-      <div class="svc-includes-title">What's Included</div>
-      <ul class="svc-includes-list">
-        <li>On-location session at your home</li>
-        <li>6 edited high-resolution photos</li>
-        <li>Private online gallery access</li>
-        <li>Digital downloads included</li>
-        <li>3–5 business day turnaround</li>
-        <li>Print release for personal use</li>
-      </ul>
+  <div style="background:var(--warm-white)">
+    <div class="svc-body">
+      <div class="svc-details">
+        <h2>Your night begins before you arrive.</h2>
+        <p>Prom is one of the most memorable nights of your life — and the moments before you leave the house are just as precious as the ones on the dance floor. Captured at your home, in your element, looking absolutely your best.</p>
+        <p>Six professionally edited portraits delivered to your private online gallery within 3–5 business days — ready to download, share, and keep forever.</p>
+        <div class="svc-includes-title">What's Included</div>
+        <ul class="svc-includes-list">
+          <li>On-location session at your home</li>
+          <li>6 edited high-resolution photos</li>
+          <li>Private online gallery access</li>
+          <li>Digital downloads included</li>
+          <li>3–5 business day turnaround</li>
+          <li>Print release for personal use</li>
+        </ul>
+      </div>
+      <div>
+        <div class="svc-booking" style="background:#1a0a2e;border:1px solid #2d1a4a;">
+          <h3 style="color:#f0f4ff;">Book Your Prom Session</h3>
+          <p style="color:#c8b8e8;">Sessions held at your home before prom night. Book early — dates fill quickly during prom season.</p>
+          <div class="price-big" style="color:#D4B483;">$450 <span style="color:#c8b8e8;">/ session</span></div>
+          <button class="btn-book-now" style="background:#B89A6A;color:#1a0a2e;" onclick="openScheduling('Prom Portrait Session')">Book Now</button>
+          <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+        </div>
+      </div>
     </div>
-    <div>
-      <div class="svc-booking" style="background:#1a0a2e;border:1px solid #2d1a4a;">
-        <h3 style="color:#f0f4ff;">Book Your Prom Session</h3>
-        <p style="color:#c8b8e8;">Sessions are held at your home before prom night. Book early — dates fill quickly during prom season.</p>
-        <div class="price-big" style="color:#B89A6A;">$450 <span style="color:#c8b8e8;">/ session</span></div>
-        <button class="btn-book-now" style="background:#B89A6A;color:#1a0a2e;" onclick="openScheduling('Prom Portrait Session')">Book Now</button>
-        <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+    <div class="svc-gallery-section">
+      <h2>Prom Portrait <em style="font-style:italic;color:var(--gold)">Gallery</em></h2>
+      <p>A look at the elegant, memorable portraits from our prom sessions.</p>
+      <div class="svc-gallery-grid">
+        <div class="svc-gallery-item" onclick="openSvcLightbox(0,'prom')"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/1M0A9157_mb0tfl.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item" onclick="openSvcLightbox(1,'prom')"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/EDIT_32_qyjnkn.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item" onclick="openSvcLightbox(2,'prom')"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/EDIT_21_rmibmo.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item" onclick="openSvcLightbox(3,'prom')"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/EDIT_142_u2xnrl.jpg') center/cover no-repeat"></div></div>
+        <div class="svc-gallery-item" onclick="openSvcLightbox(4,'prom')"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/1M0A9097_ohfotj.jpg') center/cover no-repeat"></div></div>
       </div>
     </div>
   </div>
-  <div class="svc-gallery-section">
-    <h2 class="svc-gallery-title">Prom <em>Portraits</em></h2>
-    <div class="svc-gallery-grid">
-      <div class="svc-gallery-item" onclick="openSvcLightbox(0,'prom')"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/1M0A9157_mb0tfl.jpg') center/cover no-repeat"></div></div>
-      <div class="svc-gallery-item" onclick="openSvcLightbox(1,'prom')"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/EDIT_32_qyjnkn.jpg') center/cover no-repeat"></div></div>
-      <div class="svc-gallery-item" onclick="openSvcLightbox(2,'prom')"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/EDIT_21_rmibmo.jpg') center/cover no-repeat"></div></div>
-      <div class="svc-gallery-item" onclick="openSvcLightbox(3,'prom')"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/EDIT_142_u2xnrl.jpg') center/cover no-repeat"></div></div>
-      <div class="svc-gallery-item" onclick="openSvcLightbox(4,'prom')"><div class="svc-gallery-item-inner" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_800,h_1000,c_fill,g_auto,q_auto,f_auto/1M0A9097_ohfotj.jpg') center/cover no-repeat"></div></div>
-    </div>
-  </div>
-  <div class="svc-faq" style="background:#f5f0ff;">
-    <h2>Frequently Asked <em style="font-style:italic;color:#B89A6A;">Questions</em></h2>
-    <div class="faq-item"><div class="faq-q" style="color:#1a0a2e;">How long does the session take?</div><div class="faq-a">Typically 30–45 minutes at your home. Quick, relaxed, and fun — no need to stress before your big night.</div></div>
-    <div class="faq-item"><div class="faq-q" style="color:#1a0a2e;">Can I bring friends or a date?</div><div class="faq-a">Absolutely — group and couple shots are included in your session time at no extra charge.</div></div>
-    <div class="faq-item"><div class="faq-q" style="color:#1a0a2e;">When will I receive my photos?</div><div class="faq-a">Your edited photos will be delivered to your private online gallery within 3–5 business days.</div></div>
-    <div class="faq-item"><div class="faq-q" style="color:#1a0a2e;">Can I order prints?</div><div class="faq-a">Yes — print ordering is available directly through your gallery. Multiple sizes and options available.</div></div>
+  <div class="svc-faq">
+    <h2>Frequently Asked <em style="font-style:italic;color:var(--gold)">Questions</em></h2>
+    <div class="faq-item"><div class="faq-q">How long does the session take?</div><div class="faq-a">Typically 30–45 minutes at your home. Quick, relaxed, and fun — no need to stress before your big night.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I bring friends or a date?</div><div class="faq-a">Absolutely — group and couple shots are included in your session time at no extra charge.</div></div>
+    <div class="faq-item"><div class="faq-q">When will I receive my photos?</div><div class="faq-a">Your edited photos will be delivered to your private online gallery within 3–5 business days.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I order prints?</div><div class="faq-a">Yes — print ordering is available directly through your gallery. Multiple sizes and options available.</div></div>
   </div>
   <div class="svc-related">
     <h2>You Might Also Love</h2>
@@ -2679,62 +2683,62 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <a href="#" class="svc-related-card" onclick="showPage('svc-bridal');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Bridal Portrait</div><div class="svc-related-price">Starting at $750</div></a>
     </div>
   </div>
-  <div class="footer-bottom" style="background:#1a0a2e;border-top:1px solid rgba(184,154,106,.2)"><span style="color:#c8b8e8;">&copy; 2026 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:#B89A6A;text-decoration:none">&#8592; Back to Main Site</a></div>
 </div>
 
 <!-- ACTION SHOT SERVICE PAGE -->
 <div class="page" id="page-svc-action">
-  <div class="svc-hero" style="background:linear-gradient(135deg,#0a1628 0%,#1a2d4a 60%,#0d1f35 100%);position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(184,154,106,.03) 40px,rgba(184,154,106,.03) 41px);"></div>
-    <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#B89A6A,transparent);"></div>
+  <div class="svc-hero" style="background:linear-gradient(135deg,rgba(10,22,40,.95) 0%,rgba(26,45,74,.85) 100%);position:relative;">
+    <div class="svc-hero-overlay"></div>
     <div class="svc-hero-content">
-      <p class="section-label" style="color:#B89A6A;">Miramar Track &amp; Field</p>
-      <h1 style="color:#f0f4ff;">Action Shot <em style="font-style:italic;color:#B89A6A;">Session</em></h1>
-      <p style="color:#B89A6A;font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;margin-top:6px;">Located at Ansin Sports Complex</p>
-      <div class="svc-hero-price" style="color:#D4B483;">$150 <span style="font-size:.8rem;color:#8899bb;font-family:'Jost',sans-serif;letter-spacing:.1em;">/ session</span></div>
+      <a href="#" class="svc-back" onclick="showPage('home');return false;">&#8592; Back to Services</a>
+      <div class="svc-hero-num" style="color:#B89A6A;">08</div>
+      <h1 class="svc-hero-title" style="color:#f0f4ff;">Action Shot <em style="color:#B89A6A;">Session</em></h1>
+      <p style="font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:#B89A6A;margin-top:6px;">Located at Ansin Sports Complex</p>
+      <div class="svc-hero-price" style="color:#D4B483;">$150 <span style="color:#8899bb;">/ session</span></div>
     </div>
   </div>
-  <div class="svc-content">
-    <div class="svc-details">
-      <h2 style="color:#0a1628;">Your moment. Frozen at full speed.</h2>
-      <p>Built specifically for Miramar track &amp; field athletes, this focused 30-minute session captures the power, precision, and athleticism that defines your sport. Whether you're sprinting, hurdling, or throwing — we capture the moment that shows what you're made of.</p>
-      <p>Perfect for recruiting profiles, personal branding, social media, and sports portfolios. Three professionally edited high-resolution images delivered to your private online gallery — ready to download and share.</p>
-      <div class="svc-includes-title">What's Included</div>
-      <ul class="svc-includes-list">
-        <li>30-minute on-location photo shoot</li>
-        <li>1 athlete coverage per session</li>
-        <li>3 edited high-resolution photos</li>
-        <li>Private online gallery access</li>
-        <li>Digital downloads included</li>
-        <li>Print release for personal use</li>
-      </ul>
-    </div>
-    <div>
-      <div class="svc-booking" style="background:#0a1628;border:1px solid #1a3a6a;">
-        <h3 style="color:#f0f4ff;">Book Your Session</h3>
-        <p style="color:#8899bb;">Sessions held at Ansin Sports Complex, Miramar.</p>
-        <div class="price-big" style="color:#B89A6A;">$150 <span style="color:#8899bb;">/ session</span></div>
-        <button class="btn-book-now" style="background:#B89A6A;color:#0a1628;" onclick="openScheduling('Action Shot Session')">Book Now</button>
-        <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+  <div style="background:var(--warm-white)">
+    <div class="svc-body">
+      <div class="svc-details">
+        <h2>Your moment. Frozen at full speed.</h2>
+        <p>Built specifically for Miramar track &amp; field athletes at Ansin Sports Complex, this focused 30-minute session captures the power, precision, and athleticism that defines your sport. Whether you're sprinting, hurdling, or throwing — we capture the moment that shows what you're made of.</p>
+        <p>Perfect for recruiting profiles, personal branding, social media, and sports portfolios. Three professionally edited high-resolution images delivered to your private online gallery — ready to download and share.</p>
+        <div class="svc-includes-title">What's Included</div>
+        <ul class="svc-includes-list">
+          <li>30-minute on-location photo shoot</li>
+          <li>1 athlete coverage per session</li>
+          <li>3 edited high-resolution photos</li>
+          <li>Private online gallery access</li>
+          <li>Digital downloads included</li>
+          <li>Print release for personal use</li>
+        </ul>
+      </div>
+      <div>
+        <div class="svc-booking" style="background:#0a1628;border:1px solid #1a3a6a;">
+          <h3 style="color:#f0f4ff;">Book Your Session</h3>
+          <p style="color:#8899bb;">Sessions held at Ansin Sports Complex, Miramar. Available 6:00 PM – 8:00 PM.</p>
+          <div class="price-big" style="color:#B89A6A;">$150 <span style="color:#8899bb;">/ session</span></div>
+          <button class="btn-book-now" style="background:#B89A6A;color:#0a1628;" onclick="openScheduling('Action Shot Session')">Book Now</button>
+          <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+        </div>
       </div>
     </div>
   </div>
-  <div class="svc-faq" style="background:#f0f4ff;">
-    <h2>Frequently Asked <em style="font-style:italic;color:#B89A6A;">Questions</em></h2>
-    <div class="faq-item"><div class="faq-q" style="color:#0a1628;">Where are sessions held?</div><div class="faq-a">Sessions are held at Miramar Regional Park track or any agreed-upon local track facility. We bring all equipment to you.</div></div>
-    <div class="faq-item"><div class="faq-q" style="color:#0a1628;">Can I book for a team?</div><div class="faq-a">Each session covers one athlete. For team bookings, contact us for group pricing — we can schedule multiple athletes back to back at a discounted rate.</div></div>
-    <div class="faq-item"><div class="faq-q" style="color:#0a1628;">When will I receive my photos?</div><div class="faq-a">Your edited photos will be delivered to your private online gallery within 48–72 hours of your session.</div></div>
-    <div class="faq-item"><div class="faq-q" style="color:#0a1628;">Can I get more than 3 photos?</div><div class="faq-a">Yes — additional edited images are available at $20 per photo. Let us know at booking if you'd like extra coverage.</div></div>
+  <div class="svc-faq">
+    <h2>Frequently Asked <em style="font-style:italic;color:var(--gold)">Questions</em></h2>
+    <div class="faq-item"><div class="faq-q">Where are sessions held?</div><div class="faq-a">Sessions are held at Ansin Sports Complex in Miramar. We bring all equipment to you.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I book for a team?</div><div class="faq-a">Each session covers one athlete. For team bookings, contact us for group pricing — we can schedule multiple athletes back to back at a discounted rate.</div></div>
+    <div class="faq-item"><div class="faq-q">When will I receive my photos?</div><div class="faq-a">Your edited photos will be delivered to your private online gallery within 48–72 hours of your session.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I get more than 3 photos?</div><div class="faq-a">Yes — additional edited images are available at $20 per photo. Let us know at booking if you'd like extra coverage.</div></div>
   </div>
   <div class="svc-related">
     <h2>You Might Also Love</h2>
     <div class="svc-related-grid">
       <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $550</div></a>
       <a href="#" class="svc-related-card" onclick="showPage('svc-mini');return false;"><div class="svc-related-num">01</div><div class="svc-related-name">Mini Session</div><div class="svc-related-price">Starting at $295</div></a>
-      <a href="#" class="svc-related-card" onclick="showPage('svc-commercial');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Commercial &amp; Brand</div><div class="svc-related-price">From $395</div></a>
+      <a href="#" class="svc-related-card" onclick="showPage('svc-commercial');return false;"><div class="svc-related-num">05</div><div class="svc-related-name">Commercial &amp; Brand</div><div class="svc-related-price">From $395</div></a>
     </div>
   </div>
-  <div class="footer-bottom" style="background:#0a1628;border-top:1px solid rgba(184,154,106,.2)"><span style="color:#8899bb;">&copy; 2026 Rogelio Small Photography</span><a href="#" onclick="showPage('home');return false;" style="color:#B89A6A;text-decoration:none">&#8592; Back to Main Site</a></div>
 </div>
 
 <!-- BRIDAL PORTRAIT SERVICE PAGE -->

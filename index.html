@@ -1825,6 +1825,9 @@ function applyDepositRules(){
   // Show action shot preparation and non-refundable notice
   var actionNotice = document.getElementById('action-shot-notice');
   if(actionNotice) actionNotice.style.display = isActionShot ? '' : 'none';
+  // Hide general non-refund notice for Action Shot (it has its own)
+  var generalNotice = document.getElementById('general-nonrefund-notice');
+  if(generalNotice) generalNotice.style.display = isActionShot ? 'none' : '';
   // Reset to Square if switching away from Action Shot
   if(!isActionShot){
     selectedPaymentMethod = 'square';
@@ -3479,7 +3482,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
               <div style="background:var(--blush);padding:1rem 1.2rem;border-left:3px solid var(--gold);margin-bottom:.8rem;" id="square-notice">
                 <p style="font-size:.78rem;color:var(--espresso);line-height:1.7;">&#128274; Payments powered by Square. You will be redirected to complete payment securely. Your date is confirmed upon successful payment.</p>
               </div>
-              <div style="background:rgba(59,48,40,.06);padding:.8rem 1.2rem;border-left:3px solid var(--taupe);margin-bottom:1rem;">
+              <div style="background:rgba(59,48,40,.06);padding:.8rem 1.2rem;border-left:3px solid var(--taupe);margin-bottom:1rem;" id="general-nonrefund-notice">
                 <p style="font-size:.78rem;color:var(--taupe);line-height:1.7;">&#9888;&#65039; <strong>Non-Refundable Deposit:</strong> All deposits are non-refundable. Your deposit secures your date and compensates for time reserved exclusively for your session. In the event of inclement weather or photographer-initiated cancellation, your deposit will be applied to a rescheduled date.</p>
               </div>
 

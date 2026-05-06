@@ -1801,10 +1801,19 @@ window.submitAltPayment = async function(){
   var method = selectedPaymentMethod === 'cashapp' ? 'Cash App ($ROGEPHOTO)' : 'Zelle (PUER2RECO@GMAIL.COM)';
   var body = 'New booking request received:\n\nName: '+(name||schedData.name)+'\nEmail: '+(email||schedData.email)+'\nPhone: '+(phone||schedData.phone)+'\nService: '+schedData.service+'\nDate: '+schedData.date+'\nTime: '+(schedData.time||'Not specified')+'\nPayment Method: '+method+'\nAmount: $150 (Full)\n\nPlease confirm session and send receipt to client.';
   try {
-    await emailjs.send('service_bgp','template_bgp_booking',{
-      to_email:'Bluegempro@gmail.com',
-      subject:'New Booking Request — '+schedData.service+' — '+method,
-      body:body,
+    await emailjs.send('service_b384d8p','template_31gefsz',{
+      from_name: name,
+      from_email: email,
+      reply_to: email,
+      message: 'NEW BOOKING REQUEST — ' + method + '\n\n'
+        +'Service: '+schedData.service+'\n'
+        +'Date: '+schedData.date+'\n'
+        +'Time: '+(schedData.time||'Not specified')+'\n'
+        +'Amount: $150 (Full Payment)\n\n'
+        +'Client: '+name+'\n'
+        +'Email: '+email+'\n'
+        +'Phone: '+phone+'\n\n'
+        +'ACTION REQUIRED: Confirm session and send receipt to client.',
       time: new Date().toLocaleString()
     });
     window.showToast('Booking request submitted! Rogelio will confirm within 24 hours.');

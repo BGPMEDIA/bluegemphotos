@@ -1816,11 +1816,12 @@ window.submitAltPayment = async function(){
         +'ACTION REQUIRED: Confirm session and send receipt to client.',
       time: new Date().toLocaleString()
     });
-    window.showToast('Booking request submitted! Rogelio will confirm within 24 hours.');
-    schedStep = 1;
-    schedData = {};
-    selectedPaymentMethod = 'square';
-    updateSchedTabs();
+    window.showToast('Booking request submitted!');
+    // Show confirmation screen
+    document.querySelectorAll('.sched-panel').forEach(function(p){ p.style.display = 'none'; });
+    document.querySelectorAll('.sched-step-tab').forEach(function(t){ t.classList.remove('active'); t.classList.add('done'); });
+    var confirmPanel = document.getElementById('sched-confirm-panel');
+    if(confirmPanel) confirmPanel.style.display = '';
   } catch(err){
     window.showToast('Request submitted. Rogelio will be in touch shortly.');
   }
@@ -3514,6 +3515,16 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
             </div>
 
           </div><!-- end left col -->
+
+          <!-- Confirmation Panel -->
+          <div id="sched-confirm-panel" style="display:none;grid-column:1/-1;text-align:center;padding:3rem 2rem;">
+            <div style="font-size:2.5rem;margin-bottom:1.2rem;">&#10003;</div>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--espresso);font-weight:400;margin-bottom:.8rem;">Thank You for Your Booking Request</h3>
+            <div style="width:60px;height:1px;background:var(--gold);margin:0 auto 1.2rem;"></div>
+            <p style="font-family:'Jost',sans-serif;font-size:.88rem;color:var(--taupe);line-height:1.8;max-width:480px;margin:0 auto 1.5rem;">Your request has been received. Rogelio will personally review your booking and reach out to confirm your session within 24 hours. Please ensure your payment has been sent before your session date.</p>
+            <p style="font-family:'Jost',sans-serif;font-size:.75rem;color:var(--stone);letter-spacing:.12em;text-transform:uppercase;margin-bottom:2rem;">We look forward to capturing your moment.</p>
+            <button onclick="schedStep=1;schedData={};selectedPaymentMethod='square';document.getElementById('sched-confirm-panel').style.display='none';document.querySelectorAll('.sched-panel').forEach(function(p){p.style.display=''});updateSchedTabs();updateOrderSummary();" style="font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;padding:.8rem 2rem;background:transparent;border:1px solid var(--gold);color:var(--gold);cursor:pointer;">Book Another Session</button>
+          </div>
 
           <!-- RIGHT: Order summary -->
           <div class="order-summary">

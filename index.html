@@ -1750,7 +1750,93 @@ window.selectDeposit=function(type){
   updateBookingSummary();
 };
 
+var selectedPaymentMethod = 'square';
+
+window.selectPaymentMethod = function(method){
+  selectedPaymentMethod = method;
+  // Update button styles
+  ['square','cashapp','zelle'].forEach(function(m){
+    var btn = document.getElementById('pm-'+m);
+    if(btn){
+      btn.style.background = m === method ? 'var(--espresso)' : 'transparent';
+      btn.style.color = m === method ? 'var(--cream)' : 'var(--stone)';
+      btn.style.borderColor = m === method ? 'var(--gold)' : 'rgba(200,191,176,.2)';
+    }
+  });
+  // Show/hide sections
+  var squareFields = document.getElementById('square-card-fields');
+  var squareNotice = document.getElementById('square-notice');
+  var squareBtn = document.getElementById('square-pay-btn');
+  var altBtn = document.getElementById('alt-pay-btn');
+  var cashInfo = document.getElementById('cashapp-info');
+  var zelleInfo = document.getElementById('zelle-info');
+  var altContact = document.getElementById('alt-contact-fields');
+
+  if(method === 'square'){
+    if(squareFields) squareFields.style.display = '';
+    if(squareNotice) squareNotice.style.display = '';
+    if(squareBtn) squareBtn.style.display = '';
+    if(altBtn) altBtn.style.display = 'none';
+    if(cashInfo) cashInfo.style.display = 'none';
+    if(zelleInfo) zelleInfo.style.display = 'none';
+    if(altContact) altContact.style.display = 'none';
+  } else {
+    if(squareFields) squareFields.style.display = 'none';
+    if(squareNotice) squareNotice.style.display = 'none';
+    if(squareBtn) squareBtn.style.display = 'none';
+    if(altBtn) altBtn.style.display = '';
+    if(cashInfo) cashInfo.style.display = method === 'cashapp' ? '' : 'none';
+    if(zelleInfo) zelleInfo.style.display = method === 'zelle' ? '' : 'none';
+    if(altContact) altContact.style.display = '';
+  }
+};
+
+window.submitAltPayment = async function(){
+  var name = document.getElementById('alt-name') ? document.getElementById('alt-name').value.trim() : '';
+  var phone = document.getElementById('alt-phone') ? document.getElementById('alt-phone').value.trim() : '';
+  var email = document.getElementById('alt-email') ? document.getElementById('alt-email').value.trim() : '';
+  if(!name){ window.showToast('Please enter your name'); return; }
+  if(!phone){ window.showToast('Please enter your phone number'); return; }
+  if(!email){ window.showToast('Please enter your email address'); return; }
+  var method = selectedPaymentMethod === 'cashapp' ? 'Cash App ($ROGEPHOTO)' : 'Zelle (PUER2RECO@GMAIL.COM)';
+  var body = 'New booking request received:\n\nName: '+(name||schedData.name)+'\nEmail: '+(email||schedData.email)+'\nPhone: '+(phone||schedData.phone)+'\nService: '+schedData.service+'\nDate: '+schedData.date+'\nTime: '+(schedData.time||'Not specified')+'\nPayment Method: '+method+'\nAmount: $150 (Full)\n\nPlease confirm session and send receipt to client.';
+  try {
+    await emailjs.send('service_bgp','template_bgp_booking',{
+      to_email:'Bluegempro@gmail.com',
+      subject:'New Booking Request — '+schedData.service+' — '+method,
+      body:body,
+      time: new Date().toLocaleString()
+    });
+    window.showToast('Booking request submitted! Rogelio will confirm within 24 hours.');
+    schedStep = 1;
+    schedData = {};
+    selectedPaymentMethod = 'square';
+    updateSchedTabs();
+  } catch(err){
+    window.showToast('Request submitted. Rogelio will be in touch shortly.');
+  }
+};
+
 function applyDepositRules(){
+  var isActionShot = schedData.service === 'Action Shot Session';
+  // Show Cash App / Zelle options only for Action Shot
+  var altSection = document.getElementById('alt-payment-section');
+  if(altSection) altSection.style.display = isActionShot ? '' : 'none';
+  // Show action shot preparation and non-refundable notice
+  var actionNotice = document.getElementById('action-shot-notice');
+  if(actionNotice) actionNotice.style.display = isActionShot ? '' : 'none';
+  // Reset to Square if switching away from Action Shot
+  if(!isActionShot){
+    selectedPaymentMethod = 'square';
+    var squareFields = document.getElementById('square-card-fields');
+    var squareNotice = document.getElementById('square-notice');
+    var squareBtn = document.getElementById('square-pay-btn');
+    var altBtn = document.getElementById('alt-pay-btn');
+    if(squareFields) squareFields.style.display = '';
+    if(squareNotice) squareNotice.style.display = '';
+    if(squareBtn) squareBtn.style.display = '';
+    if(altBtn) altBtn.style.display = 'none';
+  }
   var isActionShot = schedData.service === 'Action Shot Session';
   // Scheduling flow payment buttons
   var payHalf = document.getElementById('pay-half');
@@ -2242,6 +2328,10 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <div class="price-big">$295 <span>/ session</span></div>
           <button class="btn-book-now" onclick="openScheduling('Mini Session')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+
+          <div style="margin-top:.8rem;padding:.8rem 1rem;background:rgba(59,48,40,.06);border-left:2px solid var(--gold);">
+            <p style="font-size:.78rem;color:var(--taupe);line-height:1.7;">font-size:.7rem;color:var(--taupe);line-height:1.6;">&#9888;#9888;&#65039; <strong>Non-Refundable Deposit:</strong> All deposits are non-refundable. Your deposit secures your date and compensates for time reserved exclusively for your session. In the event of inclement weather or photographer-initiated cancellation, your deposit will be applied to a rescheduled date.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -2322,6 +2412,10 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <div class="price-big">$550 <span>/ session</span></div>
           <button class="btn-book-now" onclick="openScheduling('Portrait Session')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+
+          <div style="margin-top:.8rem;padding:.8rem 1rem;background:rgba(59,48,40,.06);border-left:2px solid var(--gold);">
+            <p style="font-size:.78rem;color:var(--taupe);line-height:1.7;">font-size:.7rem;color:var(--taupe);line-height:1.6;">&#9888;#9888;&#65039; <strong>Non-Refundable Deposit:</strong> All deposits are non-refundable. Your deposit secures your date and compensates for time reserved exclusively for your session. In the event of inclement weather or photographer-initiated cancellation, your deposit will be applied to a rescheduled date.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -2398,6 +2492,10 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <div class="price-big">$750 <span>/ session</span></div>
           <button class="btn-book-now" onclick="openScheduling('Family Collection')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+
+          <div style="margin-top:.8rem;padding:.8rem 1rem;background:rgba(59,48,40,.06);border-left:2px solid var(--gold);">
+            <p style="font-size:.78rem;color:var(--taupe);line-height:1.7;">font-size:.7rem;color:var(--taupe);line-height:1.6;">&#9888;#9888;&#65039; <strong>Non-Refundable Deposit:</strong> All deposits are non-refundable. Your deposit secures your date and compensates for time reserved exclusively for your session. In the event of inclement weather or photographer-initiated cancellation, your deposit will be applied to a rescheduled date.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -2506,6 +2604,10 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           </table>
           <button class="btn-book-now" onclick="openScheduling('Wedding Day')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+
+          <div style="margin-top:.8rem;padding:.8rem 1rem;background:rgba(59,48,40,.06);border-left:2px solid var(--gold);">
+            <p style="font-size:.78rem;color:var(--taupe);line-height:1.7;">font-size:.7rem;color:var(--taupe);line-height:1.6;">&#9888;#9888;&#65039; <strong>Non-Refundable Deposit:</strong> All deposits are non-refundable. Your deposit secures your date and compensates for time reserved exclusively for your session. In the event of inclement weather or photographer-initiated cancellation, your deposit will be applied to a rescheduled date.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -2581,6 +2683,10 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <div class="price-big">From $395 <span>/ consultation</span></div>
           <button class="btn-book-now" onclick="openScheduling('Commercial & Brand')">Book a Consultation</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+
+          <div style="margin-top:.8rem;padding:.8rem 1rem;background:rgba(59,48,40,.06);border-left:2px solid var(--gold);">
+            <p style="font-size:.78rem;color:var(--taupe);line-height:1.7;">font-size:.7rem;color:var(--taupe);line-height:1.6;">&#9888;#9888;&#65039; <strong>Non-Refundable Deposit:</strong> All deposits are non-refundable. Your deposit secures your date and compensates for time reserved exclusively for your session. In the event of inclement weather or photographer-initiated cancellation, your deposit will be applied to a rescheduled date.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -2720,6 +2826,12 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <div class="price-big" style="color:#B89A6A;">$150 <span style="color:#8899bb;">/ session</span></div>
           <button class="btn-book-now" style="background:#B89A6A;color:#0a1628;" onclick="openScheduling('Action Shot Session')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+          <div style="margin-top:1.2rem;padding:1rem;background:rgba(184,154,106,.08);border-left:2px solid #B89A6A;">
+            <p style="font-size:.72rem;color:var(--stone);line-height:1.7;">&#127939; Your athlete#128247; Your athlete's session starts the moment we meet. Come dressed, warmed up, and ready to perform — the best action shots happen when athletes are already in their zone. Excellence isn't accidental. Neither are great photos.</p>
+          </div>
+          <div style="margin-top:.8rem;padding:.8rem 1rem;background:rgba(59,48,40,.06);border-left:2px solid var(--taupe);">
+            <p style="font-size:.78rem;color:var(--stone);line-height:1.7;">font-size:.7rem;color:var(--stone);line-height:1.6;">&#9888;#9888;&#65039; All payments are non-refundable. Sessions may be rescheduled in the event of inclement weather.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -2805,6 +2917,10 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           </table>
           <button class="btn-book-now" onclick="openScheduling('Bridal Portrait Session')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+
+          <div style="margin-top:.8rem;padding:.8rem 1rem;background:rgba(59,48,40,.06);border-left:2px solid var(--gold);">
+            <p style="font-size:.78rem;color:var(--taupe);line-height:1.7;">font-size:.7rem;color:var(--taupe);line-height:1.6;">&#9888;#9888;&#65039; <strong>Non-Refundable Deposit:</strong> All deposits are non-refundable. Your deposit secures your date and compensates for time reserved exclusively for your session. In the event of inclement weather or photographer-initiated cancellation, your deposit will be applied to a rescheduled date.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -2900,6 +3016,10 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           </table>
           <button class="btn-book-now" onclick="openScheduling('Fashion Photography')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+
+          <div style="margin-top:.8rem;padding:.8rem 1rem;background:rgba(59,48,40,.06);border-left:2px solid var(--gold);">
+            <p style="font-size:.78rem;color:var(--taupe);line-height:1.7;">font-size:.7rem;color:var(--taupe);line-height:1.6;">&#9888;#9888;&#65039; <strong>Non-Refundable Deposit:</strong> All deposits are non-refundable. Your deposit secures your date and compensates for time reserved exclusively for your session. In the event of inclement weather or photographer-initiated cancellation, your deposit will be applied to a rescheduled date.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -3289,7 +3409,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
             <!-- STEP 4: Payment -->
             <div class="sched-panel" id="sched-panel-4">
               <div class="sched-panel-title">Choose your payment</div>
-              <p class="sched-panel-sub">Select a deposit option to secure your date. You will be redirected to Square's secure payment page to complete your booking.</p>
+              <p class="sched-panel-sub">Select a deposit option to secure your date.</p>
 
               <div class="payment-opts">
                 <button class="payment-card selected" id="pay-half" onclick="selectSchedPayment('half')">
@@ -3304,22 +3424,80 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
                 </button>
               </div>
 
-              <div class="card-fields">
+              <!-- Payment method selector — Cash App & Zelle shown for Action Shot -->
+              <div id="alt-payment-section" style="display:none;margin:1.2rem 0;">
+                <p style="font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-family:'Jost',sans-serif;margin-bottom:.8rem;">Choose Payment Method</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:1rem;">
+                  <button id="pm-square" onclick="selectPaymentMethod('square')" style="padding:.7rem .5rem;border:1.5px solid var(--gold);background:var(--espresso);color:var(--cream);font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.1em;cursor:pointer;border-radius:4px;">&#128274; Square</button>
+                  <button id="pm-cashapp" onclick="selectPaymentMethod('cashapp')" style="padding:.7rem .5rem;border:1.5px solid rgba(200,191,176,.2);background:transparent;color:var(--stone);font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.1em;cursor:pointer;border-radius:4px;">&#36; Cash App</button>
+                  <button id="pm-zelle" onclick="selectPaymentMethod('zelle')" style="padding:.7rem .5rem;border:1.5px solid rgba(200,191,176,.2);background:transparent;color:var(--stone);font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.1em;cursor:pointer;border-radius:4px;">&#9010; Zelle</button>
+                </div>
+
+                <!-- Cash App instructions -->
+                <div id="cashapp-info" style="display:none;background:rgba(59,48,40,.08);border-left:3px solid #00D632;padding:1rem 1.2rem;margin-bottom:1rem;">
+                  <p style="font-size:.82rem;color:var(--espresso);font-weight:500;margin-bottom:.4rem;">&#36; Send via Cash App</p>
+                  <p style="font-size:.9rem;color:var(--espresso);font-family:'Cormorant Garamond',serif;font-size:1.1rem;margin-bottom:.4rem;"><strong>$ROGEPHOTO</strong></p>
+                  <p style="font-size:.75rem;color:var(--taupe);line-height:1.6;">Include your <strong>name</strong> and <strong>session date</strong> in the note. A receipt will be sent to your phone or email within 24 hours.</p>
+                </div>
+
+                <!-- Zelle instructions -->
+                <div id="zelle-info" style="display:none;background:rgba(59,48,40,.08);border-left:3px solid #6D1ED4;padding:1rem 1.2rem;margin-bottom:1rem;">
+                  <p style="font-size:.82rem;color:var(--espresso);font-weight:500;margin-bottom:.4rem;">&#9010; Send via Zelle</p>
+                  <p style="font-family:'Jost',sans-serif;font-size:1rem;color:var(--espresso);margin-bottom:.4rem;letter-spacing:.04em;"><strong>PUER2RECO@GMAIL.COM</strong></p>
+                  <p style="font-size:.75rem;color:var(--taupe);line-height:1.6;">Include your <strong>name</strong> and <strong>session date</strong> in the memo. A receipt will be sent to your phone or email within 24 hours.</p>
+                </div>
+
+                <!-- Contact fields for Cash App / Zelle -->
+                <div id="alt-contact-fields" style="display:none;">
+                  <div class="sched-field" style="margin-bottom:.8rem;">
+                    <label>Your Name <span style="color:var(--gold)">*</span></label>
+                    <input type="text" id="alt-name" placeholder="Full name" required>
+                  </div>
+                  <div class="sched-field" style="margin-bottom:.8rem;">
+                    <label>Phone Number <span style="color:var(--gold)">*</span></label>
+                    <input type="tel" id="alt-phone" placeholder="(305) 000-0000" required>
+                  </div>
+                  <div class="sched-field" style="margin-bottom:.8rem;">
+                    <label>Email Address <span style="color:var(--gold)">*</span></label>
+                    <input type="email" id="alt-email" placeholder="your@email.com" required>
+                  </div>
+                  <div style="background:var(--blush);padding:1rem 1.2rem;border-left:3px solid var(--gold);margin-bottom:1rem;">
+                    <p style="font-size:.78rem;color:var(--espresso);line-height:1.7;">Once payment is sent, your booking request will be submitted. Rogelio will confirm your session and send a receipt within 24 hours.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-fields" id="square-card-fields">
                 <h4>&#128274; Secure Payment via Square</h4>
-                <p style="font-size:.78rem;color:var(--taupe);margin-bottom:1.2rem;line-height:1.7;">After confirming your booking details, you'll be redirected to Square's secure hosted payment page to complete your payment. Your card information is handled entirely by Square.</p>
+                <p style="font-size:.78rem;color:var(--taupe);margin-bottom:1.2rem;line-height:1.7;">After confirming your booking details, you'll be redirected to Square's secure hosted payment page to complete your payment.</p>
                 <div class="sched-field" style="margin-bottom:1rem;">
                   <label>Cardholder Name</label>
                   <input type="text" id="sched-cardholder" placeholder="Jane Smith">
                 </div>
               </div>
 
-              <div style="background:var(--blush);padding:1rem 1.2rem;border-left:3px solid var(--gold);margin-bottom:1.5rem;">
+              <div style="background:var(--blush);padding:1rem 1.2rem;border-left:3px solid var(--gold);margin-bottom:.8rem;" id="square-notice">
                 <p style="font-size:.78rem;color:var(--espresso);line-height:1.7;">&#128274; Payments powered by Square. You will be redirected to complete payment securely. Your date is confirmed upon successful payment.</p>
+              </div>
+              <div style="background:rgba(59,48,40,.06);padding:.8rem 1.2rem;border-left:3px solid var(--taupe);margin-bottom:1rem;">
+                <p style="font-size:.78rem;color:var(--taupe);line-height:1.7;">font-size:.72rem;color:var(--taupe);line-height:1.6;">&#9888;#9888;&#65039; <strong>Non-Refundable Deposit:</strong> All deposits are non-refundable. Your deposit secures your date and compensates for time reserved exclusively for your session. In the event of inclement weather or photographer-initiated cancellation, your deposit will be applied to a rescheduled date.</p>
+              </div>
+
+              <!-- Action Shot preparation notice -->
+              <div id="action-shot-notice" style="display:none;">
+                <div style="background:rgba(10,22,40,.06);padding:1rem 1.2rem;border-left:3px solid #B89A6A;margin-bottom:.8rem;">
+                  <p style="font-size:.8rem;color:var(--espresso);font-weight:500;margin-bottom:.4rem;">&#127939; Athlete Preparation</p>
+                  <p style="font-size:.78rem;color:var(--espresso);line-height:1.7;">Your athlete's session starts the moment we meet. Come dressed, warmed up, and ready to perform — the best action shots happen when athletes are already in their zone. Excellence isn't accidental. Neither are great photos.</p>
+                </div>
+                <div style="background:rgba(59,48,40,.06);padding:1rem 1.2rem;border-left:3px solid var(--taupe);margin-bottom:1rem;">
+                  <p style="font-size:.78rem;color:var(--espresso);line-height:1.7;">&#9888;&#65039; <strong>Non-Refundable:</strong> All payments are non-refundable. In the event of inclement weather or unforeseen circumstances, your session may be rescheduled at no additional charge.</p>
+                </div>
               </div>
 
               <div class="sched-nav">
                 <button class="btn-sched-back" onclick="schedBack()">&#8592; Back</button>
                 <button class="btn-sched-next" id="square-pay-btn" onclick="submitSquarePayment()" style="background:var(--gold);padding:.9rem 2rem;">&#128274; Pay &amp; Confirm Booking</button>
+                <button class="btn-sched-next" id="alt-pay-btn" onclick="submitAltPayment()" style="display:none;background:var(--gold);padding:.9rem 2rem;">&#10003; Submit Booking Request</button>
               </div>
             </div>
 

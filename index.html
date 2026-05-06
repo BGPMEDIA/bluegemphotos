@@ -1799,8 +1799,8 @@ window.submitAltPayment = async function(){
   if(!phone){ window.showToast('Please enter your phone number'); return; }
   if(!email){ window.showToast('Please enter your email address'); return; }
   var method = selectedPaymentMethod === 'cashapp' ? 'Cash App ($ROGEPHOTO)' : 'Zelle (PUER2RECO@GMAIL.COM)';
-  var body = 'New booking request received:\n\nName: '+(name||schedData.name)+'\nEmail: '+(email||schedData.email)+'\nPhone: '+(phone||schedData.phone)+'\nService: '+schedData.service+'\nDate: '+schedData.date+'\nTime: '+(schedData.time||'Not specified')+'\nPayment Method: '+method+'\nAmount: $150 (Full)\n\nPlease confirm session and send receipt to client.';
   try {
+    emailjs.init('HZPIyFG6r_JVp9u_m');
     await emailjs.send('service_b384d8p','template_31gefsz',{
       from_name: name,
       from_email: email,

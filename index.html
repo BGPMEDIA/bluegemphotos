@@ -1514,9 +1514,13 @@ var schedServices=[
 
 window.openScheduling=function(preselect){
   schedData={service:'',hours:0,date:'',time:'',name:'',email:'',phone:'',location:'',notes:'',payment:'half'};
+  selectedPaymentMethod='square';
   schedStep=1;
   window.showPage('scheduling');
   setTimeout(function(){
+    var confirmPanel = document.getElementById('sched-confirm-panel');
+    if(confirmPanel) confirmPanel.style.display='none';
+    document.querySelectorAll('.sched-panel').forEach(function(p){ p.style.display=''; });
     renderSchedServices();
     updateSchedTabs();
     updateOrderSummary();
@@ -3523,27 +3527,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
             <div style="width:60px;height:1px;background:var(--gold);margin:0 auto 1.2rem;"></div>
             <p style="font-family:'Jost',sans-serif;font-size:.88rem;color:var(--taupe);line-height:1.8;max-width:480px;margin:0 auto 1.5rem;">Your request has been received. Rogelio will personally review your booking and reach out to confirm your session within 24 hours. Please ensure your payment has been sent before your session date.</p>
             <p style="font-family:'Jost',sans-serif;font-size:.75rem;color:var(--stone);letter-spacing:.12em;text-transform:uppercase;margin-bottom:2rem;">We look forward to capturing your moment.</p>
-            <button onclick="
-              schedStep=1;
-              schedData={};
-              selectedPaymentMethod='square';
-              document.getElementById('sched-confirm-panel').style.display='none';
-              document.querySelectorAll('.sched-panel').forEach(function(p){ p.style.display=''; });
-              document.getElementById('alt-name') && (document.getElementById('alt-name').value='');
-              document.getElementById('alt-phone') && (document.getElementById('alt-phone').value='');
-              document.getElementById('alt-email') && (document.getElementById('alt-email').value='');
-              document.getElementById('sched-cardholder') && (document.getElementById('sched-cardholder').value='');
-              document.getElementById('sched-name') && (document.getElementById('sched-name').value='');
-              document.getElementById('sched-email') && (document.getElementById('sched-email').value='');
-              document.getElementById('sched-phone') && (document.getElementById('sched-phone').value='');
-              document.getElementById('sched-date') && (document.getElementById('sched-date').value='');
-              document.getElementById('sched-time') && (document.getElementById('sched-time').value='');
-              document.querySelectorAll('.sched-svc-card').forEach(function(c){ c.classList.remove('selected'); });
-              document.querySelectorAll('.sched-step-tab').forEach(function(t){ t.classList.remove('done'); });
-              updateSchedTabs();
-              updateOrderSummary();
-              window.scrollTo(0,0);
-            " style="font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;padding:.8rem 2rem;background:transparent;border:1px solid var(--gold);color:var(--gold);cursor:pointer;">Book Another Session</button>
+            <button onclick="openScheduling();" style="font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;padding:.8rem 2rem;background:transparent;border:1px solid var(--gold);color:var(--gold);cursor:pointer;">Book Another Session</button>
           </div>
 
           <!-- RIGHT: Order summary -->

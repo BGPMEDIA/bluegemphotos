@@ -806,13 +806,15 @@ function openCloudinaryGallery(gallery, resources){
   mp.innerHTML = '';
 
   // Change grid to show full photos uncropped
-  mp.style.cssText = 'display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#1e1a17;padding:6px;';
+  mp.style.cssText = 'columns:3;column-gap:6px;background:#1e1a17;padding:6px;';
 
   resources.forEach(function(res, i){
     var d = document.createElement('div');
-    d.style.cssText = 'position:relative;overflow:hidden;background:#1e1a17;cursor:pointer;';
+    d.style.cssText = 'position:relative;overflow:hidden;background:#1e1a17;cursor:pointer;break-inside:avoid;margin-bottom:6px;display:inline-block;width:100%;';
 
-    // Show full photo — no cropping, just fit within the cell
+    var inner = document.createElement('div');
+    inner.style.cssText = 'position:relative;overflow:hidden;';
+
     var img = document.createElement('img');
     img.src = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_500,q_auto,f_auto/'+res.public_id;
     img.style.cssText = 'width:100%;display:block;transition:transform .3s;';
@@ -832,11 +834,10 @@ function openCloudinaryGallery(gallery, resources){
       });
     }
 
-    // Hover action buttons
     var ov = document.createElement('div');
     ov.style.cssText = 'position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(18,14,10,.85));padding:1rem .8rem .8rem;display:flex;gap:.5rem;opacity:0;transition:opacity .25s;';
-    d.onmouseover = function(){ ov.style.opacity='1'; };
-    d.onmouseout  = function(){ ov.style.opacity='0'; };
+    d.onmouseover = function(){ ov.style.opacity='1'; img.style.transform='scale(1.03)'; };
+    d.onmouseout  = function(){ ov.style.opacity='0'; img.style.transform='scale(1)'; };
 
     var buyBtn = document.createElement('button');
     buyBtn.textContent = isFreeGallery ? 'Download' : 'Buy — '+(gallery.singlePrice||'$18');
@@ -871,9 +872,10 @@ function openCloudinaryGallery(gallery, resources){
 
     ov.appendChild(buyBtn);
     ov.appendChild(viewBtn);
-    d.appendChild(img);
-    d.appendChild(wm);
-    d.appendChild(ov);
+    inner.appendChild(img);
+    inner.appendChild(wm);
+    inner.appendChild(ov);
+    d.appendChild(inner);
 
     // Click photo to open lightbox
     (function(publicId, gal){ d.onclick = function(){ openLightbox(publicId, gal); }; })(res.public_id, gallery);

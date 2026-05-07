@@ -797,8 +797,10 @@ function loadCloudinaryFolder(g, idx, card){
 }
 
 var currentOpenGallery = null;
+var currentGalleryResources = [];
 function openCloudinaryGallery(gallery, resources){
   currentOpenGallery = gallery;
+  currentGalleryResources = resources;
   var mp = document.getElementById('modalPhotos');
   var mi = document.getElementById('modalInfo');
   mp.innerHTML = '';
@@ -1135,16 +1137,19 @@ window.openGallery=function(name,date,meta){
 // LIGHTBOX
 var currentLightboxGallery = null;
 var currentLightboxPublicId = null;
-window.openLightbox = function(publicId, gallery){
+var lbCarouselImages = [];
+var lbCarouselIndex = 0;
+
+function lbLoadImage(publicId, gallery){
   currentLightboxPublicId = publicId;
   currentLightboxGallery = gallery;
   var thumbUrl = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_120,h_120,c_fill,q_auto,f_auto/'+publicId;
   var img = document.getElementById('lightboxImg');
   img.src = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_1200,q_auto,f_auto/'+publicId;
   var isFree = !gallery.singlePrice || gallery.singlePrice === 'FREE' || gallery.singlePrice === '$0' || gallery.singlePrice === '0' || parseFloat((gallery.singlePrice||'').replace(/[^0-9.]/g,'')) === 0;
-  // Hide watermark on free galleries
   var lbWm = document.querySelector('.lightbox-wm');
   if(lbWm) lbWm.style.display = isFree ? 'none' : '';
+  var lbBuyBtn = document.getElementById('lbBuyBtn');
   lbBuyBtn.textContent = isFree ? 'Download Photo' : 'Buy This Photo \u2014 '+(gallery.singlePrice||'$18');
   if(isFree) lbBuyBtn.style.background = '#1a3a6a';
   else lbBuyBtn.style.background = '';
@@ -1170,14 +1175,61 @@ window.openLightbox = function(publicId, gallery){
       closeLightbox();
     }
   };
+  // Update counter
+  var counter = document.getElementById('lbCounter');
+  if(counter && lbCarouselImages.length > 1){
+    counter.textContent = (lbCarouselIndex + 1) + ' / ' + lbCarouselImages.length;
+  } else if(counter){
+    counter.textContent = '';
+  }
+  // Show/hide arrows
+  var prevBtn = document.querySelector('.lightbox-prev');
+  var nextBtn = document.querySelector('.lightbox-next');
+  if(prevBtn) prevBtn.style.display = lbCarouselImages.length > 1 ? '' : 'none';
+  if(nextBtn) nextBtn.style.display = lbCarouselImages.length > 1 ? '' : 'none';
+}
+
+window.openLightbox = function(publicId, gallery){
+  // Build carousel from current gallery resources
+  lbCarouselImages = [];
+  lbCarouselIndex = 0;
+  if(currentGalleryResources && currentGalleryResources.length > 0){
+    lbCarouselImages = currentGalleryResources.map(function(r){ return r.public_id; });
+    lbCarouselIndex = lbCarouselImages.indexOf(publicId);
+    if(lbCarouselIndex < 0) lbCarouselIndex = 0;
+  } else {
+    lbCarouselImages = [publicId];
+  }
+  lbLoadImage(publicId, gallery);
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
 };
+
+window.lbCarouselPrev = function(){
+  if(lbCarouselImages.length <= 1) return;
+  lbCarouselIndex = (lbCarouselIndex - 1 + lbCarouselImages.length) % lbCarouselImages.length;
+  lbLoadImage(lbCarouselImages[lbCarouselIndex], currentLightboxGallery);
+};
+
+window.lbCarouselNext = function(){
+  if(lbCarouselImages.length <= 1) return;
+  lbCarouselIndex = (lbCarouselIndex + 1) % lbCarouselImages.length;
+  lbLoadImage(lbCarouselImages[lbCarouselIndex], currentLightboxGallery);
+};
+
 window.closeLightbox = function(){
   document.getElementById('lightbox').classList.remove('open');
   document.getElementById('lightboxImg').src = '';
   document.body.style.overflow = '';
+  lbCarouselImages = [];
 };
+
+document.addEventListener('keydown', function(e){
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key === 'ArrowRight') window.lbCarouselNext();
+  if(e.key === 'ArrowLeft') window.lbCarouselPrev();
+  if(e.key === 'Escape') window.closeLightbox();
+});
 document.getElementById('lightbox').addEventListener('click', function(e){
   if(e.target === this) window.closeLightbox();
 });
@@ -2136,12 +2188,17 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" onclick="closeLightbox()">&#10005;</button>
+  <button class="lightbox-prev" onclick="lbCarouselPrev()" style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:white;font-size:1.8rem;width:48px;height:48px;border-radius:50%;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;">&#8592;</button>
+  <button class="lightbox-next" onclick="lbCarouselNext()" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.12);border:none;color:white;font-size:1.8rem;width:48px;height:48px;border-radius:50%;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;">&#8594;</button>
   <div class="lightbox-img-wrap">
     <img id="lightboxImg" src="" alt="Photo">
     <div class="lightbox-wm">
       <span>&copy; Rogelio Small</span>
       <span>&copy; Rogelio Small</span>
     </div>
+  </div>
+  <div style="text-align:center;margin-bottom:.5rem;">
+    <span id="lbCounter" style="font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.15em;color:var(--stone);"></span>
   </div>
   <div class="lightbox-actions">
     <button class="lb-btn lb-btn-buy" id="lbBuyBtn">Buy This Photo</button>

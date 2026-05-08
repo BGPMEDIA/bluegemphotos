@@ -1601,7 +1601,7 @@ var schedServices=[
   {num:'06',name:'Commercial & Brand',rate:395,perHour:true,desc:'Hourly rate for business, product, and personal brand shoots.'},
   {num:'07',name:'Fashion Photography',rate:1800,perHour:false,desc:'Editorial and lifestyle fashion sessions. Half or full day available.'},
   {num:'08',name:'Action Shot Session',rate:150,perHour:false,desc:'30-min track & field session at Ansin Sports Complex. 3 edited images.'},
-  {num:'09',name:'Prom Portrait Session',rate:450,perHour:false,desc:'Elegant prom portraits at your home. 6 edited images, 3-5 day turnaround.'},
+  {num:'09',name:'Prom Portrait Session',rate:250,perHour:false,desc:'Elegant prom portraits at your home. 5 edited images, 3-5 day turnaround.'},
 ];
 
 window.openScheduling=function(preselect){
@@ -1836,7 +1836,7 @@ window.showToast=function(msg){
 // BOOKING PAGE
 var servicePrices={
   'Mini Session':295,'Portrait Session':550,'Family Collection':750,
-  'Wedding Day':1800,'Commercial & Brand':395,'Fashion Photography':1800,'Action Shot Session':150,'Prom Portrait Session':450
+  'Wedding Day':1800,'Commercial & Brand':395,'Fashion Photography':1800,'Action Shot Session':150,'Prom Portrait Session':250
 };
 var selectedDeposit='half';
 window.selectDeposit=function(type){
@@ -2348,7 +2348,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <div class="service-name" style="color:#f0f4ff;">Prom Portrait Session</div>
         <p style="color:#B89A6A;font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;margin:2px 0 6px 0;">At Your Home</p>
         <p class="service-desc" style="color:#c8b8e8;">Elegant prom portraits captured before the big night. Looking your best — beautifully documented.</p>
-        <div class="service-price" style="color:#f0f4ff;">$450 <span style="color:#c8b8e8;">/ session</span></div>
+        <div class="service-price" style="color:#f0f4ff;">$250 <span style="color:#c8b8e8;">/ session</span></div>
         <ul class="service-includes" style="border-color:rgba(184,154,106,.15);">
           <li style="color:#e0d0f0;border-bottom-color:rgba(184,154,106,.12);">On-location at your home</li>
           <li style="color:#e0d0f0;border-bottom-color:rgba(184,154,106,.12);">6 edited high-resolution photos</li>
@@ -2850,7 +2850,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <a href="#" class="svc-back" onclick="showPage('home');return false;">&#8592; Back to Services</a>
       <div class="svc-hero-num" style="color:#D4B483;">09</div>
       <h1 class="svc-hero-title" style="color:#f0f4ff;">Prom Portrait <em style="color:#D4B483;">Session</em></h1>
-      <div class="svc-hero-price" style="color:#D4B483;">$450 <span style="color:#c8b8e8;">/ session</span></div>
+      <div class="svc-hero-price" style="color:#D4B483;">$250 <span style="color:#c8b8e8;">/ session</span></div>
     </div>
   </div>
   <div style="background:var(--warm-white)">
@@ -2862,7 +2862,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <div class="svc-includes-title">What's Included</div>
         <ul class="svc-includes-list">
           <li>On-location session at your home</li>
-          <li>6 standard edited downloads included</li>
+          <li>5 standard edited downloads included</li>
           <li>Full watermarked proof gallery</li>
           <li>Additional retouched images — $20/image</li>
           <li>3–5 business day turnaround</li>
@@ -2873,7 +2873,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <div class="svc-booking" style="background:#1a0a2e;border:1px solid #2d1a4a;">
           <h3 style="color:#f0f4ff;">Book Your Prom Session</h3>
           <p style="color:#c8b8e8;">Sessions held at your home before prom night. Book early — dates fill quickly during prom season.</p>
-          <div class="price-big" style="color:#D4B483;">$450 <span style="color:#c8b8e8;">/ session</span></div>
+          <div class="price-big" style="color:#D4B483;">$250 <span style="color:#c8b8e8;">/ session</span></div>
           <button class="btn-book-now" style="background:#B89A6A;color:#1a0a2e;" onclick="openScheduling('Prom Portrait Session')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
         </div>
@@ -3307,7 +3307,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
                 <option value="Commercial & Brand">Commercial &amp; Brand - $1,400</option>
                 <option value="Fashion Photography">Fashion Photography - $1,800+</option>
                 <option value="Action Shot Session">Action Shot Session - $150</option>
-                <option value="Prom Portrait Session">Prom Portrait Session - $450</option>
+                <option value="Prom Portrait Session">Prom Portrait Session - $250</option>
               </select>
             </div>
             <div class="bf-field">

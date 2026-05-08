@@ -265,7 +265,7 @@ footer{background:var(--charcoal);padding:4rem;color:var(--stone);display:grid;g
 .photo-hover-overlay button:hover{background:var(--gold-lt);}
 .photo-hover-overlay button.btn-buy{background:var(--espresso);color:var(--warm-white);}
 .photo-hover-overlay button.btn-buy:hover{background:var(--gold);}
-.watermark-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-style:italic;color:rgba(255,255,255,.6);text-shadow:0 1px 4px rgba(0,0,0,.7);letter-spacing:.1em;pointer-events:none;transform:rotate(-20deg);user-select:none;}
+.watermark-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-style:italic;color:rgba(255,255,255,.45);text-shadow:0 1px 4px rgba(0,0,0,.7);letter-spacing:.1em;pointer-events:none;transform:rotate(-20deg);user-select:none;}
 .modal-info{padding:2rem;}
 .modal-info h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--espresso);margin-bottom:.4rem;}
 .modal-info>p{color:var(--taupe);font-size:.85rem;margin-bottom:1.5rem;}
@@ -381,7 +381,7 @@ footer{background:var(--charcoal);padding:4rem;color:var(--stone);display:grid;g
 .lightbox-img-wrap{position:relative;max-width:90vw;max-height:78vh;display:flex;align-items:center;justify-content:center;}
 .lightbox-img-wrap img{max-width:90vw;max-height:78vh;object-fit:contain;display:block;}
 .lightbox-wm{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-around;pointer-events:none;padding:10% 0;}
-.lightbox-wm span{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-style:italic;color:rgba(255,255,255,.6);transform:rotate(-20deg);letter-spacing:.1em;white-space:nowrap;text-shadow:0 2px 8px rgba(0,0,0,.7);display:block;}
+.lightbox-wm span{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-style:italic;color:rgba(255,255,255,.45);transform:rotate(-20deg);letter-spacing:.1em;white-space:nowrap;text-shadow:0 2px 8px rgba(0,0,0,.7);display:block;}
 .lightbox-actions{display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;justify-content:center;}
 .lightbox-close{position:fixed;top:1.5rem;right:2rem;background:none;border:none;color:var(--stone);font-size:2.5rem;z-index:10;line-height:1;}
 .lightbox-close:hover{color:var(--warm-white);}
@@ -856,7 +856,7 @@ function openCloudinaryGallery(gallery, resources){
       ['top','middle','bottom'].forEach(function(){
         var wmText = document.createElement('span');
         wmText.textContent = '\u00a9 Rogelio Small';
-        wmText.style.cssText = 'font-family:Cormorant Garamond,serif;font-size:1.2rem;font-style:italic;color:rgba(255,255,255,.65);transform:rotate(-20deg);text-shadow:0 1px 4px rgba(0,0,0,.7);white-space:nowrap;letter-spacing:.08em;display:block;';
+        wmText.style.cssText = 'font-family:Cormorant Garamond,serif;font-size:1.2rem;font-style:italic;color:rgba(255,255,255,.50);transform:rotate(-20deg);text-shadow:0 1px 4px rgba(0,0,0,.7);white-space:nowrap;letter-spacing:.08em;display:block;';
         wm.appendChild(wmText);
       });
     }
@@ -2321,13 +2321,13 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <p style="color:var(--taupe);max-width:50ch;margin:.8rem auto 0;font-size:.88rem">All packages include a private online gallery with watermarked previews, print ordering, and full digital delivery.</p>
     </div>
     <div class="services-grid">
-      <div class="service-card"><div class="service-num">01</div><div class="service-name">Mini Session</div><p class="service-desc">A focused 30-minute session ideal for individuals, headshots, or seasonal family portraits.</p><div class="service-price">$295 <span>/ session</span></div><ul class="service-includes"><li>30-minute session</li><li>1 outfit, 1 location</li><li>15 edited digital images</li><li>Private online gallery</li><li>Print-release included</li></ul><a href="#" class="service-learn" onclick="showPage('svc-mini');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">02</div><div class="service-name">Portrait Session</div><p class="service-desc">A relaxed, creative portrait experience for individuals, couples, or small families.</p><div class="service-price">$550 <span>/ session</span></div><ul class="service-includes"><li>90-minute session</li><li>2 outfit changes</li><li>Studio session included</li><li>On-location — +$75/location</li><li>40+ hand-edited digital images</li></ul><a href="#" class="service-learn" onclick="showPage('svc-portrait');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">03</div><div class="service-name">Family Collection</div><p class="service-desc">A full family storytelling session capturing authentic connection and everything in between.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour session</li><li>Up to 8 family members</li><li>60+ edited digital images</li><li>Slideshow reveal</li><li>One complimentary 11x14 print</li></ul><a href="#" class="service-learn" onclick="showPage('svc-family');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">04</div><div class="service-name">Wedding Day</div><p class="service-desc">Full-day wedding coverage from getting ready through the last dance. Your entire story, beautifully told.</p><div class="service-price">From $1,800 <span>/ ceremony</span></div><ul class="service-includes"><li>Ceremony — up to 4 hrs · $1,800</li><li>Classic — up to 8 hrs · $3,200</li><li>Full Story — up to 10 hrs · $3,800</li><li>300–400+ edited digital images</li><li>Engagement session included (Classic+)</li></ul><a href="#" class="service-learn" onclick="showPage('svc-wedding');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">01</div><div class="service-name">Mini Session</div><p class="service-desc">A focused 30-minute session ideal for individuals, headshots, or seasonal family portraits.</p><div class="service-price">$295 <span>/ session</span></div><ul class="service-includes"><li>30-minute session</li><li>1 outfit, 1 location</li><li>Full watermarked proof gallery</li><li>5 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Private online gallery</li></ul><a href="#" class="service-learn" onclick="showPage('svc-mini');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">02</div><div class="service-name">Portrait Session</div><p class="service-desc">A relaxed, creative portrait experience for individuals, couples, or small families.</p><div class="service-price">$550 <span>/ session</span></div><ul class="service-includes"><li>90-minute session</li><li>2 outfit changes</li><li>Studio session included</li><li>On-location — +$75/location</li><li>Full watermarked proof gallery</li><li>8 standard edited downloads included</li><li>Additional retouched images — $20/image</li></ul><a href="#" class="service-learn" onclick="showPage('svc-portrait');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">03</div><div class="service-name">Family Collection</div><p class="service-desc">A full family storytelling session capturing authentic connection and everything in between.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour session</li><li>Up to 8 family members</li><li>Full watermarked proof gallery</li><li>10 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Slideshow reveal</li><li>One complimentary 11x14 print</li></ul><a href="#" class="service-learn" onclick="showPage('svc-family');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">04</div><div class="service-name">Wedding Day</div><p class="service-desc">Full-day wedding coverage from getting ready through the last dance. Your entire story, beautifully told.</p><div class="service-price">From $1,800 <span>/ ceremony</span></div><ul class="service-includes"><li>Ceremony — up to 4 hrs · $1,800</li><li>Classic — up to 8 hrs · $3,200</li><li>Full Story — up to 10 hrs · $3,800</li><li>Full watermarked proof gallery</li><li>30 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Engagement session included (Classic+)</li></ul><a href="#" class="service-learn" onclick="showPage('svc-wedding');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">05</div><div class="service-name">Commercial &amp; Brand</div><p class="service-desc">From a single polished headshot to a full brand campaign — this service covers the complete spectrum of professional imagery. Corporate headshots, personal brand sessions, product photography, lifestyle campaigns, and executive portraits all live here. Scope and pricing determined during consultation.</p><div class="service-price">From $395 <span>/ consultation</span></div><ul class="service-includes"><li>Corporate headshots &amp; executive portraits</li><li>Personal brand &amp; entrepreneur sessions</li><li>Product &amp; lifestyle photography</li><li>Full commercial license included</li><li>Mood board consultation</li></ul><a href="#" class="service-learn" onclick="showPage('svc-commercial');return false;">View Details &rarr;</a></div>
-      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">06</div><div class="service-name">Bridal Portrait Session</div><p class="service-desc">Two unhurried hours dedicated entirely to you — your gown, your beauty, your story. Before the vows. Before the chaos.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour studio session</li><li>Exclusively about the bride</li><li>20 edited digital images</li><li>Private gallery delivery</li><li>Fine art print options available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-bridal');return false;">View Details &rarr;</a></div>
-      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">07</div><div class="service-name">Fashion Photography</div><p class="service-desc">Editorial-grade fashion sessions for models, designers, and brands. Magazine-ready imagery with a cinematic eye.</p><div class="service-price">$1,800 <span>/ half day</span></div><ul class="service-includes"><li>4 or 8-hour session</li><li>Creative consultation & mood board</li><li>30–60+ edited images</li><li>Full commercial license</li><li>Multi-location shoots available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-fashion');return false;">View Details &rarr;</a></div>
+      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">06</div><div class="service-name">Bridal Portrait Session</div><p class="service-desc">Two unhurried hours dedicated entirely to you — your gown, your beauty, your story. Before the vows. Before the chaos.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour studio session</li><li>Exclusively about the bride</li><li>Full watermarked proof gallery</li><li>8 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Private gallery delivery</li><li>Fine art print options available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-bridal');return false;">View Details &rarr;</a></div>
+      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">07</div><div class="service-name">Fashion Photography</div><p class="service-desc">Editorial-grade fashion sessions for models, designers, and brands. Magazine-ready imagery with a cinematic eye.</p><div class="service-price">$1,800 <span>/ half day</span></div><ul class="service-includes"><li>4 or 8-hour session</li><li>Creative consultation & mood board</li><li>Full watermarked proof gallery</li><li>15 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Full commercial license</li><li>Multi-location shoots available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-fashion');return false;">View Details &rarr;</a></div>
       <div class="service-card" id="action-shot-card" style="background:#0a1628;border-top:3px solid #B89A6A;border:1px solid #1a2d4a;border-top:3px solid #B89A6A;">
         <div class="service-num" style="color:#B89A6A;">08</div>
         <div class="service-name" style="color:#f0f4ff;">Action Shot Session</div>
@@ -2423,17 +2423,17 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <h2>Perfect for a focused, beautiful session</h2>
         <p>Our Mini Session is designed for clients who want stunning, professional images without a full-length shoot. In just 30 minutes, we capture the essence of you &mdash; clean, confident, and beautifully lit.</p>
         <p>Ideal for updated headshots, individuals wanting a quick refresh, or seasonal family portraits. We work quickly and intentionally, making every minute count.</p>
-        <p>You'll walk away with 15 hand-edited images delivered to your private online gallery within one week &mdash; ready to download, print, or share.</p>
+        <p>You'll receive a full watermarked proof gallery within one week. Five standard edited downloads are included in your session fee — ready to download, print, or share. Additional images available as fully retouched downloads.</p>
         <div class="svc-includes-title">What's Included</div>
         <ul class="svc-includes-list">
           <li>30-minute session</li>
           <li>1 outfit change</li>
           <li>1 curated location</li>
-          <li>15 hand-edited digital images</li>
+          <li>Full watermarked proof gallery</li><li>5 standard edited downloads included</li><li>Additional retouched images — $20/image</li>
           <li>Private online gallery delivery</li>
           <li>Full print release</li>
           <li>Gallery access for 60 days</li>
-          <li>Full retouching available — $20/image</li>
+          <li>Additional retouched images — $20/image</li>
         </ul>
       </div>
       <div>
@@ -2513,11 +2513,11 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <li>2 complete outfit changes — arrive camera-ready in Look 1, change into a fully different Look 2 during the session. Additional looks available for extended sessions.</li>
           <li>Studio session included</li>
           <li>On-location add-on — +$75 per location</li>
-          <li>40+ hand-edited digital images</li>
+          <li>Full watermarked proof gallery</li><li>8 standard edited downloads included</li>
           <li>Pre-session styling guide</li>
           <li>Private gallery + print store access</li>
           <li>Full print release</li>
-          <li>Full retouching available — $20/image</li>
+          <li>Additional retouched images — $20/image</li>
         </ul>
       </div>
       <div>
@@ -2587,17 +2587,17 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <h2>Your family's story, beautifully preserved</h2>
         <p>Families are joyful, messy, loud, tender &mdash; and we love every bit of it. Our Family Collection is designed to capture the real moments: the laughter, the chaos, the in-between glances that say everything.</p>
         <p>With a full two hours together, there's no rush. We move through natural interactions, gentle prompts, and genuine play to draw out the authentic connection that makes your family uniquely yours.</p>
-        <p>You'll receive 60+ beautifully edited images and a complimentary 11x14 fine art print &mdash; a tangible piece of your story, ready to hang.</p>
+        <p>You'll receive a full watermarked proof gallery and 10 standard edited downloads included in your session fee. A complimentary 11x14 fine art print is included. Additional images available as fully retouched downloads.</p>
         <div class="svc-includes-title">What's Included</div>
         <ul class="svc-includes-list">
           <li>2-hour session</li>
           <li>Up to 8 family members</li>
-          <li>60+ hand-edited digital images</li>
+          <li>Full watermarked proof gallery</li><li>10 standard edited downloads included</li><li>Additional retouched images — $20/image</li>
           <li>Online slideshow reveal</li>
           <li>One complimentary 11x14 fine art print</li>
           <li>Private gallery + full print store</li>
           <li>Full print release</li>
-          <li>Full retouching available — $25/image</li>
+          <li>Additional retouched images — $20/image</li>
         </ul>
       </div>
       <div>
@@ -2671,11 +2671,13 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <div class="svc-includes-title">All Packages Include</div>
         <ul class="svc-includes-list">
           <li>Two professional photographers (Classic &amp; Full Story)</li>
+          <li>Full watermarked proof gallery</li>
+          <li>30 standard edited downloads included</li>
           <li>Online slideshow within 48 hours</li>
           <li>Private gallery within 6 weeks</li>
           <li>Heirloom album option available</li>
           <li>Full commercial print release</li>
-          <li>Full retouching available — $20/image</li>
+          <li>Additional retouched images — $20/image</li>
         </ul>
       </div>
       <div>
@@ -2788,7 +2790,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <li>Full commercial license included</li>
           <li>Private gallery delivery within 1 week</li>
           <li>Multiple format exports (web + print)</li>
-          <li>Full retouching available — $35/image</li>
+          <li>Standard edited downloads included per scope</li><li>Additional retouched images — $20/image</li>
         </ul>
       </div>
       <div>
@@ -2860,9 +2862,9 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <div class="svc-includes-title">What's Included</div>
         <ul class="svc-includes-list">
           <li>On-location session at your home</li>
-          <li>6 edited high-resolution photos</li>
-          <li>Private online gallery access</li>
-          <li>Digital downloads included</li>
+          <li>6 standard edited downloads included</li>
+          <li>Full watermarked proof gallery</li>
+          <li>Additional retouched images — $20/image</li>
           <li>3–5 business day turnaround</li>
           <li>Print release for personal use</li>
         </ul>
@@ -2993,12 +2995,12 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <ul class="svc-includes-list">
           <li>2-hour studio session exclusively for the bride</li>
           <li>Professional studio lighting and backdrop setup</li>
-          <li>20–40 hand-edited digital images</li>
+          <li>Full watermarked proof gallery</li><li>8–20 standard edited downloads included</li>
           <li>Private watermarked online gallery</li>
           <li>Full print release included</li>
           <li>Fine art print options available</li>
           <li>Styling consultation provided</li>
-          <li>Full retouching available — $50/image</li>
+          <li>8 standard edited downloads included</li><li>Additional retouched images — $20/image</li>
         </ul>
       </div>
       <div>
@@ -3102,7 +3104,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
           <li>Full commercial usage license</li>
           <li>Private gallery delivery within 7 days</li>
           <li>Multiple format exports (web + print ready)</li>
-          <li>Full retouching available — $45/image</li>
+          <li>15 standard edited downloads included</li><li>Additional retouched images — $20/image</li>
         </ul>
       </div>
       <div>

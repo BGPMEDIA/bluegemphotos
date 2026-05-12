@@ -1644,6 +1644,8 @@ function renderSchedServices(){
   }).join('');
 }
 
+var slotCache = {};
+
 function loadTimeSlots(date, service, currentTime){
   var t = document.getElementById('sched-time');
   if(!t) return;
@@ -1667,17 +1669,28 @@ function loadTimeSlots(date, service, currentTime){
   }
 
   if(isActionShot && date){
+    // Use cache if available
+    if(slotCache[date] !== undefined){
+      buildOptions(slotCache[date]);
+      return;
+    }
     t.innerHTML = '<option value="">Loading times...</option>';
-    fetch('/api/slots?date='+date+'&_='+Date.now())
+    fetch('/api/slots?date='+date)
       .then(function(r){ return r.json(); })
       .then(function(data){
         var booked = (data.booked || []).map(function(s){ return s.time; });
+        slotCache[date] = booked;
         buildOptions(booked);
       })
       .catch(function(){ buildOptions([]); });
   } else {
     buildOptions([]);
   }
+}
+
+function clearSlotCache(date){
+  if(date) delete slotCache[date];
+  else slotCache = {};
 }
 
 window.selectSchedService=function(i){
@@ -1940,6 +1953,7 @@ window.submitAltPayment = async function(){
     window.showToast('Booking request submitted!');
     // Mark slot as booked for Action Shot sessions
     if(schedData.service === 'Action Shot Session' && schedData.date && schedData.time){
+      clearSlotCache(schedData.date);
       fetch('/api/slots', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -2134,6 +2148,7 @@ window.submitSquarePayment=async function(){
       gtag_report_conversion(data.paymentUrl, due);
       // Mark slot as booked for Action Shot sessions
       if(schedData.service === 'Action Shot Session' && schedData.date && schedData.time){
+        clearSlotCache(schedData.date);
         fetch('/api/slots', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

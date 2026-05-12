@@ -1779,6 +1779,12 @@ window.schedNext=function(){
       window.showToast('Sorry — May 6th is unavailable for Action Shot Sessions. Please select another date.');
       return;
     }
+    // Block specific time slots on specific dates
+    var blockedSlots = { '2026-05-13': ['6:30 PM'] };
+    if(schedData.service === 'Action Shot Session' && blockedSlots[schedData.date] && blockedSlots[schedData.date].indexOf(schedData.time) !== -1){
+      window.showToast('Sorry — that time slot is unavailable on this date. Please select another time.');
+      return;
+    }
   }
   if(schedStep===3){
     var n=document.getElementById('sched-name');

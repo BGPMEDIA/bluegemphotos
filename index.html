@@ -1600,7 +1600,7 @@ var schedServices=[
   {num:'05',name:'Bridal Portrait Session',rate:750,perHour:false,desc:'2-hour session exclusively for the bride. Before the vows, before the chaos.'},
   {num:'06',name:'Commercial & Brand',rate:395,perHour:true,desc:'Hourly rate for business, product, and personal brand shoots.'},
   {num:'07',name:'Fashion Photography',rate:1800,perHour:false,desc:'Editorial and lifestyle fashion sessions. Half or full day available.'},
-  {num:'08',name:'Action Shot Session',rate:150,perHour:false,desc:'30-min track & field session at Ansin Sports Complex. 3 edited images.'},
+  {num:'08',name:'Action Shot Session',rate:150,perHour:false,desc:'1-hour track & field session at Ansin Sports Complex. Available 3:00 PM – 7:00 PM. 3 edited images.'},
   {num:'09',name:'Prom Portrait Session',rate:250,perHour:false,desc:'Elegant prom portraits at your home. 5 edited images, 3-5 day turnaround.'},
 ];
 
@@ -1651,7 +1651,7 @@ function loadTimeSlots(date, service, currentTime){
   if(!t) return;
   var isActionShot = service === 'Action Shot Session';
   var allSlots = isActionShot
-    ? ['6:00 PM','6:30 PM','7:00 PM','7:30 PM']
+    ? ['3:00 PM','4:00 PM','5:00 PM','6:00 PM','7:00 PM']
     : ['6:00 AM (Sunrise)','7:00 AM','8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM (Noon)','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM (Golden Hour)','6:00 PM (Golden Hour)','7:00 PM (Sunset)'];
 
   function buildOptions(booked){
@@ -2414,7 +2414,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <p style="color:var(--taupe);max-width:50ch;margin:.8rem auto 0;font-size:.88rem">All packages include a private online gallery with watermarked previews, print ordering, and full digital delivery.</p>
     </div>
     <div class="services-grid">
-      <div class="service-card"><div class="service-num">01</div><div class="service-name">Mini Session</div><p class="service-desc">A focused 30-minute session ideal for individuals, headshots, or seasonal family portraits.</p><div class="service-price">$295 <span>/ session</span></div><ul class="service-includes"><li>30-minute session</li><li>1 outfit, 1 location</li><li>Full watermarked proof gallery</li><li>5 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Private online gallery</li></ul><a href="#" class="service-learn" onclick="showPage('svc-mini');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">01</div><div class="service-name">Mini Session</div><p class="service-desc">A focused 1-hour session ideal for individuals, headshots, or seasonal family portraits.</p><div class="service-price">$295 <span>/ session</span></div><ul class="service-includes"><li>1-hour session</li><li>1 outfit, 1 location</li><li>Full watermarked proof gallery</li><li>5 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Private online gallery</li></ul><a href="#" class="service-learn" onclick="showPage('svc-mini');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">02</div><div class="service-name">Portrait Session</div><p class="service-desc">A relaxed, creative portrait experience for individuals, couples, or small families.</p><div class="service-price">$550 <span>/ session</span></div><ul class="service-includes"><li>90-minute session</li><li>2 outfit changes</li><li>Studio session included</li><li>On-location — +$75/location</li><li>Full watermarked proof gallery</li><li>8 standard edited downloads included</li><li>Additional retouched images — $20/image</li></ul><a href="#" class="service-learn" onclick="showPage('svc-portrait');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">03</div><div class="service-name">Family Collection</div><p class="service-desc">A full family storytelling session capturing authentic connection and everything in between.</p><div class="service-price">$750 <span>/ session</span></div><ul class="service-includes"><li>2-hour session</li><li>Up to 8 family members</li><li>Full watermarked proof gallery</li><li>10 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Slideshow reveal</li><li>One complimentary 11x14 print</li></ul><a href="#" class="service-learn" onclick="showPage('svc-family');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">04</div><div class="service-name">Wedding Day</div><p class="service-desc">Full-day wedding coverage from getting ready through the last dance. Your entire story, beautifully told.</p><div class="service-price">From $1,800 <span>/ ceremony</span></div><ul class="service-includes"><li>Ceremony — up to 4 hrs · $1,800</li><li>Classic — up to 8 hrs · $3,200</li><li>Full Story — up to 10 hrs · $3,800</li><li>Full watermarked proof gallery</li><li>30 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Engagement session included (Classic+)</li></ul><a href="#" class="service-learn" onclick="showPage('svc-wedding');return false;">View Details &rarr;</a></div>
@@ -2519,7 +2519,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
         <p>You'll receive a full watermarked proof gallery within one week. Five standard edited downloads are included in your session fee — ready to download, print, or share. Additional images available as fully retouched downloads.</p>
         <div class="svc-includes-title">What's Included</div>
         <ul class="svc-includes-list">
-          <li>30-minute session</li>
+          <li>1-hour session</li>
           <li>1 outfit change</li>
           <li>1 curated location</li>
           <li>Full watermarked proof gallery</li><li>5 standard edited downloads included</li><li>Additional retouched images — $20/image</li>
@@ -2986,7 +2986,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
   </div>
   <div class="svc-faq">
     <h2>Frequently Asked <em style="font-style:italic;color:var(--gold)">Questions</em></h2>
-    <div class="faq-item"><div class="faq-q">How long does the session take?</div><div class="faq-a">Typically 30–45 minutes at your home. Quick, relaxed, and fun — no need to stress before your big night.</div></div>
+    <div class="faq-item"><div class="faq-q">How long does the session take?</div><div class="faq-a">Typically 1 hour at your home. Quick, relaxed, and fun — no need to stress before your big night.</div></div>
     <div class="faq-item"><div class="faq-q">Can I bring friends or a date?</div><div class="faq-a">Absolutely — group and couple shots are included in your session time at no extra charge.</div></div>
     <div class="faq-item"><div class="faq-q">When will I receive my photos?</div><div class="faq-a">Your edited photos will be delivered to your private online gallery within 3–5 business days.</div></div>
     <div class="faq-item"><div class="faq-q">Can I order prints?</div><div class="faq-a">Yes — print ordering is available directly through your gallery. Multiple sizes and options available.</div></div>
@@ -3018,11 +3018,11 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
     <div class="svc-body">
       <div class="svc-details">
         <h2>Your moment. Frozen at full speed.</h2>
-        <p>Built specifically for Miramar track &amp; field athletes at Ansin Sports Complex, this focused 30-minute session captures the power, precision, and athleticism that defines your sport. Whether you're sprinting, hurdling, or throwing — we capture the moment that shows what you're made of.</p>
+        <p>Built specifically for Miramar track &amp; field athletes at Ansin Sports Complex, this focused 1-hour session captures the power, precision, and athleticism that defines your sport. Whether you're sprinting, hurdling, or throwing — we capture the moment that shows what you're made of.</p>
         <p>Perfect for recruiting profiles, personal branding, social media, and sports portfolios. Three professionally edited high-resolution images delivered to your private online gallery — ready to download and share.</p>
         <div class="svc-includes-title">What's Included</div>
         <ul class="svc-includes-list">
-          <li>30-minute on-location photo shoot</li>
+          <li>1-hour on-location photo shoot</li>
           <li>1 athlete coverage per session</li>
           <li>3 edited high-resolution photos</li>
           <li>Private online gallery access</li>
@@ -3033,7 +3033,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <div>
         <div class="svc-booking" style="background:#0a1628;border:1px solid #1a3a6a;">
           <h3 style="color:#f0f4ff;">Book Your Session</h3>
-          <p style="color:#8899bb;">Sessions held at Ansin Sports Complex, Miramar. Available 6:00 PM – 8:00 PM.</p>
+          <p style="color:#8899bb;">Sessions held at Ansin Sports Complex, Miramar. Available 3:00 PM – 7:00 PM.</p>
           <div class="price-big" style="color:#B89A6A;">$150 <span style="color:#8899bb;">/ session</span></div>
           <button class="btn-book-now" style="background:#B89A6A;color:#0a1628;" onclick="openScheduling('Action Shot Session')">Book Now</button>
           <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>

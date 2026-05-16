@@ -781,8 +781,9 @@ function loadCloudinaryFolder(g, idx, card){
         if(g.pixiesetUrl){
           var dlBtn = document.createElement('button');
           dlBtn.className = 'btn-sm btn-sm-outline';
-          var isPixFree = !g.pixiesetPrice || g.pixiesetPrice === '' || g.pixiesetPrice.toUpperCase() === 'FREE' || g.pixiesetPrice === '$0' || g.pixiesetPrice === '0';
-          dlBtn.textContent = '📥 Download All' + (isPixFree ? '' : ' — '+g.pixiesetPrice);
+          var pixPrice = (g.pixiesetPrice || '').toString().trim();
+          var isPixFree = !pixPrice || pixPrice.toUpperCase() === 'FREE' || pixPrice === '$0' || pixPrice === '0';
+          dlBtn.textContent = '📥 Download All' + (isPixFree ? '' : ' — '+pixPrice);
           dlBtn.style.cssText = 'text-align:center;';
           (function(gallery, isFree){
             dlBtn.onclick = function(){
@@ -939,7 +940,9 @@ window.publishCloudinaryGallery = async function(){
   var expiry = document.getElementById('galleryExpiry').value;
   var pictime = document.getElementById('pictimeUrl') ? document.getElementById('pictimeUrl').value.trim() : '';
   var pixieset = document.getElementById('pixiesetUrl') ? document.getElementById('pixiesetUrl').value.trim() : '';
-  var pixiesetPrice = document.getElementById('pixiesetPrice') ? document.getElementById('pixiesetPrice').value.trim() : '';
+  var pixiesetPriceRaw = document.getElementById('pixiesetPrice') ? document.getElementById('pixiesetPrice').value.trim() : '';
+  // Strip accidental URLs from price field
+  var pixiesetPrice = (pixiesetPriceRaw.startsWith('http') || pixiesetPriceRaw.includes('/')) ? '' : pixiesetPriceRaw;
   if(!name){ window.showToast('Please enter a gallery name'); return; }
   if(!folder){ window.showToast('Please enter the Cloudinary folder name'); return; }
   var ds = date ? new Date(date+'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : 'Recently';

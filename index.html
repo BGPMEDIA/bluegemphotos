@@ -723,7 +723,7 @@ function loadCloudinaryFolder(g, idx, card){
         var viewBtn = document.createElement('button');
         viewBtn.className = 'btn-sm btn-sm-gold';
         viewBtn.textContent = 'View Gallery';
-        (function(gallery, res){ viewBtn.onclick = function(){ 
+        (function(gallery, res){ viewBtn.onclick = async function(){ 
           if(gallery.password && gallery.password.trim() !== ''){
             var entered = prompt('This gallery is private. Please enter the password:');
             if(entered === null) return; // cancelled
@@ -758,14 +758,17 @@ function loadCloudinaryFolder(g, idx, card){
           printBtn.textContent = '🖨 Order Prints';
           printBtn.style.cssText = 'text-align:center;';
           (function(gallery){
-            printBtn.onclick = function(){
-              if(gallery.password && gallery.password.trim() !== ''){
+            printBtn.onclick = async function(){
+              if(gallery.hasPassword){
                 var entered = prompt('This gallery is private. Please enter the password:');
                 if(entered === null) return;
-                if(entered.trim() !== gallery.password.trim()){
-                  window.showToast('Incorrect password');
-                  return;
-                }
+                var vRes = await fetch('/api/galleries?action=verify', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ id: gallery.id, password: entered })
+                });
+                var vData = await vRes.json();
+                if(!vData.verified){ window.showToast('Incorrect password'); return; }
               }
               var a = document.createElement('a');
               a.href = gallery.pictimeUrl;
@@ -786,14 +789,17 @@ function loadCloudinaryFolder(g, idx, card){
           dlBtn.textContent = '📥 Download All' + (isPixFree ? '' : ' — '+pixPrice);
           dlBtn.style.cssText = 'text-align:center;';
           (function(gallery, isFree){
-            dlBtn.onclick = function(){
-              if(gallery.password && gallery.password.trim() !== ''){
+            dlBtn.onclick = async function(){
+              if(gallery.hasPassword){
                 var entered = prompt('This gallery is private. Please enter the password:');
                 if(entered === null) return;
-                if(entered.trim() !== gallery.password.trim()){
-                  window.showToast('Incorrect password');
-                  return;
-                }
+                var vRes = await fetch('/api/galleries?action=verify', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ id: gallery.id, password: entered })
+                });
+                var vData = await vRes.json();
+                if(!vData.verified){ window.showToast('Incorrect password'); return; }
               }
               if(isFree){
                 var a = document.createElement('a');

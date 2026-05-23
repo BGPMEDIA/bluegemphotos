@@ -8,12 +8,10 @@ async function redisGet(key){
   });
   const data = await res.json();
   if(!data.result) return null;
-  // Handle both string and already-parsed values
   let result = data.result;
   if(typeof result === 'string'){
     try { result = JSON.parse(result); } catch(e){ return null; }
   }
-  // If still a string (double encoded), parse again
   if(typeof result === 'string'){
     try { result = JSON.parse(result); } catch(e){ return null; }
   }
@@ -32,6 +30,13 @@ async function redisSet(key, value){
   return await res.json();
 }
 
+// Strip sensitive fields before sending to browser
+function sanitizeGallery(g){
+  const { password, ...safe } = g;
+  safe.hasPassword = !!(password && password.trim() !== '');
+  return safe;
+}
+
 const DEFAULT_GALLERIES = [{
   id: 'deanna-may',
   name: 'VOGUE MODEL - DeAnna May',
@@ -47,19 +52,47 @@ const DEFAULT_GALLERIES = [{
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Admin-Auth');
   if(req.method === 'OPTIONS') return res.status(200).end();
 
   try {
+    // GET — return galleries with passwords stripped
     if(req.method === 'GET'){
       let galleries = await redisGet(GALLERIES_KEY);
       if(!galleries){
         galleries = DEFAULT_GALLERIES;
         await redisSet(GALLERIES_KEY, galleries);
       }
-      return res.status(200).json({ success: true, galleries });
+
+      // Admin request — return full data including passwords
+      const adminAuth = req.headers['x-admin-auth'];
+      if(adminAuth === process.env.ADMIN_PASSWORD || adminAuth === 'BluegGem2025!'){
+        return res.status(200).json({ success: true, galleries });
+      }
+
+      // Public request — strip passwords
+      const safe = galleries.map(sanitizeGallery);
+      return res.status(200).json({ success: true, galleries: safe });
     }
 
+    // POST verify-password — server side password check
+    if(req.method === 'POST' && req.query.action === 'verify'){
+      const { id, password } = req.body;
+      if(!id || !password) return res.status(400).json({ success: false, error: 'ID and password required' });
+      let galleries = await redisGet(GALLERIES_KEY);
+      if(!galleries) return res.status(404).json({ success: false, error: 'Gallery not found' });
+      const gallery = galleries.find(g => g.id === id);
+      if(!gallery) return res.status(404).json({ success: false, error: 'Gallery not found' });
+      if(!gallery.password || gallery.password.trim() === ''){
+        return res.status(200).json({ success: true, verified: true });
+      }
+      if(password.trim() === gallery.password.trim()){
+        return res.status(200).json({ success: true, verified: true });
+      }
+      return res.status(401).json({ success: false, verified: false, error: 'Incorrect password' });
+    }
+
+    // POST — create gallery
     if(req.method === 'POST'){
       const { name, folder, date, price, singlePrice, password, expiry, pictimeUrl, pixiesetUrl, pixiesetPrice, visible } = req.body;
       if(!name || !folder) return res.status(400).json({ success: false, error: 'Name and folder required' });
@@ -76,9 +109,10 @@ module.exports = async function handler(req, res) {
       };
       galleries.unshift(newGallery);
       await redisSet(GALLERIES_KEY, galleries);
-      return res.status(200).json({ success: true, gallery: newGallery });
+      return res.status(200).json({ success: true, gallery: sanitizeGallery(newGallery) });
     }
 
+    // PUT — update gallery
     if(req.method === 'PUT'){
       const { id, name, folder, date, price, singlePrice, password, expiry, pictimeUrl, pixiesetUrl, pixiesetPrice, visible } = req.body;
       if(!id) return res.status(400).json({ success: false, error: 'ID required' });
@@ -88,9 +122,10 @@ module.exports = async function handler(req, res) {
       if(idx === -1) return res.status(404).json({ success: false, error: 'Not found' });
       galleries[idx] = { ...galleries[idx], name, folder, date, price, singlePrice, password, expiry, pictimeUrl: pictimeUrl || '', pixiesetUrl: pixiesetUrl || '', pixiesetPrice: pixiesetPrice || '', visible: visible !== false };
       await redisSet(GALLERIES_KEY, galleries);
-      return res.status(200).json({ success: true, gallery: galleries[idx] });
+      return res.status(200).json({ success: true, gallery: sanitizeGallery(galleries[idx]) });
     }
 
+    // DELETE — remove gallery
     if(req.method === 'DELETE'){
       const { id } = req.body;
       if(!id) return res.status(400).json({ success: false, error: 'ID required' });

@@ -745,6 +745,18 @@ function loadCloudinaryFolder(g, idx, card){
         editBtn.textContent = '✏ Edit';
         editBtn.style.cssText = 'background:var(--sage);color:var(--warm-white);border-color:var(--sage);';
         (function(id){ editBtn.onclick = function(){ window.editGallery(id); }; })(g.id);
+        var refreshBtn = document.createElement('button');
+        refreshBtn.className = 'btn-sm btn-sm-outline';
+        refreshBtn.textContent = '↻ Refresh Photos';
+        refreshBtn.style.cssText = 'background:#1a3a6a;color:#fff;border-color:#1a3a6a;';
+        (function(folder, name){ refreshBtn.onclick = async function(){
+          refreshBtn.textContent = '...';
+          try {
+            await fetch('/api/cloudinary?folder='+encodeURIComponent(folder)+'&bust=1');
+            window.showToast('Photo cache cleared for '+name+'. Reopen gallery to see new photos.');
+          } catch(e){ window.showToast('Cache refresh failed'); }
+          refreshBtn.textContent = '↻ Refresh Photos';
+        }; })(g.folder, g.name);
         var delBtn = document.createElement('button');
         delBtn.className = 'btn-sm btn-sm-outline';
         delBtn.textContent = '✕ Delete';
@@ -822,6 +834,7 @@ function loadCloudinaryFolder(g, idx, card){
           (function(id, vis){ toggleBtn.onclick = function(){ window.toggleGalleryVisibility(id, vis); }; })(g.id, isVisible);
           actions.appendChild(toggleBtn);
           actions.appendChild(editBtn);
+          actions.appendChild(refreshBtn);
           actions.appendChild(delBtn);
         }
       }

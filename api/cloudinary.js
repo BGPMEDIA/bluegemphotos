@@ -44,6 +44,7 @@ function fetchFromCloudinary(cloudName, apiKey, apiSecret, folder){
     const auth = Buffer.from(apiKey + ':' + apiSecret).toString('base64');
     const searchBody = JSON.stringify({
       expression: 'asset_folder="' + folder + '"',
+      sort_by: [{ created_at: 'asc' }],
       max_results: 500
     });
     const options = {

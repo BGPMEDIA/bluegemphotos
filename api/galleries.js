@@ -94,7 +94,7 @@ module.exports = async function handler(req, res) {
 
     // POST — create gallery
     if(req.method === 'POST'){
-      const { name, folder, date, price, singlePrice, password, expiry, pictimeUrl, pixiesetUrl, pixiesetPrice, visible } = req.body;
+      const { name, folder, date, price, singlePrice, password, expiry, pictimeUrl, pixiesetUrl, pixiesetPrice, cover, tagline, visible } = req.body;
       if(!name || !folder) return res.status(400).json({ success: false, error: 'Name and folder required' });
       let galleries = await redisGet(GALLERIES_KEY);
       if(!galleries) galleries = [...DEFAULT_GALLERIES];
@@ -104,6 +104,8 @@ module.exports = async function handler(req, res) {
         pictimeUrl: pictimeUrl || '',
         pixiesetUrl: pixiesetUrl || '',
         pixiesetPrice: pixiesetPrice || '',
+        cover: cover || '',
+        tagline: tagline || '',
         visible: visible !== false,
         createdAt: new Date().toISOString() 
       };
@@ -114,13 +116,13 @@ module.exports = async function handler(req, res) {
 
     // PUT — update gallery
     if(req.method === 'PUT'){
-      const { id, name, folder, date, price, singlePrice, password, expiry, pictimeUrl, pixiesetUrl, pixiesetPrice, visible } = req.body;
+      const { id, name, folder, date, price, singlePrice, password, expiry, pictimeUrl, pixiesetUrl, pixiesetPrice, cover, tagline, visible } = req.body;
       if(!id) return res.status(400).json({ success: false, error: 'ID required' });
       let galleries = await redisGet(GALLERIES_KEY);
       if(!galleries) galleries = [...DEFAULT_GALLERIES];
       const idx = galleries.findIndex(g => g.id === id);
       if(idx === -1) return res.status(404).json({ success: false, error: 'Not found' });
-      galleries[idx] = { ...galleries[idx], name, folder, date, price, singlePrice, password, expiry, pictimeUrl: pictimeUrl || '', pixiesetUrl: pixiesetUrl || '', pixiesetPrice: pixiesetPrice || '', visible: visible !== false };
+      galleries[idx] = { ...galleries[idx], name, folder, date, price, singlePrice, password, expiry, pictimeUrl: pictimeUrl || '', pixiesetUrl: pixiesetUrl || '', pixiesetPrice: pixiesetPrice || '', cover: cover || '', tagline: tagline || '', visible: visible !== false };
       await redisSet(GALLERIES_KEY, galleries);
       return res.status(200).json({ success: true, gallery: sanitizeGallery(galleries[idx]) });
     }

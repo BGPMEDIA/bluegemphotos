@@ -676,19 +676,34 @@ function renderGalleryCards(){
     card.className = 'gallery-card';
     // Dim hidden galleries in admin view
     if(isAdminMode && g.visible === false) card.style.opacity = '0.45';
-    // Fetch first photo from Cloudinary to use as thumb
-    var thumbUrl = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,h_220,c_fill,q_auto,f_auto/'+encodeURIComponent(g.folder)+'/';
     var info = document.createElement('div');
-    info.innerHTML =
-      '<div class="gallery-thumb" style="background:var(--espresso);overflow:hidden;position:relative">' +
-        '<div id="gthumb-'+idx+'" style="width:100%;height:220px;display:grid;grid-template-columns:1fr 1fr;gap:2px"></div>' +
-        '<span class="gallery-wm-badge">&#128274; Watermarked</span>' +
-      '</div>' +
-      '<div class="gallery-info">' +
-        '<h3>'+g.name+'</h3>' +
-        '<p class="gallery-meta">'+g.date+' &middot; Loading photos...</p>' +
-        '<div class="gallery-actions"></div>' +
-      '</div>';
+
+    // Use cover photo if set, otherwise use 4-photo grid
+    if(g.cover && g.cover.trim() !== ''){
+      var coverUrl = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,h_280,c_fill,g_face,q_auto,f_auto/'+g.cover.trim();
+      info.innerHTML =
+        '<div class="gallery-thumb" style="background:var(--espresso);overflow:hidden;position:relative">' +
+          '<img src="'+coverUrl+'" style="width:100%;height:280px;object-fit:cover;display:block;">' +
+          (g.tagline ? '<div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(18,14,10,.85));padding:1.2rem 1rem .8rem;"><p style="font-family:\'Cormorant Garamond\',serif;font-size:1rem;font-style:italic;color:rgba(247,243,238,.9);letter-spacing:.04em;margin:0;">'+g.tagline+'</p></div>' : '') +
+          '<span class="gallery-wm-badge">&#128274; Watermarked</span>' +
+        '</div>' +
+        '<div class="gallery-info">' +
+          '<h3>'+g.name+'</h3>' +
+          '<p class="gallery-meta">'+g.date+' &middot; Loading photos...</p>' +
+          '<div class="gallery-actions"></div>' +
+        '</div>';
+    } else {
+      info.innerHTML =
+        '<div class="gallery-thumb" style="background:var(--espresso);overflow:hidden;position:relative">' +
+          '<div id="gthumb-'+idx+'" style="width:100%;height:220px;display:grid;grid-template-columns:1fr 1fr;gap:2px"></div>' +
+          '<span class="gallery-wm-badge">&#128274; Watermarked</span>' +
+        '</div>' +
+        '<div class="gallery-info">' +
+          '<h3>'+g.name+'</h3>' +
+          '<p class="gallery-meta">'+g.date+' &middot; Loading photos...</p>' +
+          '<div class="gallery-actions"></div>' +
+        '</div>';
+    }
     card.appendChild(info);
     grid.appendChild(card);
     // Load real photos from Cloudinary
@@ -963,6 +978,8 @@ window.publishCloudinaryGallery = async function(){
   var pixiesetPriceRaw = document.getElementById('pixiesetPrice') ? document.getElementById('pixiesetPrice').value.trim() : '';
   // Strip accidental URLs from price field
   var pixiesetPrice = (pixiesetPriceRaw.startsWith('http') || pixiesetPriceRaw.includes('/')) ? '' : pixiesetPriceRaw;
+  var cover = document.getElementById('galleryCover') ? document.getElementById('galleryCover').value.trim() : '';
+  var tagline = document.getElementById('galleryTagline') ? document.getElementById('galleryTagline').value.trim() : '';
   if(!name){ window.showToast('Please enter a gallery name'); return; }
   if(!folder){ window.showToast('Please enter the Cloudinary folder name'); return; }
   var ds = date ? new Date(date+'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : 'Recently';
@@ -972,7 +989,7 @@ window.publishCloudinaryGallery = async function(){
 
   try {
     var method = editId ? 'PUT' : 'POST';
-    var body = { name, folder, date:ds, price, singlePrice:single, password:pass, expiry, pictimeUrl:pictime, pixiesetUrl:pixieset, pixiesetPrice:pixiesetPrice };
+    var body = { name, folder, date:ds, price, singlePrice:single, password:pass, expiry, pictimeUrl:pictime, pixiesetUrl:pixieset, pixiesetPrice:pixiesetPrice, cover:cover, tagline:tagline };
     if(editId) body.id = editId;
 
     var res = await fetch('/api/galleries', {
@@ -982,7 +999,7 @@ window.publishCloudinaryGallery = async function(){
     });
     var data = await res.json();
     if(data.success){
-      ['galleryName','cloudinaryFolder','galleryDate','clientEmail','galleryPassword','galleryPrice','singlePrice','pictimeUrl','pixiesetUrl','pixiesetPrice'].forEach(function(id){
+      ['galleryName','cloudinaryFolder','galleryDate','clientEmail','galleryPassword','galleryPrice','singlePrice','pictimeUrl','pixiesetUrl','pixiesetPrice','galleryCover','galleryTagline'].forEach(function(id){
         var el = document.getElementById(id); if(el) el.value = '';
       });
       if(document.getElementById('galleryEditId')) document.getElementById('galleryEditId').value = '';
@@ -1026,6 +1043,8 @@ window.editGallery = async function(id){
   if(document.getElementById('pictimeUrl')) document.getElementById('pictimeUrl').value = g.pictimeUrl || '';
   if(document.getElementById('pixiesetUrl')) document.getElementById('pixiesetUrl').value = g.pixiesetUrl || '';
   if(document.getElementById('pixiesetPrice')) document.getElementById('pixiesetPrice').value = g.pixiesetPrice || '';
+  if(document.getElementById('galleryCover')) document.getElementById('galleryCover').value = g.cover || '';
+  if(document.getElementById('galleryTagline')) document.getElementById('galleryTagline').value = g.tagline || '';
   if(document.getElementById('galleryEditId')) document.getElementById('galleryEditId').value = id;
   document.getElementById('publishGalleryBtn').textContent = '✓ Save Changes →';
   window.showToast('Edit mode — make changes and save');
@@ -2501,10 +2520,12 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <div class="testimonial-slider">
         <div class="testimonial-slide active"><p class="testimonial-quote">&ldquo;I&rsquo;d give Rogelio TEN stars if I could! I&rsquo;ve worked with him multiple times and he never ever disappoints. He goes out of his way to ensure he gets the very best shots and is just a ton of fun to work with. His talent and professionalism are superior to any photographer out there.&rdquo;</p><p class="testimonial-author">&mdash; Yvonne Sandomir</p></div>
         <div class="testimonial-slide"><p class="testimonial-quote">&ldquo;Great photography &amp; professionalism! Always takes my shots!&rdquo;</p><p class="testimonial-author">&mdash; Taylor Londres</p></div>
+        <div class="testimonial-slide"><p class="testimonial-quote">&ldquo;Rogelio at Blue Gem Photography has captured some of our family&rsquo;s most cherished milestones&mdash;from a family portrait session to two graduation ceremonies. His work is more than photography; it&rsquo;s storytelling. With warmth, artistry, and an incredible eye for genuine moments, he creates images that feel timeless and full of life. We&rsquo;re grateful for the beautiful memories he has preserved for our family.&rdquo;</p><p class="testimonial-author">&mdash; Linda Exantus</p></div>
       </div>
       <div class="testimonial-dots">
         <button class="t-dot active" onclick="goTestimonial(0)"></button>
         <button class="t-dot" onclick="goTestimonial(1)"></button>
+        <button class="t-dot" onclick="goTestimonial(2)"></button>
       </div>
     </div>
   </section>
@@ -3366,6 +3387,8 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
             <div class="form-field"><label>Pic-Time Store URL <span style="color:var(--taupe);font-size:.7rem;letter-spacing:0;text-transform:none">(optional — enables Order Prints button)</span></label><input type="text" id="pictimeUrl" placeholder="https://bluegemproductions.pic-time.com/..."></div>
             <div class="form-field"><label>Pixieset Gallery URL <span style="color:var(--taupe);font-size:.7rem;letter-spacing:0;text-transform:none">(optional — enables Download All Photos button)</span></label><input type="text" id="pixiesetUrl" placeholder="https://...pixieset.com/..."></div>
             <div class="form-field"><label>Download All Price <span style="color:var(--taupe);font-size:.7rem;letter-spacing:0;text-transform:none">(leave blank or FREE for free download)</span></label><input type="text" id="pixiesetPrice" placeholder="FREE or e.g. $85"></div>
+            <div class="form-field"><label>Cover Photo Public ID <span style="color:var(--taupe);font-size:.7rem;letter-spacing:0;text-transform:none">(optional — Cloudinary public ID for gallery card cover)</span></label><input type="text" id="galleryCover" placeholder="e.g. 1M0A5755_ht9sfd"></div>
+            <div class="form-field"><label>Gallery Tagline <span style="color:var(--taupe);font-size:.7rem;letter-spacing:0;text-transform:none">(optional — displayed on gallery card)</span></label><input type="text" id="galleryTagline" placeholder="e.g. Family portraits · Spring 2026"></div>
             <div class="form-field">
               <label>Gallery Expiry</label>
               <select id="galleryExpiry">

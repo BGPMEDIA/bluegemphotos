@@ -753,7 +753,20 @@ function loadCloudinaryFolder(g, idx, card){
         var buyBtn = document.createElement('button');
         buyBtn.className = 'btn-sm btn-sm-outline';
         buyBtn.textContent = 'Purchase All ('+g.price+')';
-        (function(gallery){ buyBtn.onclick = function(){ window.addToCart('Full Gallery \u2014 '+gallery.name, 'All Digital Files \u2014 No Watermark', gallery.price); }; })(g);
+        (function(gallery){ buyBtn.onclick = async function(){
+          if(gallery.hasPassword){
+            var entered = prompt('This gallery is private. Please enter the password:');
+            if(entered === null) return;
+            var vRes = await fetch('/api/galleries?action=verify', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ id: gallery.id, password: entered })
+            });
+            var vData = await vRes.json();
+            if(!vData.verified){ window.showToast('Incorrect password'); return; }
+          }
+          window.addToCart('Full Gallery \u2014 '+gallery.name, 'All Digital Files \u2014 No Watermark', gallery.price);
+        }; })(g);
         var isFreeGal = !g.price || g.price === 'FREE' || g.price === '$0' || g.price === '0' || parseFloat((g.price||'').replace(/[^0-9.]/g,'')) === 0;
         if(isFreeGal) buyBtn.style.display = 'none';
         var editBtn = document.createElement('button');

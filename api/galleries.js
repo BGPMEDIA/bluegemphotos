@@ -67,7 +67,11 @@ module.exports = async function handler(req, res) {
       // Admin request — return full data including passwords
       const adminAuth = req.headers['x-admin-auth'];
       if(adminAuth === process.env.ADMIN_PASSWORD || adminAuth === 'BluegGem2025!'){
-        return res.status(200).json({ success: true, galleries });
+        const adminGalleries = galleries.map(g => ({
+          ...g,
+          hasPassword: !!(g.password && g.password.trim() !== '')
+        }));
+        return res.status(200).json({ success: true, galleries: adminGalleries });
       }
 
       // Public request — strip passwords

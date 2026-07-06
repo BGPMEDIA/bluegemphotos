@@ -1654,7 +1654,7 @@ var schedServices=[
   {num:'04',name:'Wedding Day',rate:4500,perHour:false,desc:'Ceremony to full-day coverage. Three tiers available from $4,500.'},
   {num:'05',name:'Bridal Portrait Session',rate:750,perHour:false,desc:'2-hour session exclusively for the bride. Before the vows, before the chaos.'},
   {num:'06',name:'Commercial & Brand',rate:395,perHour:true,desc:'Hourly rate for business, product, and personal brand shoots.'},
-  {num:'07',name:'Fashion Photography',rate:3000,perHour:false,desc:'Editorial and lifestyle fashion sessions. Half or full day available.'},
+  {num:'07',name:'Fashion Photography',rate:5000,perHour:false,desc:'Editorial and lifestyle fashion sessions. Half or full day available.'},
   {num:'08',name:'Action Shot Session',rate:650,perHour:false,desc:'1-hour track & field session at Ansin Sports Complex. Available 3:00 PM – 7:00 PM. 3 edited images.'},
   {num:'09',name:'Prom Portrait Session',rate:700,perHour:false,desc:'Elegant prom portraits at your home. 5 edited images, 3-5 day turnaround.'},
 ];
@@ -1929,7 +1929,7 @@ window.showToast=function(msg){
 // BOOKING PAGE
 var servicePrices={
   'Mini Session':450,'Portrait Session':2000,'Family Collection':3000,
-  'Wedding Day':4500,'Commercial & Brand':1500,'Fashion Photography':3000,'Action Shot Session':650,'Prom Portrait Session':700
+  'Wedding Day':4500,'Commercial & Brand':1500,'Fashion Photography':5000,'Action Shot Session':650,'Prom Portrait Session':700
 };
 var selectedDeposit='half';
 window.selectDeposit=function(type){
@@ -2480,7 +2480,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <div class="service-card"><div class="service-num">04</div><div class="service-name">Wedding Day</div><p class="service-desc">Full-day wedding coverage from getting ready through the last dance. Your entire story, beautifully told.</p><div class="service-price">From $4,500 <span>/ ceremony</span></div><ul class="service-includes"><li>Ceremony — up to 4 hrs · $4,500</li><li>Classic — up to 8 hrs · $6,500</li><li>Full Story — up to 10 hrs · $8,500</li><li>Full watermarked proof gallery</li><li>30 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Engagement session included (Classic+)</li></ul><a href="#" class="service-learn" onclick="showPage('svc-wedding');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">05</div><div class="service-name">Commercial &amp; Brand</div><p class="service-desc">From a single polished headshot to a full brand campaign — this service covers the complete spectrum of professional imagery. Corporate headshots, personal brand sessions, product photography, lifestyle campaigns, and executive portraits all live here. Scope and pricing determined during consultation.</p><div class="service-price">From $1,500 <span>/ consultation</span></div><ul class="service-includes"><li>Corporate headshots &amp; executive portraits</li><li>Personal brand &amp; entrepreneur sessions</li><li>Product &amp; lifestyle photography</li><li>Full commercial license included</li><li>Mood board consultation</li></ul><a href="#" class="service-learn" onclick="showPage('svc-commercial');return false;">View Details &rarr;</a></div>
       <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">06</div><div class="service-name">Bridal Portrait Session</div><p class="service-desc">Two unhurried hours dedicated entirely to you — your gown, your beauty, your story. Before the vows. Before the chaos.</p><div class="service-price">$3,000 <span>/ session</span></div><ul class="service-includes"><li>2-hour studio session</li><li>Exclusively about the bride</li><li>Full watermarked proof gallery</li><li>8 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Private gallery delivery</li><li>Fine art print options available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-bridal');return false;">View Details &rarr;</a></div>
-      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">07</div><div class="service-name">Fashion Photography</div><p class="service-desc">Editorial-grade fashion sessions for models, designers, and brands. Magazine-ready imagery with a cinematic eye.</p><div class="service-price">$3,000 <span>/ half day</span></div><ul class="service-includes"><li>4 or 8-hour session</li><li>Creative consultation & mood board</li><li>Full watermarked proof gallery</li><li>15 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Full commercial license</li><li>Multi-location shoots available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-fashion');return false;">View Details &rarr;</a></div>
+      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">07</div><div class="service-name">Fashion Photography</div><p class="service-desc">Editorial-grade fashion sessions for models, designers, and brands. Magazine-ready imagery with a cinematic eye.</p><div class="service-price">$5,000 <span>/ half day</span></div><ul class="service-includes"><li>4 or 8-hour session</li><li>Creative consultation & mood board</li><li>Full watermarked proof gallery</li><li>15 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Full commercial license</li><li>Multi-location shoots available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-fashion');return false;">View Details &rarr;</a></div>
       <div class="service-card" id="action-shot-card" style="background:#0a1628;border-top:3px solid #B89A6A;border:1px solid #1a2d4a;border-top:3px solid #B89A6A;">
         <div class="service-num" style="color:#B89A6A;">08</div>
         <div class="service-name" style="color:#f0f4ff;">Action Shot Session</div>
@@ -2638,7 +2638,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <h2>You Might Also Love</h2>
       <div class="svc-related-grid">
         <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $2,000</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $3,000</div></a>
+        <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $5,000</div></a>
         
       </div>
     </div>
@@ -2720,7 +2720,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <h2>You Might Also Love</h2>
       <div class="svc-related-grid">
         <a href="#" class="svc-related-card" onclick="showPage('svc-mini');return false;"><div class="svc-related-num">01</div><div class="svc-related-name">Mini Session</div><div class="svc-related-price">Starting at $450</div></a>
-        <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $3,000</div></a>
+        <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $5,000</div></a>
         
       </div>
     </div>
@@ -2736,7 +2736,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <a href="#" class="svc-back" onclick="showPage('home');return false;">&#8592; Back to Services</a>
       <div class="svc-hero-num">03</div>
       <h1 class="svc-hero-title">Family <em>Collection</em></h1>
-      <div class="svc-hero-price">Starting at $3,000</div>
+      <div class="svc-hero-price">Starting at $5,000</div>
     </div>
   </div>
   <div style="background:var(--warm-white)">
@@ -2914,7 +2914,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <div class="svc-related-grid">
         <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $2,000</div></a>
         
-        <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $3,000</div></a>
+        <a href="#" class="svc-related-card" onclick="showPage('svc-family');return false;"><div class="svc-related-num">03</div><div class="svc-related-name">Family Collection</div><div class="svc-related-price">Starting at $5,000</div></a>
       </div>
     </div>
   </div>
@@ -3061,7 +3061,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
     <div class="svc-related-grid">
       <a href="#" class="svc-related-card" onclick="showPage('svc-portrait');return false;"><div class="svc-related-num">02</div><div class="svc-related-name">Portrait Session</div><div class="svc-related-price">Starting at $2,000</div></a>
       <a href="#" class="svc-related-card" onclick="showPage('svc-mini');return false;"><div class="svc-related-num">01</div><div class="svc-related-name">Mini Session</div><div class="svc-related-price">Starting at $450</div></a>
-      <a href="#" class="svc-related-card" onclick="showPage('svc-bridal');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Bridal Portrait</div><div class="svc-related-price">Starting at $3,000</div></a>
+      <a href="#" class="svc-related-card" onclick="showPage('svc-bridal');return false;"><div class="svc-related-num">06</div><div class="svc-related-name">Bridal Portrait</div><div class="svc-related-price">Starting at $5,000</div></a>
     </div>
   </div>
 </div>
@@ -3146,7 +3146,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
       <div class="svc-hero-content" style="position:relative;z-index:2;">
         <p class="svc-hero-eyebrow">Service 07</p>
         <h1 class="svc-hero-title">Bridal <em>Portrait</em> Session</h1>
-        <div class="svc-hero-price">Starting at $3,000</div>
+        <div class="svc-hero-price">Starting at $5,000</div>
       </div>
     </div>
     <div style="background:var(--cream);padding:.8rem 4rem;border-bottom:1px solid var(--stone);">
@@ -3480,7 +3480,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
                 <option value="Family Collection">Family Collection - $3,000</option>
                 <option value="Wedding Day">Wedding Day - From $4,500</option>
                 <option value="Commercial & Brand">Commercial &amp; Brand - $1,400</option>
-                <option value="Fashion Photography">Fashion Photography - $3,000+</option>
+                <option value="Fashion Photography">Fashion Photography - $5,000+</option>
                 <option value="Action Shot Session">Action Shot Session - $650</option>
                 <option value="Prom Portrait Session">Prom Portrait Session - $700</option>
               </select>

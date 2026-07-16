@@ -1866,7 +1866,23 @@ function updateSchedTabs(){
   if(schedStep===3){
     // Show headshot tier selector only for Headshot Session
     var tierWrap = document.getElementById('headshot-tier-wrap');
-    if(tierWrap) tierWrap.style.display = schedData.service === 'Headshot Session' ? '' : 'none';
+    if(tierWrap){
+      if(schedData.service === 'Headshot Session'){
+        tierWrap.style.display = '';
+        // Reset tier selection if no tier chosen yet
+        if(!schedData.headshotRate){
+          document.querySelectorAll('.headshot-tier').forEach(function(t){
+            t.style.border = '1.5px solid var(--stone)';
+            t.style.background = '';
+          });
+        }
+      } else {
+        tierWrap.style.display = 'none';
+        schedData.headshotRate = null;
+        schedData.headshotTier = null;
+      }
+    }
+    applyDepositRules();
   }
   if(schedStep===4){ applyDepositRules(); }
 }
@@ -1908,6 +1924,11 @@ window.schedNext=function(){
     if(ph)schedData.phone=ph.value.trim();
     if(lo)schedData.location=lo.value.trim();
     if(no)schedData.notes=no.value.trim();
+    // Validate headshot tier selection
+    if(schedData.service === 'Headshot Session' && !schedData.headshotRate){
+      window.showToast('Please select a headshot package');
+      return;
+    }
     if(!schedData.name||!schedData.email){window.showToast('Please enter your name and email');return;}
   }
   if(schedStep<4){schedStep++;updateSchedTabs();updateOrderSummary();window.scrollTo(0,0);}

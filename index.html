@@ -1657,6 +1657,7 @@ var schedServices=[
   {num:'07',name:'Fashion Photography',rate:7500,perHour:false,desc:'Editorial and lifestyle fashion sessions. Half or full day available.'},
   {num:'08',name:'Action Shot Session',rate:250,perHour:false,desc:'1-hour track & field session at Ansin Sports Complex. Available 3:00 PM – 7:00 PM. 3 edited images.'},
   {num:'09',name:'Prom Portrait Session',rate:350,perHour:false,desc:'Elegant prom portraits at your home. 5 edited images, 3-5 day turnaround.'},
+  {num:'10',name:'Headshot Session',rate:295,perHour:false,desc:'Professional headshots for individuals, executives, and teams. Fast turnaround.'},
 ];
 
 window.openScheduling=function(preselect){
@@ -1929,7 +1930,7 @@ window.showToast=function(msg){
 // BOOKING PAGE
 var servicePrices={
   'Mini Session':395,'Portrait Session':1550,'Family Collection':1750,
-  'Wedding Day':2800,'Commercial & Brand':1395,'Fashion Photography':7500,'Action Shot Session':250,'Prom Portrait Session':350
+  'Wedding Day':2800,'Commercial & Brand':1395,'Fashion Photography':7500,'Action Shot Session':250,'Prom Portrait Session':350,'Headshot Session':295
 };
 var selectedDeposit='half';
 window.selectDeposit=function(type){
@@ -3245,7 +3246,56 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 </div>
 
 <!-- SVC 08: FASHION PHOTOGRAPHY -->
-<div class="page" id="page-svc-fashion">
+<div class="page" id="page-svc-headshot">
+  <div class="svc-hero" style="background:linear-gradient(135deg,#1a1410 0%,#2d2520 100%);background-image:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_1600,h_900,c_fill,g_face,q_auto,f_auto/24_wj1rw0.jpg');background-size:cover;background-position:center;">
+    <div class="svc-hero-inner" style="background:linear-gradient(to right,rgba(18,14,10,.85) 50%,transparent 100%);padding:4rem;">
+      <div class="svc-label">Service 10</div>
+      <h1 class="svc-hero-title">Headshot <em>Sessions</em></h1>
+      <p class="svc-hero-sub">Clean. Confident. Professional.</p>
+      <div class="svc-hero-price">From $295 <span>/ session</span></div>
+    </div>
+  </div>
+  <div style="background:var(--warm-white)">
+    <div class="svc-body">
+      <div class="svc-details">
+        <h2>The first impression that works for you.</h2>
+        <p>Your headshot is the most viewed photo you own. It lives on LinkedIn, your website, your email signature, your company page, and every platform where someone decides whether to trust you before they meet you. It deserves to be exceptional.</p>
+        <p>Whether you're an executive, entrepreneur, creative professional, or building a personal brand — a great headshot communicates confidence, competence, and character in a single frame.</p>
+        <div class="svc-includes-title">Packages</div>
+        <ul class="svc-includes-list">
+          <li><strong>Individual</strong> — 30 min · 2 edited images · $295</li>
+          <li><strong>Executive</strong> — 60 min · 5 edited images · 2 looks · $550</li>
+          <li><strong>Team</strong> — Up to 5 people · 2 images each · $995</li>
+          <li><strong>Corporate Day Rate</strong> — Full office · unlimited team · $2,500</li>
+          <li>Additional retouched images — $20/image</li>
+          <li>3–5 business day turnaround from photo selection</li>
+          <li>Private online gallery delivery</li>
+          <li>Full digital download rights included</li>
+        </ul>
+      </div>
+      <div>
+        <div class="svc-booking">
+          <h3>Book Your Session</h3>
+          <p>Available on location at your office or a selected outdoor/studio location.</p>
+          <div class="price-big">From $295 <span>/ session</span></div>
+          <button class="btn-book-now" onclick="openScheduling('Headshot Session')">Book Now</button>
+          <button class="btn-chat-us" onclick="if(window.HubSpotConversations)HubSpotConversations.widget.open()">Chat With Us</button>
+          <div style="margin-top:.8rem;padding:.8rem 1rem;background:rgba(59,48,40,.06);border-left:2px solid var(--taupe);">
+            <p style="font-size:.78rem;color:var(--stone);line-height:1.7;">⚠️ All payments are non-refundable.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="svc-faq">
+    <h2>Frequently Asked <em style="font-style:italic;color:var(--gold)">Questions</em></h2>
+    <div class="faq-item"><div class="faq-q">Where are headshot sessions held?</div><div class="faq-a">Sessions can be held at your office, an outdoor location, or a studio setting. Travel within Broward County is included. Additional travel fees may apply outside the area.</div></div>
+    <div class="faq-item"><div class="faq-q">What should I wear?</div><div class="faq-a">Solid colors photograph best. Avoid busy patterns and overly casual clothing. Business professional or business casual attire is recommended. Bring multiple options if possible.</div></div>
+    <div class="faq-item"><div class="faq-q">How long does the session take?</div><div class="faq-a">Individual sessions run 30 minutes. Executive sessions run 60 minutes. Team and corporate sessions are scheduled based on the number of team members.</div></div>
+    <div class="faq-item"><div class="faq-q">Can I get headshots for my entire team?</div><div class="faq-a">Absolutely. The Corporate Day Rate covers your entire team in one visit. Contact us to schedule and discuss logistics for larger groups.</div></div>
+    <div class="faq-item"><div class="faq-q">How soon will I receive my photos?</div><div class="faq-a">Edited images are delivered to your private gallery within 3–5 business days of your photo selection.</div></div>
+  </div>
+</div>
   <div class="svc-hero" style="background:url('https://res.cloudinary.com/dfqouxke9/image/upload/w_1600,h_900,c_fill,g_auto,q_auto,f_auto/FAENA_xjpbkw.jpg') center/cover no-repeat;position:relative;">
     <div style="position:absolute;inset:0;background:rgba(10,5,2,.45);"></div>
     <div class="svc-hero-content" style="position:relative;z-index:2;">

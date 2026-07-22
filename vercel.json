@@ -1,5 +1,13 @@
 {
   "version": 2,
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "bluegemphotos.com" }],
+      "destination": "https://www.bluegemphotos.com/$1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",

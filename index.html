@@ -1253,7 +1253,7 @@ function lbLoadImage(publicId, gallery){
   var thumbUrl = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_120,h_120,c_fill,q_auto,f_auto/'+publicId;
   var img = document.getElementById('lightboxImg');
   img.src = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_1200,q_auto,f_auto/'+publicId;
-  var isFree = !gallery.singlePrice || gallery.singlePrice === 'FREE' || gallery.singlePrice === '$0' || gallery.singlePrice === '0' || parseFloat((gallery.singlePrice||'').replace(/[^0-9.]/g,'')) === 0;
+  var isFree = !gallery.singlePrice || gallery.singlePrice === 'FREE' || gallery.singlePrice === '$0' || gallery.singlePrice === '0' || parseFloat((gallery.singlePrice||'').replace(/[^0-9.]/g,'')) === 0 || !gallery.price || gallery.price === 'FREE' || gallery.price === '$0' || gallery.price === '0' || parseFloat((gallery.price||'').replace(/[^0-9.]/g,'')) === 0;
   var lbWm = document.querySelector('.lightbox-wm');
   if(lbWm) lbWm.style.display = isFree ? 'none' : '';
   var lbBuyBtn = document.getElementById('lbBuyBtn');
@@ -1273,6 +1273,8 @@ function lbLoadImage(publicId, gallery){
     window.showToast('Photo added to cart');
     closeLightbox();
   };
+  var lbPrintBtn = document.getElementById('lbPrintBtn');
+  if(lbPrintBtn) lbPrintBtn.style.display = (gallery && gallery.pictimeUrl && !isFree) ? '' : 'none';
   document.getElementById('lbPrintBtn').onclick = function(){
     if(gallery && gallery.pictimeUrl){
       window.open(gallery.pictimeUrl,'_blank');

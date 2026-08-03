@@ -779,7 +779,7 @@ function loadCloudinaryFolder(g, idx, card){
           }
           window.addToCart('Full Gallery \u2014 '+gallery.name, 'All Digital Files \u2014 No Watermark', gallery.price);
         }; })(g);
-        var isFreeGal = !g.price || g.price === 'FREE' || g.price === '$0' || g.price === '0' || parseFloat((g.price||'').replace(/[^0-9.]/g,'')) === 0;
+        var isFreeGal = !g.price || g.price === 'FREE' || g.price === '$0' || g.price === '0' || parseFloat((g.price||'').replace(/[^0-9.]/g,'')) === 0 || !g.singlePrice || g.singlePrice === 'FREE' || g.singlePrice === '$0' || g.singlePrice === '0' || parseFloat((g.singlePrice||'').replace(/[^0-9.]/g,'')) === 0;
         if(isFreeGal) buyBtn.style.display = 'none';
         var editBtn = document.createElement('button');
         editBtn.className = 'btn-sm btn-sm-outline';
@@ -805,7 +805,7 @@ function loadCloudinaryFolder(g, idx, card){
         (function(id){ delBtn.onclick = function(){ window.deleteGallery(id); }; })(g.id);
         actions.appendChild(viewBtn);
         actions.appendChild(buyBtn);
-        if(g.pictimeUrl){
+        if(g.pictimeUrl && !isFreeGal){
           var printBtn = document.createElement('button');
           printBtn.className = 'btn-sm btn-sm-outline';
           printBtn.textContent = '🖨 Order Prints';

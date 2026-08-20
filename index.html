@@ -589,7 +589,7 @@ async function loadFeaturedGallery(){
   var loader = document.getElementById('featuredGalleryLoader');
   if(!grid) return;
   try {
-    var res = await fetch('/api/cloudinary?folder=' + encodeURIComponent('FASHION RUNWAY PHOTOS'));
+    var res = await fetch('/api/cloudinary?folder=' + encodeURIComponent('home/FASHION RUNWAY PHOTOS'));
     if(!res.ok) throw new Error('Failed to load');
     var data = await res.json();
     if(!data.photos || data.photos.length === 0){

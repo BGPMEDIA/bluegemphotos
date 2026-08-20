@@ -609,7 +609,7 @@ async function loadFeaturedGallery(){
     'MIA_FASH_WK_Day_1_11_ko0gac'
   ];
 
-  if(loader) loader.style.display = 'none';
+  if(loader){ loader.style.display = 'none'; loader.textContent = ''; }
 
   var lbUrls = ids.map(function(id){
     return 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_1200,q_auto,f_auto/'+id+'.jpg';
@@ -636,18 +636,8 @@ async function loadFeaturedGallery(){
 
 // Initialize featured gallery on page load
 document.addEventListener('DOMContentLoaded', function(){ 
-  loadFeaturedGallery();
+  setTimeout(function(){ loadFeaturedGallery(); }, 500);
 });
-
-// Also trigger when switching to galleries tab
-var origSwitchTab = window.switchTab;
-window.switchTab = function(tab, btn){
-  if(typeof origSwitchTab === 'function') origSwitchTab(tab, btn);
-  if(tab === 'galleries'){
-    var grid = document.getElementById('featuredGalleryGrid');
-    if(grid && grid.children.length === 0) loadFeaturedGallery();
-  }
-};
 var secretKeys = {};
 document.addEventListener('keydown', function(e){
   secretKeys[e.key] = true;

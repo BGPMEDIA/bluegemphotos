@@ -583,7 +583,46 @@ var CLOUD_NAME = 'dfqouxke9';
 // Gallery data store (persists via Vercel KV API)
 var galleryStore = [];
 
-// Secret admin button reveal — press Shift+B+G+P together
+// Load featured gallery from Cloudinary folder
+async function loadFeaturedGallery(){
+  var grid = document.getElementById('featuredGalleryGrid');
+  var loader = document.getElementById('featuredGalleryLoader');
+  if(!grid) return;
+  try {
+    var res = await fetch('/api/cloudinary?folder=FASHION%20RUNWAY%20PHOTOS');
+    if(!res.ok) throw new Error('Failed to load');
+    var data = await res.json();
+    if(!data.resources || data.resources.length === 0){
+      if(loader) loader.textContent = 'No photos available.';
+      return;
+    }
+    if(loader) loader.style.display = 'none';
+    var imgs = data.resources;
+    imgs.forEach(function(img, idx){
+      var thumbUrl = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,h_400,c_fill,g_auto,q_auto,f_auto/'+img.public_id+'.jpg';
+      var div = document.createElement('div');
+      div.style.cssText = 'aspect-ratio:1;overflow:hidden;cursor:pointer;position:relative;';
+      div.innerHTML = '<img src="'+thumbUrl+'" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;" onmouseover="this.style.transform=\'scale(1.05)\'" onmouseout="this.style.transform=\'scale(1)\'">';
+      div.onclick = (function(publicId, allImgs, i){
+        return function(){
+          var urls = allImgs.map(function(r){ return 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_1200,q_auto,f_auto/'+r.public_id+'.jpg'; });
+          lbCarouselImages = urls;
+          lbCarouselIndex = i;
+          currentLightboxGallery = { name: 'Fashion Runway', pictimeUrl: '', singlePrice: 'FREE', price: 'FREE' };
+          lbLoadImage(publicId+'.jpg', currentLightboxGallery);
+          document.getElementById('lightbox').style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        };
+      })(img.public_id, imgs, idx);
+      grid.appendChild(div);
+    });
+  } catch(e) {
+    if(loader) loader.textContent = 'Gallery unavailable.';
+  }
+}
+
+// Initialize featured gallery on page load
+document.addEventListener('DOMContentLoaded', function(){ loadFeaturedGallery(); });
 var secretKeys = {};
 document.addEventListener('keydown', function(e){
   secretKeys[e.key] = true;
@@ -688,7 +727,16 @@ function renderGalleryCards(){
   var grid = document.getElementById('galleriesGrid');
   if(!grid) return;
   // Filter based on admin mode — public only sees visible galleries
-  var visibleGalleries = isAdminMode ? galleryStore : galleryStore.filter(function(g){ return g.visible !== false; });
+  var now = new Date();
+  var visibleGalleries = isAdminMode ? galleryStore : galleryStore.filter(function(g){
+    if(g.visible === false) return false;
+    // Check expiry
+    if(!g.expiry || g.expiry === '0') return true;
+    var galleryDate = new Date(g.createdAt || g.date);
+    var expiryDays = parseInt(g.expiry) || 60;
+    var expiryDate = new Date(galleryDate.getTime() + (expiryDays * 24 * 60 * 60 * 1000));
+    return now < expiryDate;
+  });
   if(visibleGalleries.length === 0){
     grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--taupe)">No galleries yet. Add one in the Admin tab.</div>';
     return;
@@ -699,6 +747,16 @@ function renderGalleryCards(){
     card.className = 'gallery-card';
     // Dim hidden galleries in admin view
     if(isAdminMode && g.visible === false) card.style.opacity = '0.45';
+    // Show expiry warning in admin
+    if(isAdminMode && g.expiry && g.expiry !== '0'){
+      var galleryDate = new Date(g.createdAt || g.date);
+      var expiryDays = parseInt(g.expiry) || 60;
+      var expiryDate = new Date(galleryDate.getTime() + (expiryDays * 24 * 60 * 60 * 1000));
+      if(new Date() > expiryDate){
+        card.style.opacity = '0.4';
+        card.style.border = '2px dashed #B89A6A';
+      }
+    }
     var info = document.createElement('div');
 
     // Use cover photo if set, otherwise use 4-photo grid
@@ -3535,6 +3593,16 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
 
     <!-- ALL GALLERIES TAB -->
     <div id="tab-galleries">
+
+      <!-- Featured Gallery — Fashion Runway Photos -->
+      <div class="gallery-section" style="background:var(--espresso);padding:3rem 2rem;">
+        <p class="section-label" style="color:var(--gold-lt);text-align:center;">Featured Work</p>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(1.8rem,4vw,3rem);color:var(--warm-white);text-align:center;margin-bottom:.5rem;">Fashion <em style="color:var(--gold-lt)">Runway</em></h2>
+        <p style="color:var(--stone);text-align:center;font-size:.85rem;margin-bottom:2rem;">FLL Fashion Week Coverage</p>
+        <div id="featuredGalleryGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px;max-width:1200px;margin:0 auto;"></div>
+        <div id="featuredGalleryLoader" style="text-align:center;padding:2rem;color:var(--stone);font-size:.85rem;">Loading gallery...</div>
+      </div>
+
       <div class="gallery-section">
         <h2>Active Client Galleries</h2>
         <div class="galleries-grid" id="galleriesGrid">

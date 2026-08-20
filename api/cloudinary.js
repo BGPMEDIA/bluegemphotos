@@ -39,40 +39,55 @@ async function redisSet(key, value, ttl){
   } catch(e){ console.warn('Redis cache write failed:', e.message); }
 }
 
-function fetchFromCloudinary(cloudName, apiKey, apiSecret, folder){
-  return new Promise(function(resolve, reject){
-    const auth = Buffer.from(apiKey + ':' + apiSecret).toString('base64');
-    // Try asset_folder first, then fall back to folder field
-    const searchBody = JSON.stringify({
-      expression: 'asset_folder="' + folder + '" OR folder="' + folder + '"',
-      sort_by: [{ created_at: 'asc' }],
-      max_results: 500
-    });
-    const options = {
-      hostname: 'api.cloudinary.com',
-      path: '/v1_1/' + cloudName + '/resources/search',
-      method: 'POST',
-      headers: {
-        'Authorization': 'Basic ' + auth,
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(searchBody)
-      }
-    };
-    const req = https.request(options, function(apiRes){
-      let data = '';
-      apiRes.on('data', function(chunk){ data += chunk; });
-      apiRes.on('end', function(){
-        try {
-          const parsed = JSON.parse(data);
-          if(parsed.error) return reject(new Error(parsed.error.message));
-          resolve(parsed.resources || []);
-        } catch(e){ reject(e); }
+async function fetchFromCloudinary(cloudName, apiKey, apiSecret, folder){
+  const auth = Buffer.from(apiKey + ':' + apiSecret).toString('base64');
+
+  function searchWithExpression(expr){
+    return new Promise(function(resolve){
+      const searchBody = JSON.stringify({
+        expression: expr,
+        sort_by: [{ created_at: 'asc' }],
+        max_results: 500
       });
+      const req = https.request({
+        hostname: 'api.cloudinary.com',
+        path: '/v1_1/' + cloudName + '/resources/search',
+        method: 'POST',
+        headers: {
+          'Authorization': 'Basic ' + auth,
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(searchBody)
+        }
+      }, function(apiRes){
+        let data = '';
+        apiRes.on('data', function(chunk){ data += chunk; });
+        apiRes.on('end', function(){
+          try {
+            const parsed = JSON.parse(data);
+            resolve(parsed.resources || []);
+          } catch(e){ resolve([]); }
+        });
+      });
+      req.on('error', function(){ resolve([]); });
+      req.write(searchBody);
+      req.end();
     });
-    req.on('error', reject);
-    req.write(searchBody);
-    req.end();
-  });
+  }
+
+  // Try multiple expressions
+  const expressions = [
+    'asset_folder="' + folder + '"',
+    'folder="' + folder + '"',
+  ];
+
+  for(const expr of expressions){
+    const resources = await searchWithExpression(expr);
+    if(resources.length > 0){
+      console.log('Found', resources.length, 'with:', expr);
+      return resources;
+    }
+  }
+  return [];
 }
 
 module.exports = async function handler(req, res){

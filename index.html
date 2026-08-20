@@ -592,24 +592,24 @@ async function loadFeaturedGallery(){
     var res = await fetch('/api/cloudinary?folder=FASHION%20RUNWAY%20PHOTOS');
     if(!res.ok) throw new Error('Failed to load');
     var data = await res.json();
-    if(!data.resources || data.resources.length === 0){
+    if(!data.photos || data.photos.length === 0){
       if(loader) loader.textContent = 'No photos available.';
       return;
     }
     if(loader) loader.style.display = 'none';
-    var imgs = data.resources;
+    var imgs = data.photos;
     imgs.forEach(function(img, idx){
-      var thumbUrl = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,h_400,c_fill,g_auto,q_auto,f_auto/'+img.public_id+'.jpg';
+      var thumbUrl = img.thumb;
       var div = document.createElement('div');
       div.style.cssText = 'aspect-ratio:1;overflow:hidden;cursor:pointer;position:relative;';
       div.innerHTML = '<img src="'+thumbUrl+'" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;" onmouseover="this.style.transform=\'scale(1.05)\'" onmouseout="this.style.transform=\'scale(1)\'">';
       div.onclick = (function(publicId, allImgs, i){
         return function(){
-          var urls = allImgs.map(function(r){ return 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_1200,q_auto,f_auto/'+r.public_id+'.jpg'; });
+          var urls = allImgs.map(function(r){ return r.small; });
           lbCarouselImages = urls;
           lbCarouselIndex = i;
           currentLightboxGallery = { name: 'Fashion Runway', pictimeUrl: '', singlePrice: 'FREE', price: 'FREE' };
-          lbLoadImage(publicId+'.jpg', currentLightboxGallery);
+          lbLoadImage(publicId, currentLightboxGallery);
           document.getElementById('lightbox').style.display = 'flex';
           document.body.style.overflow = 'hidden';
         };

@@ -625,7 +625,7 @@ async function loadFeaturedGallery(){
 
   if(loader){ loader.style.display = 'none'; loader.textContent = ''; }
 
-  var lbUrls = photos.map(function(p){ return p.small || ('https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_1200,q_auto,f_auto/'+p.public_id+'.jpg'); });
+  var lbUrls = photos.map(function(p){ return p.public_id; });
 
   photos.forEach(function(p, idx){
     var thumbUrl = p.thumb || ('https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,h_400,c_fill,g_face,q_auto,f_auto/'+p.public_id+'.jpg');
@@ -638,7 +638,7 @@ async function loadFeaturedGallery(){
         lbCarouselIndex = i;
         currentLightboxGallery = { name: 'Miami Swim Week', pictimeUrl: '', singlePrice: 'FREE', price: 'FREE' };
         lbLoadImage(lbUrls[i], currentLightboxGallery);
-        document.getElementById('lightbox').style.display = 'flex';
+        document.getElementById('lightbox').classList.add('open');
         document.body.style.overflow = 'hidden';
       };
     })(idx);

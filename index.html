@@ -605,7 +605,7 @@ async function loadFeaturedGallery(){
   var photos = [];
 
   try {
-    var res = await fetch('/api/cloudinary?folder=MIAMI_SWIM_WEEK&bust=1');
+    var res = await fetch('/api/cloudinary?folder=MIAMI_SWIM_WEEK');
     if(res.ok){
       var data = await res.json();
       if(data.photos && data.photos.length > 0) photos = data.photos;

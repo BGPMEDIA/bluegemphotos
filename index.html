@@ -583,7 +583,18 @@ var CLOUD_NAME = 'dfqouxke9';
 // Gallery data store (persists via Vercel KV API)
 var galleryStore = [];
 
-// Load galleries from persistent storage
+// Secret admin button reveal — press Shift+B+G+P together
+var secretKeys = {};
+document.addEventListener('keydown', function(e){
+  secretKeys[e.key] = true;
+  if(secretKeys['B'] && secretKeys['G'] && secretKeys['P'] && e.shiftKey){
+    var adminBtn = document.getElementById('tab-btn-admin');
+    if(adminBtn){
+      adminBtn.style.display = adminBtn.style.display === 'none' ? '' : 'none';
+    }
+  }
+});
+document.addEventListener('keyup', function(e){ delete secretKeys[e.key]; });
 async function loadGalleries(){
   try {
     var res = await fetch('/api/galleries?t='+Date.now());
@@ -3519,7 +3530,7 @@ var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
     </div>
     <div class="gallery-tabs">
       <button class="gallery-tab active" id="tab-btn-galleries" onclick="switchTab('galleries',this)">All Galleries</button>
-      <button class="gallery-tab" id="tab-btn-admin" onclick="switchTab('admin',this)">&#128274; Admin</button>
+      <button class="gallery-tab" id="tab-btn-admin" onclick="switchTab('admin',this)" style="display:none;">&#128274; Admin</button>
     </div>
 
     <!-- ALL GALLERIES TAB -->

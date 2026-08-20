@@ -42,8 +42,9 @@ async function redisSet(key, value, ttl){
 function fetchFromCloudinary(cloudName, apiKey, apiSecret, folder){
   return new Promise(function(resolve, reject){
     const auth = Buffer.from(apiKey + ':' + apiSecret).toString('base64');
+    // Try asset_folder first, then fall back to folder field
     const searchBody = JSON.stringify({
-      expression: 'asset_folder="' + folder + '"',
+      expression: 'asset_folder="' + folder + '" OR folder="' + folder + '"',
       sort_by: [{ created_at: 'asc' }],
       max_results: 500
     });

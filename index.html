@@ -588,50 +588,55 @@ async function loadFeaturedGallery(){
   var grid = document.getElementById('featuredGalleryGrid');
   var loader = document.getElementById('featuredGalleryLoader');
   if(!grid) return;
+  if(grid.children.length > 0) return; // already loaded
 
-  var ids = [
-    'MIA_FASH_WK_Day_1_1335_nu2eiy',
-    'MIA_FASH_WK_Day_1_1324_a5xker',
-    'MIA_FASH_WK_Day_1_1249_ijly97',
-    'MIA_FASH_WK_Day_1_910_iiigqo',
-    'MIA_FASH_WK_Day_1_832_iqzd1y',
-    'MIA_FASH_WK_Day_1_764_kpq1w1',
-    'MIA_FASH_WK_Day_1_566_sjxhmv',
-    'MIA_FASH_WK_Day_1_428_w5m9pi',
-    'MIA_FASH_WK_Day_1_355_t5bibs',
-    'MIA_FASH_WK_Day_1_320_wzeri5',
-    'MIA_FASH_WK_Day_1_286_swfrle',
-    'MIA_FASH_WK_Day_1_207_foj5js',
-    'MIA_FASH_WK_Day_1_172_z5cv2m',
-    'MIA_FASH_WK_Day_1_161_hf7xki',
-    'MIA_FASH_WK_Day_1_127_kk7mrf',
-    'MIA_FASH_WK_Day_1_77_cwqurf',
-    'MIA_FASH_WK_Day_1_11_ko0gac'
-  ];
+  try {
+    var res = await fetch('/api/cloudinary?folder=MIAMI_SWIM_WEEK&bust=1');
+    if(!res.ok) throw new Error('API error: ' + res.status);
+    var data = await res.json();
+    var photos = data.photos || [];
 
-  if(loader){ loader.style.display = 'none'; loader.textContent = ''; }
+    if(photos.length === 0){
+      // Fallback to hardcoded IDs
+      photos = [
+        'MIA_FASH_WK_Day_1_1335_nu2eiy','MIA_FASH_WK_Day_1_1324_a5xker',
+        'MIA_FASH_WK_Day_1_1249_ijly97','MIA_FASH_WK_Day_1_910_iiigqo',
+        'MIA_FASH_WK_Day_1_832_iqzd1y','MIA_FASH_WK_Day_1_764_kpq1w1',
+        'MIA_FASH_WK_Day_1_566_sjxhmv','MIA_FASH_WK_Day_1_428_w5m9pi',
+        'MIA_FASH_WK_Day_1_355_t5bibs','MIA_FASH_WK_Day_1_320_wzeri5',
+        'MIA_FASH_WK_Day_1_286_swfrle','MIA_FASH_WK_Day_1_207_foj5js',
+        'MIA_FASH_WK_Day_1_172_z5cv2m','MIA_FASH_WK_Day_1_161_hf7xki',
+        'MIA_FASH_WK_Day_1_127_kk7mrf','MIA_FASH_WK_Day_1_77_cwqurf',
+        'MIA_FASH_WK_Day_1_11_ko0gac'
+      ].map(function(id){ return { public_id: id, thumb: 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,h_400,c_fill,g_face,q_auto,f_auto/'+id+'.jpg', small: 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_1200,q_auto,f_auto/'+id+'.jpg' }; });
+    }
 
-  var lbUrls = ids.map(function(id){
-    return 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_1200,q_auto,f_auto/'+id+'.jpg';
-  });
+    if(loader){ loader.style.display = 'none'; loader.textContent = ''; }
 
-  ids.forEach(function(id, idx){
-    var thumbUrl = 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,h_400,c_fill,g_face,q_auto,f_auto/'+id+'.jpg';
-    var div = document.createElement('div');
-    div.style.cssText = 'aspect-ratio:1;overflow:hidden;cursor:pointer;position:relative;';
-    div.innerHTML = '<img src="'+thumbUrl+'" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;" onmouseover="this.style.transform=\'scale(1.05)\'" onmouseout="this.style.transform=\'scale(1)\'">';
-    div.onclick = (function(i){
-      return function(){
-        lbCarouselImages = lbUrls;
-        lbCarouselIndex = i;
-        currentLightboxGallery = { name: 'Miami Swim Week', pictimeUrl: '', singlePrice: 'FREE', price: 'FREE' };
-        lbLoadImage(lbUrls[i], currentLightboxGallery);
-        document.getElementById('lightbox').style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-      };
-    })(idx);
-    grid.appendChild(div);
-  });
+    var lbUrls = photos.map(function(p){ return p.small || ('https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_1200,q_auto,f_auto/'+p.public_id+'.jpg'); });
+
+    photos.forEach(function(p, idx){
+      var thumbUrl = p.thumb || ('https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,h_400,c_fill,g_face,q_auto,f_auto/'+p.public_id+'.jpg');
+      var div = document.createElement('div');
+      div.style.cssText = 'aspect-ratio:1;overflow:hidden;cursor:pointer;position:relative;';
+      div.innerHTML = '<img src="'+thumbUrl+'" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;" onmouseover="this.style.transform=\'scale(1.05)\'" onmouseout="this.style.transform=\'scale(1)\'">';
+      div.onclick = (function(i){
+        return function(){
+          lbCarouselImages = lbUrls;
+          lbCarouselIndex = i;
+          currentLightboxGallery = { name: 'Miami Swim Week', pictimeUrl: '', singlePrice: 'FREE', price: 'FREE' };
+          lbLoadImage(lbUrls[i], currentLightboxGallery);
+          document.getElementById('lightbox').style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        };
+      })(idx);
+      grid.appendChild(div);
+    });
+
+  } catch(e) {
+    console.error('Featured gallery error:', e);
+    if(loader) loader.textContent = 'Gallery temporarily unavailable.';
+  }
 }
 
 // Initialize featured gallery on page load

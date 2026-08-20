@@ -42,51 +42,46 @@ async function redisSet(key, value, ttl){
 async function fetchFromCloudinary(cloudName, apiKey, apiSecret, folder){
   const auth = Buffer.from(apiKey + ':' + apiSecret).toString('base64');
 
-  function searchWithExpression(expr){
+  function makeRequest(path, method, body){
     return new Promise(function(resolve){
-      const searchBody = JSON.stringify({
-        expression: expr,
-        sort_by: [{ created_at: 'asc' }],
-        max_results: 500
-      });
-      const req = https.request({
+      const options = {
         hostname: 'api.cloudinary.com',
-        path: '/v1_1/' + cloudName + '/resources/search',
-        method: 'POST',
-        headers: {
-          'Authorization': 'Basic ' + auth,
-          'Content-Type': 'application/json',
-          'Content-Length': Buffer.byteLength(searchBody)
-        }
-      }, function(apiRes){
+        path: path,
+        method: method,
+        headers: { 'Authorization': 'Basic ' + auth, 'Content-Type': 'application/json' }
+      };
+      if(body) options.headers['Content-Length'] = Buffer.byteLength(body);
+      const req = https.request(options, function(apiRes){
         let data = '';
         apiRes.on('data', function(chunk){ data += chunk; });
         apiRes.on('end', function(){
-          try {
-            const parsed = JSON.parse(data);
-            resolve(parsed.resources || []);
-          } catch(e){ resolve([]); }
+          try { resolve(JSON.parse(data)); } catch(e){ resolve({}); }
         });
       });
-      req.on('error', function(){ resolve([]); });
-      req.write(searchBody);
+      req.on('error', function(){ resolve({}); });
+      if(body) req.write(body);
       req.end();
     });
   }
 
-  // Try multiple expressions
-  const expressions = [
-    'asset_folder="' + folder + '"',
-    'folder="' + folder + '"',
-  ];
+  // Method 1 — Search API with asset_folder
+  const body1 = JSON.stringify({ expression: 'asset_folder="'+folder+'"', sort_by:[{created_at:'asc'}], max_results:500 });
+  const r1 = await makeRequest('/v1_1/'+cloudName+'/resources/search', 'POST', body1);
+  if(r1.resources && r1.resources.length > 0) return r1.resources;
 
-  for(const expr of expressions){
-    const resources = await searchWithExpression(expr);
-    if(resources.length > 0){
-      console.log('Found', resources.length, 'with:', expr);
-      return resources;
-    }
-  }
+  // Method 2 — Search API with folder
+  const body2 = JSON.stringify({ expression: 'folder="'+folder+'"', sort_by:[{created_at:'asc'}], max_results:500 });
+  const r2 = await makeRequest('/v1_1/'+cloudName+'/resources/search', 'POST', body2);
+  if(r2.resources && r2.resources.length > 0) return r2.resources;
+
+  // Method 3 — GET resources by folder path
+  const r3 = await makeRequest('/v1_1/'+cloudName+'/resources/image?asset_folder='+encodeURIComponent(folder)+'&max_results=500', 'GET', null);
+  if(r3.resources && r3.resources.length > 0) return r3.resources;
+
+  // Method 4 — GET resources by folder (old API)
+  const r4 = await makeRequest('/v1_1/'+cloudName+'/resources/image/upload?prefix='+encodeURIComponent(folder)+'&max_results=500', 'GET', null);
+  if(r4.resources && r4.resources.length > 0) return r4.resources;
+
   return [];
 }
 

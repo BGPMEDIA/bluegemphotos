@@ -589,7 +589,7 @@ async function loadFeaturedGallery(){
   var loader = document.getElementById('featuredGalleryLoader');
   if(!grid) return;
   try {
-    var res = await fetch('/api/cloudinary?folder=FASHION%20RUNWAY%20PHOTOS');
+    var res = await fetch('/api/cloudinary?folder=' + encodeURIComponent('FASHION RUNWAY PHOTOS'));
     if(!res.ok) throw new Error('Failed to load');
     var data = await res.json();
     if(!data.photos || data.photos.length === 0){
@@ -617,12 +617,25 @@ async function loadFeaturedGallery(){
       grid.appendChild(div);
     });
   } catch(e) {
-    if(loader) loader.textContent = 'Gallery unavailable.';
+    console.error('Featured gallery error:', e);
+    if(loader) loader.textContent = 'Gallery temporarily unavailable.';
   }
 }
 
 // Initialize featured gallery on page load
-document.addEventListener('DOMContentLoaded', function(){ loadFeaturedGallery(); });
+document.addEventListener('DOMContentLoaded', function(){ 
+  loadFeaturedGallery();
+});
+
+// Also trigger when switching to galleries tab
+var origSwitchTab = window.switchTab;
+window.switchTab = function(tab, btn){
+  if(typeof origSwitchTab === 'function') origSwitchTab(tab, btn);
+  if(tab === 'galleries'){
+    var grid = document.getElementById('featuredGalleryGrid');
+    if(grid && grid.children.length === 0) loadFeaturedGallery();
+  }
+};
 var secretKeys = {};
 document.addEventListener('keydown', function(e){
   secretKeys[e.key] = true;

@@ -3644,11 +3644,11 @@ setTimeout(initSvcGalleries,800);
         <p class="section-label" style="color:var(--gold-lt);text-align:center;">Featured Work</p>
         <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(1.8rem,4vw,3rem);color:var(--warm-white);text-align:center;margin-bottom:.5rem;">Miami <em style="color:var(--gold-lt)">Swim Week</em></h2>
         <p style="color:var(--stone);text-align:center;font-size:.85rem;margin-bottom:2rem;">Runway Coverage</p>
+        <div id="featuredRefreshWrap" style="display:none;text-align:center;margin-bottom:1rem;">
+          <button id="featuredRefreshBtn" onclick="refreshFeaturedGallery()" style="background:var(--gold);color:var(--espresso);border:none;padding:.5rem 1.2rem;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:3px;font-weight:600;">↻ Refresh Gallery</button>
+        </div>
         <div id="featuredGalleryGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px;max-width:1200px;margin:0 auto;"></div>
         <div id="featuredGalleryLoader" style="text-align:center;padding:2rem;color:var(--stone);font-size:.85rem;">Loading gallery...</div>
-        <div id="featuredRefreshWrap" style="display:none;text-align:center;margin-top:1rem;">
-          <button id="featuredRefreshBtn" onclick="refreshFeaturedGallery()" style="background:var(--espresso);color:var(--gold);border:none;padding:.5rem 1.2rem;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:3px;">↻ Refresh Gallery</button>
-        </div>
         <script>if(typeof loadFeaturedGallery === 'function') loadFeaturedGallery();</script>
       </div>
 

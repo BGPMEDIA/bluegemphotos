@@ -668,13 +668,14 @@ window.refreshFeaturedGallery = async function(){
   if(btn) btn.textContent = '↻ Refresh Gallery';
 };
 
-// Show featured refresh button in admin mode
-var origSwitchTab = window.switchTab;
-window.switchTab = function(tab, btn){
-  if(typeof origSwitchTab === 'function') origSwitchTab(tab, btn);
+// Show featured refresh button when admin mode is active
+function updateFeaturedRefreshVisibility(){
   var refreshWrap = document.getElementById('featuredRefreshWrap');
-  if(refreshWrap) refreshWrap.style.display = tab === 'admin' ? 'block' : 'none';
-};
+  if(!refreshWrap) return;
+  var adminBtn = document.getElementById('tab-btn-admin');
+  var isAdminVisible = adminBtn && adminBtn.style.display !== 'none';
+  refreshWrap.style.display = isAdminVisible ? 'block' : 'none';
+}
 
 var secretKeys = {};
 document.addEventListener('keydown', function(e){
@@ -683,6 +684,7 @@ document.addEventListener('keydown', function(e){
     var adminBtn = document.getElementById('tab-btn-admin');
     if(adminBtn){
       adminBtn.style.display = adminBtn.style.display === 'none' ? '' : 'none';
+      updateFeaturedRefreshVisibility();
     }
   }
 });

@@ -665,7 +665,15 @@ window.refreshFeaturedGallery = async function(){
   } catch(e){
     window.showToast('Refresh failed');
   }
-  if(btn) btn.textContent = '↻ Refresh Featured Gallery';
+  if(btn) btn.textContent = '↻ Refresh Gallery';
+};
+
+// Show featured refresh button in admin mode
+var origSwitchTab = window.switchTab;
+window.switchTab = function(tab, btn){
+  if(typeof origSwitchTab === 'function') origSwitchTab(tab, btn);
+  var refreshWrap = document.getElementById('featuredRefreshWrap');
+  if(refreshWrap) refreshWrap.style.display = tab === 'admin' ? 'block' : 'none';
 };
 
 var secretKeys = {};
@@ -3636,6 +3644,9 @@ setTimeout(initSvcGalleries,800);
         <p style="color:var(--stone);text-align:center;font-size:.85rem;margin-bottom:2rem;">Runway Coverage</p>
         <div id="featuredGalleryGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px;max-width:1200px;margin:0 auto;"></div>
         <div id="featuredGalleryLoader" style="text-align:center;padding:2rem;color:var(--stone);font-size:.85rem;">Loading gallery...</div>
+        <div id="featuredRefreshWrap" style="display:none;text-align:center;margin-top:1rem;">
+          <button id="featuredRefreshBtn" onclick="refreshFeaturedGallery()" style="background:var(--espresso);color:var(--gold);border:none;padding:.5rem 1.2rem;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:3px;">↻ Refresh Gallery</button>
+        </div>
         <script>if(typeof loadFeaturedGallery === 'function') loadFeaturedGallery();</script>
       </div>
 
@@ -3652,15 +3663,6 @@ setTimeout(initSvcGalleries,800);
       <div class="upload-section">
         <h2>Add New Gallery</h2>
         <p>Enter your Cloudinary folder name and the site will automatically fetch and display all photos from that folder. No individual URLs needed.</p>
-
-        <!-- Featured Gallery Refresh -->
-        <div style="background:rgba(184,154,106,.08);border:1px solid var(--gold);border-radius:4px;padding:1rem 1.2rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;">
-          <div>
-            <div style="font-size:.8rem;font-weight:600;color:var(--espresso);letter-spacing:.05em;">Featured Gallery — Miami Swim Week</div>
-            <div style="font-size:.75rem;color:var(--taupe);margin-top:2px;">Clear cache to load newly uploaded photos from Cloudinary</div>
-          </div>
-          <button id="featuredRefreshBtn" onclick="refreshFeaturedGallery()" style="background:var(--espresso);color:var(--gold);border:none;padding:.5rem 1rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:3px;">↻ Refresh Featured Gallery</button>
-        </div>
         <div class="upload-row">
           <div class="gallery-form-col" style="flex:2">
             <div class="form-field"><label>Gallery Name *</label><input type="text" id="galleryName" placeholder="e.g. DeAnna May - Vogue Session"></div>

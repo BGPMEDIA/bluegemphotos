@@ -651,6 +651,23 @@ document.addEventListener('DOMContentLoaded', function(){
   setTimeout(function(){ loadFeaturedGallery(); }, 500);
 });
 window.addEventListener('load', function(){ loadFeaturedGallery(); });
+window.refreshFeaturedGallery = async function(){
+  var btn = document.getElementById('featuredRefreshBtn');
+  if(btn) btn.textContent = '...';
+  try {
+    await fetch('/api/cloudinary?folder=MIAMI_SWIM_WEEK&bust=1');
+    var grid = document.getElementById('featuredGalleryGrid');
+    var loader = document.getElementById('featuredGalleryLoader');
+    if(grid) grid.innerHTML = '';
+    if(loader){ loader.textContent = 'Loading gallery...'; loader.style.display = ''; }
+    await loadFeaturedGallery();
+    window.showToast('Featured gallery refreshed ✓');
+  } catch(e){
+    window.showToast('Refresh failed');
+  }
+  if(btn) btn.textContent = '↻ Refresh Featured Gallery';
+};
+
 var secretKeys = {};
 document.addEventListener('keydown', function(e){
   secretKeys[e.key] = true;
@@ -3635,6 +3652,15 @@ setTimeout(initSvcGalleries,800);
       <div class="upload-section">
         <h2>Add New Gallery</h2>
         <p>Enter your Cloudinary folder name and the site will automatically fetch and display all photos from that folder. No individual URLs needed.</p>
+
+        <!-- Featured Gallery Refresh -->
+        <div style="background:rgba(184,154,106,.08);border:1px solid var(--gold);border-radius:4px;padding:1rem 1.2rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;">
+          <div>
+            <div style="font-size:.8rem;font-weight:600;color:var(--espresso);letter-spacing:.05em;">Featured Gallery — Miami Swim Week</div>
+            <div style="font-size:.75rem;color:var(--taupe);margin-top:2px;">Clear cache to load newly uploaded photos from Cloudinary</div>
+          </div>
+          <button id="featuredRefreshBtn" onclick="refreshFeaturedGallery()" style="background:var(--espresso);color:var(--gold);border:none;padding:.5rem 1rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:3px;">↻ Refresh Featured Gallery</button>
+        </div>
         <div class="upload-row">
           <div class="gallery-form-col" style="flex:2">
             <div class="form-field"><label>Gallery Name *</label><input type="text" id="galleryName" placeholder="e.g. DeAnna May - Vogue Session"></div>

@@ -583,7 +583,12 @@ var CLOUD_NAME = 'dfqouxke9';
 // Gallery data store (persists via Vercel KV API)
 var galleryStore = [];
 
-// Load featured gallery — Miami Swim Week
+// Handle URL parameters for direct page links
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var page = params.get('page');
+  if(page) setTimeout(function(){ showPage(page); }, 100);
+})();
 async function loadFeaturedGallery(){
   var grid = document.getElementById('featuredGalleryGrid');
   var loader = document.getElementById('featuredGalleryLoader');
@@ -2528,6 +2533,7 @@ setTimeout(initSvcGalleries,800);
   <ul class="nav-links">
     <li><a href="#" onclick="showPage('home');setTimeout(function(){document.getElementById('services').scrollIntoView({behavior:'smooth'})},50);return false;">Services</a></li>
     <li><a href="#" onclick="showPage('home');setTimeout(function(){document.getElementById('process').scrollIntoView({behavior:'smooth'})},50);return false;">Process</a></li>
+    <li><a href="#" onclick="showPage('svc-fashion');return false;">Film</a></li>
     <li><a href="#" onclick="showPage('gallery');return false;">Client Galleries</a></li>
     <li><a href="#" onclick="openBooking('');return false;">Contact</a></li>
   </ul>

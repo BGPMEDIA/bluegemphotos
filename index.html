@@ -241,6 +241,9 @@ footer{background:var(--charcoal);padding:4rem;color:var(--stone);display:grid;g
 .btn-upload{padding:.85rem 2rem;background:var(--espresso);color:var(--warm-white);border:none;font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:400;transition:background .3s;align-self:flex-start;margin-top:.4rem;}
 .btn-upload:hover{background:var(--gold);}
 .gallery-section{padding:4rem;}
+.fc-slide{flex:0 0 70%;max-width:70%;padding:0 2.5%;box-sizing:border-box;transition:opacity .35s,transform .35s;cursor:pointer;}
+.fc-slide img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;border:1px solid rgba(200,191,176,.12);}
+@media(max-width:600px){.fc-slide{flex:0 0 85%;max-width:85%;}}
 .gallery-section h2{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--espresso);margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--stone);}
 .galleries-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;margin-bottom:4rem;}
 .gallery-card{background:var(--cream);position:relative;overflow:hidden;border:1px solid var(--stone);transition:box-shadow .3s;}
@@ -589,11 +592,14 @@ var galleryStore = [];
   var page = params.get('page');
   if(page) setTimeout(function(){ showPage(page); }, 100);
 })();
+var featuredCarouselPhotos = [];
+var featuredCarouselIndex = 0;
+
 async function loadFeaturedGallery(){
-  var grid = document.getElementById('featuredGalleryGrid');
+  var wrap = document.getElementById('featuredCarouselWrap');
   var loader = document.getElementById('featuredGalleryLoader');
-  if(!grid) return;
-  if(grid.children.length > 0) return;
+  if(!wrap) return;
+  if(wrap.dataset.loaded) return;
 
   var fallbackIds = [
     'MIA_FASH_WK_Day_1_1335_nu2eiy','MIA_FASH_WK_Day_1_1324_a5xker',
@@ -617,39 +623,78 @@ async function loadFeaturedGallery(){
     }
   } catch(e){ console.warn('Featured gallery API error:', e); }
 
-  // Use fallback if API returned nothing
   if(photos.length === 0){
     photos = fallbackIds.map(function(id){
       return {
         public_id: id,
-        thumb: 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,h_400,c_fill,g_face,q_auto,f_auto/'+id+'.jpg',
+        thumb: 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_600,h_800,c_fill,g_face,q_auto,f_auto/'+id+'.jpg',
         small: 'https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_1200,q_auto,f_auto/'+id+'.jpg'
       };
     });
   }
 
-  if(loader){ loader.style.display = 'none'; loader.textContent = ''; }
+  if(loader){ loader.style.display='none'; }
 
-  var lbUrls = photos.map(function(p){ return p.public_id; });
-
-  photos.forEach(function(p, idx){
-    var thumbUrl = p.thumb || ('https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_400,h_400,c_fill,g_face,q_auto,f_auto/'+p.public_id+'.jpg');
-    var div = document.createElement('div');
-    div.style.cssText = 'aspect-ratio:1;overflow:hidden;cursor:pointer;position:relative;';
-    div.innerHTML = '<img src="'+thumbUrl+'" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;" onmouseover="this.style.transform=\'scale(1.05)\'" onmouseout="this.style.transform=\'scale(1)\'">';
-    div.onclick = (function(i){
-      return function(){
-        lbCarouselImages = lbUrls;
-        lbCarouselIndex = i;
-        currentLightboxGallery = { name: 'Miami Swim Week', pictimeUrl: '', singlePrice: 'FREE', price: 'FREE' };
-        lbLoadImage(lbUrls[i], currentLightboxGallery);
-        document.getElementById('lightbox').classList.add('open');
-        document.body.style.overflow = 'hidden';
-      };
-    })(idx);
-    grid.appendChild(div);
-  });
+  featuredCarouselPhotos = photos;
+  featuredCarouselIndex = 0;
+  wrap.dataset.loaded = '1';
+  renderFeaturedCarousel();
 }
+
+function renderFeaturedCarousel(){
+  var track = document.getElementById('featuredCarouselTrack');
+  var counter = document.getElementById('featuredCarouselCounter');
+  if(!track) return;
+  var total = featuredCarouselPhotos.length;
+  if(!total) return;
+
+  // Build slides if not yet built
+  if(track.children.length === 0){
+    featuredCarouselPhotos.forEach(function(p, idx){
+      var thumbUrl = p.thumb || ('https://res.cloudinary.com/'+CLOUD_NAME+'/image/upload/w_600,h_800,c_fill,g_face,q_auto,f_auto/'+p.public_id+'.jpg');
+      var slide = document.createElement('div');
+      slide.className = 'fc-slide';
+      slide.innerHTML = '<img src="'+thumbUrl+'" alt="Miami Swim Week '+(idx+1)+'">';
+      slide.onclick = (function(i){
+        return function(){
+          var lbUrls = featuredCarouselPhotos.map(function(ph){ return ph.public_id; });
+          lbCarouselImages = lbUrls;
+          lbCarouselIndex = i;
+          currentLightboxGallery = { name:'Miami Swim Week', pictimeUrl:'', singlePrice:'FREE', price:'FREE' };
+          lbLoadImage(lbUrls[i], currentLightboxGallery);
+          document.getElementById('lightbox').classList.add('open');
+          document.body.style.overflow='hidden';
+        };
+      })(idx);
+      track.appendChild(slide);
+    });
+  }
+
+  // Shift track so active slide is centered
+  // Each slide is 70% wide with 5% gap on each side visible
+  var offset = featuredCarouselIndex * 75; // 70% slide + 5% gap
+  track.style.transform = 'translateX(calc(-'+offset+'% + 12.5%))';
+
+  // Dim non-active slides
+  Array.from(track.children).forEach(function(slide, i){
+    slide.style.opacity = (i === featuredCarouselIndex) ? '1' : '0.45';
+    slide.style.transform = (i === featuredCarouselIndex) ? 'scale(1)' : 'scale(0.93)';
+  });
+
+  if(counter) counter.textContent = (featuredCarouselIndex+1) + ' / ' + total;
+}
+
+window.featuredCarouselPrev = function(){
+  if(!featuredCarouselPhotos.length) return;
+  featuredCarouselIndex = (featuredCarouselIndex - 1 + featuredCarouselPhotos.length) % featuredCarouselPhotos.length;
+  renderFeaturedCarousel();
+};
+
+window.featuredCarouselNext = function(){
+  if(!featuredCarouselPhotos.length) return;
+  featuredCarouselIndex = (featuredCarouselIndex + 1) % featuredCarouselPhotos.length;
+  renderFeaturedCarousel();
+};
 
 // Initialize featured gallery on page load
 document.addEventListener('DOMContentLoaded', function(){ 
@@ -661,9 +706,13 @@ window.refreshFeaturedGallery = async function(){
   if(btn) btn.textContent = '...';
   try {
     await fetch('/api/cloudinary?folder=MIAMI_SWIM_WEEK&bust=1');
-    var grid = document.getElementById('featuredGalleryGrid');
+    var wrap = document.getElementById('featuredCarouselWrap');
+    var track = document.getElementById('featuredCarouselTrack');
     var loader = document.getElementById('featuredGalleryLoader');
-    if(grid) grid.innerHTML = '';
+    if(track) track.innerHTML = '';
+    if(wrap) delete wrap.dataset.loaded;
+    featuredCarouselPhotos = [];
+    featuredCarouselIndex = 0;
     if(loader){ loader.textContent = 'Loading gallery...'; loader.style.display = ''; }
     await loadFeaturedGallery();
     window.showToast('Featured gallery refreshed ✓');
@@ -2692,7 +2741,7 @@ setTimeout(initSvcGalleries,800);
     <div class="services-grid">
       <div class="service-card"><div class="service-num">01</div><div class="service-name">Mini Session</div><p class="service-desc">A focused 1-hour session ideal for individuals, headshots, or seasonal family portraits.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>1-hour session</li><li>1 outfit, 1 location</li><li>Full watermarked proof gallery</li><li>5 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Private online gallery</li></ul><a href="#" class="service-learn" onclick="showPage('svc-mini');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">02</div><div class="service-name">Portrait Session</div><p class="service-desc">A relaxed, creative portrait experience for individuals, couples, or small families.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>90-minute session</li><li>2 outfit changes</li><li>Studio session included</li><li>On-location — +$75/location</li><li>Full watermarked proof gallery</li><li>8 standard edited downloads included</li><li>Additional retouched images — $20/image</li></ul><a href="#" class="service-learn" onclick="showPage('svc-portrait');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">03</div><div class="service-name">Family Collection</div><p class="service-desc">A full family storytelling session capturing authentic connection and everything in between.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>2-hour session</li><li>Up to 8 family members</li><li>Full watermarked proof gallery</li><li>10 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Slideshow reveal</li><li>One complimentary 11x14 print</li></ul><a href="#" class="service-learn" onclick="showPage('svc-family');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">03</div><div class="service-name">Family Collection</div><p class="service-desc">A full family storytelling session capturing authentic connection and everything in between.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>2-hour session</li><li>Up to 8 family members</li><li>Full watermarked proof gallery</li><li>10 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Slideshow reveal</li></ul><a href="#" class="service-learn" onclick="showPage('svc-family');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">04</div><div class="service-name">Wedding Day</div><p class="service-desc">Full-day wedding coverage from getting ready through the last dance. Your entire story, beautifully told.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>Ceremony — up to 4 hrs</li><li>Classic — up to 8 hrs</li><li>Full Story — up to 10 hrs</li><li>Full watermarked proof gallery</li><li>30 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Engagement session included (Classic+)</li></ul><a href="#" class="service-learn" onclick="showPage('svc-wedding');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">05</div><div class="service-name">Commercial &amp; Brand</div><p class="service-desc">From a single polished headshot to a full brand campaign — this service covers the complete spectrum of professional imagery. Corporate headshots, personal brand sessions, product photography, lifestyle campaigns, and executive portraits all live here. Scope and pricing determined during consultation.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>Corporate headshots &amp; executive portraits</li><li>Personal brand &amp; entrepreneur sessions</li><li>Product &amp; lifestyle photography</li><li>Full commercial license included</li><li>Mood board consultation</li></ul><a href="#" class="service-learn" onclick="showPage('svc-commercial');return false;">View Details &rarr;</a></div>
       <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">06</div><div class="service-name">Bridal Portrait Session</div><p class="service-desc">Two unhurried hours dedicated entirely to you — your gown, your beauty, your story. Before the vows. Before the chaos.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>2-hour studio session</li><li>Exclusively about the bride</li><li>Full watermarked proof gallery</li><li>8 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Private gallery delivery</li><li>Fine art print options available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-bridal');return false;">View Details &rarr;</a></div>
@@ -3681,10 +3730,15 @@ setTimeout(initSvcGalleries,800);
         <p class="section-label" style="color:var(--gold-lt);text-align:center;">Featured Work</p>
         <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(1.8rem,4vw,3rem);color:var(--warm-white);text-align:center;margin-bottom:.5rem;">Miami <em style="color:var(--gold-lt)">Swim Week</em></h2>
         <p style="color:var(--stone);text-align:center;font-size:.85rem;margin-bottom:2rem;">Runway Coverage</p>
-        <div id="featuredRefreshWrap" style="display:none;text-align:center;margin-bottom:1rem;">
-          <button id="featuredRefreshBtn" onclick="refreshFeaturedGallery()" style="background:var(--gold);color:var(--espresso);border:none;padding:.5rem 1.2rem;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:3px;font-weight:600;">↻ Refresh Gallery</button>
+        <!-- Featured Carousel -->
+        <div id="featuredCarouselWrap" style="position:relative;max-width:1100px;margin:0 auto;overflow:hidden;padding:0 0 1.5rem;">
+          <div id="featuredCarouselTrack" style="display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1);will-change:transform;"></div>
+          <!-- Prev arrow -->
+          <button onclick="featuredCarouselPrev()" aria-label="Previous" style="position:absolute;left:8px;top:50%;transform:translateY(-50%);background:rgba(10,5,2,.7);border:1px solid rgba(200,191,176,.25);color:var(--gold-lt);width:44px;height:44px;border-radius:50%;font-size:1.1rem;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);">&#8592;</button>
+          <!-- Next arrow -->
+          <button onclick="featuredCarouselNext()" aria-label="Next" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:rgba(10,5,2,.7);border:1px solid rgba(200,191,176,.25);color:var(--gold-lt);width:44px;height:44px;border-radius:50%;font-size:1.1rem;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);">&#8594;</button>
         </div>
-        <div id="featuredGalleryGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px;max-width:1200px;margin:0 auto;"></div>
+        <div id="featuredCarouselCounter" style="text-align:center;color:var(--stone);font-size:.75rem;letter-spacing:.15em;font-family:'Jost',sans-serif;margin-top:.5rem;"></div>
         <div id="featuredGalleryLoader" style="text-align:center;padding:2rem;color:var(--stone);font-size:.85rem;">Loading gallery...</div>
         <script>if(typeof loadFeaturedGallery === 'function') loadFeaturedGallery();</script>
       </div>

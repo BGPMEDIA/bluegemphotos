@@ -1837,7 +1837,7 @@ function renderSchedServices(){
     return '<button class="sched-svc-card'+(schedData.service===s.name?' selected':'')+'" onclick="selectSchedService('+i+')">'
       +'<div class="ssc-num">'+s.num+'</div>'
       +'<div class="ssc-name">'+s.name+'</div>'
-      +'<div class="ssc-rate">Pricing upon inquiry</div>'
+      +'<div class="ssc-rate">'+(s.perHour?'$'+s.rate+' / hour':'$'+s.rate+' flat rate')+'</div>'
       +'<div class="ssc-desc">'+s.desc+'</div>'
       +'</button>';
   }).join('');
@@ -1972,7 +1972,7 @@ function updateOrderSummary(){
   var sumEl=document.getElementById('orderSummaryRows');
   if(sumEl)sumEl.innerHTML=html;
   var dueEl=document.getElementById('orderDueTotal');
-  if(dueEl)dueEl.textContent='Upon inquiry';
+  if(dueEl)dueEl.textContent=isCommercial?'Upon inquiry':(total?'$'+due.toLocaleString():'$0');
   // Update payment card amounts — hide for commercial
   var halfEl=document.getElementById('pc-half-amt');
   var fullEl=document.getElementById('pc-full-amt');
@@ -2677,14 +2677,14 @@ setTimeout(initSvcGalleries,800);
       <p style="color:var(--taupe);max-width:50ch;margin:.8rem auto 0;font-size:.88rem">All packages include a private online gallery with watermarked previews, print ordering, and full digital delivery.</p>
     </div>
     <div class="services-grid">
-      <div class="service-card"><div class="service-num">01</div><div class="service-name">Mini Session</div><p class="service-desc">A focused 1-hour session ideal for individuals, headshots, or seasonal family portraits.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>1-hour session</li><li>1 outfit, 1 location</li><li>Full watermarked proof gallery</li><li>5 standard edited downloads included</li><li>Private online gallery</li></ul><a href="#" class="service-learn" onclick="showPage('svc-mini');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">02</div><div class="service-name">Portrait Session</div><p class="service-desc">A relaxed, creative portrait experience for individuals, couples, or small families.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>90-minute session</li><li>2 outfit changes</li><li>Studio session included</li><li>On-location available</li><li>Full watermarked proof gallery</li><li>8 standard edited downloads included</li></ul><a href="#" class="service-learn" onclick="showPage('svc-portrait');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">03</div><div class="service-name">Family Collection</div><p class="service-desc">A full family storytelling session capturing authentic connection and everything in between.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>2-hour session</li><li>Up to 8 family members</li><li>Full watermarked proof gallery</li><li>10 standard edited downloads included</li><li>Slideshow reveal</li><li>One complimentary 11x14 print</li></ul><a href="#" class="service-learn" onclick="showPage('svc-family');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">04</div><div class="service-name">Wedding Day</div><p class="service-desc">Full-day wedding coverage from getting ready through the last dance. Your entire story, beautifully told.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>Ceremony — up to 4 hrs</li><li>Classic — up to 8 hrs</li><li>Full Story — up to 10 hrs</li><li>Full watermarked proof gallery</li><li>30 standard edited downloads included</li><li>Engagement session included (Classic+)</li></ul><a href="#" class="service-learn" onclick="showPage('svc-wedding');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">01</div><div class="service-name">Mini Session</div><p class="service-desc">A focused 1-hour session ideal for individuals, headshots, or seasonal family portraits.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>1-hour session</li><li>1 outfit, 1 location</li><li>Full watermarked proof gallery</li><li>5 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Private online gallery</li></ul><a href="#" class="service-learn" onclick="showPage('svc-mini');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">02</div><div class="service-name">Portrait Session</div><p class="service-desc">A relaxed, creative portrait experience for individuals, couples, or small families.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>90-minute session</li><li>2 outfit changes</li><li>Studio session included</li><li>On-location — +$75/location</li><li>Full watermarked proof gallery</li><li>8 standard edited downloads included</li><li>Additional retouched images — $20/image</li></ul><a href="#" class="service-learn" onclick="showPage('svc-portrait');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">03</div><div class="service-name">Family Collection</div><p class="service-desc">A full family storytelling session capturing authentic connection and everything in between.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>2-hour session</li><li>Up to 8 family members</li><li>Full watermarked proof gallery</li><li>10 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Slideshow reveal</li><li>One complimentary 11x14 print</li></ul><a href="#" class="service-learn" onclick="showPage('svc-family');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">04</div><div class="service-name">Wedding Day</div><p class="service-desc">Full-day wedding coverage from getting ready through the last dance. Your entire story, beautifully told.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>Ceremony — up to 4 hrs</li><li>Classic — up to 8 hrs</li><li>Full Story — up to 10 hrs</li><li>Full watermarked proof gallery</li><li>30 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Engagement session included (Classic+)</li></ul><a href="#" class="service-learn" onclick="showPage('svc-wedding');return false;">View Details &rarr;</a></div>
       <div class="service-card"><div class="service-num">05</div><div class="service-name">Commercial &amp; Brand</div><p class="service-desc">From a single polished headshot to a full brand campaign — this service covers the complete spectrum of professional imagery. Corporate headshots, personal brand sessions, product photography, lifestyle campaigns, and executive portraits all live here. Scope and pricing determined during consultation.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>Corporate headshots &amp; executive portraits</li><li>Personal brand &amp; entrepreneur sessions</li><li>Product &amp; lifestyle photography</li><li>Full commercial license included</li><li>Mood board consultation</li></ul><a href="#" class="service-learn" onclick="showPage('svc-commercial');return false;">View Details &rarr;</a></div>
-      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">06</div><div class="service-name">Bridal Portrait Session</div><p class="service-desc">Two unhurried hours dedicated entirely to you — your gown, your beauty, your story. Before the vows. Before the chaos.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>2-hour studio session</li><li>Exclusively about the bride</li><li>Full watermarked proof gallery</li><li>8 standard edited downloads included</li><li>Private gallery delivery</li><li>Fine art print options available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-bridal');return false;">View Details &rarr;</a></div>
-      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">07</div><div class="service-name">Fashion Photography</div><p class="service-desc">Editorial-grade fashion sessions for models, designers, and brands. Magazine-ready imagery with a cinematic eye.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>4 or 8-hour session</li><li>Creative consultation & mood board</li><li>Full watermarked proof gallery</li><li>15 standard edited downloads included</li><li>Full commercial license</li><li>Multi-location shoots available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-fashion');return false;">View Details &rarr;</a></div>
-      <div class="service-card"><div class="service-num">10</div><div class="service-name">Headshot Session</div><p class="service-desc">Clean, confident, professional. Headshots for executives, entrepreneurs, creatives, and teams — delivered fast.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>Full watermarked proof gallery</li><li>2 standard edited downloads included</li><li>Private online gallery</li><li>3–5 business day turnaround</li></ul><a href="#" class="service-learn" onclick="showPage('svc-headshot');return false;">View Details &rarr;</a></div>
+      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">06</div><div class="service-name">Bridal Portrait Session</div><p class="service-desc">Two unhurried hours dedicated entirely to you — your gown, your beauty, your story. Before the vows. Before the chaos.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>2-hour studio session</li><li>Exclusively about the bride</li><li>Full watermarked proof gallery</li><li>8 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Private gallery delivery</li><li>Fine art print options available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-bridal');return false;">View Details &rarr;</a></div>
+      <div class="service-card" style="border-top:3px solid var(--gold)"><div class="service-num" style="color:var(--gold)">07</div><div class="service-name">Fashion Photography</div><p class="service-desc">Editorial-grade fashion sessions for models, designers, and brands. Magazine-ready imagery with a cinematic eye.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>4 or 8-hour session</li><li>Creative consultation & mood board</li><li>Full watermarked proof gallery</li><li>15 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Full commercial license</li><li>Multi-location shoots available</li></ul><a href="#" class="service-learn" onclick="showPage('svc-fashion');return false;">View Details &rarr;</a></div>
+      <div class="service-card"><div class="service-num">10</div><div class="service-name">Headshot Session</div><p class="service-desc">Clean, confident, professional. Headshots for executives, entrepreneurs, creatives, and teams — delivered fast.</p><div class="service-price"><span style="font-family:'Jost',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);">Pricing available upon inquiry</span></div><ul class="service-includes"><li>Full watermarked proof gallery</li><li>2 standard edited downloads included</li><li>Additional retouched images — $20/image</li><li>Private online gallery</li><li>3–5 business day turnaround</li></ul><a href="#" class="service-learn" onclick="showPage('svc-headshot');return false;">View Details &rarr;</a></div>
       <div class="service-card" id="action-shot-card" style="background:#0a1628;border-top:3px solid #B89A6A;border:1px solid #1a2d4a;border-top:3px solid #B89A6A;">
         <div class="service-num" style="color:#B89A6A;">08</div>
         <div class="service-name" style="color:#f0f4ff;">Action Shot Session</div>
@@ -3784,8 +3784,17 @@ setTimeout(initSvcGalleries,800);
             </div>
             <div class="bf-field">
               <label>Deposit Amount</label>
-              <div style="padding:.8rem 1rem;background:rgba(200,191,176,.08);border-left:2px solid var(--gold);font-size:.78rem;color:var(--stone);line-height:1.6;">
-                Pricing and deposit details will be provided after Rogelio reviews your request.
+              <div class="deposit-options">
+                <button class="deposit-btn selected" id="deposit-half" onclick="selectDeposit('half')">
+                  <span class="db-label">50% Deposit</span>
+                  <span class="db-amount" id="half-amt">$0</span>
+                  <span class="db-desc">Balance due 30 days before session</span>
+                </button>
+                <button class="deposit-btn" id="deposit-full" onclick="selectDeposit('full')">
+                  <span class="db-label">Full Payment</span>
+                  <span class="db-amount" id="full-amt">$0</span>
+                  <span class="db-desc">Paid in full, no balance due</span>
+                </button>
               </div>
             </div>
             <div class="bf-field"><label>Session Location / Venue</label><input type="text" id="bf-location" placeholder="e.g. Waterfront Park, Downtown Charleston"></div>
@@ -3815,9 +3824,10 @@ setTimeout(initSvcGalleries,800);
           <h3>Booking Summary</h3>
           <div class="bs-service" id="bs-service-name">Select a service</div>
           <div style="margin-top:1.2rem">
-            <div class="bs-price-row"><span>Pricing</span><span style="font-size:.8rem;letter-spacing:.06em;">Upon inquiry</span></div>
+            <div class="bs-price-row"><span>Full session price</span><span id="bs-full-price">-</span></div>
+            <div class="bs-price-row"><span id="bs-deposit-type">50% Deposit</span><span id="bs-due">-</span></div>
           </div>
-          <div class="bs-total"><span>Next Step</span><span style="font-size:1rem;letter-spacing:.06em;">We'll confirm & invoice</span></div>
+          <div class="bs-total"><span>Due Today</span><span id="bs-due-total">$0</span></div>
           <p class="bs-note">&#128274; Your booking is confirmed once Rogelio reviews your request and deposit is received. You will get a confirmation email within 24 hours.</p>
           <p class="bs-note" style="margin-top:.8rem">Questions? <a href="#" onclick="toggleChat();return false;" style="color:var(--gold-lt)">Chat with us</a> or email <span style="color:var(--stone)"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f3d130a1a181a120f0d103f18121e1613511c1012">[email&#160;protected]</a></span></p>
         </div>
@@ -4020,8 +4030,17 @@ setTimeout(initSvcGalleries,800);
               <div class="sched-panel-title">Choose your payment</div>
               <p class="sched-panel-sub">Select a deposit option to secure your date.</p>
 
-              <div style="padding:.8rem 1rem;background:rgba(200,191,176,.08);border-left:2px solid var(--gold);font-size:.78rem;color:var(--stone);line-height:1.6;">
-                Payment details will be provided after your booking request is reviewed.
+              <div class="payment-opts">
+                <button class="payment-card selected" id="pay-half" onclick="selectSchedPayment('half')">
+                  <span class="pc-label">50% Deposit</span>
+                  <span class="pc-amount" id="pc-half-amt">$0</span>
+                  <span class="pc-desc">Pay half now to lock in your date. Balance due 30 days before your session.</span>
+                </button>
+                <button class="payment-card" id="pay-full" onclick="selectSchedPayment('full')">
+                  <span class="pc-label">Full Payment</span>
+                  <span class="pc-amount" id="pc-full-amt">$0</span>
+                  <span class="pc-desc">Pay in full today. No balance due before your session.</span>
+                </button>
               </div>
 
               <!-- Payment method selector — Cash App & Zelle shown for Action Shot -->
@@ -4120,8 +4139,8 @@ setTimeout(initSvcGalleries,800);
               <div class="os-empty">Select a service to see your summary</div>
             </div>
             <div class="os-total">
-              <span>Pricing</span>
-              <span id="orderDueTotal" style="font-size:.9rem;">Upon inquiry</span>
+              <span>Due Today</span>
+              <span id="orderDueTotal">$0</span>
             </div>
             <p class="os-note">&#128274; Secure booking. Your date is held for 48 hours. Rogelio will confirm within 24 hours.</p>
           </div>

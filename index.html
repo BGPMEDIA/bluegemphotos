@@ -1812,19 +1812,19 @@ window.sendChat=function(){
 var schedData={service:'',hours:0,date:'',time:'',name:'',email:'',phone:'',location:'',notes:'',payment:'half'};
 var schedStep=1;
 var schedServices=[
-  {num:'01',name:'Mini Session',rate:395,perHour:false,desc:'30-min focused session. Headshots, individuals, seasonal portraits.'},
-  {num:'02',name:'Portrait Session',rate:450,perHour:false,desc:'45-min creative session for individuals, couples, or small families. Upgrade to Fine Art for the full experience.'},
-  {num:'02b',name:'Fine Art Portrait Session',rate:1550,perHour:false,desc:'Unhurried 2-hour session with professional hair & makeup, premium backdrop, and full posing direction.'},
-  {num:'03',name:'Family Collection',rate:1750,perHour:false,desc:'2-hour storytelling session for families up to 8 members.'},
-  {num:'04',name:'Wedding Day',rate:2800,perHour:false,desc:'Ceremony to full-day coverage. Three tiers available — pricing upon inquiry.'},
-  {num:'05',name:'Bridal Portrait Session',rate:1750,perHour:false,desc:'2-hour session exclusively for the bride. Before the vows, before the chaos.'},
-  {num:'06',name:'Commercial & Brand',rate:1395,perHour:true,desc:'Hourly rate for business, product, and personal brand shoots.'},
-  {num:'07',name:'Fashion Photography',rate:7500,perHour:false,desc:'Editorial and lifestyle fashion sessions. Half or full day available.'},
-  {num:'08',name:'Action Shot Session',rate:250,perHour:false,desc:'1-hour track & field session at Ansin Sports Complex. Available 3:00 PM – 7:00 PM. 3 edited images.'},
-  {num:'09',name:'Prom Portrait Session',rate:350,perHour:false,desc:'Elegant prom portraits at your home. 5 edited images, 3-5 day turnaround.'},
-  {num:'10',name:'Headshot Session',rate:295,perHour:false,desc:'Professional headshots for individuals, executives, and teams. Fast turnaround.'},
-  {num:'11',name:'Christmas Mini Session',rate:450,perHour:false,desc:'45-min holiday studio session. Available backdrops, 6 edited images, watermarked gallery with print options.'},
-  {num:'12',name:'Premium Holiday Session',rate:1700,perHour:false,desc:'90-min luxury holiday session with custom backdrop, props, and 8 edited images. Book 2 weeks in advance.'},
+  {num:'01',name:'Mini Session',rate:395,perHour:false,desc:'30-min focused session. Headshots, individuals, seasonal portraits.',details:'30-minute session · 5 edited digital images · Private online gallery'},
+  {num:'02',name:'Portrait Session',rate:450,perHour:false,desc:'45-min creative session for individuals, couples, or small families. Upgrade to Fine Art for the full experience.',details:'45-minute session · 6 edited digital images · Private watermarked gallery'},
+  {num:'02b',name:'Fine Art Portrait Session',rate:1550,perHour:false,desc:'Unhurried 2-hour session with professional hair & makeup, premium backdrop, and full posing direction.',details:'2-hour session · Professional hair & makeup · Premium backdrop · 6 hand-selected edited images · Private watermarked gallery'},
+  {num:'03',name:'Family Collection',rate:1750,perHour:false,desc:'2-hour storytelling session for families up to 8 members.',details:'2-hour session · Up to 8 family members · 10 edited digital images · Slideshow reveal · One 11x14 print'},
+  {num:'04',name:'Wedding Day',rate:2800,perHour:false,desc:'Ceremony to full-day coverage. Three tiers available — pricing upon inquiry.',details:'Full-day wedding coverage · Ceremony through reception · 30 edited digital images · Engagement session included (Classic+)'},
+  {num:'05',name:'Bridal Portrait Session',rate:1750,perHour:false,desc:'2-hour session exclusively for the bride. Before the vows, before the chaos.',details:'2-hour studio session · 8 edited digital images · Private gallery delivery · Fine art print options available'},
+  {num:'06',name:'Commercial & Brand',rate:1395,perHour:true,desc:'Hourly rate for business, product, and personal brand shoots.',details:'Hourly rate · Full commercial license · Mood board consultation'},
+  {num:'07',name:'Fashion Photography',rate:7500,perHour:false,desc:'Editorial and lifestyle fashion sessions. Half or full day available.',details:'4 or 8-hour session · 15 edited digital images · Full commercial license · Multi-location available'},
+  {num:'08',name:'Action Shot Session',rate:250,perHour:false,desc:'1-hour track & field session at Ansin Sports Complex. Available 3:00 PM – 7:00 PM. 3 edited images.',details:'30-minute shoot · Ansin Sports Complex · 3 edited high-resolution images · Digital downloads included'},
+  {num:'09',name:'Prom Portrait Session',rate:350,perHour:false,desc:'Elegant prom portraits at your home. 5 edited images, 3-5 day turnaround.',details:'On-location at your home · 6 edited high-resolution images · Private online gallery · 3–5 day turnaround'},
+  {num:'10',name:'Headshot Session',rate:295,perHour:false,desc:'Professional headshots for individuals, executives, and teams. Fast turnaround.',details:'Studio session · 2 edited digital images · Private online gallery · 3–5 business day turnaround'},
+  {num:'11',name:'Christmas Mini Session',rate:450,perHour:false,desc:'45-min holiday studio session. Available backdrops, 6 edited images, watermarked gallery with print options.',details:'45-minute studio session · Seasonal backdrop included · 6 edited digital images · Watermarked gallery with print options'},
+  {num:'12',name:'Premium Holiday Session',rate:1700,perHour:false,desc:'90-min luxury holiday session with custom backdrop, props, and 8 edited images. Book 2 weeks in advance.',details:'90-minute studio session · Custom backdrop of your choice · Curated holiday props included · 8 edited digital images · Private watermarked gallery'},
 ];
 
 window.openScheduling=function(preselect){
@@ -2385,7 +2385,11 @@ window.submitSquarePayment=async function(){
       body:JSON.stringify({
         amountCents:due*100,
         currency:'USD',
-        note:notePrefix+schedData.service+' - '+schedData.name+' - '+schedData.date+(schedData.time?' at '+schedData.time:''),
+        note:(function(){
+          var svc=schedServices.find(function(s){return s.name===schedData.service;});
+          var details=svc&&svc.details?'\n'+svc.details:'';
+          return notePrefix+schedData.service+details+'\n\nClient: '+schedData.name+' | Date: '+schedData.date+(schedData.time?' at '+schedData.time:'');
+        })(),
         buyerName:cardholder,
         buyerEmail:schedData.email,
         redirectUrl:window.location.href

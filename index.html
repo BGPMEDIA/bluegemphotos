@@ -726,7 +726,7 @@ async function loadGalleries(){
 var isAdminMode = false;
 
 // Action Shot service visibility — persists in localStorage
-var actionShotVisible = localStorage.getItem('actionShotVisible') !== 'false';
+var actionShotVisible = localStorage.getItem('actionShotVisible') === 'true';
 function applyActionShotVisibility(){
   var card = document.getElementById('action-shot-card');
   if(card) card.style.display = actionShotVisible ? '' : 'none';

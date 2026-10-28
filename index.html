@@ -760,7 +760,7 @@ window.toggleHolidaySeason = function(){
 };
 
 // Prom Portrait service visibility
-var promVisible = localStorage.getItem('promVisible') !== 'false';
+var promVisible = localStorage.getItem('promVisible') === 'true';
 function applyPromVisibility(){
   var card = document.getElementById('prom-card');
   if(card) card.style.display = promVisible ? '' : 'none';

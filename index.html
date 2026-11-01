@@ -555,6 +555,12 @@ footer{background:var(--charcoal);padding:4rem;color:var(--stone);display:grid;g
 <script>
 document.addEventListener('DOMContentLoaded',function(){
 
+window.submitContactForm=function(e){
+  e.preventDefault();
+  document.getElementById('cf-success').style.display='block';
+  document.getElementById('contact-form').querySelector('button[type=submit]').disabled=true;
+};
+
 window.showPage=function(id){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.getElementById('page-'+id).classList.add('active');
@@ -2563,7 +2569,7 @@ setTimeout(initSvcGalleries,800);
     <li><a href="#" onclick="showPage('home');setTimeout(function(){document.getElementById('process').scrollIntoView({behavior:'smooth'})},50);return false;">Process</a></li>
     <li><a href="#" onclick="showPage('svc-fashion');return false;">Film</a></li>
     <li><a href="#" onclick="showPage('gallery');return false;">Client Galleries</a></li>
-    <li><a href="#" onclick="openBooking('');return false;">Contact</a></li>
+    <li><a href="#" onclick="showPage('contact');return false;">Contact</a></li>
   </ul>
   <a href="#" class="nav-cta" onclick="showPage('gallery');return false;">View Galleries</a>
 </nav>
@@ -2816,7 +2822,7 @@ setTimeout(initSvcGalleries,800);
   <footer>
     <div><div class="footer-brand">Rogelio Small Photography</div><p class="footer-tagline">Award-winning portrait photography rooted in authentic storytelling. Based in South Florida &mdash; Available Worldwide.</p><div style="display:inline-flex;align-items:center;gap:.6rem;margin-top:1rem;padding:.5rem .9rem;border:1px solid rgba(184,154,106,.3);"><span style="font-size:1rem">&#127942;</span><span style="font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-family:'Jost',sans-serif;">Portrait Masters Awards<br><span style="color:var(--stone);">Merit Recipient</span></span></div></div>
     <div class="footer-col"><h4>Services</h4><ul><li><a href="#" onclick="showPage('svc-mini');return false;">Mini Session</a></li><li><a href="#" onclick="showPage('svc-portrait');return false;">Portrait Session</a></li><li><a href="#" onclick="showPage('svc-family');return false;">Family Collection</a></li><li><a href="#" onclick="showPage('svc-wedding');return false;">Wedding Day</a></li><li><a href="#" onclick="showPage('svc-bridal');return false;">Bridal Portrait</a></li><li><a href="#" onclick="showPage('svc-commercial');return false;">Commercial &amp; Brand</a></li><li><a href="#" onclick="showPage('svc-fashion');return false;">Fashion Photography</a></li><li><a href="#" onclick="showPage('svc-action');return false;">Action Shot Session</a></li><li><a href="#" onclick="showPage('svc-prom');return false;">Prom Portrait Session</a></li><li><a href="#" onclick="showPage('svc-headshot');return false;">Headshot Session</a></li></ul></div>
-    <div class="footer-col"><h4>Studio</h4><ul><li><a href="#">About</a></li><li><a href="#">Portfolio</a></li><li><a href="#" onclick="showPage('gallery');return false;">Client Galleries</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Studio</h4><ul><li><a href="#">About</a></li><li><a href="#">Portfolio</a></li><li><a href="#" onclick="showPage('gallery');return false;">Client Galleries</a></li><li><a href="#">Blog</a></li><li><a href="#" onclick="showPage('contact');return false;">Contact</a></li></ul></div>
     <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:+13056765980" style="color:var(--taupe);text-decoration:none">(305) 676-5980</a></li><li>Based in South Florida &middot; Available Worldwide</li><li style="margin-top:.8rem"><a href="#">Instagram</a></li><li><a href="#">Pinterest</a></li></ul></div>
   </footer>
   <div class="footer-bottom"><span>&copy; 2026 Rogelio Small Photography. All rights reserved.</span><span>Privacy Policy &middot; Terms of Service</span></div>
@@ -4334,6 +4340,61 @@ setTimeout(initSvcGalleries,800);
 </div><!-- end scheduling page -->
 
 
+
+<!-- CONTACT PAGE -->
+<div class="page" id="page-contact">
+  <div style="min-height:100vh;background:var(--warm-white);display:flex;flex-direction:column;">
+
+    <!-- Back nav -->
+    <div style="padding:1.2rem 1.6rem;border-bottom:1px solid var(--stone);">
+      <a href="#" onclick="showPage('home');return false;" style="font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe);text-decoration:none;">&#8592; Back</a>
+    </div>
+
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 1.6rem;">
+      <div style="width:100%;max-width:520px;">
+
+        <!-- Heading -->
+        <div style="margin-bottom:2.4rem;">
+          <p style="font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0 0 .6rem;">Get In Touch</p>
+          <h1 style="font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:400;color:var(--espresso);margin:0 0 .8rem;line-height:1.2;">Let's Talk</h1>
+          <p style="font-family:'Jost',sans-serif;font-size:.9rem;color:var(--taupe);line-height:1.7;margin:0;">Have a question about a session, pricing, or availability? Send a message and we'll get back to you within 24 hours.</p>
+        </div>
+
+        <!-- Contact info -->
+        <div style="display:flex;gap:2rem;margin-bottom:2.4rem;padding-bottom:2rem;border-bottom:1px solid var(--stone);">
+          <div>
+            <p style="font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe);margin:0 0 .3rem;">Phone</p>
+            <a href="tel:+13056765980" style="font-family:'Jost',sans-serif;font-size:.95rem;color:var(--espresso);text-decoration:none;">(305) 676-5980</a>
+          </div>
+          <div>
+            <p style="font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe);margin:0 0 .3rem;">Email</p>
+            <a href="mailto:rogelio@bluegemphotos.com" style="font-family:'Jost',sans-serif;font-size:.95rem;color:var(--espresso);text-decoration:none;">rogelio@bluegemphotos.com</a>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <form id="contact-form" onsubmit="submitContactForm(event)">
+          <div style="margin-bottom:1.2rem;">
+            <label style="font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe);display:block;margin-bottom:.4rem;">Name</label>
+            <input type="text" id="cf-name" required placeholder="Your name" style="width:100%;padding:.75rem 1rem;border:1px solid var(--stone);background:#fff;font-family:'Jost',sans-serif;font-size:.9rem;color:var(--espresso);outline:none;transition:border-color .2s;box-sizing:border-box;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--stone)'">
+          </div>
+          <div style="margin-bottom:1.2rem;">
+            <label style="font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe);display:block;margin-bottom:.4rem;">Email</label>
+            <input type="email" id="cf-email" required placeholder="your@email.com" style="width:100%;padding:.75rem 1rem;border:1px solid var(--stone);background:#fff;font-family:'Jost',sans-serif;font-size:.9rem;color:var(--espresso);outline:none;transition:border-color .2s;box-sizing:border-box;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--stone)'">
+          </div>
+          <div style="margin-bottom:1.6rem;">
+            <label style="font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--taupe);display:block;margin-bottom:.4rem;">Message</label>
+            <textarea id="cf-message" required rows="5" placeholder="Tell us about what you're looking for..." style="width:100%;padding:.75rem 1rem;border:1px solid var(--stone);background:#fff;font-family:'Jost',sans-serif;font-size:.9rem;color:var(--espresso);outline:none;transition:border-color .2s;resize:vertical;box-sizing:border-box;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--stone)'"></textarea>
+          </div>
+          <button type="submit" style="width:100%;padding:.9rem;background:var(--espresso);color:var(--warm-white);border:none;font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">Send Message</button>
+          <div id="cf-success" style="display:none;margin-top:1rem;padding:.9rem;background:rgba(45,90,45,.08);border:1px solid rgba(45,90,45,.2);font-family:'Jost',sans-serif;font-size:.85rem;color:#2d5a2d;text-align:center;">Message sent! We'll be in touch within 24 hours.</div>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</div><!-- end contact page -->
 
 <script defer src="/_vercel/insights/script.js"></script>
 </body>

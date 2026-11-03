@@ -1925,6 +1925,13 @@ function clearSlotCache(date){
 window.selectSchedService=function(i){
   schedData.service=schedServices[i].name;
   schedData.hours=schedServices[i].perHour?0:0;
+  // Reset promo if service changed
+  promoDiscount=0;
+  var promoInput=document.getElementById('sched-promo');
+  var promoMsg=document.getElementById('promo-msg');
+  if(promoInput)promoInput.value='';
+  if(promoMsg){promoMsg.style.display='none';promoMsg.textContent='';}
+
   document.querySelectorAll('.sched-svc-card').forEach(function(c,j){
     c.classList.toggle('selected',j===i);
   });
@@ -1967,14 +1974,34 @@ window.selectHeadshotTier = function(el){
   updateOrderSummary();
 };
 
+var promoDiscount=0;
+var promoCodes={
+  'HOLIDAY250':{discount:200,services:['Christmas Mini Session'],label:'Holiday Special — $200 off'}
+};
+
+window.applyPromoCode=function(){
+  var code=(document.getElementById('sched-promo').value||'').trim().toUpperCase();
+  var msgEl=document.getElementById('promo-msg');
+  msgEl.style.display='block';
+  if(!code){msgEl.style.color='var(--taupe)';msgEl.textContent='Please enter a promo code.';return;}
+  var promo=promoCodes[code];
+  if(!promo){msgEl.style.color='#c0392b';msgEl.textContent='Code not recognized. Please check and try again.';promoDiscount=0;updateOrderSummary();return;}
+  if(promo.services&&promo.services.length&&schedData.service&&promo.services.indexOf(schedData.service)===-1){
+    msgEl.style.color='#c0392b';msgEl.textContent='This code is not valid for the selected service.';promoDiscount=0;updateOrderSummary();return;
+  }
+  promoDiscount=promo.discount;
+  msgEl.style.color='#2e7d32';msgEl.textContent='✓ '+promo.label+' applied!';
+  updateOrderSummary();
+};
+
 function getSchedTotal(){
   if(schedData.service === 'Headshot Session' && schedData.headshotRate){
-    return schedData.headshotRate;
+    return Math.max(0, schedData.headshotRate - promoDiscount);
   }
   var svc=schedServices.find(function(s){return s.name===schedData.service;});
   if(!svc)return 0;
-  if(svc.perHour)return svc.rate*(schedData.hours||0);
-  return svc.rate;
+  var base=svc.perHour?svc.rate*(schedData.hours||0):svc.rate;
+  return Math.max(0, base - promoDiscount);
 }
 
 function updateOrderSummary(){
@@ -1993,7 +2020,14 @@ function updateOrderSummary(){
       html+='<div class="os-row" style="font-size:.72rem;color:var(--taupe);"><span colspan="2">Applied toward your project total upon booking.</span></div>';
       html+='<div class="os-row" style="font-size:.72rem;color:var(--taupe);"><span colspan="2">Non-refundable if project does not proceed.</span></div>';
     } else {
-      html+='<div class="os-row"><span>Session Total</span><span>$'+total.toLocaleString()+'</span></div>';
+      var rawRate=svc.perHour?svc.rate*(schedData.hours||0):svc.rate;
+      if(promoDiscount>0&&rawRate>0){
+        html+='<div class="os-row"><span>Session Rate</span><span>$'+rawRate.toLocaleString()+'</span></div>';
+        html+='<div class="os-row" style="color:#2e7d32;"><span>Promo Discount</span><span>−$'+promoDiscount.toLocaleString()+'</span></div>';
+        html+='<div class="os-row"><span>Session Total</span><span>$'+total.toLocaleString()+'</span></div>';
+      } else {
+        html+='<div class="os-row"><span>Session Total</span><span>$'+total.toLocaleString()+'</span></div>';
+      }
       html+='<div class="os-row"><span>'+(schedData.payment==='half'?'50% Deposit':'Full Payment')+'</span><span>$'+due.toLocaleString()+'</span></div>';
     }
   } else {
@@ -4191,6 +4225,16 @@ setTimeout(initSvcGalleries,800);
                   <option>Returning Client</option>
                   <option>Other</option>
                 </select>
+              </div>
+
+              <!-- Promo Code -->
+              <div class="sched-field" style="margin-top:.5rem;">
+                <label>Promo Code <span style="font-size:.72rem;color:var(--taupe);font-weight:400;letter-spacing:0;">(optional)</span></label>
+                <div style="display:flex;gap:.5rem;align-items:center;">
+                  <input type="text" id="sched-promo" placeholder="Enter code" style="text-transform:uppercase;letter-spacing:.08em;flex:1;" oninput="this.value=this.value.toUpperCase()">
+                  <button type="button" onclick="applyPromoCode()" style="font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;padding:.6rem 1rem;background:transparent;border:1px solid var(--gold);color:var(--gold);cursor:pointer;white-space:nowrap;">Apply</button>
+                </div>
+                <div id="promo-msg" style="font-size:.75rem;margin-top:.4rem;display:none;"></div>
               </div>
 
               <div class="sched-nav">

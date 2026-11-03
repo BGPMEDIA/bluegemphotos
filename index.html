@@ -1931,6 +1931,9 @@ window.selectSchedService=function(i){
   var promoMsg=document.getElementById('promo-msg');
   if(promoInput)promoInput.value='';
   if(promoMsg){promoMsg.style.display='none';promoMsg.textContent='';}
+  // Restore deposit button visibility
+  var halfBtn=document.getElementById('pay-half');
+  if(halfBtn)halfBtn.style.display='';
 
   document.querySelectorAll('.sched-svc-card').forEach(function(c,j){
     c.classList.toggle('selected',j===i);
@@ -2002,13 +2005,13 @@ window.applyPromoCode=function(){
   promoDiscount=promo.discount;
   var fullMsg=promo.requireFullPayment?' Full payment required at checkout.':'';
   msgEl.style.color='#2e7d32';msgEl.textContent='✓ '+promo.label+' applied!'+fullMsg;
-  // Force full payment selection
+  // Force full payment selection and hide deposit option
   if(promo.requireFullPayment){
     schedData.payment='full';
     var fullBtn=document.getElementById('pay-full');
     var halfBtn=document.getElementById('pay-half');
-    if(fullBtn)fullBtn.classList.add('selected');
-    if(halfBtn)halfBtn.classList.remove('selected');
+    if(fullBtn){fullBtn.classList.add('selected');fullBtn.style.display='';}
+    if(halfBtn){halfBtn.classList.remove('selected');halfBtn.style.display='none';}
   }
   updateOrderSummary();
 };

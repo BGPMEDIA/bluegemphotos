@@ -1931,9 +1931,9 @@ window.selectSchedService=function(i){
   var promoMsg=document.getElementById('promo-msg');
   if(promoInput)promoInput.value='';
   if(promoMsg){promoMsg.style.display='none';promoMsg.textContent='';}
-  // Restore deposit button visibility
-  var halfBtn=document.getElementById('pay-half');
-  if(halfBtn)halfBtn.style.display='';
+  var p4=document.getElementById('sched-panel-4');
+  if(p4)p4.removeAttribute('data-promo-full');
+  syncPromoPaymentUI();
 
   document.querySelectorAll('.sched-svc-card').forEach(function(c,j){
     c.classList.toggle('selected',j===i);
@@ -1988,6 +1988,16 @@ window.selectHeadshotTier = function(el){
 };
 
 var promoDiscount=0;
+function syncPromoPaymentUI(){
+  var p4=document.getElementById('sched-panel-4');
+  var halfBtn=document.getElementById('pay-half');
+  if(!p4||!halfBtn)return;
+  if(p4.getAttribute('data-promo-full')==='1'){
+    halfBtn.style.setProperty('display','none','important');
+  } else {
+    halfBtn.style.removeProperty('display');
+  }
+}
 var promoCodes={
   'HOLIDAY250':{discount:200,services:['Christmas Mini Session'],label:'Holiday Special — $200 off',requireFullPayment:true}
 };
@@ -2008,12 +2018,13 @@ window.applyPromoCode=function(){
   // Force full payment selection and hide deposit option
   if(promo.requireFullPayment){
     schedData.payment='full';
+    document.querySelectorAll('.payment-card').forEach(function(c){c.classList.remove('selected');});
     var fullBtn=document.getElementById('pay-full');
-    var halfBtn=document.getElementById('pay-half');
-    if(fullBtn){fullBtn.classList.add('selected');fullBtn.style.display='';}
-    if(halfBtn){halfBtn.classList.remove('selected');halfBtn.style.display='none';}
+    if(fullBtn)fullBtn.classList.add('selected');
+    document.getElementById('sched-panel-4').setAttribute('data-promo-full','1');
   }
   updateOrderSummary();
+  syncPromoPaymentUI();
 };
 
 function getSchedTotal(){
@@ -2077,6 +2088,7 @@ function updateSchedTabs(){
   document.querySelectorAll('.sched-panel').forEach(function(p,i){
     p.classList.toggle('active',i+1===schedStep);
   });
+  syncPromoPaymentUI();
   // Populate time slots when step 2 becomes active
   if(schedStep===2){
     loadTimeSlots(schedData.date, schedData.service, schedData.time);

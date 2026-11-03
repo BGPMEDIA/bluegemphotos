@@ -2007,6 +2007,14 @@ window.applyPromoCode=function(){
   if(promo.services&&promo.services.length&&schedData.service&&promo.services.indexOf(schedData.service)===-1){
     msgEl.style.color='#c0392b';msgEl.textContent='This code is not valid for the selected service.';promoDiscount=0;updateOrderSummary();return;
   }
+  // Block if weekend date already selected
+  if(promo.requireFullPayment&&schedData.date){
+    var dow=new Date(schedData.date+'T12:00:00').getDay();
+    if(dow===0||dow===6){
+      msgEl.style.color='#c0392b';msgEl.textContent='HOLIDAY250 is valid weekdays only. Please go back and select a weekday.';
+      return;
+    }
+  }
   promoDiscount=promo.discount;
   var fullMsg=promo.requireFullPayment?' Full payment required at checkout.':'';
   msgEl.style.color='#2e7d32';msgEl.textContent='✓ '+promo.label+' applied!'+fullMsg;

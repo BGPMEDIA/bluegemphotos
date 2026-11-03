@@ -2095,6 +2095,14 @@ function updateSchedTabs(){
         schedData.time = '';
         loadTimeSlots(schedData.date, schedData.service, '');
         updateOrderSummary();
+        // Show weekday warning if promo active and weekend selected
+        var note=document.getElementById('weekday-note');
+        if(note&&promoDiscount>0&&this.value){
+          var dow=new Date(this.value+'T12:00:00').getDay();
+          note.style.display=(dow===0||dow===6)?'block':'none';
+        } else if(note){
+          note.style.display='none';
+        }
       };
     }
     applyDepositRules();
@@ -2136,6 +2144,14 @@ window.schedNext=function(){
     if(t)schedData.time=t.value;
     if(!schedData.date){window.showToast('Please select a session date');return;}
     if(!schedData.time){window.showToast('Please select a start time');return;}
+    // Block weekends when promo is active
+    if(promoDiscount>0){
+      var dayOfWeek=new Date(schedData.date+'T12:00:00').getDay();
+      if(dayOfWeek===0||dayOfWeek===6){
+        window.showToast('HOLIDAY250 is valid weekdays only (Mon–Fri). Please choose a weekday.');
+        return;
+      }
+    }
     // Blackout dates per service
     var actionShotBlackout = ['2026-05-06'];
     if(schedData.service === 'Action Shot Session' && actionShotBlackout.indexOf(schedData.date) !== -1){
@@ -4150,6 +4166,7 @@ setTimeout(initSvcGalleries,800);
                 <div class="sched-field">
                   <label>Session Date *</label>
                   <input type="date" id="sched-date">
+                  <div id="weekday-note" style="display:none;margin-top:.4rem;font-size:.74rem;color:#c8a86a;line-height:1.5;">&#9888; Promo code HOLIDAY250 is valid on <strong>weekdays only</strong> (Mon–Fri). Please select a weekday.</div>
                 </div>
                 <div class="sched-field">
                   <label>Preferred Start Time *</label>

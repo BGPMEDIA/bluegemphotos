@@ -1953,6 +1953,16 @@ window.selectHours=function(h){
 };
 
 window.selectSchedPayment=function(type){
+  // Block switching to deposit if an active promo requires full payment
+  if(type==='half'&&promoDiscount>0){
+    var activeCode=(document.getElementById('sched-promo').value||'').trim().toUpperCase();
+    var promo=promoCodes[activeCode];
+    if(promo&&promo.requireFullPayment){
+      var msgEl=document.getElementById('promo-msg');
+      if(msgEl){msgEl.style.display='block';msgEl.style.color='#c0392b';msgEl.textContent='Promo code HOLIDAY250 requires full payment.';}
+      return;
+    }
+  }
   schedData.payment=type;
   document.querySelectorAll('.payment-card').forEach(function(c){c.classList.remove('selected');});
   document.getElementById('pay-'+type).classList.add('selected');
@@ -1976,7 +1986,7 @@ window.selectHeadshotTier = function(el){
 
 var promoDiscount=0;
 var promoCodes={
-  'HOLIDAY250':{discount:200,services:['Christmas Mini Session'],label:'Holiday Special — $200 off'}
+  'HOLIDAY250':{discount:200,services:['Christmas Mini Session'],label:'Holiday Special — $200 off',requireFullPayment:true}
 };
 
 window.applyPromoCode=function(){
@@ -1990,7 +2000,16 @@ window.applyPromoCode=function(){
     msgEl.style.color='#c0392b';msgEl.textContent='This code is not valid for the selected service.';promoDiscount=0;updateOrderSummary();return;
   }
   promoDiscount=promo.discount;
-  msgEl.style.color='#2e7d32';msgEl.textContent='✓ '+promo.label+' applied!';
+  var fullMsg=promo.requireFullPayment?' Full payment required at checkout.':'';
+  msgEl.style.color='#2e7d32';msgEl.textContent='✓ '+promo.label+' applied!'+fullMsg;
+  // Force full payment selection
+  if(promo.requireFullPayment){
+    schedData.payment='full';
+    var fullBtn=document.getElementById('pay-full');
+    var halfBtn=document.getElementById('pay-half');
+    if(fullBtn)fullBtn.classList.add('selected');
+    if(halfBtn)halfBtn.classList.remove('selected');
+  }
   updateOrderSummary();
 };
 

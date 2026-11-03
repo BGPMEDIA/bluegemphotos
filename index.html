@@ -2386,7 +2386,10 @@ function applyDepositRules(){
     schedData.payment = 'full';
     selectedDeposit = 'full';
   } else {
-    if(payHalf){ payHalf.style.display = ''; }
+    // Only restore pay-half if no promo requiring full payment is active
+    var p4=document.getElementById('sched-panel-4');
+    var promoFull=p4&&p4.getAttribute('data-promo-full')==='1';
+    if(payHalf){ payHalf.style.display = promoFull ? 'none' : ''; }
     if(halfBtn){ halfBtn.style.display = ''; }
   }
   updateOrderSummary();

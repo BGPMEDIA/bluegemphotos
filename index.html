@@ -594,7 +594,9 @@ var galleryStore = [];
 (function(){
   var params = new URLSearchParams(window.location.search);
   var page = params.get('page');
-  if(page) setTimeout(function(){ showPage(page); }, 100);
+  var book = params.get('book');
+  if(book) setTimeout(function(){ window.openScheduling(decodeURIComponent(book)); }, 200);
+  else if(page) setTimeout(function(){ showPage(page); }, 100);
 })();
 async function loadFeaturedGallery(){
   var grid = document.getElementById('featuredGalleryGrid');

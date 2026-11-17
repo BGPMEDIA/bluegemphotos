@@ -731,6 +731,7 @@ async function loadGalleries(){
     }
   }
   renderGalleryCards();
+  applySwimWeekVisibility();
 }
 
 var isAdminMode = false;
@@ -1315,18 +1316,20 @@ window.toggleGalleryVisibility = async function(id, currentlyVisible){
     var res = await fetch('/api/galleries', {
       method: 'PUT',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ 
-        id, name:g.name, folder:g.folder, date:g.date, 
-        price:g.price, singlePrice:g.singlePrice, 
-        password:g.password, expiry:g.expiry, 
+      body: JSON.stringify({
+        id, name:g.name, folder:g.folder, date:g.date,
+        price:g.price, singlePrice:g.singlePrice,
+        password:g.password, expiry:g.expiry,
         pictimeUrl:g.pictimeUrl||'', pixiesetUrl:g.pixiesetUrl||'', pixiesetPrice:g.pixiesetPrice||'',
-        visible: !currentlyVisible 
+        cover:g.cover||'', tagline:g.tagline||'',
+        visible: !currentlyVisible
       })
     });
     var data = await res.json();
     if(data.success){
       window.showToast(currentlyVisible ? 'Gallery hidden from clients' : 'Gallery now visible to clients');
       await loadGalleries();
+      applySwimWeekVisibility();
     }
   } catch(err) {
     window.showToast('Error updating gallery visibility');

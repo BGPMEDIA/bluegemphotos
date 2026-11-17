@@ -971,16 +971,26 @@ function loadCloudinaryFolder(g, idx, card){
         var viewBtn = document.createElement('button');
         viewBtn.className = 'btn-sm btn-sm-gold';
         viewBtn.textContent = 'View Gallery';
-        (function(gallery, res){ viewBtn.onclick = async function(){ 
+        (function(gallery, res){ viewBtn.onclick = async function(){
           if(gallery.password && gallery.password.trim() !== ''){
             var entered = prompt('This gallery is private. Please enter the password:');
-            if(entered === null) return; // cancelled
+            if(entered === null) return;
             if(entered.trim() !== gallery.password.trim()){
               window.showToast('Incorrect password');
               return;
             }
           }
-          openCloudinaryGallery(gallery, res); 
+          // If photos didn't load yet, re-fetch before opening
+          if(!res || res.length === 0){
+            viewBtn.textContent = 'Loading...';
+            try {
+              var r = await fetch('/api/cloudinary?folder='+encodeURIComponent(gallery.folder));
+              var d = await r.json();
+              res = d.photos || [];
+            } catch(e){}
+            viewBtn.textContent = 'View Gallery';
+          }
+          openCloudinaryGallery(gallery, res);
         }; })(g, resources);
         var buyBtn = document.createElement('button');
         buyBtn.className = 'btn-sm btn-sm-outline';

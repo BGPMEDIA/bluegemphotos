@@ -566,6 +566,7 @@ window.showPage=function(id){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.getElementById('page-'+id).classList.add('active');
   window.scrollTo(0,0);
+  if(id === 'gallery') applySwimWeekVisibility();
   var nav=document.getElementById('main-nav');
   if(id==='home')nav.classList.remove('scrolled');
   else nav.classList.add('scrolled');
@@ -771,7 +772,7 @@ window.toggleHolidaySeason = function(){
 // Swim Week gallery visibility
 var swimWeekVisible = localStorage.getItem('swimWeekVisible') !== 'false';
 function applySwimWeekVisibility(){
-  var section = document.querySelector('.gallery-section');
+  var section = document.getElementById('swim-week-section');
   if(section) section.style.display = swimWeekVisible ? '' : 'none';
   var btn = document.getElementById('toggle-swimWeek');
   if(btn){
@@ -779,7 +780,6 @@ function applySwimWeekVisibility(){
     btn.style.background = swimWeekVisible ? '#3a3028' : '#9e9082';
   }
 }
-setTimeout(applySwimWeekVisibility, 60);
 window.toggleSwimWeek = function(){
   swimWeekVisible = !swimWeekVisible;
   localStorage.setItem('swimWeekVisible', swimWeekVisible);
@@ -867,13 +867,17 @@ window.switchTab = function(tab, btn) {
   });
   document.querySelectorAll('.gallery-tab').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
-  if(tab === 'galleries') renderGalleryCards();
+  if(tab === 'galleries' || tab === 'admin'){
+    var grid = document.getElementById('galleriesGrid');
+    if(grid) grid.innerHTML = '';
+    renderGalleryCards();
+  }
 };
 
 function renderGalleryCards(){
   var grid = document.getElementById('galleriesGrid');
   if(!grid) return;
-  // Filter based on admin mode — public only sees visible galleries
+  // Filter based on admin mode — admin sees all, public only sees visible galleries
   var now = new Date();
   var visibleGalleries = isAdminMode ? galleryStore : galleryStore.filter(function(g){
     if(g.visible === false) return false;
@@ -3907,7 +3911,7 @@ setTimeout(initSvcGalleries,800);
     <div id="tab-galleries">
 
       <!-- Featured Gallery — Fashion Runway Photos -->
-      <div class="gallery-section" style="background:var(--espresso);padding:3rem 2rem;">
+      <div id="swim-week-section" class="gallery-section" style="background:var(--espresso);padding:3rem 2rem;">
         <p class="section-label" style="color:var(--gold-lt);text-align:center;">Featured Work</p>
         <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(1.8rem,4vw,3rem);color:var(--warm-white);text-align:center;margin-bottom:.5rem;">Miami <em style="color:var(--gold-lt)">Swim Week</em></h2>
         <p style="color:var(--stone);text-align:center;font-size:.85rem;margin-bottom:2rem;">Runway Coverage</p>

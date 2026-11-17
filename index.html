@@ -1002,6 +1002,15 @@ function loadCloudinaryFolder(g, idx, card){
         (function(id){ delBtn.onclick = function(){ window.deleteGallery(id); }; })(g.id);
         actions.appendChild(viewBtn);
         actions.appendChild(buyBtn);
+        if(isAdminMode){
+          var quickToggleBtn = document.createElement('button');
+          quickToggleBtn.className = 'btn-sm btn-sm-outline';
+          var qIsVisible = g.visible !== false;
+          quickToggleBtn.textContent = qIsVisible ? '👁 Hide' : '👁 Show';
+          quickToggleBtn.style.cssText = qIsVisible ? 'background:#5a6e5c;color:#fff;border-color:#5a6e5c;' : 'background:#9e9082;color:#fff;border-color:#9e9082;';
+          (function(id, vis, btn){ btn.onclick = function(){ window.toggleGalleryVisibility(id, vis); }; })(g.id, qIsVisible, quickToggleBtn);
+          actions.appendChild(quickToggleBtn);
+        }
         if(g.pictimeUrl && !isFreeGal){
           var printBtn = document.createElement('button');
           printBtn.className = 'btn-sm btn-sm-outline';

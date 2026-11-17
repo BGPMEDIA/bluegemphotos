@@ -1313,6 +1313,11 @@ window.toggleGalleryVisibility = async function(id, currentlyVisible){
   try {
     var g = galleryStore.find(function(g){ return g.id === id; });
     if(!g) return;
+    // Update local store immediately so re-render reflects new state
+    g.visible = !currentlyVisible;
+    var grid = document.getElementById('galleriesGrid');
+    if(grid) grid.innerHTML = '';
+    renderGalleryCards();
     var res = await fetch('/api/galleries', {
       method: 'PUT',
       headers: {'Content-Type':'application/json'},

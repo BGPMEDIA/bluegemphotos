@@ -881,7 +881,7 @@ function renderGalleryCards(){
   // Filter based on admin mode — admin sees all, public only sees visible galleries
   var now = new Date();
   var visibleGalleries = isAdminMode ? galleryStore : galleryStore.filter(function(g){
-    if(g.visible === false) return false;
+    if(g.visible === false || g.visible === 'false') return false;
     // Check expiry
     if(!g.expiry || g.expiry === '0') return true;
     var galleryDate = new Date(g.createdAt || g.date);
@@ -898,7 +898,7 @@ function renderGalleryCards(){
     var card = document.createElement('div');
     card.className = 'gallery-card';
     // Dim hidden galleries in admin view
-    if(isAdminMode && g.visible === false) card.style.opacity = '0.45';
+    if(isAdminMode && (g.visible === false || g.visible === 'false')) card.style.opacity = '0.45';
     // Show expiry warning in admin
     if(isAdminMode && g.expiry && g.expiry !== '0'){
       var galleryDate = new Date(g.createdAt || g.date);
@@ -1100,12 +1100,13 @@ function loadCloudinaryFolder(g, idx, card){
         if(isAdminMode){
           var toggleBtn = document.createElement('button');
           toggleBtn.className = 'btn-sm btn-sm-outline';
-          var isVisible = g.visible !== false;
+          var isVisible = g.visible !== false && g.visible !== 'false';
           toggleBtn.textContent = isVisible ? '👁 Hide' : '👁 Show';
           toggleBtn.style.cssText = isVisible ? 'background:#5a6e5c;color:#fff;border-color:#5a6e5c;' : 'background:#9e9082;color:#fff;border-color:#9e9082;';
           (function(id){ toggleBtn.onclick = function(){
             var current = galleryStore.find(function(x){ return x.id === id; });
-            window.toggleGalleryVisibility(id, current ? current.visible !== false : true);
+            var curVisible = current ? (current.visible !== false && current.visible !== 'false') : true;
+            window.toggleGalleryVisibility(id, curVisible);
           }; })(g.id);
           actions.appendChild(toggleBtn);
           actions.appendChild(editBtn);
@@ -1314,7 +1315,8 @@ window.toggleGalleryVisibility = async function(id, currentlyVisible){
     var g = galleryStore.find(function(g){ return g.id === id; });
     if(!g) return;
     // Update local store immediately so re-render reflects new state
-    g.visible = !currentlyVisible;
+    var curVisible = g.visible !== false && g.visible !== 'false';
+    g.visible = !curVisible;
     var grid = document.getElementById('galleriesGrid');
     if(grid) grid.innerHTML = '';
     renderGalleryCards();

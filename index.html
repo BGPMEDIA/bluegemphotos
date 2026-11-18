@@ -2766,21 +2766,6 @@ setTimeout(initSvcGalleries,800);
 </div>
 
 
-<!-- HOLIDAY PROMO BANNER -->
-<div id="holiday-banner" style="background:linear-gradient(90deg,#1a0a00 0%,#2d1a00 50%,#1a0a00 100%);border-bottom:1px solid rgba(200,168,106,.3);padding:.75rem 1.5rem;text-align:center;position:fixed;top:0;left:0;right:0;z-index:9999;">
-  <span style="font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--stone);">&#127876; Christmas Portrait Sessions &mdash; Starting at $450 &middot; Limited dates</span>
-  <button onclick="if(window.showPage)window.showPage('svc-christmas');else window.location.href='/?page=svc-christmas';" style="margin-left:1.2rem;font-family:'Jost',sans-serif;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;padding:.4rem 1.1rem;background:var(--gold);color:#1a0a00;border:none;cursor:pointer;font-weight:500;">Book Now</button>
-  <button onclick="document.getElementById('holiday-banner').style.display='none';document.body.style.paddingTop='0';" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--taupe);font-size:1.1rem;cursor:pointer;line-height:1;">&times;</button>
-</div>
-
-<script>
-  (function(){
-    var b = document.getElementById('holiday-banner');
-    if(b && b.style.display !== 'none'){
-      document.body.style.paddingTop = b.offsetHeight + 'px';
-    }
-  })();
-</script>
 
 <!-- HOME PAGE -->
 <div class="page active" id="page-home">

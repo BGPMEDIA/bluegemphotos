@@ -1992,9 +1992,8 @@ function isSchedServiceVisible(name){
 function renderSchedServices(){
   var grid=document.getElementById('schedServiceGrid');
   if(!grid)return;
-  grid.innerHTML=schedServices.filter(function(s){ return isSchedServiceVisible(s.name); }).map(function(s,i){
-    var realIdx=schedServices.indexOf(s);
-    return '<button class="sched-svc-card'+(schedData.service===s.name?' selected':'')+'" onclick="selectSchedService('+realIdx+')">'
+  grid.innerHTML=schedServices.filter(function(s){ return isSchedServiceVisible(s.name); }).map(function(s){
+    return '<button class="sched-svc-card'+(schedData.service===s.name?' selected':'')+'" onclick="selectSchedServiceByName('+JSON.stringify(s.name)+')">'
       +'<div class="ssc-num">'+s.num+'</div>'
       +'<div class="ssc-name">'+s.name+'</div>'
       +'<div class="ssc-rate">'+(s.perHour?'$'+s.rate+' / hour':'$'+s.rate+' flat rate')+'</div>'
@@ -2061,8 +2060,13 @@ function clearSlotCache(date){
 }
 
 window.selectSchedService=function(i){
-  schedData.service=schedServices[i].name;
-  schedData.hours=schedServices[i].perHour?0:0;
+  window.selectSchedServiceByName(schedServices[i].name);
+};
+window.selectSchedServiceByName=function(name){
+  var svc=schedServices.find(function(s){return s.name===name;});
+  if(!svc)return;
+  schedData.service=svc.name;
+  schedData.hours=0;
   // Reset promo if service changed
   promoDiscount=0;
   var promoInput=document.getElementById('sched-promo');
@@ -2073,11 +2077,12 @@ window.selectSchedService=function(i){
   if(p4)p4.removeAttribute('data-promo-full');
   syncPromoPaymentUI();
 
-  document.querySelectorAll('.sched-svc-card').forEach(function(c,j){
-    c.classList.toggle('selected',j===i);
+  document.querySelectorAll('.sched-svc-card').forEach(function(c){
+    var n=c.querySelector('.ssc-name');
+    c.classList.toggle('selected', n&&n.textContent===name);
   });
   var hoursWrap=document.getElementById('schedHoursWrap');
-  if(hoursWrap)hoursWrap.style.display=schedServices[i].perHour?'':'none';
+  if(hoursWrap)hoursWrap.style.display=svc.perHour?'':'none';
   schedData.time = '';
   var t = document.getElementById('sched-time');
   if(t) t.value = '';

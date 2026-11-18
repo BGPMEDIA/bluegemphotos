@@ -65,8 +65,8 @@ nav.scrolled .nav-links a{color:var(--espresso);}
 .nav-cta{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;padding:.55rem 1.6rem;border:1px solid rgba(255,255,255,.6);color:var(--warm-white);text-decoration:none;font-weight:400;transition:all .3s;justify-self:end;}
 nav.scrolled .nav-cta{border-color:var(--gold);color:var(--gold);}
 .nav-cta:hover{background:var(--gold);color:var(--warm-white)!important;border-color:var(--gold);}
-.page{display:none;}.page.active{display:block;animation:pageSlideDown .4s ease both;}
-@keyframes pageSlideDown{from{opacity:0;transform:translateY(-18px);}to{opacity:1;transform:translateY(0);}}
+.page{display:none;}.page.active{display:block;animation:pageSlideUp .4s ease both;}
+@keyframes pageSlideUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
 .hero{position:relative;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--charcoal);}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a1209 0%,#2d2018 30%,#1e1a17 60%,#0d0b08 100%);}
 .hero-texture{position:absolute;inset:0;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4b483' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
@@ -3896,7 +3896,7 @@ setTimeout(initSvcGalleries,800);
     <div id="tab-galleries">
 
       <!-- Featured Gallery — Fashion Runway Photos -->
-      <div id="swim-week-section" class="gallery-section" style="background:var(--espresso);padding:3rem 2rem;">
+      <div id="swim-week-section" class="gallery-section" style="display:none;background:var(--espresso);padding:3rem 2rem;">
         <p class="section-label" style="color:var(--gold-lt);text-align:center;">Featured Work</p>
         <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(1.8rem,4vw,3rem);color:var(--warm-white);text-align:center;margin-bottom:.5rem;">Miami <em style="color:var(--gold-lt)">Swim Week</em></h2>
         <p style="color:var(--stone);text-align:center;font-size:.85rem;margin-bottom:2rem;">Runway Coverage</p>

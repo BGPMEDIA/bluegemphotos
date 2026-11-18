@@ -600,8 +600,19 @@ var galleryStore = [];
   var params = new URLSearchParams(window.location.search);
   var page = params.get('page');
   var book = params.get('book');
-  if(book) setTimeout(function(){ window.openScheduling(decodeURIComponent(book)); }, 200);
-  else if(page) setTimeout(function(){ showPage(page); }, 100);
+  if(book){
+    var bookVal = decodeURIComponent(book);
+    function tryOpenScheduling(attempts){
+      if(window.openScheduling){
+        window.openScheduling(bookVal);
+      } else if(attempts > 0){
+        setTimeout(function(){ tryOpenScheduling(attempts-1); }, 100);
+      }
+    }
+    setTimeout(function(){ tryOpenScheduling(20); }, 300);
+  } else if(page){
+    setTimeout(function(){ if(window.showPage) window.showPage(page); }, 300);
+  }
 })();
 async function loadFeaturedGallery(){
   var grid = document.getElementById('featuredGalleryGrid');

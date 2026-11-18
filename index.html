@@ -556,6 +556,10 @@ footer{background:var(--charcoal);padding:4rem;color:var(--stone);display:grid;g
 <script>
 document.addEventListener('DOMContentLoaded',function(){
 
+applyAllServiceCardVisibility();
+applyPromVisibility();
+applyActionShotVisibility();
+
 window.submitContactForm=function(e){
   e.preventDefault();
   document.getElementById('cf-success').style.display='block';
@@ -747,7 +751,7 @@ function applyActionShotVisibility(){
     btn.style.background = actionShotVisible ? '#1a3a6a' : '#5a6e5c';
   }
 }
-setTimeout(applyActionShotVisibility, 50);
+applyActionShotVisibility();
 
 // Holiday Season visibility — controls both Christmas cards together
 var holidaySeasonActive = localStorage.getItem('holidaySeasonActive') !== 'false';
@@ -799,7 +803,7 @@ function applyPromVisibility(){
     btn.style.background = promVisible ? '#2d1a4a' : '#5a6e5c';
   }
 }
-setTimeout(applyPromVisibility, 50);
+applyPromVisibility();
 window.toggleProm = function(){
   promVisible = !promVisible;
   localStorage.setItem('promVisible', promVisible);
@@ -835,7 +839,7 @@ function applyServiceCardVisibility(def){
 function applyAllServiceCardVisibility(){
   serviceCardDefs.forEach(applyServiceCardVisibility);
 }
-setTimeout(applyAllServiceCardVisibility, 50);
+applyAllServiceCardVisibility();
 window.toggleServiceCard = function(key){
   serviceCardVisible[key] = !serviceCardVisible[key];
   localStorage.setItem('svc_'+key, serviceCardVisible[key]);

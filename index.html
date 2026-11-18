@@ -2075,7 +2075,7 @@ window.selectSchedServiceByName=function(name){
   if(promoMsg){promoMsg.style.display='none';promoMsg.textContent='';}
   var p4=document.getElementById('sched-panel-4');
   if(p4)p4.removeAttribute('data-promo-full');
-  syncPromoPaymentUI();
+  if(typeof syncPromoPaymentUI==='function') syncPromoPaymentUI();
 
   document.querySelectorAll('.sched-svc-card').forEach(function(c){
     var n=c.querySelector('.ssc-name');
@@ -2086,7 +2086,7 @@ window.selectSchedServiceByName=function(name){
   schedData.time = '';
   var t = document.getElementById('sched-time');
   if(t) t.value = '';
-  applyDepositRules();
+  if(typeof applyDepositRules==='function') applyDepositRules();
   updateOrderSummary();
 };
 

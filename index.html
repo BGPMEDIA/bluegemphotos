@@ -823,6 +823,12 @@ serviceCardDefs.forEach(function(def){
   var stored = localStorage.getItem('svc_'+def.key);
   serviceCardVisible[def.key] = stored === null ? def.default : stored === 'true';
 });
+// Map serviceCardDefs keys to the page ids they correspond to
+var servicePageMap = {
+  miniSession:'svc-mini', portraitSession:'svc-portrait', familyCollection:'svc-family',
+  weddingDay:'svc-wedding', commercialBrand:'svc-commercial', bridalPortrait:'svc-bridal',
+  fashionPhoto:'svc-fashion', headshotSession:'svc-headshot'
+};
 function applyServiceCardVisibility(def){
   var card = document.getElementById(def.id);
   var on = serviceCardVisible[def.key];
@@ -831,6 +837,13 @@ function applyServiceCardVisibility(def){
   if(btn){
     btn.textContent = (on ? '👁 Hide ' : '👁 Show ') + def.label;
     btn.style.background = on ? def.color : '#5a6e5c';
+  }
+  // Hide/show related service cards that link to this service's page
+  var pageId = servicePageMap[def.key];
+  if(pageId){
+    document.querySelectorAll('.svc-related-card[onclick*="'+pageId+'"]').forEach(function(el){
+      el.style.display = on ? '' : 'none';
+    });
   }
 }
 function applyAllServiceCardVisibility(){

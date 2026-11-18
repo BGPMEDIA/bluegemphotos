@@ -843,6 +843,7 @@ window.toggleServiceCard = function(key){
   var def = serviceCardDefs.find(function(d){return d.key===key;});
   if(def) applyServiceCardVisibility(def);
   window.showToast((serviceCardVisible[key] ? def.label+' is now visible' : def.label+' is now hidden'));
+  if(typeof renderSchedServices==='function') renderSchedServices();
 };
 
 window.toggleActionShot = function(){
@@ -1948,17 +1949,53 @@ window.openScheduling=function(preselect){
   },50);
 };
 
+// Map schedServices names to serviceCardDefs keys so hidden cards hide everywhere
+var schedServiceKeyMap = {
+  'Mini Session':'miniSession',
+  'Portrait Session':'portraitSession',
+  'Fine Art Portrait Session':'portraitSession',
+  'Family Collection':'familyCollection',
+  'Wedding Day':'weddingDay',
+  'Bridal Portrait Session':'bridalPortrait',
+  'Commercial & Brand':'commercialBrand',
+  'Fashion Photography':'fashionPhoto',
+  'Action Shot Session':'actionShot',
+  'Prom Portrait Session':'prom',
+  'Headshot Session':'headshotSession',
+  'Christmas Portrait Session':'holidaySeason',
+  'Premium Holiday Session':'holidaySeason',
+};
+function isSchedServiceVisible(name){
+  var key = schedServiceKeyMap[name];
+  if(!key) return true;
+  // check generic serviceCardDefs
+  if(serviceCardVisible.hasOwnProperty(key)) return serviceCardVisible[key] !== false;
+  // check standalone flags
+  if(key==='actionShot') return localStorage.getItem('actionShotVisible') !== 'false';
+  if(key==='prom') return localStorage.getItem('promVisible') !== 'false';
+  if(key==='holidaySeason') return localStorage.getItem('holidaySeasonVisible') !== 'false';
+  return true;
+}
 function renderSchedServices(){
   var grid=document.getElementById('schedServiceGrid');
   if(!grid)return;
-  grid.innerHTML=schedServices.map(function(s,i){
-    return '<button class="sched-svc-card'+(schedData.service===s.name?' selected':'')+'" onclick="selectSchedService('+i+')">'
+  grid.innerHTML=schedServices.filter(function(s){ return isSchedServiceVisible(s.name); }).map(function(s,i){
+    var realIdx=schedServices.indexOf(s);
+    return '<button class="sched-svc-card'+(schedData.service===s.name?' selected':'')+'" onclick="selectSchedService('+realIdx+')">'
       +'<div class="ssc-num">'+s.num+'</div>'
       +'<div class="ssc-name">'+s.name+'</div>'
       +'<div class="ssc-rate">'+(s.perHour?'$'+s.rate+' / hour':'$'+s.rate+' flat rate')+'</div>'
       +'<div class="ssc-desc">'+s.desc+'</div>'
       +'</button>';
   }).join('');
+  // Also sync the bf-service dropdown
+  var sel=document.getElementById('bf-service');
+  if(sel){
+    Array.from(sel.options).forEach(function(opt){
+      if(!opt.value) return;
+      opt.hidden = !isSchedServiceVisible(opt.value);
+    });
+  }
 }
 
 var slotCache = {};

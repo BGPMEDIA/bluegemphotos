@@ -1993,7 +1993,7 @@ function renderSchedServices(){
   var grid=document.getElementById('schedServiceGrid');
   if(!grid)return;
   grid.innerHTML=schedServices.filter(function(s){ return isSchedServiceVisible(s.name); }).map(function(s){
-    return '<button class="sched-svc-card'+(schedData.service===s.name?' selected':'')+'" onclick="selectSchedServiceByName('+JSON.stringify(s.name)+')">'
+    return '<button class="sched-svc-card'+(schedData.service===s.name?' selected':'')+'" onclick="selectSchedServiceByName(\''+s.name.replace(/'/g,"\\'")+'\')">'
       +'<div class="ssc-num">'+s.num+'</div>'
       +'<div class="ssc-name">'+s.name+'</div>'
       +'<div class="ssc-rate">'+(s.perHour?'$'+s.rate+' / hour':'$'+s.rate+' flat rate')+'</div>'
